@@ -1,0 +1,42 @@
+﻿<Window
+    x:Class="daVinci_Demo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:daVinci_Demo"
+    xmlns:lui="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <LUIConverter:TypeToStyleSelector
+                x:Key="TypeToStyleSelector"
+                DefaultStyle="{StaticResource LUI_MainAccordionItemStyle}"
+                ItemStyle1="{StaticResource LUI_MainAccordionItemStyle}"
+                ItemType1="{x:Type LuiControls:LuiAccordionItem}" />
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <lui:LuiAccordion
+            Grid.Column="1"
+            CollapseAllOnExpandSingle="True"
+            IsDragDropEnabled="False"
+            ItemContainerStyleSelector="{StaticResource TypeToStyleSelector}"
+            ItemsSource="{Binding ItemList}" />
+    </Grid>
+</Window>

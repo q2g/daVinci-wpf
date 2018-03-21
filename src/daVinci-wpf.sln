@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "daVinci-wpf", "daVinci-wpf.csproj", "{2ECA33F5-E95C-4386-B16C-2C894C09B621}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "daVinci_Demo", "..\daVinci_Demo\daVinci_Demo.csproj", "{508B104D-2051-4894-8BB5-30E0A985547A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2ECA33F5-E95C-4386-B16C-2C894C09B621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ECA33F5-E95C-4386-B16C-2C894C09B621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ECA33F5-E95C-4386-B16C-2C894C09B621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508B104D-2051-4894-8BB5-30E0A985547A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508B104D-2051-4894-8BB5-30E0A985547A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508B104D-2051-4894-8BB5-30E0A985547A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508B104D-2051-4894-8BB5-30E0A985547A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
