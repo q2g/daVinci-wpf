@@ -1,4 +1,5 @@
 ﻿using daVinci.Controls;
+using daVinci_wpf.Controls;
 using leonardo.Controls;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,8 @@ namespace daVinci_Demo
             cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() });
             ItemList = new ObservableCollection<LuiAccordionItem>()
             {
-                new LuiAccordionItem(){Header="Daten", Content=cc}
+                new LuiAccordionItem(){Header="Daten", Content=cc},
+                 new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
             };
             InitializeComponent();
             DataContext = this;
