@@ -14,17 +14,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUI_ColumnOrderAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-
-            <LUIConverter:TypeToStyleSelector
-                x:Key="TypeToStyleSelector"
-                DefaultStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
-                ItemStyle1="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
-                ItemType1="{x:Type LuiControls:LuiAccordionItem}" />
         </ResourceDictionary>
-
     </UserControl.Resources>
     <StackPanel>
         <Border
@@ -54,7 +45,7 @@
             Text="Spalten" />
         <LuiControls:LuiSeparator Height="3" />
         <LuiControls:LuiAccordion
-            ItemContainerStyleSelector="{StaticResource TypeToStyleSelector}"
+            ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
             ItemsSource="{Binding Columns}">
 
             <!--<LuiControls:LuiAccordionItem

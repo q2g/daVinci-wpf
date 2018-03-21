@@ -18,14 +18,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <LUIConverter:TypeToStyleSelector
-                x:Key="TypeToStyleSelector"
-                DefaultStyle="{StaticResource LUI_MainAccordionItemStyle}"
-                ItemStyle1="{StaticResource LUI_MainAccordionItemStyle}"
-                ItemType1="{x:Type LuiControls:LuiAccordionItem}" />
         </ResourceDictionary>
-
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,7 +29,7 @@
             Grid.Column="1"
             CollapseAllOnExpandSingle="True"
             IsDragDropEnabled="False"
-            ItemContainerStyleSelector="{StaticResource TypeToStyleSelector}"
+            ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}"
             ItemsSource="{Binding ItemList}" />
     </Grid>
 </Window>
