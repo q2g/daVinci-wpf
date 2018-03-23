@@ -18,9 +18,9 @@ namespace daVinci.Controls
     /// <summary>
     /// Interaktionslogik für PresentationData.xaml
     /// </summary>
-    public partial class PresentationAccordion : UserControl
+    public partial class PresentationSettings : UserControl
     {
-        public PresentationAccordion()
+        public PresentationSettings()
         {
             InitializeComponent();
         }

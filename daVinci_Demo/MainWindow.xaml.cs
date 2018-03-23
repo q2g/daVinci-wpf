@@ -1,5 +1,4 @@
 ﻿using daVinci.Controls;
-using daVinci_wpf.Controls;
 using leonardo.Controls;
 using System;
 using System.Collections.Generic;
@@ -21,13 +20,14 @@ namespace daVinci_Demo
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
+    /// </summary> 
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             ColumnChooser cc = new ColumnChooser();
             cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() });
+            cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() });
             ItemList = new ObservableCollection<LuiAccordionItem>()
             {
                 new LuiAccordionItem(){Header="Daten", Content=cc},

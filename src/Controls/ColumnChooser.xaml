@@ -26,7 +26,7 @@
             <LuiControls:LuiToggleButton
                 x:Name="togglebutton"
                 LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                Content="Spalte Hinzufügen" />
+                Content="Spalte hinzufügen" />
         </Border>
         <LuiControls:LuiDialog
             x:Name="dialog"
@@ -46,11 +46,6 @@
         <LuiControls:LuiSeparator Height="3" />
         <LuiControls:LuiAccordion
             ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
-            ItemsSource="{Binding Columns}">
-
-            <!--<LuiControls:LuiAccordionItem
-                Content="Inhalt"
-                Header="Item" />-->
-        </LuiControls:LuiAccordion>
+            ItemsSource="{Binding Columns}" />
     </StackPanel>
 </UserControl>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace daVinci_wpf.Controls
+namespace daVinci.Controls
 {
     /// <summary>
-    /// Interaktionslogik für PresentationData.xaml
+    /// Interaktionslogik für CoefficientColumnDataView.xaml
     /// </summary>
-    public partial class PresentationCommonData : UserControl
+    public partial class CoefficientColumnDataView : UserControl
     {
-        public PresentationCommonData()
+        public CoefficientColumnDataView()
         {
             InitializeComponent();
         }

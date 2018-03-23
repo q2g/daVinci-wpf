@@ -50,6 +50,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CoefficientColumnDataView.xaml.cs">
+      <DependentUpon>CoefficientColumnDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ColumnChooser.xaml.cs">
       <DependentUpon>ColumnChooser.xaml</DependentUpon>
     </Compile>
@@ -59,15 +62,23 @@
     <Compile Include="Controls\PresentationAccordion.xaml.cs">
       <DependentUpon>PresentationAccordion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PresentationCommonData.xaml.cs">
-      <DependentUpon>PresentationCommonData.xaml</DependentUpon>
+    <Compile Include="Controls\PresentationSetting.xaml.cs">
+      <DependentUpon>PresentationSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PresentationSettingsGeneral.xaml.cs">
+      <DependentUpon>PresentationSettingsGeneral.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PropertyPanel.xaml.cs">
       <DependentUpon>PropertyPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\IntToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\CoefficientColumnDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ColumnChooser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,7 +91,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\PresentationCommonData.xaml">
+    <Page Include="Controls\PresentationSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PresentationSettingsGeneral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

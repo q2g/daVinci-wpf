@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace daVinci.Controls
 {
     /// <summary>
-    /// Interaktionslogik für PresentationData.xaml
+    /// Interaktionslogik für PresentationSettingsGeneral.xaml
     /// </summary>
-    public partial class PresentationAccordion : UserControl
+    public partial class PresentationSettingsGeneral : UserControl
     {
-        public PresentationAccordion()
+        public PresentationSettingsGeneral()
         {
             InitializeComponent();
         }
