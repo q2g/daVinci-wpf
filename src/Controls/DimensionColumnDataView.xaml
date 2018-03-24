@@ -5,7 +5,7 @@
     xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
-    xmlns:converter="clr-namespace:daVinci_wpf.Converter"
+    xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"

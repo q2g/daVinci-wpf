@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace daVinci_wpf.Converter
+namespace daVinci.Converter
 {
     [ValueConversion(typeof(int), typeof(Visibility))]
     public class IntToVisibilityConverter : IValueConverter

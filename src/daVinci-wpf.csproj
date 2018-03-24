@@ -56,6 +56,9 @@
     <Compile Include="Controls\ColumnChooser.xaml.cs">
       <DependentUpon>ColumnChooser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ContentSwitch.xaml.cs">
+      <DependentUpon>ContentSwitch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DimensionColumnDataView.xaml.cs">
       <DependentUpon>DimensionColumnDataView.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ColumnChooser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ContentSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

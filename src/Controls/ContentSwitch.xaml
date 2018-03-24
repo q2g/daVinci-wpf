@@ -1,0 +1,99 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.ContentSwitch"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <LuiConverter:BooleanToVisibilityConverter
+                x:Key="VisibilityCollapsedOnFalseConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
+            <LuiConverter:BooleanToVisibilityConverter
+                x:Key="VisibilityCollapsedOnTrueConverter"
+                FalseValue="Visible"
+                TrueValue="Collapsed" />
+            <!--<LuiConverter:BooleanToObjectConverter
+                x:Key="IsCheckedToContentConverter"
+                FalseValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                TrueValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UnCheckedContent}" />-->
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="UserControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="10,10,5,0"
+                                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TitleText}" />
+                                <TextBlock
+                                    Name="textblockslider"
+                                    Grid.Row="1"
+                                    Margin="10,0,5,0"
+                                    FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsChecked, ElementName=switch}"
+                                                    Value="True">
+                                                    <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CheckedText}" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding IsChecked, ElementName=switch}"
+                                                    Value="False">
+                                                    <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UnCheckedText}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <controls:LuiSwitch
+                                    Name="switch"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    Margin="5,0,5,0"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsChecked}" />
+                                <ContentPresenter
+                                    Name="contentpresenterchecked"
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Visibility="{Binding IsChecked, ElementName=switch, Converter={StaticResource VisibilityCollapsedOnFalseConverter}}" />
+                                <ContentPresenter
+                                    Name="contentpresenterUnchecked"
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UnCheckedContent}"
+                                    Visibility="{Binding IsChecked, ElementName=switch, Converter={StaticResource VisibilityCollapsedOnTrueConverter}}" />
+
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+    </UserControl.Style>
+</UserControl>

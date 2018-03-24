@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -16,50 +17,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Margin="10,10,5,0"
-                Foreground="{StaticResource LUI.Brush.Grayscale50}"
-                Text="Titel anzeigen" />
-            <TextBlock
-                Name="textblockslider"
-                Grid.Row="1"
-                Margin="10,0,5,0"
-                FontWeight="Bold"
-                Foreground="Gray">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsChecked, ElementName=textAlignment}"
-                                Value="True">
-                                <Setter Property="Text" Value="Automatisch" />
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding IsChecked, ElementName=textAlignment}"
-                                Value="False">
-                                <Setter Property="Text" Value="Benutzerdefiniert" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <controls:LuiSwitch
-                Name="textAlignment"
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Margin="5,0,5,0"
-                HorizontalAlignment="Right" />
-        </Grid>
-        <StackPanel>
+
+        <daVincicontrols:ContentSwitch
+            CheckedText="Automatisch"
+            TitleText="Gesamtwerte"
+            UnCheckedText="Benutzerdefiniert">
             <controls:LuiCombobox
                 Margin="10,0,20,0"
                 Background="{StaticResource LUI.Brush.Grayscale100}"
@@ -70,23 +32,7 @@
                 <ComboBoxItem>Unten</ComboBoxItem>
             </controls:LuiCombobox>
 
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsChecked, ElementName=textAlignment}"
-                            Value="False">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                        <DataTrigger
-                            Binding="{Binding IsChecked, ElementName=textAlignment}"
-                            Value="True">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-        </StackPanel>
+        </daVincicontrols:ContentSwitch>
         <StackPanel>
             <controls:LuiInputGroup
                 Margin="10,0,5,0"

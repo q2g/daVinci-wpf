@@ -2,8 +2,12 @@
     x:Class="daVinci.Controls.CoefficientColumnDataView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -13,17 +17,26 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <LUIConverter:BooleanToVisibilityConverter
+                x:Key="BoolToVisibilityCollapsedConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
+            <converter:IntToVisibilityConverter
+                x:Key="IntToVisibilityConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <controls:LuiInputGroup
+        <LuiControls:LuiInputGroup
             Margin="5,10,0,5"
             IsInputEnabled="False"
             LabelText="Kennzahl"
             RightCommandIcon="lui_icon_link" />
-        <controls:LuiCombobox
+        <LuiControls:LuiCombobox
+            Name="ZahlenformatCombo"
             LabelText="Zahlenformat"
-            SelectedIndex="0">
+            SelectedIndex="5">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Zahl" />
             <ComboBoxItem Content="Währung" />
@@ -31,8 +44,219 @@
             <ComboBoxItem Content="Dauer" />
             <ComboBoxItem Content="Benutzerdefiniert" />
             <ComboBoxItem Content="Kennzahlformel" />
-        </controls:LuiCombobox>
-        <StackPanel x:Name="Format_Zahl" />
+        </LuiControls:LuiCombobox>
 
+
+        <StackPanel x:Name="Format_Zahl">
+            <StackPanel.Visibility>
+                <Binding
+                    Converter="{StaticResource IntToVisibilityConverter}"
+                    ConverterParameter="1"
+                    ElementName="ZahlenformatCombo"
+                    Path="SelectedIndex" />
+            </StackPanel.Visibility>
+            <daVincicontrols:ContentSwitch
+                CheckedText="Standard"
+                TitleText="Formatierung"
+                UnCheckedText="Benutzerdefiniert">
+                <daVincicontrols:ContentSwitch.Content>
+                    <LuiControls:LuiCombobox SelectedIndex="2">
+                        <ComboBoxItem Content="1,000" />
+                        <ComboBoxItem Content="1,000.1" />
+                        <ComboBoxItem Content="1,000.12" />
+                        <ComboBoxItem Content="12%" />
+                        <ComboBoxItem Content="12,3%" />
+                        <ComboBoxItem Content="12,34%" />
+                    </LuiControls:LuiCombobox>
+                </daVincicontrols:ContentSwitch.Content>
+                <daVincicontrols:ContentSwitch.UnCheckedContent>
+                    <StackPanel>
+                        <LuiControls:LuiInput
+                            LabelText="Zahlenformat"
+                            Text="#,##0.00" />
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Text="Beispiel" />
+                        <TextBlock
+                            HorizontalAlignment="Right"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Text="????0" />
+                    </StackPanel>
+                </daVincicontrols:ContentSwitch.UnCheckedContent>
+            </daVincicontrols:ContentSwitch>
+        </StackPanel>
+
+
+        <StackPanel
+            x:Name="Format_Waehrung"
+            Margin="0,10,0,0">
+            <StackPanel.Visibility>
+                <Binding
+                    Converter="{StaticResource IntToVisibilityConverter}"
+                    ConverterParameter="2"
+                    ElementName="ZahlenformatCombo"
+                    Path="SelectedIndex" />
+            </StackPanel.Visibility>
+
+            <LuiControls:LuiInput
+                LabelText="Zahlenformat"
+                Text="$#,##0.00;($#,##0.00)" />
+            <TextBlock
+                Margin="0,10,0,0"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="Beispiel" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="$????0" />
+        </StackPanel>
+
+        <StackPanel
+            x:Name="Format_Datum"
+            Margin="0,10,0,0">
+            <StackPanel.Visibility>
+                <Binding
+                    Converter="{StaticResource IntToVisibilityConverter}"
+                    ConverterParameter="3"
+                    ElementName="ZahlenformatCombo"
+                    Path="SelectedIndex" />
+            </StackPanel.Visibility>
+            <daVincicontrols:ContentSwitch
+                CheckedText="Standard"
+                TitleText="Formatierung"
+                UnCheckedText="Benutzerdefiniert">
+                <daVincicontrols:ContentSwitch.Content>
+                    <LuiControls:LuiCombobox SelectedIndex="0">
+                        <ComboBoxItem Content="2/17/2014" />
+                        <ComboBoxItem Content="2014-02-17" />
+                        <ComboBoxItem Content="17 02 2014" />
+                        <ComboBoxItem Content="17 Feb 2014" />
+                        <ComboBoxItem Content="17 February 2014" />
+                        <ComboBoxItem Content="02/17/2014" />
+                        <ComboBoxItem Content="February 17, 2014" />
+                        <ComboBoxItem Content="2/17/2014 3:30:40 PM" />
+                        <ComboBoxItem Content="2014-02-17 15:30:40" />
+                        <ComboBoxItem Content="3:30:40 PM" />
+                        <ComboBoxItem Content="15:30:40" />
+                        <ComboBoxItem Content="3:30:40 pm" />
+                    </LuiControls:LuiCombobox>
+                </daVincicontrols:ContentSwitch.Content>
+                <daVincicontrols:ContentSwitch.UnCheckedContent>
+                    <StackPanel>
+                        <LuiControls:LuiInput
+                            LabelText="Zahlenformat"
+                            Text="YYYY-MM-DD" />
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Text="Beispiel" />
+                        <TextBlock
+                            HorizontalAlignment="Right"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Text="????17.02.2014" />
+                    </StackPanel>
+                </daVincicontrols:ContentSwitch.UnCheckedContent>
+            </daVincicontrols:ContentSwitch>
+        </StackPanel>
+
+
+        <StackPanel
+            x:Name="Format_Dauer"
+            Margin="0,10,0,0">
+            <StackPanel.Visibility>
+                <Binding
+                    Converter="{StaticResource IntToVisibilityConverter}"
+                    ConverterParameter="4"
+                    ElementName="ZahlenformatCombo"
+                    Path="SelectedIndex" />
+            </StackPanel.Visibility>
+
+            <LuiControls:LuiInput
+                LabelText="Zahlenformat"
+                Text="h:mm:ss" />
+            <TextBlock
+                Margin="0,10,0,0"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="Beispiel" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="????25:05:20" />
+        </StackPanel>
+
+        <StackPanel
+            x:Name="Format_Benutzerdefiniert"
+            Margin="0,10,0,0">
+            <StackPanel.Visibility>
+                <Binding
+                    Converter="{StaticResource IntToVisibilityConverter}"
+                    ConverterParameter="5"
+                    ElementName="ZahlenformatCombo"
+                    Path="SelectedIndex" />
+            </StackPanel.Visibility>
+            <LuiControls:LuiInput
+                LabelText="Dezimaltrennzeichen"
+                Text="." />
+            <LuiControls:LuiInput
+                Margin="0,10,0,0"
+                LabelText="Tausendertrennzeichen"
+                Text="," />
+            <LuiControls:LuiInput
+                Margin="0,10,0,0"
+                LabelText="Zahlenformat"
+                Text="#,##0.00" />
+            <TextBlock
+                Margin="0,10,0,0"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="Beispiel" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontFamily="{StaticResource QlikViewSans}"
+                Text="????25:05:20" />
+        </StackPanel>
+
+
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,0"
+            LabelText="Formel für Hintergrundfarbe"
+            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandIcon="lui_icon_expression" />
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,0"
+            LabelText="Formel für Hintergrundfarbe"
+            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandIcon="lui_icon_expression" />
+        <LuiControls:LuiCombobox
+            Margin="0,10,0,0"
+            LabelText="Gesamtwertefunktion"
+            SelectedIndex="0">
+            <ComboBoxItem Content="Automatisch" />
+            <ComboBoxItem Content="Avg" />
+            <ComboBoxItem Content="Count" />
+            <ComboBoxItem Content="Max" />
+            <ComboBoxItem Content="Min" />
+            <ComboBoxItem Content="Sum" />
+            <ComboBoxItem Content="keine" />
+        </LuiControls:LuiCombobox>
+        <TextBlock
+            Margin="0,10,0,0"
+            Text="Die Gesamtwerte-Spalte ist verborgen. Ändern Sie zum Anzeigen der Gesamtwerte die Einstellung unter Darstellung &gt; Präsentation."
+            TextWrapping="Wrap" />
+        <daVincicontrols:ContentSwitch
+            Margin="0,10,0,0"
+            CheckedText="Automatisch"
+            TitleText="Text Ausrichtung"
+            UnCheckedText="Benutzerdefiniert">
+            <daVincicontrols:ContentSwitch.Content>
+                <StackPanel />
+            </daVincicontrols:ContentSwitch.Content>
+            <daVincicontrols:ContentSwitch.UnCheckedContent>
+                <LuiControls:LuiCombobox SelectedIndex="0">
+                    <ComboBoxItem Content="Linksbündig" />
+                    <ComboBoxItem Content="Rechtsbündig" />
+                </LuiControls:LuiCombobox>
+            </daVincicontrols:ContentSwitch.UnCheckedContent>
+        </daVincicontrols:ContentSwitch>
     </StackPanel>
 </UserControl>

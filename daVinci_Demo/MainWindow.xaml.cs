@@ -26,6 +26,7 @@ namespace daVinci_Demo
         public MainWindow()
         {
             ColumnChooser cc = new ColumnChooser();
+            //cc.Height = 300;
             cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() });
             cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() });
             ItemList = new ObservableCollection<LuiAccordionItem>()

@@ -17,17 +17,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
-        <Border
-            Name="MyBorder"
-            Height="28"
-            Margin="10,5,10,5"
-            BorderBrush="Black">
-            <LuiControls:LuiToggleButton
-                x:Name="togglebutton"
-                LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                Content="Spalte hinzufügen" />
-        </Border>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <LuiControls:LuiToggleButton
+            x:Name="togglebutton"
+            LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
+            Content="Spalte hinzufügen" />
         <LuiControls:LuiDialog
             x:Name="dialog"
             Content="Hallo Dialog!"
@@ -36,16 +36,25 @@
             PanelWidth="200"
             Placement="Bottom"
             PlacementTarget="{Binding ElementName=togglebutton}" />
-        <TextBlock
-            Margin="10,5,0,0"
-            FontFamily="{StaticResource QlikViewSans}"
-            FontSize="12"
-            FontWeight="Bold"
-            Foreground="{StaticResource LUI.Brush.Grayscale30}"
-            Text="Spalten" />
-        <LuiControls:LuiSeparator Height="3" />
-        <LuiControls:LuiAccordion
-            ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
-            ItemsSource="{Binding Columns}" />
-    </StackPanel>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <TextBlock
+                    Margin="10,5,0,0"
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    Text="Spalten" />
+                <LuiControls:LuiSeparator Height="3" />
+
+
+                <LuiControls:LuiAccordion
+                    x:Name="acc"
+                    ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+                    ItemsSource="{Binding Columns}" />
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
 </UserControl>

@@ -31,5 +31,7 @@ namespace daVinci.Controls
         #region Accordion
         public ObservableCollection<LuiAccordionItem> Columns { get; set; } = new ObservableCollection<LuiAccordionItem>();
         #endregion
+
+      
     }
 }
