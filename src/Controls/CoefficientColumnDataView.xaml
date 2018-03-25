@@ -36,7 +36,7 @@
         <LuiControls:LuiCombobox
             Name="ZahlenformatCombo"
             LabelText="Zahlenformat"
-            SelectedIndex="5">
+            SelectedIndex="0">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Zahl" />
             <ComboBoxItem Content="Währung" />
@@ -81,6 +81,7 @@
                         <TextBlock
                             HorizontalAlignment="Right"
                             FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Bold"
                             Text="????0" />
                     </StackPanel>
                 </daVincicontrols:ContentSwitch.UnCheckedContent>
@@ -109,6 +110,7 @@
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
+                FontWeight="Bold"
                 Text="$????0" />
         </StackPanel>
 
@@ -154,6 +156,7 @@
                         <TextBlock
                             HorizontalAlignment="Right"
                             FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Bold"
                             Text="????17.02.2014" />
                     </StackPanel>
                 </daVincicontrols:ContentSwitch.UnCheckedContent>
@@ -182,6 +185,7 @@
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
+                FontWeight="Bold"
                 Text="????25:05:20" />
         </StackPanel>
 
@@ -213,7 +217,8 @@
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
-                Text="????25:05:20" />
+                FontWeight="Bold"
+                Text="????" />
         </StackPanel>
 
 

@@ -7,6 +7,7 @@
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -26,16 +27,19 @@
 
         <LuiControls:LuiToggleButton
             x:Name="togglebutton"
+            Margin="5,10,5,0"
             LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
             Content="Spalte hinzufügen" />
         <LuiControls:LuiDialog
             x:Name="dialog"
-            Content="Hallo Dialog!"
             IsOpen="{Binding IsChecked, ElementName=togglebutton}"
-            PanelHeight="200"
-            PanelWidth="200"
+            PanelHeight="120"
+            PanelWidth="120"
             Placement="Bottom"
-            PlacementTarget="{Binding ElementName=togglebutton}" />
+            PlacementTarget="{Binding ElementName=togglebutton}"
+            PopupClosed="dialog_PopupClosed">
+            <ContentControl Content="{Binding PopupContent}" />
+        </LuiControls:LuiDialog>
 
         <ScrollViewer Grid.Row="1">
             <StackPanel>
