@@ -24,5 +24,18 @@ namespace daVinci.Controls
         {
             InitializeComponent();
         }
+
+        #region Text - DP        
+        public string Text
+        {
+            get { return (string)this.GetValue(TextProperty); }
+            set { this.SetValue(TextProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+         "Text", typeof(string), typeof(DimensionColumnDataView), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
     }
 }
+
+    

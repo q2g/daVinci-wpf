@@ -1,10 +1,48 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf">
+    xmlns:Configuration="clr-namespace:daVinci_wpf.ConfigData"
+    xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls">
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+
+
+    <Style
+        x:Key="TableConfigurationStyle"
+        TargetType="UserControl">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="UserControl">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:LuiIcon Icon="lui_icon_table" />
+                                <TextBlock Text="{Binding TableName}" />
+                            </StackPanel>
+                            <controls:LuiAccordion
+                                Grid.Column="1"
+                                CollapseAllOnExpandSingle="True"
+                                IsDragDropEnabled="False"
+                                ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
+                                <controls:LuiAccordionItem Header="Daten">
+                                    <!--<TextBlock Text="Inhalt" />-->
+                                    <daViniciControls:ColumnChooser Columns="{Binding Columns1}" />
+                                </controls:LuiAccordionItem>
+                            </controls:LuiAccordion>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+
 
     <Style
         x:Key="StackanelMouseOverStyle"

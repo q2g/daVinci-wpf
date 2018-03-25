@@ -50,6 +50,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigData\TableConfigurations\DimensionColumnData.cs" />
+    <Compile Include="ConfigData\TableConfigurations\CoefficientColumnData.cs" />
+    <Compile Include="ConfigData\TableConfigurations\ColumnConfiguration.cs" />
+    <Compile Include="ConfigData\TableConfigurations\TableConfiguration.cs" />
     <Compile Include="Controls\AggregateFuncSelection.xaml.cs">
       <DependentUpon>AggregateFuncSelection.xaml</DependentUpon>
     </Compile>
@@ -83,6 +87,7 @@
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\ColumnStyleSelector.cs" />
     <Compile Include="Converter\IntToVisibilityConverter.cs" />
     <Compile Include="Converter\ZeroListCountToVisibleCollapsedConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -54,7 +54,8 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        
+                        Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                        togglebutton.IsChecked = false;
                     }
                 });
 
@@ -81,6 +82,21 @@ namespace daVinci.Controls
                                 }
                             };
                         }
+                        else
+                        {
+                            switch (item.ValueType)
+                            {
+                                case ValueTypeEnum.Dimension:
+                                    Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new DimensionColumnDataView(), IsExpanded=true });
+                                    break;
+                                case ValueTypeEnum.Coefficient:
+                                    Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                                    break;
+                                default:
+                                    break;
+                            }
+                            togglebutton.IsChecked = false;
+                        }
                     }
                 })
             };
@@ -93,7 +109,31 @@ namespace daVinci.Controls
         }
 
         #region Accordion
-        public ObservableCollection<LuiAccordionItem> Columns { get; set; } = new ObservableCollection<LuiAccordionItem>();
+        private ObservableCollection<LuiAccordionItem> columns=new ObservableCollection<LuiAccordionItem>();
+        public ObservableCollection<LuiAccordionItem> Columns
+        {
+            get { return columns; }
+            set
+            {
+                if (columns != value)
+                {
+                    columns = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
+                }
+
+            }
+        }
+
+        //#region Columns - DP        
+        //public ObservableCollection<LuiAccordionItem> Columns
+        //{
+        //    get { return (ObservableCollection<LuiAccordionItem>)this.GetValue(ColumnsProperty); }
+        //    set { this.SetValue(ColumnsProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
+        // "Columns", typeof(ObservableCollection<LuiAccordionItem>), typeof(DimensionColumnDataView), new FrameworkPropertyMetadata(new ObservableCollection<LuiAccordionItem>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        //#endregion
         #endregion
 
         #region Popup Content

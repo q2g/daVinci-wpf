@@ -1,4 +1,6 @@
 ﻿using daVinci.Controls;
+using daVinci.Resources;
+using daVinci_wpf.ConfigData;
 using leonardo.Controls;
 using System;
 using System.Collections.Generic;
@@ -27,17 +29,23 @@ namespace daVinci_Demo
         {
             ColumnChooser cc = new ColumnChooser();
             //cc.Height = 300;
-            cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() });
-            cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() });
+            cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } });
+            cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() { Text = "TestKennzahl" } });
             ItemList = new ObservableCollection<LuiAccordionItem>()
             {
                 new LuiAccordionItem(){Header="Daten", Content=cc},
                  new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
             };
+            //Table = new TableConfiguration();
+            //Table.TableName = "The Table";
+            //Table.Columns = new ObservableCollection<ColumnConfiguration>();
+            //Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData() { CoefficientName="Kennzahl1" } });
+            //Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { DimensionName="Kennzahl1" } });
+
             InitializeComponent();
             DataContext = this;
         }
-
+        public TableConfiguration Table { get; set; }
         public ObservableCollection<LuiAccordionItem> ItemList { get; set; }
     }
 }

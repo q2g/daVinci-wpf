@@ -16,7 +16,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -31,5 +31,11 @@
             IsDragDropEnabled="False"
             ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}"
             ItemsSource="{Binding ItemList}" />
+
+        <!--<UserControl
+            Content="{Binding Table}"
+            Style="{StaticResource TableConfigurationStyle}" />-->
+
+
     </Grid>
 </Window>

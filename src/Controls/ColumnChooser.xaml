@@ -6,6 +6,8 @@
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+    xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="control"
     d:DesignHeight="450"
@@ -16,6 +18,52 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <!--<Style
+                x:Key="LUI_ColumnOrderAccordionItemStyle"
+                TargetType="LuiControls:LuiAccordionItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="LuiControls:LuiAccordionItem">
+                            <Expander
+                                Content="{TemplateBinding Content}"
+                                Header="{TemplateBinding Header}"
+                                IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+            <!--<Style
+                x:Key="DimensionColumnDataStyle"
+                BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+                TargetType="LuiControls:LuiAccordionItem">
+                <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnData.DimensionName}" />
+                <Setter Property="LuiControls:LuiAccordionItem.Content">
+                    <Setter.Value>
+                        <daViniciControls:DimensionColumnDataView Text="{Binding ColumnData.DimensionName}" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style
+                x:Key="CoefficientColumnDataStyle"
+                BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+                TargetType="LuiControls:LuiAccordionItem">
+                <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnData.DimensionName}" />
+                <Setter Property="LuiControls:LuiAccordionItem.Content">
+                    <Setter.Value>
+                        <daViniciControls:DimensionColumnDataView Text="{Binding ColumnData.DimensionName}" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <daViniciConverter:ColumnStyleSelector
+                x:Key="styleselector"
+                CoefficientColumnStyle="{StaticResource CoefficientColumnDataStyle}"
+                DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}" />-->
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -57,6 +105,7 @@
                     x:Name="acc"
                     ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
                     ItemsSource="{Binding Columns}" />
+                <!--  ItemContainerStyleSelector="{StaticResource styleselector}"  -->
             </StackPanel>
         </ScrollViewer>
 

@@ -8,6 +8,7 @@
     xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -32,7 +33,8 @@
             Margin="5,10,0,5"
             IsInputEnabled="False"
             LabelText="Kennzahl"
-            RightCommandIcon="lui_icon_link" />
+            RightCommandIcon="lui_icon_link"
+            Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:CoefficientColumnDataView}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <LuiControls:LuiCombobox
             Name="ZahlenformatCombo"
             LabelText="Zahlenformat"
@@ -55,11 +57,11 @@
                     ElementName="ZahlenformatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
-            <daVincicontrols:ContentSwitch
+            <daViniciControls:ContentSwitch
                 CheckedText="Standard"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
-                <daVincicontrols:ContentSwitch.Content>
+                <daViniciControls:ContentSwitch.Content>
                     <LuiControls:LuiCombobox SelectedIndex="2">
                         <ComboBoxItem Content="1,000" />
                         <ComboBoxItem Content="1,000.1" />
@@ -68,8 +70,8 @@
                         <ComboBoxItem Content="12,3%" />
                         <ComboBoxItem Content="12,34%" />
                     </LuiControls:LuiCombobox>
-                </daVincicontrols:ContentSwitch.Content>
-                <daVincicontrols:ContentSwitch.UnCheckedContent>
+                </daViniciControls:ContentSwitch.Content>
+                <daViniciControls:ContentSwitch.UnCheckedContent>
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
@@ -84,8 +86,8 @@
                             FontWeight="Bold"
                             Text="????0" />
                     </StackPanel>
-                </daVincicontrols:ContentSwitch.UnCheckedContent>
-            </daVincicontrols:ContentSwitch>
+                </daViniciControls:ContentSwitch.UnCheckedContent>
+            </daViniciControls:ContentSwitch>
         </StackPanel>
 
 
@@ -124,11 +126,11 @@
                     ElementName="ZahlenformatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
-            <daVincicontrols:ContentSwitch
+            <daViniciControls:ContentSwitch
                 CheckedText="Standard"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
-                <daVincicontrols:ContentSwitch.Content>
+                <daViniciControls:ContentSwitch.Content>
                     <LuiControls:LuiCombobox SelectedIndex="0">
                         <ComboBoxItem Content="2/17/2014" />
                         <ComboBoxItem Content="2014-02-17" />
@@ -143,8 +145,8 @@
                         <ComboBoxItem Content="15:30:40" />
                         <ComboBoxItem Content="3:30:40 pm" />
                     </LuiControls:LuiCombobox>
-                </daVincicontrols:ContentSwitch.Content>
-                <daVincicontrols:ContentSwitch.UnCheckedContent>
+                </daViniciControls:ContentSwitch.Content>
+                <daViniciControls:ContentSwitch.UnCheckedContent>
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
@@ -159,8 +161,8 @@
                             FontWeight="Bold"
                             Text="????17.02.2014" />
                     </StackPanel>
-                </daVincicontrols:ContentSwitch.UnCheckedContent>
-            </daVincicontrols:ContentSwitch>
+                </daViniciControls:ContentSwitch.UnCheckedContent>
+            </daViniciControls:ContentSwitch>
         </StackPanel>
 
 
@@ -248,20 +250,20 @@
             Margin="0,10,0,0"
             Text="Die Gesamtwerte-Spalte ist verborgen. Ändern Sie zum Anzeigen der Gesamtwerte die Einstellung unter Darstellung &gt; Präsentation."
             TextWrapping="Wrap" />
-        <daVincicontrols:ContentSwitch
+        <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
             CheckedText="Automatisch"
             TitleText="Text Ausrichtung"
             UnCheckedText="Benutzerdefiniert">
-            <daVincicontrols:ContentSwitch.Content>
+            <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
-            </daVincicontrols:ContentSwitch.Content>
-            <daVincicontrols:ContentSwitch.UnCheckedContent>
+            </daViniciControls:ContentSwitch.Content>
+            <daViniciControls:ContentSwitch.UnCheckedContent>
                 <LuiControls:LuiCombobox SelectedIndex="0">
                     <ComboBoxItem Content="Linksbündig" />
                     <ComboBoxItem Content="Rechtsbündig" />
                 </LuiControls:LuiCombobox>
-            </daVincicontrols:ContentSwitch.UnCheckedContent>
-        </daVincicontrols:ContentSwitch>
+            </daViniciControls:ContentSwitch.UnCheckedContent>
+        </daViniciControls:ContentSwitch>
     </StackPanel>
 </UserControl>

@@ -19,6 +19,7 @@
     <StackPanel>
         <controls:LuiButton
             Margin="20,0,20,0"
+            LuiAttached:ThemeProperties.IconLeft="lui_icon_triangle_left"
             Command="{Binding BackCommand}"
             Content="Zurück" />
 
