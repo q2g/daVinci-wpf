@@ -4,6 +4,7 @@
     xmlns:Configuration="clr-namespace:daVinci_wpf.ConfigData"
     xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls">
 
@@ -11,6 +12,41 @@
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+
+
+
+    <Style
+        x:Key="PresentationDataStyle"
+        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daViniciControls:PresentationSettings />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="PresentationGeneralDataStyle"
+        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="Allgemein" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daViniciControls:PresentationSettingsGeneral />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="styleselector"
+        ItemStyle1="{StaticResource PresentationDataStyle}"
+        ItemStyle2="{StaticResource PresentationGeneralDataStyle}"
+        ItemType1="{x:Type daVinciConfig:PresentationData}"
+        ItemType2="{x:Type daVinciConfig:PresentationGeneralData}" />
 
 
     <Style
@@ -31,8 +67,12 @@
                                 IsDragDropEnabled="False"
                                 ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
                                 <controls:LuiAccordionItem Header="Daten">
-                                    <!--<TextBlock Text="Inhalt" />-->
-                                    <daViniciControls:ColumnChooser Columns="{Binding Columns1}" />
+                                    <daViniciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+                                <controls:LuiAccordionItem Header="Darstellung">
+                                    <controls:LuiAccordion
+                                        ItemContainerStyleSelector="{StaticResource styleselector}"
+                                        ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
                             </controls:LuiAccordion>
                         </StackPanel>

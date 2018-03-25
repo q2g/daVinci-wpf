@@ -33,7 +33,7 @@
                 </Setter>
             </Style>-->
 
-            <!--<Style
+            <Style
                 x:Key="DimensionColumnDataStyle"
                 BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
                 TargetType="LuiControls:LuiAccordionItem">
@@ -49,10 +49,10 @@
                 x:Key="CoefficientColumnDataStyle"
                 BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
                 TargetType="LuiControls:LuiAccordionItem">
-                <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnData.DimensionName}" />
+                <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnData.CoefficientName}" />
                 <Setter Property="LuiControls:LuiAccordionItem.Content">
                     <Setter.Value>
-                        <daViniciControls:DimensionColumnDataView Text="{Binding ColumnData.DimensionName}" />
+                        <daViniciControls:CoefficientColumnDataView Text="{Binding ColumnData.CoefficientName}" />
                     </Setter.Value>
                 </Setter>
             </Style>
@@ -62,7 +62,7 @@
             <daViniciConverter:ColumnStyleSelector
                 x:Key="styleselector"
                 CoefficientColumnStyle="{StaticResource CoefficientColumnDataStyle}"
-                DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}" />-->
+                DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}" />
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -103,9 +103,9 @@
 
                 <LuiControls:LuiAccordion
                     x:Name="acc"
-                    ItemContainerStyle="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+                    ItemContainerStyleSelector="{StaticResource styleselector}"
                     ItemsSource="{Binding Columns}" />
-                <!--  ItemContainerStyleSelector="{StaticResource styleselector}"  -->
+
             </StackPanel>
         </ScrollViewer>
 

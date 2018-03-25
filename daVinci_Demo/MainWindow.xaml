@@ -25,16 +25,20 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <lui:LuiAccordion
+        <!--<lui:LuiAccordion
             Grid.Column="1"
             CollapseAllOnExpandSingle="True"
             IsDragDropEnabled="False"
             ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}"
-            ItemsSource="{Binding ItemList}" />
+            ItemsSource="{Binding ItemList}" />-->
+        <StackPanel>
+            <TextBlock Text="{Binding Table}" />
+            <UserControl
+                x:Name="tt"
+                DataContext="{Binding Table}"
+                Style="{StaticResource TableConfigurationStyle}" />
+        </StackPanel>
 
-        <!--<UserControl
-            Content="{Binding Table}"
-            Style="{StaticResource TableConfigurationStyle}" />-->
 
 
     </Grid>

@@ -1,6 +1,6 @@
-﻿using daVinci.Controls;
+﻿using daVinci.ConfigData;
+using daVinci.Controls;
 using daVinci.Resources;
-using daVinci_wpf.ConfigData;
 using leonardo.Controls;
 using System;
 using System.Collections.Generic;
@@ -27,23 +27,29 @@ namespace daVinci_Demo
     {
         public MainWindow()
         {
-            ColumnChooser cc = new ColumnChooser();
-            //cc.Height = 300;
-            cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } });
-            cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() { Text = "TestKennzahl" } });
-            ItemList = new ObservableCollection<LuiAccordionItem>()
-            {
-                new LuiAccordionItem(){Header="Daten", Content=cc},
-                 new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
-            };
-            //Table = new TableConfiguration();
-            //Table.TableName = "The Table";
-            //Table.Columns = new ObservableCollection<ColumnConfiguration>();
-            //Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData() { CoefficientName="Kennzahl1" } });
-            //Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { DimensionName="Kennzahl1" } });
+            //ColumnChooser cc = new ColumnChooser();
+            ////cc.Height = 300;
+            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } });
+            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new CoefficientColumnDataView() { Text = "TestKennzahl" } });
+            //ItemList = new ObservableCollection<LuiAccordionItem>()
+            //{
+            //    new LuiAccordionItem(){Header="Daten", Content=cc},
+            //     new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
+            //};
+            Table = new TableConfiguration();
+            Table.TableName = "The Table";
+            Table.Columns = new ObservableCollection<ColumnConfiguration>();
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData() { CoefficientName = "Kennzahl" } });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { DimensionName = "Dimension" } });
+
+            Table.PresentationData = new ObservableCollection<object>();
+            Table.PresentationData.Add(new PresentationData());
+            Table.PresentationData.Add(new PresentationGeneralData());
+            Table.PresentationData.Add(new PresentationData());
 
             InitializeComponent();
             DataContext = this;
+           
         }
         public TableConfiguration Table { get; set; }
         public ObservableCollection<LuiAccordionItem> ItemList { get; set; }

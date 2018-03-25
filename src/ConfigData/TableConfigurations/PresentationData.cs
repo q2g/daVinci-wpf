@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace daVinci.ConfigData
 {
-    public class CoefficientColumnData : INotifyPropertyChanged
+    public class PresentationData : INotifyPropertyChanged
     {
-        public string CoefficientName { get; set; }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

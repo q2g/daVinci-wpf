@@ -1,4 +1,5 @@
-﻿using daVinci.Resources;
+﻿using daVinci.ConfigData;
+using daVinci.Resources;
 using leonardo.Controls;
 using leonardo.Resources;
 using System;
@@ -54,7 +55,8 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                        Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() { CoefficientName = item.DisplayText }, ValueType= ValueTypeEnum.Coefficient });
+                        //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
                         togglebutton.IsChecked = false;
                     }
                 });
@@ -87,10 +89,12 @@ namespace daVinci.Controls
                             switch (item.ValueType)
                             {
                                 case ValueTypeEnum.Dimension:
-                                    Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new DimensionColumnDataView(), IsExpanded=true });
+                                    Columns.Add(new ColumnConfiguration() { ColumnData = new DimensionColumnData() { DimensionName = item.DisplayText }, ValueType = ValueTypeEnum.Dimension });
+                                    //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new DimensionColumnDataView(), IsExpanded=true });
                                     break;
                                 case ValueTypeEnum.Coefficient:
-                                    Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                                    Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() { CoefficientName = item.DisplayText }, ValueType = ValueTypeEnum.Coefficient });
+                                    //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
                                     break;
                                 default:
                                     break;
@@ -109,31 +113,43 @@ namespace daVinci.Controls
         }
 
         #region Accordion
-        private ObservableCollection<LuiAccordionItem> columns=new ObservableCollection<LuiAccordionItem>();
-        public ObservableCollection<LuiAccordionItem> Columns
-        {
-            get { return columns; }
-            set
-            {
-                if (columns != value)
-                {
-                    columns = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
-                }
-
-            }
-        }
-
-        //#region Columns - DP        
+        //private ObservableCollection<LuiAccordionItem> columns=new ObservableCollection<LuiAccordionItem>();
         //public ObservableCollection<LuiAccordionItem> Columns
         //{
-        //    get { return (ObservableCollection<LuiAccordionItem>)this.GetValue(ColumnsProperty); }
-        //    set { this.SetValue(ColumnsProperty, value); }
+        //    get { return columns; }
+        //    set
+        //    {
+        //        if (columns != value)
+        //        {
+        //            columns = value;
+        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
+        //        }
+
+        //    }
         //}
 
-        //public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-        // "Columns", typeof(ObservableCollection<LuiAccordionItem>), typeof(DimensionColumnDataView), new FrameworkPropertyMetadata(new ObservableCollection<LuiAccordionItem>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        //#endregion
+        #region Columns - DP        
+        public ObservableCollection<ColumnConfiguration> Columns
+        {
+            get { return (ObservableCollection<ColumnConfiguration>)this.GetValue(ColumnsProperty); }
+            set { this.SetValue(ColumnsProperty, value); }
+        }
+
+        public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
+         "Columns", typeof(ObservableCollection<ColumnConfiguration>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<ColumnConfiguration>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
+
+
+        private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ColumnChooser obj)
+            {
+                if (e.NewValue is ObservableCollection<ColumnConfiguration> newvalue)
+                {
+                   var s = newvalue;
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region Popup Content

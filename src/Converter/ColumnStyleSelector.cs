@@ -1,5 +1,5 @@
 ﻿using daVinci.Resources;
-using daVinci_wpf.ConfigData;
+using daVinci.ConfigData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
