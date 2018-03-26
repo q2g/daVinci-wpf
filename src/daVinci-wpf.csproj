@@ -95,6 +95,7 @@
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\ColumnStyleSelector.cs" />
+    <Compile Include="Converter\ControlCreationConverter.cs" />
     <Compile Include="Converter\IntToVisibilityConverter.cs" />
     <Compile Include="Converter\ZeroListCountToVisibleCollapsedConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,8 +4,8 @@
     xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
-    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
-    xmlns:daViniciControls="clr-namespace:daVinci.Controls">
+    xmlns:daVinciControls="clr-namespace:daVinci.Controls"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
@@ -20,11 +20,7 @@
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
-        <Setter Property="controls:LuiAccordionItem.Content">
-            <Setter.Value>
-                <daViniciControls:PresentationSettings />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}}" />
     </Style>
 
     <Style
@@ -32,11 +28,7 @@
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Allgemein" />
-        <Setter Property="controls:LuiAccordionItem.Content">
-            <Setter.Value>
-                <daViniciControls:PresentationSettingsGeneral />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}}" />
     </Style>
 
 
@@ -53,17 +45,14 @@
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
-        <Setter Property="controls:LuiAccordionItem.Content">
-            <Setter.Value>
-                <daViniciControls:AddOnDataProcessing />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}}" />
     </Style>
 
 
     <LuiConverter:TypeToStyleSelector
         x:Key="AddOnStyleselector"
         DefaultStyle="{StaticResource AddOnDataStyle}" />
+    <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
 
 
     <Style
@@ -86,7 +75,7 @@
                                 ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
 
                                 <controls:LuiAccordionItem Header="Daten">
-                                    <daViniciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                    <daVinciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="Sortieren">
