@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace daVinci.ConfigData
 {
-    public class SortConfiguration : INotifyPropertyChanged
+    public class AddOnDataProcessingConfiguration : INotifyPropertyChanged
     {
-        public SortConfiguration()
+        public AddOnDataProcessingConfiguration()
         {
             if (PropertyChanged != null) {/* Make the Compiler Happy */ }
         }

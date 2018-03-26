@@ -33,9 +33,6 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
-    <Reference Include="leonardo-wpf">
-      <HintPath>..\..\leonardo-wpf\src\leonardo-wpf\bin\Release\leonardo-wpf.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -50,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigData\TableConfigurations\AddOnDataProcessingConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\SortConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationGeneralData.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationData.cs" />
@@ -57,6 +55,9 @@
     <Compile Include="ConfigData\TableConfigurations\CoefficientColumnData.cs" />
     <Compile Include="ConfigData\TableConfigurations\ColumnConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\TableConfiguration.cs" />
+    <Compile Include="Controls\AddOnDataProcessing.xaml.cs">
+      <DependentUpon>AddOnDataProcessing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AggregateFuncSelection.xaml.cs">
       <DependentUpon>AggregateFuncSelection.xaml</DependentUpon>
     </Compile>
@@ -87,6 +88,9 @@
     <Compile Include="Controls\PropertyPanel.xaml.cs">
       <DependentUpon>PropertyPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SortSetting.xaml.cs">
+      <DependentUpon>SortSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
@@ -97,6 +101,10 @@
     <Compile Include="Resources\ValueTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\AddOnDataProcessing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AggregateFuncSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,9 +145,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SortSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ValueSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SortOrderAccordionItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ColumnConfigurationStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TableConfigurationStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\daVinciStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\leonardo-wpf\src\leonardo-wpf\leonardo-wpf.csproj">
+      <Project>{2ee2ae07-61c6-43dc-805d-662ad526a430}</Project>
+      <Name>leonardo-wpf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

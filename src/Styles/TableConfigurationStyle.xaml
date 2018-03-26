@@ -1,0 +1,122 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+
+
+    <Style
+        x:Key="PresentationDataStyle"
+        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daViniciControls:PresentationSettings />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="PresentationGeneralDataStyle"
+        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="Allgemein" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daViniciControls:PresentationSettingsGeneral />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="PresentationStyleselector"
+        ItemStyle1="{StaticResource PresentationDataStyle}"
+        ItemStyle2="{StaticResource PresentationGeneralDataStyle}"
+        ItemType1="{x:Type daVinciConfig:PresentationData}"
+        ItemType2="{x:Type daVinciConfig:PresentationGeneralData}" />
+
+
+    <Style
+        x:Key="AddOnDataStyle"
+        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daViniciControls:AddOnDataProcessing />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="AddOnStyleselector"
+        DefaultStyle="{StaticResource AddOnDataStyle}" />
+
+
+    <Style
+        x:Key="TableConfigurationStyle"
+        x:Shared="false"
+        TargetType="UserControl">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="UserControl">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:LuiIcon Icon="lui_icon_table" />
+                                <TextBlock Text="{Binding TableName}" />
+                            </StackPanel>
+                            <controls:LuiAccordion
+                                Grid.Column="1"
+                                CollapseAllOnExpandSingle="True"
+                                IsDragDropEnabled="False"
+                                ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
+
+                                <controls:LuiAccordionItem Header="Daten">
+                                    <daViniciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+
+                                <controls:LuiAccordionItem Header="Sortieren">
+                                    <controls:LuiAccordion
+                                        CollapseAllOnExpandSingle="False"
+                                        IsDragDropEnabled="True"
+                                        ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
+                                        ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+
+                                <controls:LuiAccordionItem Header="Add-Ons">
+                                    <controls:LuiAccordion
+                                        ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
+                                        ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+
+                                <controls:LuiAccordionItem Header="Darstellung">
+                                    <controls:LuiAccordion
+                                        ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
+                                        ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+                            </controls:LuiAccordion>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+
+
+
+</ResourceDictionary>

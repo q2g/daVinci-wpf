@@ -22,8 +22,7 @@ namespace daVinci.ConfigData
                 columns = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
             }
-        }
-
+        }        
         private ObservableCollection<object> presentationData = new ObservableCollection<object>();
         public ObservableCollection<object> PresentationData
         {
@@ -35,6 +34,20 @@ namespace daVinci.ConfigData
             {
                 presentationData = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PresentationData)));
+            }
+        }
+
+        private ObservableCollection<object> addOnData = new ObservableCollection<object>();
+        public ObservableCollection<object> AddOnData
+        {
+            get
+            {
+                return addOnData;
+            }
+            set
+            {
+                addOnData = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddOnData)));
             }
         }
 

@@ -11,6 +11,11 @@ namespace daVinci.ConfigData
     {
         public string CoefficientName { get; set; }
 
+        public CoefficientColumnData()
+        {
+            if (PropertyChanged != null) {/* Make the Compiler Happy */ }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

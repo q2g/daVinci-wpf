@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/TableConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -33,6 +34,9 @@
             ItemsSource="{Binding ItemList}" />-->
         <StackPanel>
             <TextBlock Text="{Binding Table}" />
+            <Button
+                Click="Button_Click"
+                Content="test" />
             <UserControl
                 x:Name="tt"
                 DataContext="{Binding Table}"

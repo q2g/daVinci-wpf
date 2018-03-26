@@ -1,0 +1,72 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
+    xmlns:daVinciControls="clr-namespace:daVinci.Controls"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/SortOrderAccordionItemStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style
+        x:Key="DimensionColumnDataStyle"
+        x:Shared="false"
+        BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+        TargetType="LuiControls:LuiAccordionItem">
+        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=OneWayToSource}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daVinciControls:DimensionColumnDataView Text="{Binding ColumnName}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="CoefficientColumnDataStyle"
+        x:Shared="false"
+        BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
+        TargetType="LuiControls:LuiAccordionItem">
+        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=OneWayToSource}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daVinciControls:CoefficientColumnDataView Text="{Binding ColumnName}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <daVinciConverter:ColumnStyleSelector
+        x:Key="styleselector"
+        CoefficientColumnStyle="{StaticResource CoefficientColumnDataStyle}"
+        DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}" />
+
+
+
+
+
+    <Style
+        x:Key="SortOrderColumnDataStyle"
+        x:Shared="false"
+        BasedOn="{StaticResource SortOrderAccordionItemStyle}"
+        TargetType="LuiControls:LuiAccordionItem">
+        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortOrderIndex, Mode=OneWayToSource}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <daVinciControls:SortSetting />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="Sortstyleselector"
+        DefaultStyle="{StaticResource SortOrderColumnDataStyle}" />
+
+
+</ResourceDictionary>

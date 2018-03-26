@@ -55,7 +55,7 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() { CoefficientName = item.DisplayText }, ValueType= ValueTypeEnum.Coefficient });
+                        Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType= ValueTypeEnum.Coefficient });
                         //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
                         togglebutton.IsChecked = false;
                     }
@@ -89,11 +89,11 @@ namespace daVinci.Controls
                             switch (item.ValueType)
                             {
                                 case ValueTypeEnum.Dimension:
-                                    Columns.Add(new ColumnConfiguration() { ColumnData = new DimensionColumnData() { DimensionName = item.DisplayText }, ValueType = ValueTypeEnum.Dimension });
+                                    Columns.Add(new ColumnConfiguration() { ColumnData = new DimensionColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Dimension });
                                     //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new DimensionColumnDataView(), IsExpanded=true });
                                     break;
                                 case ValueTypeEnum.Coefficient:
-                                    Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() { CoefficientName = item.DisplayText }, ValueType = ValueTypeEnum.Coefficient });
+                                    Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() ,ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient });
                                     //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
                                     break;
                                 default:

@@ -38,14 +38,21 @@ namespace daVinci_Demo
             //};
             Table = new TableConfiguration();
             Table.TableName = "The Table";
-            Table.Columns = new ObservableCollection<ColumnConfiguration>();
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData() { CoefficientName = "Kennzahl" } });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { DimensionName = "Dimension" } });
+            Table.Columns = new ObservableCollection<ColumnConfiguration>
+            {
+                new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl" },
+                new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1" },
+                new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2" }
+            };
+
+            Table.AddOnData.Add(new AddOnDataProcessingConfiguration());
 
             Table.PresentationData = new ObservableCollection<object>();
             Table.PresentationData.Add(new PresentationData());
-            Table.PresentationData.Add(new PresentationGeneralData());
-            Table.PresentationData.Add(new PresentationData());
+
+            
+            
+            
 
             InitializeComponent();
             DataContext = this;
@@ -53,5 +60,10 @@ namespace daVinci_Demo
         }
         public TableConfiguration Table { get; set; }
         public ObservableCollection<LuiAccordionItem> ItemList { get; set; }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

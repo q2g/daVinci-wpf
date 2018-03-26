@@ -37,9 +37,6 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\src\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
-    <Reference Include="leonardo-wpf">
-      <HintPath>..\..\leonardo-wpf\src\leonardo-wpf\bin\Release\leonardo-wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -101,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\leonardo-wpf\src\leonardo-wpf\leonardo-wpf.csproj">
+      <Project>{2ee2ae07-61c6-43dc-805d-662ad526a430}</Project>
+      <Name>leonardo-wpf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\daVinci-wpf.csproj">
       <Project>{2eca33f5-e95c-4386-b16c-2c894c09b621}</Project>
       <Name>daVinci-wpf</Name>

@@ -1,0 +1,89 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.SortSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <LUIConverter:BooleanToVisibilityConverter
+                x:Key="BoolToVisibilityConverter"
+                FalseValue="Visible"
+                TrueValue="Collapsed" />
+            <LUIConverter:BooleanToVisibilityConverter
+                x:Key="BoolToCollapsedConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Margin="5,0,5,0">
+        <daViniciControls:ContentSwitch
+            x:Name="mainswitch"
+            CheckedText="Automatisch"
+            TitleText="Sortieren"
+            UnCheckedText="Benutzerdefiniert" />
+        <LuiControls:LuiSeparator
+            Height="0.4"
+            Margin="0,10,0,0" />
+        <StackPanel Visibility="{Binding IsChecked, ElementName=mainswitch, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <LuiControls:LuiCheckbox
+                Name="chkFormel"
+                Margin="10,10,0,0"
+                Content="Nach Formel sortieren" />
+            <LuiControls:LuiInputGroup
+                Margin="0,10,0,0"
+                LabelText="Formel"
+                RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+                RightCommandIcon="lui_icon_expression"
+                Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />
+            <LuiControls:LuiCombobox
+                Margin="0,10,0,0"
+                LabelText="Label"
+                Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}">
+                <ComboBoxItem Content="Absteigend" />
+                <ComboBoxItem Content="Aufsteigend" />
+            </LuiControls:LuiCombobox>
+            <LuiControls:LuiSeparator
+                Height="0.4"
+                Margin="0,10,0,0" />
+
+            <LuiControls:LuiCheckbox
+                Name="chkSortNum"
+                Margin="10,10,0,0"
+                Content="Numerisch sortieren" />
+            <LuiControls:LuiCombobox
+                Margin="0,10,0,0"
+                Visibility="{Binding IsChecked, ElementName=chkSortNum, Converter={StaticResource BoolToCollapsedConverter}}">
+                <ComboBoxItem Content="Absteigend" />
+                <ComboBoxItem Content="Aufsteigend" />
+            </LuiControls:LuiCombobox>
+            <LuiControls:LuiSeparator
+                Height="0.4"
+                Margin="0,10,0,0" />
+
+            <LuiControls:LuiCheckbox
+                Name="chkSortAlpha"
+                Margin="10,10,0,0"
+                Content="Alphabetisch sortieren" />
+            <LuiControls:LuiCombobox
+                Margin="0,10,0,0"
+                Visibility="{Binding IsChecked, ElementName=chkSortAlpha, Converter={StaticResource BoolToCollapsedConverter}}">
+                <ComboBoxItem Content="Absteigend" />
+                <ComboBoxItem Content="Aufsteigend" />
+            </LuiControls:LuiCombobox>
+
+        </StackPanel>
+        <LuiControls:LuiSeparator Height="0.4" />
+    </StackPanel>
+</UserControl>
