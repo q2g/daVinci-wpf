@@ -30,8 +30,8 @@ namespace daVinci.Controls
         {
             categorySelection = new CategorySelection()
             {
-                SelectedCommand=new RelayCommand((o)=>true,
-                (parameter)=>
+                SelectedCommand = new RelayCommand((o) => true,
+                (parameter) =>
                 {
                     dialog.PanelWidth = 300;
                     dialog.PanelHeight = 300;
@@ -39,23 +39,27 @@ namespace daVinci.Controls
                     {
                         if (param == "DIM")
                         {
-                            valueSelection.ValueType = ValueTypeEnum.Dimension;                           
+                            valueSelection.ValueType = ValueTypeEnum.Dimension;
                         }
                         if (param == "COEF")
                         {
-                            valueSelection.ValueType = ValueTypeEnum.Coefficient;                           
-                        }                        
+                            valueSelection.ValueType = ValueTypeEnum.Coefficient;
+                        }
                         PopupContent = valueSelection;
                     }
                 }
-                )};
+                )
+            };
 
             ICommand selectedAggregateCommand = new RelayCommand((o) => true,
                 (parameter) =>
                 {
                     if (parameter is ValueItem item)
                     {
-                        Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType= ValueTypeEnum.Coefficient });
+                        var newone = new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient };
+                        Columns.Add(newone);
+
+
                         //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
                         togglebutton.IsChecked = false;
                     }
@@ -86,15 +90,16 @@ namespace daVinci.Controls
                         }
                         else
                         {
+                            ColumnConfiguration newone = null;
                             switch (item.ValueType)
                             {
                                 case ValueTypeEnum.Dimension:
-                                    Columns.Add(new ColumnConfiguration() { ColumnData = new DimensionColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Dimension });
-                                    //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new DimensionColumnDataView(), IsExpanded=true });
+                                    newone = new ColumnConfiguration() { ColumnData = new DimensionColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Dimension };
+                                    Columns.Add(newone);
                                     break;
                                 case ValueTypeEnum.Coefficient:
-                                    Columns.Add(new ColumnConfiguration() { ColumnData = new CoefficientColumnData() ,ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient });
-                                    //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                                    newone = new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient };
+                                    Columns.Add(newone);
                                     break;
                                 default:
                                     break;
@@ -104,9 +109,9 @@ namespace daVinci.Controls
                     }
                 })
             };
-          
 
-            
+
+
             PopupContent = categorySelection;
             InitializeComponent();
             DataContext = this;
@@ -129,23 +134,23 @@ namespace daVinci.Controls
         //}
 
         #region Columns - DP        
-        public ObservableCollection<ColumnConfiguration> Columns
+        public ObservableCollection<object> Columns
         {
-            get { return (ObservableCollection<ColumnConfiguration>)this.GetValue(ColumnsProperty); }
+            get { return (ObservableCollection<object>)this.GetValue(ColumnsProperty); }
             set { this.SetValue(ColumnsProperty, value); }
         }
 
         public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-         "Columns", typeof(ObservableCollection<ColumnConfiguration>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<ColumnConfiguration>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
+         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
 
 
         private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ColumnChooser obj)
             {
-                if (e.NewValue is ObservableCollection<ColumnConfiguration> newvalue)
+                if (e.NewValue is ObservableCollection<object> newvalue)
                 {
-                   var s = newvalue;
+                    var s = newvalue;
                 }
             }
         }

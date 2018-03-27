@@ -72,7 +72,7 @@
                 <LuiControls:LuiAccordion
                     x:Name="acc"
                     CollapseAllOnExpandSingle="false"
-                    IsDragDropChangesUnderlyingCollection="False"
+                    IsDragDropChangesUnderlyingCollection="True"
                     IsDragDropEnabled="True"
                     ItemContainerStyleSelector="{StaticResource styleselector}"
                     ItemsSource="{Binding Columns}"

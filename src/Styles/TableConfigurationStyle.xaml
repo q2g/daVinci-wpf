@@ -93,7 +93,7 @@
                                     </controls:LuiAccordionItem.Resources>
                                     <controls:LuiAccordion
                                         CollapseAllOnExpandSingle="False"
-                                        IsDragDropChangesUnderlyingCollection="False"
+                                        IsDragDropChangesUnderlyingCollection="True"
                                         IsDragDropEnabled="True"
                                         ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
                                         ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"

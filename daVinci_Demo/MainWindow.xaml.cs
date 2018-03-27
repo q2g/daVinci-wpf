@@ -51,16 +51,10 @@ namespace daVinci_Demo
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 9, SortOrderIndex = 9, Parent = Table });
 
 
-
-
-
             Table.AddOnData.Add(new AddOnDataProcessingConfiguration());
 
             Table.PresentationData = new ObservableCollection<object>();
             Table.PresentationData.Add(new PresentationData());
-
-
-
 
 
             InitializeComponent();

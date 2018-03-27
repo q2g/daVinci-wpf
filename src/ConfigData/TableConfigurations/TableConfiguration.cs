@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace daVinci.ConfigData
 {
+
     public class TableConfiguration : INotifyPropertyChanged
     {
-        private ObservableCollection<ColumnConfiguration> columns = new ObservableCollection<ColumnConfiguration>();
-        public ObservableCollection<ColumnConfiguration> Columns
+        private ObservableCollection<object> columns = new ObservableCollection<object>();
+        public ObservableCollection<object> Columns
         {
             get
             {
@@ -27,7 +28,7 @@ namespace daVinci.ConfigData
 
         public TableConfiguration()
         {
-            Columns = new ObservableCollection<ColumnConfiguration>();
+            Columns = new ObservableCollection<object>();
             Columns.CollectionChanged += Columns_CollectionChanged;
         }
 
@@ -56,8 +57,8 @@ namespace daVinci.ConfigData
             }
         }
 
-        private ObservableCollection<ColumnConfiguration> sortColumns = new ObservableCollection<ColumnConfiguration>();
-        public ObservableCollection<ColumnConfiguration> SortColumns
+        private ObservableCollection<object> sortColumns = new ObservableCollection<object>();
+        public ObservableCollection<object> SortColumns
         {
             get
             {
