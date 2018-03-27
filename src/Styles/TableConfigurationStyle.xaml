@@ -5,7 +5,8 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
-    xmlns:daVinciConverter="clr-namespace:daVinci.Converter">
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
@@ -13,14 +14,14 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-
+    <daVinciConfig:SortOrderIndexSorter x:Key="SortOrderIndexSorter" />
 
     <Style
         x:Key="PresentationDataStyle"
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}}" />
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
     <Style
@@ -28,7 +29,7 @@
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Allgemein" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}}" />
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
 
@@ -45,7 +46,7 @@
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}}" />
+        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
 
@@ -70,7 +71,7 @@
                             </StackPanel>
                             <controls:LuiAccordion
                                 Grid.Column="1"
-                                CollapseAllOnExpandSingle="True"
+                                CollapseAllOnExpandSingle="False"
                                 IsDragDropEnabled="False"
                                 ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
 
@@ -79,11 +80,26 @@
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="Sortieren">
+                                    <controls:LuiAccordionItem.Resources>
+                                        <!--<CollectionViewSource
+                                            x:Key="sortOrderViewSource"
+                                            Source="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+                                            <CollectionViewSource.SortDescriptions>
+                                                <scm:SortDescription
+                                                    Direction="Ascending"
+                                                    PropertyName="SortOrderIndex" />
+                                            </CollectionViewSource.SortDescriptions>
+                                        </CollectionViewSource>-->
+                                    </controls:LuiAccordionItem.Resources>
                                     <controls:LuiAccordion
                                         CollapseAllOnExpandSingle="False"
+                                        IsDragDropChangesUnderlyingCollection="False"
                                         IsDragDropEnabled="True"
                                         ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
-                                        ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                        ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        Sorter="{StaticResource SortOrderIndexSorter}" />
+                                    <!--  Source={StaticResource sortOrderViewSource}  -->
+
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="Add-Ons">

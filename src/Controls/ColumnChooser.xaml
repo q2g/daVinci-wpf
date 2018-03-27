@@ -5,10 +5,12 @@
     xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:configdata="clr-namespace:daVinci.ConfigData"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -20,8 +22,17 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--<CollectionViewSource
+                x:Key="columnOrderViewSource"
+                Source="{Binding Columns}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription
+                        Direction="Ascending"
+                        PropertyName="ColumnOrderIndex" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>-->
 
-
+            <configdata:ColumnOrderIndexSorter x:Key="ColumnOrderIndexSorter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -58,16 +69,15 @@
                     Text="Spalten" />
                 <LuiControls:LuiSeparator Height="3" />
 
-
                 <LuiControls:LuiAccordion
                     x:Name="acc"
                     CollapseAllOnExpandSingle="false"
+                    IsDragDropChangesUnderlyingCollection="False"
                     IsDragDropEnabled="True"
                     ItemContainerStyleSelector="{StaticResource styleselector}"
-                    ItemsSource="{Binding Columns}" />
-
+                    ItemsSource="{Binding Columns}"
+                    Sorter="{StaticResource ColumnOrderIndexSorter}" />
             </StackPanel>
         </ScrollViewer>
-
     </Grid>
 </UserControl>

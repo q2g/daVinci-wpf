@@ -1,6 +1,7 @@
 ﻿using daVinci.ConfigData;
 using daVinci.Controls;
 using daVinci.Resources;
+using daVinci_wpf.Resources;
 using leonardo.Controls;
 using System;
 using System.Collections.Generic;
@@ -38,25 +39,33 @@ namespace daVinci_Demo
             //};
             Table = new TableConfiguration();
             Table.TableName = "The Table";
-            Table.Columns = new ObservableCollection<ColumnConfiguration>
-            {
-                new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl" },
-                new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1" },
-                new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2" }
-            };
+
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 1, SortOrderIndex = 1, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 2, SortOrderIndex = 2, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 3, SortOrderIndex = 3, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 4, SortOrderIndex = 4, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 5, SortOrderIndex = 5, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 6, SortOrderIndex = 6, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 7, SortOrderIndex = 7, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 8, SortOrderIndex = 8, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 9, SortOrderIndex = 9, Parent = Table });
+
+
+
+
 
             Table.AddOnData.Add(new AddOnDataProcessingConfiguration());
 
             Table.PresentationData = new ObservableCollection<object>();
             Table.PresentationData.Add(new PresentationData());
 
-            
-            
-            
+
+
+
 
             InitializeComponent();
             DataContext = this;
-           
+
         }
         public TableConfiguration Table { get; set; }
         public ObservableCollection<LuiAccordionItem> ItemList { get; set; }
