@@ -184,5 +184,13 @@ namespace daVinci.Controls
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void control_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Height > (togglebutton.Height + 18))
+            {
+                scrollviewer.Height = e.NewSize.Height - (togglebutton.Height + 18);
+            }
+        }
     }
 }

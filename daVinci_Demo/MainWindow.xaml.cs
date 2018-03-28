@@ -51,6 +51,17 @@ namespace daVinci_Demo
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 9, SortOrderIndex = 9, Parent = Table });
 
 
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 10, SortOrderIndex = 10, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 11, SortOrderIndex = 11, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 12, SortOrderIndex = 12, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 13, SortOrderIndex = 13, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 14, SortOrderIndex = 14, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 15, SortOrderIndex = 15, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Coefficient, ColumnData = new CoefficientColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 16, SortOrderIndex = 16, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 17, SortOrderIndex = 17, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 18, SortOrderIndex = 18, Parent = Table });
+
+
             Table.AddOnData.Add(new AddOnDataProcessingConfiguration());
 
             Table.PresentationData = new ObservableCollection<object>();

@@ -21,7 +21,7 @@
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:DimensionColumnDataView}, IsAsync=True, FallbackValue=Loading...}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:DimensionColumnDataView}}" />
     </Style>
 
     <Style
@@ -31,7 +31,7 @@
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:CoefficientColumnDataView}, IsAsync=True, FallbackValue=Loading...}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:CoefficientColumnDataView}}" />
     </Style>
 
     <daVinciConverter:ColumnStyleSelector
@@ -48,9 +48,9 @@
         x:Shared="false"
         BasedOn="{StaticResource SortOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
-        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName, IsAsync=True, FallbackValue=Läd...}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}, IsAsync=True, FallbackValue=Loading...}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
     </Style>
 
 

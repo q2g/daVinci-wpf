@@ -55,6 +55,8 @@
         DefaultStyle="{StaticResource AddOnDataStyle}" />
     <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
 
+    <daVinciConverter:AddNumberConverter x:Key="AddNumberConverter" />
+
 
     <Style
         x:Key="TableConfigurationStyle"
@@ -65,14 +67,29 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:LuiIcon Icon="lui_icon_table" />
-                                <TextBlock Text="{Binding TableName}" />
+                            <StackPanel
+                                Height="39"
+                                Background="{StaticResource LUI.Brush.Grayscale30}"
+                                Orientation="Horizontal">
+                                <controls:LuiIcon
+                                    VerticalAlignment="Center"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                                    Icon="lui_icon_table"
+                                    IconSize="Normal" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                                    Text="{Binding TableName}" />
                             </StackPanel>
                             <controls:LuiAccordion
                                 Grid.Column="1"
-                                CollapseAllOnExpandSingle="False"
+                                Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-39}"
+                                CollapseAllOnExpandSingle="true"
                                 IsDragDropEnabled="False"
+                                IsItemsStretchEnabled="False"
                                 ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
 
                                 <controls:LuiAccordionItem Header="Daten">
@@ -80,26 +97,15 @@
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="Sortieren">
-                                    <controls:LuiAccordionItem.Resources>
-                                        <!--<CollectionViewSource
-                                            x:Key="sortOrderViewSource"
-                                            Source="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
-                                            <CollectionViewSource.SortDescriptions>
-                                                <scm:SortDescription
-                                                    Direction="Ascending"
-                                                    PropertyName="SortOrderIndex" />
-                                            </CollectionViewSource.SortDescriptions>
-                                        </CollectionViewSource>-->
-                                    </controls:LuiAccordionItem.Resources>
-                                    <controls:LuiAccordion
-                                        CollapseAllOnExpandSingle="False"
-                                        IsDragDropChangesUnderlyingCollection="True"
-                                        IsDragDropEnabled="True"
-                                        ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
-                                        ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                        Sorter="{StaticResource SortOrderIndexSorter}" />
-                                    <!--  Source={StaticResource sortOrderViewSource}  -->
-
+                                    <ScrollViewer>
+                                        <controls:LuiAccordion
+                                            CollapseAllOnExpandSingle="False"
+                                            IsDragDropChangesUnderlyingCollection="True"
+                                            IsDragDropEnabled="True"
+                                            ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
+                                            ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                            Sorter="{StaticResource SortOrderIndexSorter}" />
+                                    </ScrollViewer>
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="Add-Ons">
