@@ -12,6 +12,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,19 +27,45 @@
                 x:Key="IntToVisibilityConverter"
                 FalseValue="Collapsed"
                 TrueValue="Visible" />
+
+            <converter:StringLengthToVisibilityConverter
+                x:Key="VisibleOnEmpty"
+                LengthGreaterZero_Visbility="Collapsed"
+                LengthZero_Visbility="Visible" />
+
+            <converter:StringLengthToVisibilityConverter
+                x:Key="VisibleOnNotEmpty"
+                LengthGreaterZero_Visbility="Visible"
+                LengthZero_Visbility="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
         <LuiControls:LuiInputGroup
-            Margin="5,10,0,5"
+            Margin="0,10,0,5"
+            IsInputEnabled="True"
+            LabelText="Feld"
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,5"
+            IsInputEnabled="true"
+            LabelText="Bezeichnung"
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,5"
             IsInputEnabled="False"
-            LabelText="Kennzahl"
+            LabelText="Dimension"
             RightCommandIcon="lui_icon_link"
-            Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:MeasureColumnDataView}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{Binding ColumnData.LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnNotEmpty}}" />
         <LuiControls:LuiCombobox
-            Name="ZahlenformatCombo"
+            Name="NumberFormatCombo"
+            Margin="0,10,0,0"
             LabelText="Zahlenformat"
-            SelectedIndex="0">
+            SelectedIndex="{Binding ColumnData.NumberFormatIndex}">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Zahl" />
             <ComboBoxItem Content="Währung" />
@@ -54,15 +81,16 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="1"
-                    ElementName="ZahlenformatCombo"
+                    ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
             <daViniciControls:ContentSwitch
                 CheckedText="Standard"
+                IsChecked="{Binding ColumnData.IsStandardFormat}"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
                 <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="2">
+                    <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.StandardFormatIndex}">
                         <ComboBoxItem Content="1,000" />
                         <ComboBoxItem Content="1,000.1" />
                         <ComboBoxItem Content="1,000.12" />
@@ -75,7 +103,7 @@
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
-                            Text="#,##0.00" />
+                            Text="{Binding ColumnData.NumberFormatText}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -98,13 +126,13 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="2"
-                    ElementName="ZahlenformatCombo"
+                    ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
 
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
-                Text="$#,##0.00;($#,##0.00)" />
+                Text="{Binding ColumnData.CurrencyFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -123,15 +151,16 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="3"
-                    ElementName="ZahlenformatCombo"
+                    ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
             <daViniciControls:ContentSwitch
                 CheckedText="Standard"
+                IsChecked="{Binding ColumnData.IsStandardDateFormat}"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
                 <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="0">
+                    <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.DateStandardFormatIndex}">
                         <ComboBoxItem Content="2/17/2014" />
                         <ComboBoxItem Content="2014-02-17" />
                         <ComboBoxItem Content="17 02 2014" />
@@ -150,7 +179,7 @@
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
-                            Text="YYYY-MM-DD" />
+                            Text="{Binding ColumnData.DateFormatText}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -173,13 +202,13 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="4"
-                    ElementName="ZahlenformatCombo"
+                    ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
 
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
-                Text="h:mm:ss" />
+                Text="{Binding ColumnData.DurationFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -198,20 +227,20 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="5"
-                    ElementName="ZahlenformatCombo"
+                    ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
             <LuiControls:LuiInput
                 LabelText="Dezimaltrennzeichen"
-                Text="." />
+                Text="{Binding ColumnData.Dec_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
                 LabelText="Tausendertrennzeichen"
-                Text="," />
+                Text="{Binding ColumnData.Thou_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
                 LabelText="Zahlenformat"
-                Text="#,##0.00" />
+                Text="{Binding ColumnData.CustomNumberFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -228,16 +257,18 @@
             Margin="0,10,0,0"
             LabelText="Formel für Hintergrundfarbe"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
-            RightCommandIcon="lui_icon_expression" />
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.BackgroundColorExpression}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
-            LabelText="Formel für Hintergrundfarbe"
+            LabelText="Formel für Textfarbe"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
-            RightCommandIcon="lui_icon_expression" />
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.TextColorExpression}" />
         <LuiControls:LuiCombobox
             Margin="0,10,0,0"
             LabelText="Gesamtwertefunktion"
-            SelectedIndex="0">
+            SelectedIndex="{Binding ColumnData.TotalValueFunctionIndex}">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Avg" />
             <ComboBoxItem Content="Count" />
@@ -253,13 +284,14 @@
         <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
             CheckedText="Automatisch"
+            IsChecked="{Binding ColumnData.TextAllignment}"
             TitleText="Text Ausrichtung"
             UnCheckedText="Benutzerdefiniert">
             <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
             </daViniciControls:ContentSwitch.Content>
             <daViniciControls:ContentSwitch.UnCheckedContent>
-                <LuiControls:LuiCombobox SelectedIndex="0">
+                <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.AllignmentIndex}">
                     <ComboBoxItem Content="Linksbündig" />
                     <ComboBoxItem Content="Rechtsbündig" />
                 </LuiControls:LuiCombobox>

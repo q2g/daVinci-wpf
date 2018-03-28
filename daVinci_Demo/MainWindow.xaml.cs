@@ -40,10 +40,102 @@ namespace daVinci_Demo
             Table = new TableConfiguration();
             Table.TableName = "The Table";
 
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 1, SortOrderIndex = 1, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 2, SortOrderIndex = 2, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 3, SortOrderIndex = 3, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 4, SortOrderIndex = 4, Parent = Table });
+            var dimension1 = new DimensionColumnData()
+            {
+                LibraryID = "DimensionLibId1",
+                FieldDef = "A+2/7",
+                FieldLabel = "should not be visible",
+                AllignmentIndex = 1,
+                AllowNULLValues = true,
+                BackgroundColorExpression = "BColorExp",
+                FixedColumnCountSize = "11",
+                GreatherThanLessThanIndex = 2,
+                LimitModeIndex = 2,
+                OthersLabel = "Otherlabeltext",
+                RepresentationIndex = 1,
+                ShowOthers = true,
+                TextAllignment = true,
+                TextColorExpression = "TColorExp",
+                TextValue = "Value",
+                TopBottomIndex = 1
+
+            };
+
+            var dimension2 = new DimensionColumnData()
+            {
+                LibraryID = "",
+                FieldDef = "A+2/7",
+                FieldLabel = "a Description",
+                AllignmentIndex = 1,
+                AllowNULLValues = true,
+                BackgroundColorExpression = "BColorExp",
+                FixedColumnCountSize = "11",
+                GreatherThanLessThanIndex = 2,
+                LimitModeIndex = 2,
+                OthersLabel = "Otherlabeltext",
+                RepresentationIndex = 1,
+                ShowOthers = true,
+                TextAllignment = false,
+                TextColorExpression = "TColorExp",
+                TextValue = "Value",
+                TopBottomIndex = 1
+
+            };
+
+            var measure1 = new MeasureColumnData()
+            {
+                LibraryID = "MeasureLibId",
+                FieldDef = "A+2/7",
+                FieldLabel = "should not be visible",
+                AllignmentIndex = 1,
+                TextColorExpression = "tcolorexp",
+                TextAllignment = true,
+                BackgroundColorExpression = "bcolorexp",
+                CurrencyFormatText = "currencformat",
+                CustomNumberFormatText = "customNumberformat",
+                DateFormatText = "Dateformat",
+                DateStandardFormatIndex = 2,
+                Dec_SplitterSign = ".",
+                DurationFormatText = "duration",
+                IsStandardDateFormat = true,
+                IsStandardFormat = true,
+                NumberFormatIndex = 1,
+                NumberFormatText = "numberformat",
+                StandardFormatIndex = 1,
+                Thou_SplitterSign = ",",
+                TotalValueFunctionIndex = 2
+            };
+
+            var measure2 = new MeasureColumnData()
+            {
+                LibraryID = "",
+                FieldDef = "A+2/7",
+                FieldLabel = "MeasureDescription",
+                AllignmentIndex = 1,
+                TextColorExpression = "tcolorexp",
+                TextAllignment = false,
+                BackgroundColorExpression = "bcolorexp",
+                CurrencyFormatText = "currencformat",
+                CustomNumberFormatText = "customNumberformat",
+                DateFormatText = "Dateformat",
+                DateStandardFormatIndex = 2,
+                Dec_SplitterSign = ".",
+                DurationFormatText = "duration",
+                IsStandardDateFormat = true,
+                IsStandardFormat = false,
+                NumberFormatIndex = 1,
+                NumberFormatText = "numberformat",
+                StandardFormatIndex = 1,
+                Thou_SplitterSign = ",",
+                TotalValueFunctionIndex = 2
+            };
+
+
+
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = dimension1, ColumnName = "Dimension1", ColumnOrderIndex = 1, SortOrderIndex = 1, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = dimension2, ColumnName = "Dimension2", ColumnOrderIndex = 2, SortOrderIndex = 2, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = measure1, ColumnName = "Kennzahl", ColumnOrderIndex = 3, SortOrderIndex = 3, Parent = Table });
+            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = measure2, ColumnName = "Kennzahl", ColumnOrderIndex = 4, SortOrderIndex = 4, Parent = Table });
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension1", ColumnOrderIndex = 5, SortOrderIndex = 5, Parent = Table });
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData(), ColumnName = "Dimension2", ColumnOrderIndex = 6, SortOrderIndex = 6, Parent = Table });
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData(), ColumnName = "Kennzahl", ColumnOrderIndex = 7, SortOrderIndex = 7, Parent = Table });

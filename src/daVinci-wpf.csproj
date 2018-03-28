@@ -94,6 +94,7 @@
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\StringLengthToVisibilityConverter.cs" />
     <Compile Include="Converter\ColumnStyleSelector.cs" />
     <Compile Include="Converter\AddNumberConverter.cs" />
     <Compile Include="Converter\ControlCreationConverter.cs" />

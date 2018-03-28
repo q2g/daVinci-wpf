@@ -25,24 +25,50 @@
                 x:Key="IntToVisibilityConverter"
                 FalseValue="Collapsed"
                 TrueValue="Visible" />
+
+            <converter:StringLengthToVisibilityConverter
+                x:Key="VisibleOnEmpty"
+                LengthGreaterZero_Visbility="Collapsed"
+                LengthZero_Visbility="Visible" />
+
+            <converter:StringLengthToVisibilityConverter
+                x:Key="VisibleOnNotEmpty"
+                LengthGreaterZero_Visbility="Visible"
+                LengthZero_Visbility="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="5,0,5,0">
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
+            IsInputEnabled="True"
+            LabelText="Feld"
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,5"
+            IsInputEnabled="true"
+            LabelText="Bezeichnung"
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+        <LuiControls:LuiInputGroup
+            Margin="0,10,0,5"
             IsInputEnabled="False"
             LabelText="Dimension"
-            RightCommandIcon="lui_icon_expression"
-            Text="{Binding ColumnName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            RightCommandIcon="lui_icon_link"
+            Text="{Binding ColumnData.LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnNotEmpty}}" />
         <LuiControls:LuiCheckbox
             Margin="0,15,0,15"
             Content="NULL-Werte einschließen"
-            Foreground="{StaticResource LUI.Brush.Grayscale50}" />
+            Foreground="{StaticResource LUI.Brush.Grayscale50}"
+            IsChecked="{Binding ColumnData.AllowNULLValues}" />
         <LuiControls:LuiCombobox
-            Name="BeschränkungCombo"
+            Name="LimitCombo"
             Background="White"
             LabelText="Beschränkung"
-            SelectedIndex="0">
+            SelectedIndex="{Binding ColumnData.LimitModeIndex}">
             <ComboBoxItem>Keine Beschränkung</ComboBoxItem>
             <ComboBoxItem>Feste Spaltenanzahl</ComboBoxItem>
             <ComboBoxItem>Genauer Wert</ComboBoxItem>
@@ -52,8 +78,8 @@
         <StackPanel
             x:Name="Feste_Spaltenanzahl"
             Margin="0,10,0,0"
-            Visibility="{Binding SelectedIndex, ElementName=BeschränkungCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}">
-            <LuiControls:LuiButtonGroup>
+            Visibility="{Binding SelectedIndex, ElementName=LimitCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}">
+            <LuiControls:LuiButtonGroup SelectedIndex="{Binding ColumnData.TopBottomIndex}">
                 <LuiControls:LuiToggleButton Content="Oben" />
                 <LuiControls:LuiToggleButton Content="Unten" />
             </LuiControls:LuiButtonGroup>
@@ -61,7 +87,7 @@
                 Margin="0,10,0,0"
                 RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
                 RightCommandIcon="lui_icon_expression"
-                Text="10" />
+                Text="{Binding ColumnData.FixedColumnCountSize}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -75,10 +101,10 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="2,3"
-                    ElementName="BeschränkungCombo"
+                    ElementName="LimitCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
-            <LuiControls:LuiButtonGroup>
+            <LuiControls:LuiButtonGroup SelectedIndex="{Binding ColumnData.GreatherThanLessThanIndex}">
                 <LuiControls:LuiToggleButton Content="&gt;=" />
                 <LuiControls:LuiToggleButton Content="&gt;" />
                 <LuiControls:LuiToggleButton Content="&lt;" />
@@ -88,7 +114,7 @@
                 Margin="0,10,0,0"
                 RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
                 RightCommandIcon="lui_icon_expression"
-                Text="0" />
+                Text="{Binding ColumnData.TextValue}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -99,28 +125,58 @@
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
                     ConverterParameter="1,2,3"
-                    ElementName="BeschränkungCombo"
+                    ElementName="LimitCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
             <LuiControls:LuiCheckbox
                 Name="chkShowOthers"
-                Content="Sonstige anzeigen" />
+                Content="Sonstige anzeigen"
+                IsChecked="{Binding ColumnData.ShowOthers}" />
             <LuiControls:LuiInputGroup
                 Margin="0,10,0,0"
                 IsInputEnabled="False"
                 LabelText="Bezeichnung für Sonstige"
                 RightCommandIcon="lui_icon_expression"
-                Text="Others"
+                Text="{Binding ColumnData.OthersLabel}"
                 Visibility="{Binding IsChecked, ElementName=chkShowOthers, Converter={StaticResource BoolToVisibilityCollapsedConverter}}" />
         </StackPanel>
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="Formel für Hintergrundfarbe"
-            RightCommandIcon="lui_icon_expression" />
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.BackgroundColorExpression}" />
 
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="Formel für Textfarbe"
-            RightCommandIcon="lui_icon_expression" />
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding ColumnData.TextColorExpression}" />
+
+        <daViniciControls:ContentSwitch
+            Margin="0,10,0,0"
+            CheckedText="Automatisch"
+            IsChecked="{Binding ColumnData.TextAllignment}"
+            TitleText="Text Ausrichtung"
+            UnCheckedText="Benutzerdefiniert">
+            <daViniciControls:ContentSwitch.Content>
+                <StackPanel />
+            </daViniciControls:ContentSwitch.Content>
+            <daViniciControls:ContentSwitch.UnCheckedContent>
+                <LuiControls:LuiCombobox
+                    Background="White"
+                    SelectedIndex="{Binding ColumnData.AllignmentIndex}">
+                    <ComboBoxItem>Linksbündig</ComboBoxItem>
+                    <ComboBoxItem>Rechtsbündig</ComboBoxItem>
+                </LuiControls:LuiCombobox>
+            </daViniciControls:ContentSwitch.UnCheckedContent>
+        </daViniciControls:ContentSwitch>
+
+        <LuiControls:LuiCombobox
+            Margin="0,10,0,0"
+            Background="White"
+            SelectedIndex="{Binding ColumnData.RepresentationIndex}">
+            <ComboBoxItem>Text</ComboBoxItem>
+            <ComboBoxItem>URL</ComboBoxItem>
+        </LuiControls:LuiCombobox>
     </StackPanel>
 </UserControl>
