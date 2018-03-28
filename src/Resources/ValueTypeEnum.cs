@@ -8,7 +8,7 @@ namespace daVinci.Resources
 {
     public enum ValueTypeEnum
     {
-        Dimension,     
-        Coefficient
+        Dimension,
+        Measure
     }
 }

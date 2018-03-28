@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace daVinci.Controls
 {
     /// <summary>
-    /// Interaktionslogik für CoefficientColumnDataView.xaml
+    /// Interaktionslogik für MeasureColumnDataView.xaml
     /// </summary>
-    public partial class CoefficientColumnDataView : UserControl
+    public partial class MeasureColumnDataView : UserControl
     {
-        public CoefficientColumnDataView()
+        public MeasureColumnDataView()
         {
             InitializeComponent();
         }
@@ -33,7 +33,7 @@ namespace daVinci.Controls
         }
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-         "Text", typeof(string), typeof(CoefficientColumnDataView), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "Text", typeof(string), typeof(MeasureColumnDataView), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
     }
 }

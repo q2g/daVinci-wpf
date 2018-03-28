@@ -40,19 +40,19 @@ namespace daVinci.Controls
             new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="Address Number" },
             new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="AR1-30" },
 
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="# of Cust AR60+" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="# of Customers" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="# of Products" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="% of Items" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="Amound Overdue" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Coefficient, DisplayText="AR % Overdue" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Cust AR60+" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Customers" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Products" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="% of Items" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="Amound Overdue" },
+            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="AR % Overdue" },
 
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="Account" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="Account Desc" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="AccountGroup" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="AccountGroupDesc" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="Address Number", Icon=LUIiconsEnum.lui_icon_calendar },
-            new ValueItem(){  ValueType=ValueTypeEnum.Coefficient, IsField=true, DisplayText="AR1-30" }
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Account" },
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Account Desc" },
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AccountGroup" },
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AccountGroupDesc" },
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Address Number", Icon=LUIiconsEnum.lui_icon_calendar },
+            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AR1-30" }
         };
         public ValueSelection()
         {
@@ -64,16 +64,16 @@ namespace daVinci.Controls
 
         #region Properties      
         public string CategoryDisplayText { get; set; }
-        public string FieldDisplayText { get; set; }        
+        public string FieldDisplayText { get; set; }
         public ObservableCollection<ValueItem> DisplayedFieldItems { get; set; } = new ObservableCollection<ValueItem>();
         public ObservableCollection<ValueItem> DisplayedValueItems { get; set; } = new ObservableCollection<ValueItem>();
-        private  ValueTypeEnum valueType;
+        private ValueTypeEnum valueType;
         public ValueTypeEnum ValueType
         {
             get { return valueType; }
             set
             {
-                if (valueType!=value)
+                if (valueType != value)
                 {
                     valueType = value;
                     SetLabels();
@@ -98,7 +98,7 @@ namespace daVinci.Controls
         #endregion
 
         #region Search
-        private  string searchText;
+        private string searchText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,7 +126,7 @@ namespace daVinci.Controls
                     CategoryDisplayText = "Dimensionen";
                     FieldDisplayText = "Felder";
                     break;
-                case ValueTypeEnum.Coefficient:
+                case ValueTypeEnum.Measure:
                     CategoryDisplayText = "Kennzahlen";
                     FieldDisplayText = "Aus einem Feld";
                     break;
@@ -164,8 +164,8 @@ namespace daVinci.Controls
                 .ForEach(ele => DisplayedValueItems.Add(ele));
             }
             //Um die Visibility-Bindings zu triggern
-            
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(DisplayedFieldItems)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedFieldItems)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedValueItems)));
         }
         #endregion
@@ -186,32 +186,32 @@ namespace daVinci.Controls
 
     public class ValueTypeTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate CoefficientTemplate { get; set; }
-        public DataTemplate CoefficientFieldTemplate { get; set; }
+        public DataTemplate MeasureTemplate { get; set; }
+        public DataTemplate MeasureFieldTemplate { get; set; }
         public DataTemplate DimensionTemplate { get; set; }
         public DataTemplate DimensionFieldTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item,
                    DependencyObject container)
         {
-           if(item is ValueItem vitem)
+            if (item is ValueItem vitem)
             {
-                if (vitem.ValueType== ValueTypeEnum.Coefficient && vitem.IsField)
+                if (vitem.ValueType == ValueTypeEnum.Measure && vitem.IsField)
                 {
-                    return CoefficientFieldTemplate;
+                    return MeasureFieldTemplate;
                 }
-                if (vitem.ValueType == ValueTypeEnum.Coefficient )
+                if (vitem.ValueType == ValueTypeEnum.Measure)
                 {
-                    return CoefficientTemplate;
+                    return MeasureTemplate;
                 }
                 if (vitem.ValueType == ValueTypeEnum.Dimension && vitem.IsField)
                 {
                     return DimensionFieldTemplate;
                 }
-                if (vitem.ValueType == ValueTypeEnum.Dimension )
+                if (vitem.ValueType == ValueTypeEnum.Dimension)
                 {
                     return DimensionTemplate; ;
-                }                
+                }
             }
 
             return new DataTemplate();

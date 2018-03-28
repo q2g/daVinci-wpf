@@ -25,19 +25,19 @@
     </Style>
 
     <Style
-        x:Key="CoefficientColumnDataStyle"
+        x:Key="MeasureColumnDataStyle"
         x:Shared="false"
         BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:CoefficientColumnDataView}}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:MeasureColumnDataView}}" />
     </Style>
 
     <daVinciConverter:ColumnStyleSelector
         x:Key="styleselector"
-        CoefficientColumnStyle="{StaticResource CoefficientColumnDataStyle}"
-        DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}" />
+        DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}"
+        MeasureColumnStyle="{StaticResource MeasureColumnDataStyle}" />
 
 
 

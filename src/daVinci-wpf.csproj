@@ -52,7 +52,7 @@
     <Compile Include="ConfigData\TableConfigurations\PresentationGeneralData.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationData.cs" />
     <Compile Include="ConfigData\TableConfigurations\DimensionColumnData.cs" />
-    <Compile Include="ConfigData\TableConfigurations\CoefficientColumnData.cs" />
+    <Compile Include="ConfigData\TableConfigurations\MeasureColumnData.cs" />
     <Compile Include="ConfigData\TableConfigurations\ColumnConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\TableConfiguration.cs" />
     <Compile Include="Controls\AddOnDataProcessing.xaml.cs">
@@ -64,8 +64,8 @@
     <Compile Include="Controls\CategorySelection.xaml.cs">
       <DependentUpon>CategorySelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CoefficientColumnDataView.xaml.cs">
-      <DependentUpon>CoefficientColumnDataView.xaml</DependentUpon>
+    <Compile Include="Controls\MeasureColumnDataView.xaml.cs">
+      <DependentUpon>MeasureColumnDataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnChooser.xaml.cs">
       <DependentUpon>ColumnChooser.xaml</DependentUpon>
@@ -116,7 +116,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CoefficientColumnDataView.xaml">
+    <Page Include="Controls\MeasureColumnDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

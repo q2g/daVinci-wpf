@@ -43,7 +43,7 @@ namespace daVinci.Controls
                         }
                         if (param == "COEF")
                         {
-                            valueSelection.ValueType = ValueTypeEnum.Coefficient;
+                            valueSelection.ValueType = ValueTypeEnum.Measure;
                         }
                         PopupContent = valueSelection;
                     }
@@ -56,11 +56,11 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        var newone = new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient };
+                        var newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Measure };
                         Columns.Add(newone);
 
 
-                        //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new CoefficientColumnDataView(), IsExpanded = true });
+                        //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new MeasureColumnDataView(), IsExpanded = true });
                         togglebutton.IsChecked = false;
                     }
                 });
@@ -72,7 +72,7 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        if (item.ValueType == ValueTypeEnum.Coefficient && item.IsField)
+                        if (item.ValueType == ValueTypeEnum.Measure && item.IsField)
                         {
                             PopupContent = new AggregateFuncSelection()
                             {
@@ -97,8 +97,8 @@ namespace daVinci.Controls
                                     newone = new ColumnConfiguration() { ColumnData = new DimensionColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Dimension };
                                     Columns.Add(newone);
                                     break;
-                                case ValueTypeEnum.Coefficient:
-                                    newone = new ColumnConfiguration() { ColumnData = new CoefficientColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Coefficient };
+                                case ValueTypeEnum.Measure:
+                                    newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Measure };
                                     Columns.Add(newone);
                                     break;
                                 default:

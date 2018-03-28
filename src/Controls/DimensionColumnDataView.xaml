@@ -33,7 +33,7 @@
             IsInputEnabled="False"
             LabelText="Dimension"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:DimensionColumnDataView}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{Binding ColumnName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <LuiControls:LuiCheckbox
             Margin="0,15,0,15"
             Content="NULL-Werte einschließen"

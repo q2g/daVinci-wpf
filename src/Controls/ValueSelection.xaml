@@ -20,10 +20,10 @@
             <converter:ZeroListCountToVisibleCollapsedConverter x:Key="ZeroListCountToVisibleCollapsedConverter" />
             <daVincicontrols:ValueTypeTemplateSelector
                 x:Key="templateselector"
-                CoefficientFieldTemplate="{StaticResource EFieldDatatemplate}"
-                CoefficientTemplate="{StaticResource FieldDatatemplate}"
                 DimensionFieldTemplate="{StaticResource FieldDatatemplate}"
-                DimensionTemplate="{StaticResource FieldDatatemplate}" />
+                DimensionTemplate="{StaticResource FieldDatatemplate}"
+                MeasureFieldTemplate="{StaticResource EFieldDatatemplate}"
+                MeasureTemplate="{StaticResource FieldDatatemplate}" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>

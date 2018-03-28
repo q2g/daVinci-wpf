@@ -12,16 +12,16 @@ namespace daVinci.Converter
 {
     public class ColumnStyleSelector : StyleSelector
     {
-        public Style CoefficientColumnStyle { get; set; }
+        public Style MeasureColumnStyle { get; set; }
         public Style DimensionColumnStyle { get; set; }
 
         public override Style SelectStyle(object item, DependencyObject container)
         {
             if (item is ColumnConfiguration config)
             {
-                if (config.ValueType == ValueTypeEnum.Coefficient)
+                if (config.ValueType == ValueTypeEnum.Measure)
                 {
-                    return CoefficientColumnStyle;
+                    return MeasureColumnStyle;
                 }
                 if (config.ValueType == ValueTypeEnum.Dimension)
                 {
