@@ -12,6 +12,8 @@
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/SortOrderAccordionItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <daVinciConverter:ColumnNameConverter x:Key="ColumnNameConverter" />
+
     <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
 
     <Style
@@ -19,7 +21,14 @@
         x:Shared="false"
         BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
-        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Header">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="ColumnData.LibraryID" />
+                    <Binding Path="ColumnData.FieldLabel" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:DimensionColumnDataView}}" />
     </Style>
@@ -29,7 +38,14 @@
         x:Shared="false"
         BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
-        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Header">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="ColumnData.LibraryID" />
+                    <Binding Path="ColumnData.FieldLabel" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:MeasureColumnDataView}}" />
     </Style>
@@ -48,7 +64,14 @@
         x:Shared="false"
         BasedOn="{StaticResource SortOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
-        <Setter Property="LuiControls:LuiAccordionItem.Header" Value="{Binding ColumnName}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Header">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="ColumnData.LibraryID" />
+                    <Binding Path="ColumnData.FieldLabel" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortOrderIndex, Mode=TwoWay}" />
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
     </Style>

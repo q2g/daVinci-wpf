@@ -42,6 +42,7 @@
             Margin="0,10,0,5"
             IsInputEnabled="True"
             LabelText="Feld"
+            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding ColumnData.FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />

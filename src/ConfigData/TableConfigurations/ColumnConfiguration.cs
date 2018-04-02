@@ -31,18 +31,7 @@ namespace daVinci.ConfigData
             }
         }
 
-        private string columnName;
-        public string ColumnName
-        {
-            get
-            {
-                return columnName;
-            }
-            set
-            {
-                columnName = value;
-            }
-        }
+
         private int sortOrderIndex;
         public int SortOrderIndex
         {

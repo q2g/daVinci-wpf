@@ -40,12 +40,20 @@ namespace daVinci.Controls
                         if (param == "DIM")
                         {
                             valueSelection.ValueType = ValueTypeEnum.Dimension;
+                            PopupContent = valueSelection;
                         }
                         if (param == "COEF")
                         {
                             valueSelection.ValueType = ValueTypeEnum.Measure;
+                            PopupContent = valueSelection;
                         }
-                        PopupContent = valueSelection;
+                        if (param == "EQU")
+                        {
+                            object newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ValueType = ValueTypeEnum.Measure };
+                            Columns.Add(newone);
+                            togglebutton.IsChecked = false;
+                        }
+
                     }
                 }
                 )
@@ -56,11 +64,8 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        var newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Measure };
+                        var newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText }, ValueType = ValueTypeEnum.Measure };
                         Columns.Add(newone);
-
-
-                        //Columns.Add(new LuiAccordionItem() { Header = item.DisplayText, Content = new MeasureColumnDataView(), IsExpanded = true });
                         togglebutton.IsChecked = false;
                     }
                 });
@@ -94,11 +99,11 @@ namespace daVinci.Controls
                             switch (item.ValueType)
                             {
                                 case ValueTypeEnum.Dimension:
-                                    newone = new ColumnConfiguration() { ColumnData = new DimensionColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Dimension };
+                                    newone = new ColumnConfiguration() { ColumnData = new DimensionColumnData() { LibraryID = item.DisplayText }, ValueType = ValueTypeEnum.Dimension };
                                     Columns.Add(newone);
                                     break;
                                 case ValueTypeEnum.Measure:
-                                    newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ColumnName = item.DisplayText, ValueType = ValueTypeEnum.Measure };
+                                    newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData() { LibraryID = item.DisplayText }, ValueType = ValueTypeEnum.Measure };
                                     Columns.Add(newone);
                                     break;
                                 default:
@@ -176,7 +181,7 @@ namespace daVinci.Controls
         {
             PopupContent = categorySelection;
             dialog.PanelWidth = 120;
-            dialog.PanelHeight = 120;
+            dialog.PanelHeight = 170;
         }
 
         private object categorySelection;

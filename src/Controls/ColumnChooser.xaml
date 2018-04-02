@@ -51,7 +51,7 @@
         <LuiControls:LuiDialog
             x:Name="dialog"
             IsOpen="{Binding IsChecked, ElementName=togglebutton}"
-            PanelHeight="120"
+            PanelHeight="170"
             PanelWidth="120"
             Placement="Bottom"
             PlacementTarget="{Binding ElementName=togglebutton}"

@@ -24,5 +24,12 @@
             Command="{Binding SelectedCommand, ElementName=control}"
             CommandParameter="COEF"
             Content="Kennzahl" />
+        <controls:LuiSeparator Height="3" />
+        <controls:LuiButton
+            Height="45"
+            LuiAttached:ThemeProperties.BorderThickness="0"
+            Command="{Binding SelectedCommand, ElementName=control}"
+            CommandParameter="EQU"
+            Content="Formel" />
     </StackPanel>
 </UserControl>
