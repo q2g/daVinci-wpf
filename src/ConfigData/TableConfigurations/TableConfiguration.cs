@@ -1,9 +1,11 @@
 ﻿using daVinci_wpf.Resources;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,10 +40,9 @@ namespace daVinci.ConfigData
             {
                 foreach (var item in e.NewItems)
                 {
-                    if (item is ColumnConfiguration configitem)
-                    {
-                        SortColumns.Add(configitem);
-                    }
+
+                    SortColumns.Add(item);
+
                 }
             }
 
@@ -49,10 +50,9 @@ namespace daVinci.ConfigData
             {
                 foreach (var item in e.OldItems)
                 {
-                    if (item is ColumnConfiguration configitem)
-                    {
-                        SortColumns.Remove(configitem);
-                    }
+
+                    SortColumns.Remove(item);
+
                 }
             }
         }
@@ -100,6 +100,23 @@ namespace daVinci.ConfigData
 
         public string TableName { get; set; }
 
+        public void ReadFromJSON(string JSONstring)
+        {
+            dynamic jsonConfig = JObject.Parse(JSONstring);
+            foreach (var dimension in jsonConfig.qHyperCubeDef.qDimensions)
+            {
+                var newone = new DimensionColumnData();
+                newone.ReadFromJSON(dimension.ToString());
+                Columns.Add(newone);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+
+
     }
 }

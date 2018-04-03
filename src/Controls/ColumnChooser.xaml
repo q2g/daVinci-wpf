@@ -23,17 +23,6 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<CollectionViewSource
-                x:Key="columnOrderViewSource"
-                Source="{Binding Columns}">
-                <CollectionViewSource.SortDescriptions>
-                    <scm:SortDescription
-                        Direction="Ascending"
-                        PropertyName="ColumnOrderIndex" />
-                </CollectionViewSource.SortDescriptions>
-            </CollectionViewSource>-->
-
-            <configdata:ColumnOrderIndexSorter x:Key="ColumnOrderIndexSorter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -78,9 +67,8 @@
                     CollapseAllOnExpandSingle="false"
                     IsDragDropChangesUnderlyingCollection="True"
                     IsDragDropEnabled="True"
-                    ItemContainerStyleSelector="{StaticResource styleselector}"
-                    ItemsSource="{Binding Columns}"
-                    Sorter="{StaticResource ColumnOrderIndexSorter}" />
+                    ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                    ItemsSource="{Binding Columns}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

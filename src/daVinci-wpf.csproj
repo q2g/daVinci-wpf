@@ -33,6 +33,9 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Users\CHoldschick\source\repos\Lui_daV\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -48,12 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigData\TableConfigurations\AddOnDataProcessingConfiguration.cs" />
-    <Compile Include="ConfigData\TableConfigurations\SortConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationGeneralData.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationData.cs" />
     <Compile Include="ConfigData\TableConfigurations\DimensionColumnData.cs" />
     <Compile Include="ConfigData\TableConfigurations\MeasureColumnData.cs" />
-    <Compile Include="ConfigData\TableConfigurations\ColumnConfiguration.cs" />
+    <Compile Include="ConfigData\TableConfigurations\SortCriteria.cs" />
     <Compile Include="ConfigData\TableConfigurations\TableConfiguration.cs" />
     <Compile Include="Controls\AddOnDataProcessing.xaml.cs">
       <DependentUpon>AddOnDataProcessing.xaml</DependentUpon>
@@ -93,7 +95,6 @@
     </Compile>
     <Compile Include="Converter\ColumnNameConverter.cs" />
     <Compile Include="Converter\StringLengthToVisibilityConverter.cs" />
-    <Compile Include="Converter\ColumnStyleSelector.cs" />
     <Compile Include="Converter\AddNumberConverter.cs" />
     <Compile Include="Converter\ControlCreationConverter.cs" />
     <Compile Include="Converter\IntToVisibilityConverter.cs" />

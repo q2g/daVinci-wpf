@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -370,8 +371,83 @@ namespace daVinci.ConfigData
             }
         }
 
+        public void ReadFromJSON(string JSONstring)
+        {
+            dynamic jsonConfig = JObject.Parse(JSONstring);
+            libraryID = jsonConfig.qLibraryId;
+            if (jsonConfig.qDef.qFieldDefs.Count > 0)
+            {
+                fieldDef = jsonConfig.qDef.qFieldDefs[0];
+                fieldLabel = jsonConfig.qDef.qFieldLabels[0];
+                SortCriterias.ReadFromJSON(jsonConfig.ToString());
+
+                switch (jsonConfig.qDef.qNumFormat.qType)
+                {
+                    case "U":
+                        NumberFormatIndex = 0;
+                        break;
+                    case "F":
+                        NumberFormatIndex = 1;
+                        dynamic value = jsonConfig.qDef.qNumFormat.qFmt;
+                        switch (value)
+                        {
+                            case "0.00%":
+                                StandardFormatIndex = 5;
+                                break;
+                            case "0.0%":
+                                StandardFormatIndex = 4;
+                                break;
+                            case "0%":
+                                StandardFormatIndex = 3;
+                                break;
+                            case "#,##0.00":
+                                StandardFormatIndex = 3;
+                                break;
+                            case "#,##0.0":
+                                StandardFormatIndex = 2;
+                                break;
+                            case "#,##0":
+                                StandardFormatIndex = 1;
+                                break;
+                            default:
+                                break;
+                        }
+                        NumberFormatText = jsonConfig.qDef.qNumFormat.qFmt;
+                        break;
+                    case "M":
+                        NumberFormatIndex = 2;
+                        CurrencyFormatText = jsonConfig.qDef.qNumFormat.qFmt;
+                        break;
+                    case "D":
+                        DateFormatText = jsonConfig.qDef.qNumFormat.qFmt;
+                        NumberFormatIndex = 3;
+                        break;
+                    case "IV":
+                        DurationFormatText = jsonConfig.qDef.qNumFormat.qFmt;
+                        NumberFormatIndex = 4;
+                        break;
+                    case "R":
+                        CustomNumberFormatText = jsonConfig.qDef.qNumFormat.qFmt;
+                        Dec_SplitterSign = jsonConfig.qDef.qNumFormat.qDec;
+                        Thou_SplitterSign = jsonConfig.qDef.qNumFormat.qThou;
+                        NumberFormatIndex = 5;
+                        break;
+                    default:
+                        break;
+                }
+                //ShowOthers = jsonConfig.qSuppressOther != 0;
+                //OthersLabel = jsonConfig.othersLabel;
+
+            }
+        }
 
 
+        public SortCriteria SortCriterias { get; set; }
+
+        public MeasureColumnData()
+        {
+            SortCriterias = new SortCriteria();
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

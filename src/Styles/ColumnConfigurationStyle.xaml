@@ -18,42 +18,44 @@
 
     <Style
         x:Key="DimensionColumnDataStyle"
-        x:Shared="false"
         BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
-                    <Binding Path="ColumnData.LibraryID" />
-                    <Binding Path="ColumnData.FieldLabel" />
+                    <Binding Path="LibraryID" />
+                    <Binding Path="FieldLabel" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
-        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortCriterias.ColumnOrderIndex, Mode=TwoWay}" />
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:DimensionColumnDataView}}" />
     </Style>
 
     <Style
         x:Key="MeasureColumnDataStyle"
-        x:Shared="false"
         BasedOn="{StaticResource LUI_ColumnOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
-                    <Binding Path="ColumnData.LibraryID" />
-                    <Binding Path="ColumnData.FieldLabel" />
+                    <Binding Path="LibraryID" />
+                    <Binding Path="FieldLabel" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
-        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding ColumnOrderIndex, Mode=TwoWay}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortCriterias.ColumnOrderIndex, Mode=TwoWay}" />
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:MeasureColumnDataView}}" />
     </Style>
 
-    <daVinciConverter:ColumnStyleSelector
-        x:Key="styleselector"
-        DimensionColumnStyle="{StaticResource DimensionColumnDataStyle}"
-        MeasureColumnStyle="{StaticResource MeasureColumnDataStyle}" />
+
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="Columnstyleselector"
+        ItemStyle1="{StaticResource DimensionColumnDataStyle}"
+        ItemStyle2="{StaticResource MeasureColumnDataStyle}"
+        ItemType1="{x:Type daVinciConfig:DimensionColumnData}"
+        ItemType2="{x:Type daVinciConfig:MeasureColumnData}" />
 
 
 
@@ -61,19 +63,18 @@
 
     <Style
         x:Key="SortOrderColumnDataStyle"
-        x:Shared="false"
         BasedOn="{StaticResource SortOrderAccordionItemStyle}"
         TargetType="LuiControls:LuiAccordionItem">
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
-                    <Binding Path="ColumnData.LibraryID" />
-                    <Binding Path="ColumnData.FieldLabel" />
+                    <Binding Path="LibraryID" />
+                    <Binding Path="FieldLabel" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
-        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortCriterias.SortOrderIndex, Mode=TwoWay}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=SortCriterias, Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
     </Style>
 
 

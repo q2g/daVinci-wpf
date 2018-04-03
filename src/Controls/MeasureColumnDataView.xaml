@@ -42,31 +42,31 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="True"
-            LabelText="Feld"
+            LabelText="Formel"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding ColumnData.FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+            Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="true"
             LabelText="Bezeichnung"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding ColumnData.FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
+            Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="False"
-            LabelText="Dimension"
+            LabelText="Kennzahl"
             RightCommand="{Binding UnlinkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:MeasureColumnDataView}}"
             RightCommandIcon="lui_icon_link"
-            Text="{Binding ColumnData.LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding ColumnData.LibraryID, Converter={StaticResource VisibleOnNotEmpty}}" />
+            Text="{Binding LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnNotEmpty}}" />
         <LuiControls:LuiCombobox
             Name="NumberFormatCombo"
             Margin="0,10,0,0"
             LabelText="Zahlenformat"
-            SelectedIndex="{Binding ColumnData.NumberFormatIndex}">
+            SelectedIndex="{Binding NumberFormatIndex}">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Zahl" />
             <ComboBoxItem Content="Währung" />
@@ -87,11 +87,11 @@
             </StackPanel.Visibility>
             <daViniciControls:ContentSwitch
                 CheckedText="Standard"
-                IsChecked="{Binding ColumnData.IsStandardFormat}"
+                IsChecked="{Binding IsStandardFormat}"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
                 <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.StandardFormatIndex}">
+                    <LuiControls:LuiCombobox SelectedIndex="{Binding StandardFormatIndex}">
                         <ComboBoxItem Content="1,000" />
                         <ComboBoxItem Content="1,000.1" />
                         <ComboBoxItem Content="1,000.12" />
@@ -104,7 +104,7 @@
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
-                            Text="{Binding ColumnData.NumberFormatText}" />
+                            Text="{Binding NumberFormatText}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -133,7 +133,7 @@
 
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
-                Text="{Binding ColumnData.CurrencyFormatText}" />
+                Text="{Binding CurrencyFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -157,11 +157,11 @@
             </StackPanel.Visibility>
             <daViniciControls:ContentSwitch
                 CheckedText="Standard"
-                IsChecked="{Binding ColumnData.IsStandardDateFormat}"
+                IsChecked="{Binding IsStandardDateFormat}"
                 TitleText="Formatierung"
                 UnCheckedText="Benutzerdefiniert">
                 <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.DateStandardFormatIndex}">
+                    <LuiControls:LuiCombobox SelectedIndex="{Binding DateStandardFormatIndex}">
                         <ComboBoxItem Content="2/17/2014" />
                         <ComboBoxItem Content="2014-02-17" />
                         <ComboBoxItem Content="17 02 2014" />
@@ -180,7 +180,7 @@
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
-                            Text="{Binding ColumnData.DateFormatText}" />
+                            Text="{Binding DateFormatText}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -209,7 +209,7 @@
 
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
-                Text="{Binding ColumnData.DurationFormatText}" />
+                Text="{Binding DurationFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -233,15 +233,15 @@
             </StackPanel.Visibility>
             <LuiControls:LuiInput
                 LabelText="Dezimaltrennzeichen"
-                Text="{Binding ColumnData.Dec_SplitterSign}" />
+                Text="{Binding Dec_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
                 LabelText="Tausendertrennzeichen"
-                Text="{Binding ColumnData.Thou_SplitterSign}" />
+                Text="{Binding Thou_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
                 LabelText="Zahlenformat"
-                Text="{Binding ColumnData.CustomNumberFormatText}" />
+                Text="{Binding CustomNumberFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -259,17 +259,17 @@
             LabelText="Formel für Hintergrundfarbe"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding ColumnData.BackgroundColorExpression}" />
+            Text="{Binding BackgroundColorExpression}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="Formel für Textfarbe"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding ColumnData.TextColorExpression}" />
+            Text="{Binding TextColorExpression}" />
         <LuiControls:LuiCombobox
             Margin="0,10,0,0"
             LabelText="Gesamtwertefunktion"
-            SelectedIndex="{Binding ColumnData.TotalValueFunctionIndex}">
+            SelectedIndex="{Binding TotalValueFunctionIndex}">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Avg" />
             <ComboBoxItem Content="Count" />
@@ -285,14 +285,14 @@
         <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
             CheckedText="Automatisch"
-            IsChecked="{Binding ColumnData.TextAllignment}"
+            IsChecked="{Binding TextAllignment}"
             TitleText="Text Ausrichtung"
             UnCheckedText="Benutzerdefiniert">
             <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
             </daViniciControls:ContentSwitch.Content>
             <daViniciControls:ContentSwitch.UnCheckedContent>
-                <LuiControls:LuiCombobox SelectedIndex="{Binding ColumnData.AllignmentIndex}">
+                <LuiControls:LuiCombobox SelectedIndex="{Binding AllignmentIndex}">
                     <ComboBoxItem Content="Linksbündig" />
                     <ComboBoxItem Content="Rechtsbündig" />
                 </LuiControls:LuiCombobox>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace daVinci.ConfigData
         }
 
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// fixed ColumnCount
+        /// fix ColumnCount
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         private int topBottomIndex;
         public int TopBottomIndex
@@ -293,7 +294,48 @@ namespace daVinci.ConfigData
             }
         }
 
+        public SortCriteria SortCriterias { get; set; }
 
+        public DimensionColumnData()
+        {
+            SortCriterias = new SortCriteria();
+        }
+
+        public void ReadFromJSON(string JSONstring)
+        {
+            dynamic jsonConfig = JObject.Parse(JSONstring);
+            libraryID = jsonConfig.qLibraryId;
+            if (jsonConfig.qDef.qFieldDefs.Count > 0)
+            {
+                fieldDef = jsonConfig.qDef.qFieldDefs[0];
+                fieldLabel = jsonConfig.qDef.qFieldLabels[0];
+                SortCriterias.ReadFromJSON(jsonConfig.ToString());
+                AllowNULLValues = jsonConfig.qNullSuppression == 0;
+                switch (jsonConfig.qOtherTotalSpec.qOtherMode)
+                {
+                    case "OTHER_GE_LIMIT":
+                        LimitModeIndex = 0;
+                        break;
+                    case "OTHER_COUNTED":
+                        LimitModeIndex = 1;
+                        FixedColumnCountSize = jsonConfig.qOtherTotalSpec.qOtherCounted.qv;
+                        break;
+                    case "OTHER_ABS_LIMITED":
+                        LimitModeIndex = 2;
+                        TextValue = jsonConfig.qOtherTotalSpec.qOtherLimit.qv;
+                        break;
+                    case "OTHER_REL_LIMITED":
+                        TextValue = jsonConfig.qOtherTotalSpec.qOtherLimit.qv;
+                        LimitModeIndex = 3;
+                        break;
+                    default:
+                        break;
+                }
+                ShowOthers = jsonConfig.qSuppressOther != 0;
+                OthersLabel = jsonConfig.othersLabel;
+
+            }
+        }
 
 
 

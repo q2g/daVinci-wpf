@@ -49,7 +49,7 @@ namespace daVinci.Controls
                         }
                         if (param == "EQU")
                         {
-                            object newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData(), ValueType = ValueTypeEnum.Measure };
+                            object newone = new MeasureColumnData();
                             Columns.Add(newone);
                             togglebutton.IsChecked = false;
                         }
@@ -64,7 +64,7 @@ namespace daVinci.Controls
                 {
                     if (parameter is ValueItem item)
                     {
-                        var newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText }, ValueType = ValueTypeEnum.Measure };
+                        var newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText };
                         Columns.Add(newone);
                         togglebutton.IsChecked = false;
                     }
@@ -95,15 +95,15 @@ namespace daVinci.Controls
                         }
                         else
                         {
-                            ColumnConfiguration newone = null;
+                            object newone = null;
                             switch (item.ValueType)
                             {
                                 case ValueTypeEnum.Dimension:
-                                    newone = new ColumnConfiguration() { ColumnData = new DimensionColumnData() { LibraryID = item.DisplayText }, ValueType = ValueTypeEnum.Dimension };
+                                    newone = new DimensionColumnData() { LibraryID = item.DisplayText };
                                     Columns.Add(newone);
                                     break;
                                 case ValueTypeEnum.Measure:
-                                    newone = new ColumnConfiguration() { ColumnData = new MeasureColumnData() { LibraryID = item.DisplayText }, ValueType = ValueTypeEnum.Measure };
+                                    newone = new MeasureColumnData() { LibraryID = item.DisplayText };
                                     Columns.Add(newone);
                                     break;
                                 default:

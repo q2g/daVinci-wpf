@@ -13,9 +13,6 @@
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
-    <daVinciConfig:SortOrderIndexSorter x:Key="SortOrderIndexSorter" />
-
     <Style
         x:Key="PresentationDataStyle"
         BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
@@ -103,8 +100,7 @@
                                             IsDragDropChangesUnderlyingCollection="True"
                                             IsDragDropEnabled="True"
                                             ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
-                                            ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                            Sorter="{StaticResource SortOrderIndexSorter}" />
+                                            ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 

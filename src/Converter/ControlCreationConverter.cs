@@ -30,7 +30,11 @@ namespace daVinci.Converter
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        controlHolder.Content = Activator.CreateInstance(type);
+                        if (Activator.CreateInstance(type) is Control toCreate)
+                        {
+                            toCreate.DataContext = value;
+                            controlHolder.Content = toCreate;
+                        }
                     });
 
                 };

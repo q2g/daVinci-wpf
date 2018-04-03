@@ -6,6 +6,7 @@ using leonardo.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,11 +31,11 @@ namespace daVinci_Demo
         {
             //ColumnChooser cc = new ColumnChooser();
             ////cc.Height = 300;
-            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } });
-            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new MeasureColumnDataView() { Text = "TestKennzahl" } });
+            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } }});
+            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new MeasureColumnDataView() { Text = "TestKennzahl" } }});
             //ItemList = new ObservableCollection<LuiAccordionItem>()
             //{
-            //    new LuiAccordionItem(){Header="Daten", Content=cc},
+            //    new LuiAccordionItem(){Header="Daten", Content=cc, SortCriterias=new SortCriteria(){
             //     new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
             //};
             Table = new TableConfiguration();
@@ -57,7 +58,14 @@ namespace daVinci_Demo
                 TextAllignment = true,
                 TextColorExpression = "TColorExp",
                 TextValue = "Value",
-                TopBottomIndex = 1
+                TopBottomIndex = 1,
+
+                SortCriterias = new SortCriteria()
+                {
+                    ColumnOrderIndex = 1,
+                    SortOrderIndex = 2,
+                    AutoSort = true
+                }
 
             };
 
@@ -78,7 +86,21 @@ namespace daVinci_Demo
                 TextAllignment = false,
                 TextColorExpression = "TColorExp",
                 TextValue = "Value",
-                TopBottomIndex = 1
+                TopBottomIndex = 1,
+
+                SortCriterias = new SortCriteria()
+                {
+                    ColumnOrderIndex = 2,
+                    SortOrderIndex = 1,
+                    AutoSort = false,
+                    SortByAscii = true,
+                    SortByAsciiDirection = 1,
+                    SortByExpression = true,
+                    SortByExpressionDirection = 1,
+                    SortByExpressionText = "expression",
+                    SortByNumeric = true,
+                    SortByNumericDirection = 1
+                }
 
             };
 
@@ -103,7 +125,13 @@ namespace daVinci_Demo
                 NumberFormatText = "numberformat",
                 StandardFormatIndex = 1,
                 Thou_SplitterSign = ",",
-                TotalValueFunctionIndex = 2
+                TotalValueFunctionIndex = 2,
+
+                SortCriterias = new SortCriteria()
+                {
+                    ColumnOrderIndex = 3,
+                    SortOrderIndex = 3
+                }
             };
 
             var measure2 = new MeasureColumnData()
@@ -127,31 +155,37 @@ namespace daVinci_Demo
                 NumberFormatText = "numberformat",
                 StandardFormatIndex = 1,
                 Thou_SplitterSign = ",",
-                TotalValueFunctionIndex = 2
+                TotalValueFunctionIndex = 2,
+
+                SortCriterias = new SortCriteria()
+                {
+                    ColumnOrderIndex = 4,
+                    SortOrderIndex = 4
+                }
             };
 
 
 
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = dimension1, ColumnOrderIndex = 1, SortOrderIndex = 1, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = dimension2, ColumnOrderIndex = 2, SortOrderIndex = 2, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = measure1, ColumnOrderIndex = 3, SortOrderIndex = 3, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = measure2, ColumnOrderIndex = 4, SortOrderIndex = 4, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension1" }, ColumnOrderIndex = 5, SortOrderIndex = 5, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 6, SortOrderIndex = 6, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData() { LibraryID = "Kennzahl" }, ColumnOrderIndex = 7, SortOrderIndex = 7, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension1" }, ColumnOrderIndex = 8, SortOrderIndex = 8, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 9, SortOrderIndex = 9, Parent = Table });
+            Table.Columns.Add(dimension1);
+            Table.Columns.Add(dimension2);
+            Table.Columns.Add(measure1);
+            Table.Columns.Add(measure2);
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 5, SortOrderIndex = 5 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 6, SortOrderIndex = 6 } });
+            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 7, SortOrderIndex = 7 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 8, SortOrderIndex = 8 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 9, SortOrderIndex = 9 } });
 
 
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData() { LibraryID = "Kennzahl" }, ColumnOrderIndex = 10, SortOrderIndex = 10, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension1" }, ColumnOrderIndex = 11, SortOrderIndex = 11, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 12, SortOrderIndex = 12, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData() { LibraryID = "Kennzahl" }, ColumnOrderIndex = 13, SortOrderIndex = 13, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension1" }, ColumnOrderIndex = 14, SortOrderIndex = 14, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 15, SortOrderIndex = 15, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Measure, ColumnData = new MeasureColumnData() { LibraryID = "Kennzahl" }, ColumnOrderIndex = 16, SortOrderIndex = 16, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension1" }, ColumnOrderIndex = 17, SortOrderIndex = 17, Parent = Table });
-            Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 18, SortOrderIndex = 18, Parent = Table });
+            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 10, SortOrderIndex = 10 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 11, SortOrderIndex = 11 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 12, SortOrderIndex = 12 } });
+            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 13, SortOrderIndex = 13 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 14, SortOrderIndex = 14 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 15, SortOrderIndex = 15 } });
+            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 16, SortOrderIndex = 16 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 17, SortOrderIndex = 17 } });
+            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 18, SortOrderIndex = 18 } });
 
 
             Table.AddOnData.Add(new AddOnDataProcessingConfiguration()
@@ -168,7 +202,7 @@ namespace daVinci_Demo
                 TotalLabel = "GesamtwerteTest"
             });
 
-
+            Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
             InitializeComponent();
             DataContext = this;
 
@@ -178,7 +212,7 @@ namespace daVinci_Demo
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            tt.Opacity = 0.5;
+
         }
     }
 }

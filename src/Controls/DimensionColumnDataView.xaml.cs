@@ -28,14 +28,11 @@ namespace daVinci.Controls
             UnlinkCommand = new RelayCommand((o) => true,
                 (o) =>
                 {
-                    if (DataContext is ColumnConfiguration column)
+                    if (DataContext is DimensionColumnData dimensionconfig)
                     {
-                        if (column.ColumnData is DimensionColumnData dimensionconfig)
-                        {
-                            dimensionconfig.FieldDef = $"Formel von {dimensionconfig.LibraryID}";
-                            dimensionconfig.FieldLabel = dimensionconfig.LibraryID;
-                            dimensionconfig.LibraryID = "";
-                        }
+                        dimensionconfig.FieldDef = $"Formel von {dimensionconfig.LibraryID}";
+                        dimensionconfig.FieldLabel = dimensionconfig.LibraryID;
+                        dimensionconfig.LibraryID = "";
                     }
                 });
             InitializeComponent();
