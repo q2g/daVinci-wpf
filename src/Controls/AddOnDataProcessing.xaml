@@ -21,7 +21,8 @@
     <StackPanel>
         <LuiControls:LuiCheckbox
             Margin="10,10,0,0"
-            Content="NULL-Werte einschließen" />
+            Content="NULL-Werte einschließen"
+            IsChecked="{Binding AllowNULLValues}" />
         <LuiControls:LuiSeparator
             Height="0.4"
             Margin="0,10,0,0" />
@@ -29,7 +30,8 @@
             Margin="10,10,0,10"
             LabelText="Bedingung für die Berechnung"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
-            RightCommandIcon="lui_icon_expression" />
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding CalcCondition}" />
 
     </StackPanel>
 </UserControl>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using daVinci.ConfigData;
+using leonardo.Controls;
+using leonardo.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,20 +25,27 @@ namespace daVinci.Controls
     {
         public DimensionColumnDataView()
         {
+            UnlinkCommand = new RelayCommand((o) => true,
+                (o) =>
+                {
+                    if (DataContext is ColumnConfiguration column)
+                    {
+                        if (column.ColumnData is DimensionColumnData dimensionconfig)
+                        {
+                            dimensionconfig.FieldDef = $"Formel von {dimensionconfig.LibraryID}";
+                            dimensionconfig.FieldLabel = dimensionconfig.LibraryID;
+                            dimensionconfig.LibraryID = "";
+                        }
+                    }
+                });
             InitializeComponent();
+
+
         }
 
-        #region Text - DP        
-        public string Text
-        {
-            get { return (string)this.GetValue(TextProperty); }
-            set { this.SetValue(TextProperty, value); }
-        }
+        public ICommand UnlinkCommand { get; set; }
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-         "Text", typeof(string), typeof(DimensionColumnDataView), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
     }
 }
 
-    
+

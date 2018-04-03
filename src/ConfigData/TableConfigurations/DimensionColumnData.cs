@@ -96,7 +96,7 @@ namespace daVinci.ConfigData
         }
 
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Feste Spaltenanzahl
+        /// fixed ColumnCount
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         private int topBottomIndex;
         public int TopBottomIndex
@@ -133,7 +133,7 @@ namespace daVinci.ConfigData
         }
 
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Genauer Wert / Relativer Wert
+        /// exact Value / relative Value
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         private int greatherThanLessThanIndex;
         public int GreatherThanLessThanIndex

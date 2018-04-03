@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,11 +10,63 @@ namespace daVinci.ConfigData
 {
     public class PresentationData : INotifyPropertyChanged
     {
-        public PresentationData()
+        private bool totalMode;
+        public bool TotalMode
         {
-            if (PropertyChanged != null) {/* Make the Compiler Happy */ }
+            get
+            {
+                return totalMode;
+            }
+            set
+            {
+                if (totalMode != value)
+                {
+                    totalMode = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
+        private string totalLabel;
+        public string TotalLabel
+        {
+            get
+            {
+                return totalLabel;
+            }
+            set
+            {
+                if (totalLabel != value)
+                {
+                    totalLabel = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private int totalPositionIndex;
+        public int TotalPositionIndex
+        {
+            get
+            {
+                return totalPositionIndex;
+            }
+            set
+            {
+                if (totalPositionIndex != value)
+                {
+                    totalPositionIndex = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
     }
 }

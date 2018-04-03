@@ -20,6 +20,7 @@
 
         <daVincicontrols:ContentSwitch
             CheckedText="Automatisch"
+            IsChecked="{Binding TotalMode}"
             TitleText="Gesamtwerte"
             UnCheckedText="Benutzerdefiniert">
             <daVincicontrols:ContentSwitch.Content>
@@ -34,7 +35,7 @@
                         Text="Position" />
                     <controls:LuiCombobox
                         Background="{StaticResource LUI.Brush.Grayscale100}"
-                        SelectedIndex="0">
+                        SelectedIndex="{Binding TotalPositionIndex}">
                         <ComboBoxItem>Keine</ComboBoxItem>
                         <ComboBoxItem>Oben</ComboBoxItem>
                         <ComboBoxItem>Unten</ComboBoxItem>
@@ -47,7 +48,7 @@
                 Margin="10,15,10,0"
                 LabelText="Gesamtwerte-Bezeichnung"
                 RightCommandIcon="lui_icon_expression"
-                Text="Gesamtwerte" />
+                Text="{Binding TotalLabel}" />
         </StackPanel>
         <controls:LuiSeparator Margin="0,10,0,0" />
     </StackPanel>

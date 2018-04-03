@@ -154,10 +154,19 @@ namespace daVinci_Demo
             Table.Columns.Add(new ColumnConfiguration() { ValueType = ValueTypeEnum.Dimension, ColumnData = new DimensionColumnData() { LibraryID = "Dimension2" }, ColumnOrderIndex = 18, SortOrderIndex = 18, Parent = Table });
 
 
-            Table.AddOnData.Add(new AddOnDataProcessingConfiguration());
+            Table.AddOnData.Add(new AddOnDataProcessingConfiguration()
+            {
+                AllowNULLValues = true,
+                CalcCondition = "CalculationConditions"
+            });
 
             Table.PresentationData = new ObservableCollection<object>();
-            Table.PresentationData.Add(new PresentationData());
+            Table.PresentationData.Add(new PresentationData()
+            {
+                TotalMode = false,
+                TotalPositionIndex = 1,
+                TotalLabel = "GesamtwerteTest"
+            });
 
 
             InitializeComponent();
@@ -169,7 +178,7 @@ namespace daVinci_Demo
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            tt.Opacity = 0.5;
         }
     }
 }

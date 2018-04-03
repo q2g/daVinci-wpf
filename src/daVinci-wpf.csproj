@@ -76,9 +76,6 @@
     <Compile Include="Controls\DimensionColumnDataView.xaml.cs">
       <DependentUpon>DimensionColumnDataView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PresentationAccordion.xaml.cs">
-      <DependentUpon>PresentationAccordion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PresentationSetting.xaml.cs">
       <DependentUpon>PresentationSetting.xaml</DependentUpon>
     </Compile>
@@ -133,10 +130,6 @@
     <Page Include="Controls\DimensionColumnDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PresentationAccordion.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PresentationSetting.xaml">
       <SubType>Designer</SubType>

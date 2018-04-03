@@ -1,4 +1,6 @@
-﻿using System;
+﻿using daVinci.ConfigData;
+using leonardo.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,23 +24,23 @@ namespace daVinci.Controls
     {
         public MeasureColumnDataView()
         {
+            UnlinkCommand = new RelayCommand((o) => true,
+                   (o) =>
+                   {
+                       if (DataContext is ColumnConfiguration column)
+                       {
+                           if (column.ColumnData is MeasureColumnData measureconfig)
+                           {
+                               measureconfig.FieldDef = $"Formel von {measureconfig.LibraryID}";
+                               measureconfig.FieldLabel = measureconfig.LibraryID;
+                               measureconfig.LibraryID = "";
+                           }
+                       }
+                   });
             InitializeComponent();
         }
 
-        #region Text - DP        
-        public string Text
-        {
-            get { return (string)this.GetValue(TextProperty); }
-            set { this.SetValue(TextProperty, value); }
-        }
+        public ICommand UnlinkCommand { get; set; }
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-         "Text", typeof(string), typeof(MeasureColumnDataView), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

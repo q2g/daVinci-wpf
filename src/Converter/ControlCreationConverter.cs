@@ -36,7 +36,7 @@ namespace daVinci.Converter
                 };
                 worker.RunWorkerAsync();
 
-                //    toCreate = Activator.CreateInstance(type);
+                //controlHolder.Content = Activator.CreateInstance(type);
             }
 
 
