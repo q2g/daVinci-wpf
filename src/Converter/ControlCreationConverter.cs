@@ -22,25 +22,25 @@ namespace daVinci.Converter
 
             if (parameter is Type type)
             {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += (s, e) =>
-                {
-                    //Give UI Time to Breathe
-                    Thread.Sleep(1000);
+                //BackgroundWorker worker = new BackgroundWorker();
+                //worker.DoWork += (s, e) =>
+                //{
+                //    //Give UI Time to Breathe
+                //    Thread.Sleep(1000);
 
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        if (Activator.CreateInstance(type) is Control toCreate)
-                        {
-                            toCreate.DataContext = value;
-                            controlHolder.Content = toCreate;
-                        }
-                    });
+                //    Application.Current.Dispatcher.Invoke(() =>
+                //    {
+                //        if (Activator.CreateInstance(type) is Control toCreate)
+                //        {
+                //            toCreate.DataContext = value;
+                //            controlHolder.Content = toCreate;
+                //        }
+                //    });
 
-                };
-                worker.RunWorkerAsync();
+                //};
+                //worker.RunWorkerAsync();
 
-                //controlHolder.Content = Activator.CreateInstance(type);
+                controlHolder.Content = Activator.CreateInstance(type);
             }
 
 

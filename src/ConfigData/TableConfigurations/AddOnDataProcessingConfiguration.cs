@@ -1,4 +1,5 @@
 ﻿using daVinci.Resources;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,40 @@ namespace daVinci.ConfigData
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        private string displayedMessage;
+        public string DisplayedMessage
+        {
+            get
+            {
+                return displayedMessage;
+            }
+            set
+            {
+                if (displayedMessage != value)
+                {
+                    displayedMessage = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public void ReadFromJSON(string JSONstring)
+        {
+            dynamic jsonConfig = JObject.Parse(JSONstring);
+            AllowNULLValues = (jsonConfig?.qSuppressZero ?? false) == false ? true : false;
+            CalcCondition = jsonConfig?.qCalcCond?.qv ?? "";
+            if (!string.IsNullOrEmpty(CalcCondition))
+            {
+                CalcCondition = jsonConfig?.qCalcCondition?.qCond?.qv ?? "";
+            }
+            DisplayedMessage = jsonConfig?.qCalcCondition?.qMsg?.qv ?? "";
+            if (!string.IsNullOrEmpty(DisplayedMessage))
+            {
+                DisplayedMessage = jsonConfig?.customErrorMessage?.calcCond ?? "";
+            }
+
         }
 
 

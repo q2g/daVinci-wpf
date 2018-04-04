@@ -5,6 +5,7 @@
     xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,6 +17,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:StringLengthToVisibilityConverter
+                x:Key="StringLengthToVisibilityConverter"
+                LengthGreaterZero_Visbility="Visible"
+                LengthZero_Visbility="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
@@ -27,11 +32,17 @@
             Height="0.4"
             Margin="0,10,0,0" />
         <LuiControls:LuiInputGroup
+            Name="CalcCond"
             Margin="10,10,0,10"
             LabelText="Bedingung für die Berechnung"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding CalcCondition}" />
-
+        <LuiControls:LuiInputGroup
+            Margin="10,10,0,10"
+            LabelText="Angezeigte Meldung"
+            RightCommandIcon="lui_icon_expression"
+            Text="{Binding DisplayedMessage}"
+            Visibility="{Binding Text, ElementName=CalcCond, Converter={StaticResource StringLengthToVisibilityConverter}}" />
     </StackPanel>
 </UserControl>

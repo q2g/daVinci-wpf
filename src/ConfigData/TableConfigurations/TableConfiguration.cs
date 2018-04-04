@@ -103,12 +103,22 @@ namespace daVinci.ConfigData
         public void ReadFromJSON(string JSONstring)
         {
             dynamic jsonConfig = JObject.Parse(JSONstring);
-            foreach (var dimension in jsonConfig.qHyperCubeDef.qDimensions)
+            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
             {
                 var newone = new DimensionColumnData();
                 newone.ReadFromJSON(dimension.ToString());
                 Columns.Add(newone);
             }
+
+            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
+            {
+                var newone = new MeasureColumnData();
+                newone.ReadFromJSON(dimension.ToString());
+                Columns.Add(newone);
+            }
+            var addonConfig = new AddOnDataProcessingConfiguration();
+            addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef?.ToString() ?? "");
+            AddOnData.Add(addonConfig);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

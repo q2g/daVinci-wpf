@@ -97,7 +97,7 @@ namespace daVinci.ConfigData
         }
 
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// fix ColumnCount
+        /// fixed ColumnCount
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         private int topBottomIndex;
         public int TopBottomIndex
@@ -277,18 +277,35 @@ namespace daVinci.ConfigData
             }
         }
 
-        private int representation;
+        private int representationIndex;
         public int RepresentationIndex
         {
             get
             {
-                return representation;
+                return representationIndex;
             }
             set
             {
-                if (representation != value)
+                if (representationIndex != value)
                 {
-                    representation = value;
+                    representationIndex = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string urlLabel;
+        public string UrlLabel
+        {
+            get
+            {
+                return urlLabel;
+            }
+            set
+            {
+                if (urlLabel != value)
+                {
+                    urlLabel = value;
                     RaisePropertyChanged();
                 }
             }
@@ -304,43 +321,93 @@ namespace daVinci.ConfigData
         public void ReadFromJSON(string JSONstring)
         {
             dynamic jsonConfig = JObject.Parse(JSONstring);
-            libraryID = jsonConfig.qLibraryId;
-            if (jsonConfig.qDef.qFieldDefs.Count > 0)
+            libraryID = jsonConfig?.qLibraryId;
+            if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
             {
-                fieldDef = jsonConfig.qDef.qFieldDefs[0];
-                fieldLabel = jsonConfig.qDef.qFieldLabels[0];
-                SortCriterias.ReadFromJSON(jsonConfig.ToString());
-                AllowNULLValues = jsonConfig.qNullSuppression == 0;
-                switch (jsonConfig.qOtherTotalSpec.qOtherMode)
-                {
-                    case "OTHER_GE_LIMIT":
-                        LimitModeIndex = 0;
-                        break;
-                    case "OTHER_COUNTED":
-                        LimitModeIndex = 1;
-                        FixedColumnCountSize = jsonConfig.qOtherTotalSpec.qOtherCounted.qv;
-                        break;
-                    case "OTHER_ABS_LIMITED":
-                        LimitModeIndex = 2;
-                        TextValue = jsonConfig.qOtherTotalSpec.qOtherLimit.qv;
-                        break;
-                    case "OTHER_REL_LIMITED":
-                        TextValue = jsonConfig.qOtherTotalSpec.qOtherLimit.qv;
-                        LimitModeIndex = 3;
-                        break;
-                    default:
-                        break;
-                }
-                ShowOthers = jsonConfig.qSuppressOther != 0;
-                OthersLabel = jsonConfig.othersLabel;
-
+                FieldDef = jsonConfig.qDef.qFieldDefs[0];
             }
+            if ((jsonConfig.qDef.qFieldLabels.Count ?? 0) > 0)
+            {
+                FieldLabel = jsonConfig.qDef.qFieldLabels[0];
+            }
+            SortCriterias.ReadFromJSON(jsonConfig.ToString());
+            AllowNULLValues = (jsonConfig.qNullSuppression ?? 0) == 0;
+            switch (jsonConfig.qOtherTotalSpec.qOtherMode?.ToString() ?? "OTHER_OFF")
+            {
+                case "OTHER_OFF":
+                    LimitModeIndex = 0;
+                    break;
+                case "OTHER_COUNTED":
+                    LimitModeIndex = 1;
+                    switch (jsonConfig?.qOtherTotalSpec?.qOtherSortMode?.ToString() ?? "OTHER_SORT_ASCENDING")
+                    {
+                        case "OTHER_SORT_ASCENDING":
+                            TopBottomIndex = 0;
+                            break;
+                        case "OTHER_SORT_DESCENDING":
+                            TopBottomIndex = 1;
+                            break;
+                        default:
+                            TopBottomIndex = 0;
+                            break;
+                    }
+                    FixedColumnCountSize = jsonConfig?.qOtherTotalSpec?.qOtherCounted?.qv ?? "";
+                    break;
+                case "OTHER_ABS_LIMITED":
+                    LimitModeIndex = 2;
+                    TextValue = jsonConfig?.qOtherTotalSpec?.qOtherLimit?.qv ?? "";
+
+                    break;
+                case "OTHER_REL_LIMITED":
+                    TextValue = jsonConfig?.qOtherTotalSpec?.qOtherLimit?.qv ?? "";
+                    LimitModeIndex = 3;
+                    break;
+                default:
+                    LimitModeIndex = 0;
+                    break;
+            }
+            switch (jsonConfig?.qOtherTotalSpec?.qOtherMode?.ToString() ?? "")
+            {
+                case "OTHER_ABS_LIMITED":
+                case "OTHER_REL_LIMITED":
+                    switch (jsonConfig?.qOtherTotalSpec?.qOtherLimitMode?.ToString() ?? "OTHER_GE_LIMIT")
+                    {
+                        case "OTHER_GE_LIMIT":
+                            GreatherThanLessThanIndex = 0;
+                            break;
+                        case "OTHER_GT_LIMIT":
+                            GreatherThanLessThanIndex = 1;
+                            break;
+                        case "OTHER_LT_LIMIT":
+                            GreatherThanLessThanIndex = 2;
+                            break;
+                        case "OTHER_LE_LIMIT":
+                            GreatherThanLessThanIndex = 3;
+                            break;
+                        default:
+                            GreatherThanLessThanIndex = 0;
+                            break;
+                    }
+                    break;
+            }
+
+
+            ShowOthers = (jsonConfig?.qOtherTotalSpec?.qSuppressOther ?? false) == false;
+            OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
+            OthersLabel = !string.IsNullOrEmpty(OthersLabel) ? jsonConfig?.qOtherLabel?.qv ?? "" : "";
+
+            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
+            {
+                BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+                TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
+            }
+
+            TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
+            AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
+
+            RepresentationIndex = (jsonConfig?.qDef?.representation?.type ?? "text") == "text" ? 0 : 1;
+            UrlLabel = jsonConfig?.qDef?.representation?.urlLabel ?? "";
         }
-
-
-
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

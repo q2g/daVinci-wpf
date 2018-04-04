@@ -63,7 +63,7 @@ namespace daVinci_Demo
                 SortCriterias = new SortCriteria()
                 {
                     ColumnOrderIndex = 1,
-                    SortOrderIndex = 2,
+                    SortOrderIndex = 1,
                     AutoSort = true
                 }
 
@@ -91,7 +91,7 @@ namespace daVinci_Demo
                 SortCriterias = new SortCriteria()
                 {
                     ColumnOrderIndex = 2,
-                    SortOrderIndex = 1,
+                    SortOrderIndex = 2,
                     AutoSort = false,
                     SortByAscii = true,
                     SortByAsciiDirection = 1,
@@ -166,41 +166,41 @@ namespace daVinci_Demo
 
 
 
-            Table.Columns.Add(dimension1);
-            Table.Columns.Add(dimension2);
-            Table.Columns.Add(measure1);
-            Table.Columns.Add(measure2);
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 5, SortOrderIndex = 5 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 6, SortOrderIndex = 6 } });
-            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 7, SortOrderIndex = 7 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 8, SortOrderIndex = 8 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 9, SortOrderIndex = 9 } });
+            //Table.Columns.Add(dimension1);
+            //Table.Columns.Add(dimension2);
+            //Table.Columns.Add(measure1);
+            //Table.Columns.Add(measure2);
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 5, SortOrderIndex = 5 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 6, SortOrderIndex = 6 } });
+            //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 7, SortOrderIndex = 7 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 8, SortOrderIndex = 8 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 9, SortOrderIndex = 9 } });
 
 
-            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 10, SortOrderIndex = 10 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 11, SortOrderIndex = 11 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 12, SortOrderIndex = 12 } });
-            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 13, SortOrderIndex = 13 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 14, SortOrderIndex = 14 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 15, SortOrderIndex = 15 } });
-            Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 16, SortOrderIndex = 16 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 17, SortOrderIndex = 17 } });
-            Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 18, SortOrderIndex = 18 } });
+            //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 10, SortOrderIndex = 10 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 11, SortOrderIndex = 11 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 12, SortOrderIndex = 12 } });
+            //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 13, SortOrderIndex = 13 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 14, SortOrderIndex = 14 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 15, SortOrderIndex = 15 } });
+            //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 16, SortOrderIndex = 16 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 17, SortOrderIndex = 17 } });
+            //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 18, SortOrderIndex = 18 } });
 
 
-            Table.AddOnData.Add(new AddOnDataProcessingConfiguration()
-            {
-                AllowNULLValues = true,
-                CalcCondition = "CalculationConditions"
-            });
+            //Table.AddOnData.Add(new AddOnDataProcessingConfiguration()
+            //{
+            //    AllowNULLValues = true,
+            //    CalcCondition = "CalculationConditions"
+            //});
 
-            Table.PresentationData = new ObservableCollection<object>();
-            Table.PresentationData.Add(new PresentationData()
-            {
-                TotalMode = false,
-                TotalPositionIndex = 1,
-                TotalLabel = "GesamtwerteTest"
-            });
+            //Table.PresentationData = new ObservableCollection<object>();
+            //Table.PresentationData.Add(new PresentationData()
+            //{
+            //    TotalMode = false,
+            //    TotalPositionIndex = 1,
+            //    TotalLabel = "GesamtwerteTest"
+            //});
 
             Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
             InitializeComponent();
