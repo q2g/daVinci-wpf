@@ -64,9 +64,8 @@ namespace daVinci.ConfigData
             }
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public void ReadFromJSON(dynamic jsonConfig)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
             AllowNULLValues = (jsonConfig?.qSuppressZero ?? false) == false ? true : false;
             CalcCondition = jsonConfig?.qCalcCond?.qv ?? "";
             if (!string.IsNullOrEmpty(CalcCondition))

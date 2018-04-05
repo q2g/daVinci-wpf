@@ -98,31 +98,69 @@ namespace daVinci.ConfigData
             }
         }
 
+        private string settingsID;
+        public string SettingsID
+        {
+            get
+            {
+                return settingsID;
+            }
+            set
+            {
+                if (settingsID != value)
+                {
+                    settingsID = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public string TableName { get; set; }
 
         public void ReadFromJSON(string JSONstring)
         {
             dynamic jsonConfig = JObject.Parse(JSONstring);
+            SettingsID = jsonConfig?.qInfo?.qId ?? "";
+
             foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
             {
                 var newone = new DimensionColumnData();
-                newone.ReadFromJSON(dimension.ToString());
+                newone.ReadFromJSON(dimension);
                 Columns.Add(newone);
             }
 
             foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
             {
                 var newone = new MeasureColumnData();
-                newone.ReadFromJSON(dimension.ToString());
+                newone.ReadFromJSON(dimension);
                 Columns.Add(newone);
             }
             var addonConfig = new AddOnDataProcessingConfiguration();
-            addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef?.ToString() ?? "");
+            addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
             AddOnData.Add(addonConfig);
 
             var presentationConfig = new PresentationData();
-            presentationConfig.ReadFromJSON(jsonConfig?.totals?.ToString() ?? "");
+            presentationConfig.ReadFromJSON(jsonConfig?.totals);
             PresentationData.Add(presentationConfig);
+        }
+
+        public string SaveToJSON()
+        {
+            dynamic jsonData = new JObject();
+            jsonData.qInfo = new JObject();
+            jsonData.qInfo.qId = SettingsID;
+            jsonData.qInfo.qType = "table";
+
+            jsonData.qHyperCubeDef = new JObject();
+            jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData dimensionData)
+                {
+                    jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                }
+            }
+            return jsonData.ToString();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

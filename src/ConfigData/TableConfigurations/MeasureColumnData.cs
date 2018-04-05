@@ -392,14 +392,13 @@ namespace daVinci.ConfigData
             }
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public void ReadFromJSON(dynamic jsonConfig)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
             libraryID = jsonConfig?.qLibraryId;
             fieldDef = jsonConfig?.qDef?.qDef ?? "";
             fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
-            SortCriterias.ReadFromJSON(jsonConfig?.qSortBy?.ToString() ?? "");
+            SortCriterias.ReadFromJSON(jsonConfig?.qSortBy);
             SortCriterias.AutoSort = jsonConfig?.autoSort ?? false;
 
             switch (jsonConfig?.qDef?.qNumFormat?.qType?.ToString() ?? "U")

@@ -318,9 +318,8 @@ namespace daVinci.ConfigData
             SortCriterias = new SortCriteria();
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public void ReadFromJSON(dynamic jsonConfig)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
             libraryID = jsonConfig?.qLibraryId;
             if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
             {
@@ -330,11 +329,11 @@ namespace daVinci.ConfigData
             {
                 FieldLabel = jsonConfig.qDef.qFieldLabels[0];
             }
-            SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]?.ToString() ?? "");
+            SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]);
             SortCriterias.AutoSort = jsonConfig?.qDef?.autoSort ?? false;
 
             AllowNULLValues = (jsonConfig.qNullSuppression ?? 0) == 0;
-            switch (jsonConfig.qOtherTotalSpec.qOtherMode?.ToString() ?? "OTHER_OFF")
+            switch (jsonConfig?.qOtherTotalSpec?.qOtherMode?.ToString() ?? "OTHER_OFF")
             {
                 case "OTHER_OFF":
                     LimitModeIndex = 0;
@@ -412,6 +411,77 @@ namespace daVinci.ConfigData
 
             RepresentationIndex = (jsonConfig?.qDef?.representation?.type ?? "text") == "text" ? 0 : 1;
             UrlLabel = jsonConfig?.qDef?.representation?.urlLabel ?? "";
+        }
+
+        public dynamic SaveToJson()
+        {
+            dynamic jsonConfig = new JObject();
+            jsonConfig.qLibraryId = LibraryID;
+            jsonConfig.qDef = new JObject();
+            jsonConfig.qDef.qFieldDefs = new JArray();
+            jsonConfig.qDef.qFieldDefs.Add(FieldDef);
+            jsonConfig.qDef.qFieldLabels = new JArray();
+            jsonConfig.qDef.qFieldLabels.Add(FieldLabel);
+            jsonConfig.qDef.qSortCriterias = new JArray();
+            jsonConfig.qDef.qSortCriterias.Add(SortCriterias.SaveToJSON());
+            jsonConfig.qDef.autoSort = SortCriterias.AutoSort;
+
+            jsonConfig.qOtherTotalSpec = new JObject();
+            switch (LimitModeIndex)
+            {
+                case 0:
+                    jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_OFF";
+                    switch (TopBottomIndex)
+                    {
+                        case 0:
+                            jsonConfig.qOtherTotalSpec.qOtherSortMode = "OTHER_SORT_ASCENDING";
+                            break;
+                        case 1:
+                            jsonConfig.qOtherTotalSpec.qOtherSortMode = "OTHER_SORT_DESCENDING";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                case 1:
+                    jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_COUNTED";
+                    break;
+                case 2:
+                    jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_ABS_LIMITED";
+                    break;
+                case 3:
+                    jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_REL_LIMITED";
+                    break;
+                default:
+                    jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_OFF";
+                    break;
+            }
+
+            switch (LimitModeIndex)
+            {
+                case 2:
+                case 3:
+                    switch (GreatherThanLessThanIndex)
+                    {
+                        case 0:
+                            jsonConfig.qOtherTotalSpec.qOtherLimitMode = "OTHER_GE_LIMIT";
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
+            jsonConfig.qDef.othersLabel = OthersLabel;
+
+
+            return jsonConfig;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

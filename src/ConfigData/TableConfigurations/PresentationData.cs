@@ -62,9 +62,8 @@ namespace daVinci.ConfigData
             }
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public void ReadFromJSON(dynamic jsonConfig)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
             TotalMode = jsonConfig?.show ?? false;
             TotalLabel = jsonConfig?.label ?? "";
             switch (jsonConfig?.position?.ToString() ?? "none")
@@ -83,6 +82,8 @@ namespace daVinci.ConfigData
                     break;
             }
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

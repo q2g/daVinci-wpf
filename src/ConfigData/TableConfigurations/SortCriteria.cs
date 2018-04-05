@@ -182,10 +182,8 @@ namespace daVinci.ConfigData
             }
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public void ReadFromJSON(dynamic jsonConfig)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
-            
             var value = jsonConfig?.qSortByNumeric ?? 0;
             SortByNumeric = (value != 0);
             SortByNumericDirection = 0;
@@ -201,6 +199,43 @@ namespace daVinci.ConfigData
             SortByExpressionDirection = 0;
             SortByExpressionDirection = value == -1 ? 1 : 0;
             SortByExpressionText = jsonConfig?.qExpression?.qv ?? "";
+        }
+
+        public dynamic SaveToJSON()
+        {
+            dynamic jsonConfig = new JObject();
+            jsonConfig.qSortByNumeric = 0;
+            if (SortByNumericDirection == 1)
+            {
+                jsonConfig.qSortByNumeric = -1;
+            }
+            if (SortByNumericDirection == 0)
+            {
+                jsonConfig.qSortByNumeric = 1;
+            }
+
+            jsonConfig.qSortByAscii = 0;
+            if (SortByAsciiDirection == 1)
+            {
+                jsonConfig.qSortByAscii = -1;
+            }
+            if (SortByAsciiDirection == 0)
+            {
+                jsonConfig.qSortByAscii = 1;
+            }
+
+            jsonConfig.qSortByExpression = 0;
+            if (SortByExpressionDirection == 1)
+            {
+                jsonConfig.qSortByExpression = -1;
+            }
+            if (SortByExpressionDirection == 0)
+            {
+                jsonConfig.qSortByExpression = 1;
+            }
+            jsonConfig.qExpression = new JObject();
+            jsonConfig.qExpression.qv = SortByExpressionText;
+            return jsonConfig;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

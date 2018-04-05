@@ -212,7 +212,7 @@ namespace daVinci_Demo
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var json = Table.SaveToJSON();
         }
     }
 }
