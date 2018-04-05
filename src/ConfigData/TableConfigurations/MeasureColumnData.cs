@@ -187,6 +187,10 @@ namespace daVinci.ConfigData
                 if (dateStandardFormatIndex != value)
                 {
                     dateStandardFormatIndex = value;
+                    if (DateToIndex.ContainsKey(value))
+                    {
+                        DateFormatText = DateToIndex[value];
+                    }
                     RaisePropertyChanged();
                 }
             }
@@ -392,15 +396,11 @@ namespace daVinci.ConfigData
         {
             dynamic jsonConfig = JObject.Parse(JSONstring);
             libraryID = jsonConfig?.qLibraryId;
-            if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
-            {
-                fieldDef = jsonConfig?.qDef?.qFieldDefs[0] ?? "";
-            }
-            if ((jsonConfig?.qDef?.qFieldLabels?.Count ?? 0) > 0)
-            {
-                fieldLabel = jsonConfig?.qDef?.qFieldLabels[0] ?? "";
-            }
-            SortCriterias.ReadFromJSON(jsonConfig.ToString());
+            fieldDef = jsonConfig?.qDef?.qDef ?? "";
+            fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
+
+            SortCriterias.ReadFromJSON(jsonConfig?.qSortBy?.ToString() ?? "");
+            SortCriterias.AutoSort = jsonConfig?.autoSort ?? false;
 
             switch (jsonConfig?.qDef?.qNumFormat?.qType?.ToString() ?? "U")
             {
@@ -409,7 +409,8 @@ namespace daVinci.ConfigData
                     break;
                 case "F":
                     NumberFormatIndex = 1;
-                    dynamic value = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "#,##0.0";
+                    IsStandardFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
+                    string value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
                     switch (value?.ToString())
                     {
                         case "0.00%":
@@ -422,13 +423,13 @@ namespace daVinci.ConfigData
                             StandardFormatIndex = 3;
                             break;
                         case "#,##0.00":
-                            StandardFormatIndex = 3;
-                            break;
-                        case "#,##0.0":
                             StandardFormatIndex = 2;
                             break;
-                        case "#,##0":
+                        case "#,##0.0":
                             StandardFormatIndex = 1;
+                            break;
+                        case "#,##0":
+                            StandardFormatIndex = 0;
                             break;
                         default:
                             break;
@@ -440,8 +441,11 @@ namespace daVinci.ConfigData
                     CurrencyFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
                     break;
                 case "D":
+                    IsStandardDateFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
                     DateFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
                     NumberFormatIndex = 3;
+                    value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
+                    DateStandardFormatIndex = DateToIndex.Where(ele => ele.Value == value).DefaultIfEmpty(new KeyValuePair<int, string>(0, "notUsed")).Single().Key;
                     break;
                 case "IV":
                     DurationFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
@@ -460,6 +464,9 @@ namespace daVinci.ConfigData
             if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
             {
                 BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+            }
+            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
+            {
                 TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
             }
 
@@ -490,7 +497,30 @@ namespace daVinci.ConfigData
                     break;
             }
 
+
+            IsTotalValueSettingsTextVisible = true;
+
+            TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
+            AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
         }
+
+        private Dictionary<int, string> DateToIndex = new Dictionary<int, string>()
+        {
+            { 0,"M/D/YYYY" },
+            { 1,"YYYY-MM-DD" },
+            { 2,"DD MM YYYY" },
+            { 3,"DD MMMM YYYY" },
+            { 4,"M/DD/YYYY" },
+            { 5,"MM/DD/YYYY" },
+            { 6,"MMMM DD, YYYY" },
+            { 7,"M/D/YYYY h:mm:ss[.fff] TT" },
+            { 8,"YYYY-MM-DD hh:mm:ss[.fff]" },
+            { 9,"h:mm:ss TT" },
+            { 10,"hh:mm:ss" },
+            { 11,"h:mm:ss tt" }
+        };
+
+
 
         public SortCriteria SortCriterias { get; set; }
 

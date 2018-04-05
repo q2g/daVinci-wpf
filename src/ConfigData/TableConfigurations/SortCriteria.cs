@@ -185,23 +185,22 @@ namespace daVinci.ConfigData
         public void ReadFromJSON(string JSONstring)
         {
             dynamic jsonConfig = JObject.Parse(JSONstring);
-
-            AutoSort = (jsonConfig?.autoSort ?? 0) != 0;
-            var value = jsonConfig?.qDef?.qSortBy?.qSortByNumeric ?? 0;
+            
+            var value = jsonConfig?.qSortByNumeric ?? 0;
             SortByNumeric = (value != 0);
             SortByNumericDirection = 0;
             SortByNumericDirection = value == -1 ? 1 : 0;
 
-            value = jsonConfig.qDef?.qSortBy?.qSortByAscii ?? 0;
+            value = jsonConfig?.qSortByAscii ?? 0;
             SortByAscii = (value != 0);
             SortByAsciiDirection = 0;
             SortByAsciiDirection = value == -1 ? 1 : 0;
 
-            value = jsonConfig?.qDef?.qSortBy?.qSortByExpression;
+            value = jsonConfig?.qSortByExpression;
             SortByExpression = (value != 0);
             SortByExpressionDirection = 0;
             SortByExpressionDirection = value == -1 ? 1 : 0;
-            SortByExpressionText = jsonConfig?.qDef?.qSortBy?.qExpression?.qv ?? "";
+            SortByExpressionText = jsonConfig?.qExpression?.qv ?? "";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

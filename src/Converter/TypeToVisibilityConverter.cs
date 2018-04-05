@@ -1,5 +1,4 @@
-﻿using daVinci.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -13,18 +12,27 @@ using System.Windows.Data;
 
 namespace daVinci.Converter
 {
-    [ValueConversion(typeof(object), typeof(object))]
-    public class ControlCreationConverter : IValueConverter
+    public class TypeToVisibilityConverter : IValueConverter
     {
+        public Visibility MatchValue { get; set; }
+        public Visibility DoesNotMatchValue { get; set; }
+
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
+            if (value == null)
+            {
+                return DoesNotMatchValue;
+            }
+
             if (parameter is Type type)
             {
-                controlHolder.TypeToCreate = type;
+                if (value.GetType() == type)
+                {
+                    return MatchValue;
+                }
             }
-            return controlHolder;
+            return DoesNotMatchValue;
         }
 
         public object ConvertBack(object value, Type targetType,

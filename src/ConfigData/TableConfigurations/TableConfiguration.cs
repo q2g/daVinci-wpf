@@ -119,6 +119,10 @@ namespace daVinci.ConfigData
             var addonConfig = new AddOnDataProcessingConfiguration();
             addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef?.ToString() ?? "");
             AddOnData.Add(addonConfig);
+
+            var presentationConfig = new PresentationData();
+            presentationConfig.ReadFromJSON(jsonConfig?.totals?.ToString() ?? "");
+            PresentationData.Add(presentationConfig);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -330,7 +330,9 @@ namespace daVinci.ConfigData
             {
                 FieldLabel = jsonConfig.qDef.qFieldLabels[0];
             }
-            SortCriterias.ReadFromJSON(jsonConfig.ToString());
+            SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]?.ToString() ?? "");
+            SortCriterias.AutoSort = jsonConfig?.qDef?.autoSort ?? false;
+
             AllowNULLValues = (jsonConfig.qNullSuppression ?? 0) == 0;
             switch (jsonConfig.qOtherTotalSpec.qOtherMode?.ToString() ?? "OTHER_OFF")
             {
@@ -399,6 +401,9 @@ namespace daVinci.ConfigData
             if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
             {
                 BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+            }
+            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
+            {
                 TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
             }
 

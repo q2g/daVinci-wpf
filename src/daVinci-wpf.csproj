@@ -66,6 +66,9 @@
     <Compile Include="Controls\CategorySelection.xaml.cs">
       <DependentUpon>CategorySelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ControlLoader.xaml.cs">
+      <DependentUpon>ControlLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MeasureColumnDataView.xaml.cs">
       <DependentUpon>MeasureColumnDataView.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,7 @@
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\TypeToVisibilityConverter.cs" />
     <Compile Include="Converter\ColumnNameConverter.cs" />
     <Compile Include="Converter\StringLengthToVisibilityConverter.cs" />
     <Compile Include="Converter\AddNumberConverter.cs" />
@@ -113,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CategorySelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ControlLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

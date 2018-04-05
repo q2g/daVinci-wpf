@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -61,7 +62,27 @@ namespace daVinci.ConfigData
             }
         }
 
-
+        public void ReadFromJSON(string JSONstring)
+        {
+            dynamic jsonConfig = JObject.Parse(JSONstring);
+            TotalMode = jsonConfig?.show ?? false;
+            TotalLabel = jsonConfig?.label ?? "";
+            switch (jsonConfig?.position?.ToString() ?? "none")
+            {
+                case "none":
+                    TotalPositionIndex = 0;
+                    break;
+                case "top":
+                    TotalPositionIndex = 1;
+                    break;
+                case "bottom":
+                    TotalPositionIndex = 2;
+                    break;
+                default:
+                    TotalPositionIndex = 0;
+                    break;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

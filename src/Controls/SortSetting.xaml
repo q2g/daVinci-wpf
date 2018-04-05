@@ -5,7 +5,9 @@
     xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -16,6 +18,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:TypeToVisibilityConverter
+                x:Key="TypeToVisibilityConverter"
+                DoesNotMatchValue="Collapsed"
+                MatchValue="Visible" />
             <LUIConverter:BooleanToVisibilityConverter
                 x:Key="BoolToVisibilityConverter"
                 FalseValue="Visible"
@@ -30,45 +36,47 @@
         <daViniciControls:ContentSwitch
             x:Name="mainswitch"
             CheckedText="Automatisch"
-            IsChecked="{Binding AutoSort}"
+            IsChecked="{Binding SortCriterias.AutoSort}"
             TitleText="Sortieren"
             UnCheckedText="Benutzerdefiniert" />
         <LuiControls:LuiSeparator
             Height="0.4"
             Margin="0,10,0,0" />
         <StackPanel Visibility="{Binding IsChecked, ElementName=mainswitch, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Visibility="{Binding Path=., Converter={StaticResource TypeToVisibilityConverter}, ConverterParameter={x:Type daVinciConfig:DimensionColumnData}}">
+                <LuiControls:LuiCheckbox
+                    Name="chkFormel"
+                    Margin="10,10,0,0"
+                    Content="Nach Formel sortieren"
+                    IsChecked="{Binding SortCriterias.SortByExpression}" />
+                <LuiControls:LuiInputGroup
+                    Margin="0,10,0,0"
+                    LabelText="Formel"
+                    RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+                    RightCommandIcon="lui_icon_expression"
+                    Text="{Binding SortCriterias.SortByExpressionText}"
+                    Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />
+                <LuiControls:LuiCombobox
+                    Margin="0,10,0,0"
+                    SelectedIndex="{Binding SortCriterias.SortByExpressionDirection}"
+                    Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}">
+                    <ComboBoxItem Content="Absteigend" />
+                    <ComboBoxItem Content="Aufsteigend" />
+                </LuiControls:LuiCombobox>
+                <LuiControls:LuiSeparator
+                    Height="0.4"
+                    Margin="0,10,0,0" />
+            </StackPanel>
 
-            <LuiControls:LuiCheckbox
-                Name="chkFormel"
-                Margin="10,10,0,0"
-                Content="Nach Formel sortieren"
-                IsChecked="{Binding SortByExpression}" />
-            <LuiControls:LuiInputGroup
-                Margin="0,10,0,0"
-                LabelText="Formel"
-                RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
-                RightCommandIcon="lui_icon_expression"
-                Text="{Binding SortByExpressionText}"
-                Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />
-            <LuiControls:LuiCombobox
-                Margin="0,10,0,0"
-                SelectedIndex="{Binding SortByExpressionDirection}"
-                Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}">
-                <ComboBoxItem Content="Absteigend" />
-                <ComboBoxItem Content="Aufsteigend" />
-            </LuiControls:LuiCombobox>
-            <LuiControls:LuiSeparator
-                Height="0.4"
-                Margin="0,10,0,0" />
 
             <LuiControls:LuiCheckbox
                 Name="chkSortNum"
                 Margin="10,10,0,0"
                 Content="Numerisch sortieren"
-                IsChecked="{Binding SortByNumeric}" />
+                IsChecked="{Binding SortCriterias.SortByNumeric}" />
             <LuiControls:LuiCombobox
                 Margin="0,10,0,0"
-                SelectedIndex="{Binding SortByNumericDirection}"
+                SelectedIndex="{Binding SortCriterias.SortByNumericDirection}"
                 Visibility="{Binding IsChecked, ElementName=chkSortNum, Converter={StaticResource BoolToCollapsedConverter}}">
                 <ComboBoxItem Content="Absteigend" />
                 <ComboBoxItem Content="Aufsteigend" />
@@ -81,15 +89,14 @@
                 Name="chkSortAlpha"
                 Margin="10,10,0,0"
                 Content="Alphabetisch sortieren"
-                IsChecked="{Binding SortByAscii}" />
+                IsChecked="{Binding SortCriterias.SortByAscii}" />
             <LuiControls:LuiCombobox
                 Margin="0,10,0,0"
-                SelectedIndex="{Binding SortByAsciiDirection}"
+                SelectedIndex="{Binding SortCriterias.SortByAsciiDirection}"
                 Visibility="{Binding IsChecked, ElementName=chkSortAlpha, Converter={StaticResource BoolToCollapsedConverter}}">
                 <ComboBoxItem Content="Absteigend" />
                 <ComboBoxItem Content="Aufsteigend" />
             </LuiControls:LuiCombobox>
-
         </StackPanel>
         <LuiControls:LuiSeparator Height="0.4" />
     </StackPanel>

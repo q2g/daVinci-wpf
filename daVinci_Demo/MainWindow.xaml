@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:daVinci_Demo"
     xmlns:lui="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="mainwindow"
     Title="MainWindow"
     Width="800"
     Height="850"
@@ -30,22 +31,20 @@
         <StackPanel>
             <TextBlock Text="{Binding Table}" />
             <Button
+                Height="20"
                 Click="Button_Click"
                 Content="test" />
             <Border
-                Height="800"
+                Height="{Binding ActualHeight, ElementName=mainwindow, Converter={StaticResource AddNumberConverter}, ConverterParameter=-40}"
                 BorderBrush="Gray"
                 BorderThickness="1">
                 <UserControl
                     x:Name="tt"
-                    Height="800"
+                    Height="{Binding ActualHeight, ElementName=mainwindow, Converter={StaticResource AddNumberConverter}, ConverterParameter=-40}"
                     VerticalAlignment="Stretch"
                     DataContext="{Binding Table}"
                     Style="{StaticResource TableConfigurationStyle}" />
             </Border>
         </StackPanel>
-
-
-
     </Grid>
 </Window>
