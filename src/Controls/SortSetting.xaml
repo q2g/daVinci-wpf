@@ -52,7 +52,6 @@
                 Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />
             <LuiControls:LuiCombobox
                 Margin="0,10,0,0"
-                LabelText="Label"
                 SelectedIndex="{Binding SortByExpressionDirection}"
                 Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}">
                 <ComboBoxItem Content="Absteigend" />

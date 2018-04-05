@@ -268,7 +268,7 @@
             Text="{Binding TextColorExpression}" />
         <LuiControls:LuiCombobox
             Margin="0,10,0,0"
-            LabelText="Gesamtwertefunktion"
+            LabelText="Gesamtwerte-Funktion"
             SelectedIndex="{Binding TotalValueFunctionIndex}">
             <ComboBoxItem Content="Automatisch" />
             <ComboBoxItem Content="Avg" />
@@ -281,7 +281,8 @@
         <TextBlock
             Margin="0,10,0,0"
             Text="Die Gesamtwerte-Spalte ist verborgen. Ändern Sie zum Anzeigen der Gesamtwerte die Einstellung unter Darstellung &gt; Präsentation."
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            Visibility="{Binding IsTotalValueSettingsTextVisible, Converter={StaticResource BoolToVisibilityCollapsedConverter}}" />
         <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
             CheckedText="Automatisch"

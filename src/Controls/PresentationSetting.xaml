@@ -27,20 +27,17 @@
                 <StackPanel />
             </daVincicontrols:ContentSwitch.Content>
             <daVincicontrols:ContentSwitch.UnCheckedContent>
-                <StackPanel Margin="10,0,10,0">
-                    <TextBlock
-                        Margin="0,0,0,7"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                        Text="Position" />
-                    <controls:LuiCombobox
-                        Background="{StaticResource LUI.Brush.Grayscale100}"
-                        SelectedIndex="{Binding TotalPositionIndex}">
-                        <ComboBoxItem>Keine</ComboBoxItem>
-                        <ComboBoxItem>Oben</ComboBoxItem>
-                        <ComboBoxItem>Unten</ComboBoxItem>
-                    </controls:LuiCombobox>
-                </StackPanel>
+
+                <controls:LuiCombobox
+                    Margin="10,0,10,0"
+                    Background="{StaticResource LUI.Brush.Grayscale100}"
+                    LabelText="Position"
+                    SelectedIndex="{Binding TotalPositionIndex}">
+                    <ComboBoxItem>Keine</ComboBoxItem>
+                    <ComboBoxItem>Oben</ComboBoxItem>
+                    <ComboBoxItem>Unten</ComboBoxItem>
+                </controls:LuiCombobox>
+
             </daVincicontrols:ContentSwitch.UnCheckedContent>
         </daVincicontrols:ContentSwitch>
         <StackPanel>

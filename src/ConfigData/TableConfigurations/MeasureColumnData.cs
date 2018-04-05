@@ -336,6 +336,23 @@ namespace daVinci.ConfigData
             }
         }
 
+        private bool isTotalValueSettingsTextVisible;
+        public bool IsTotalValueSettingsTextVisible
+        {
+            get
+            {
+                return isTotalValueSettingsTextVisible;
+            }
+            set
+            {
+                if (isTotalValueSettingsTextVisible != value)
+                {
+                    isTotalValueSettingsTextVisible = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private bool textAllignment;
         public bool TextAllignment
         {
