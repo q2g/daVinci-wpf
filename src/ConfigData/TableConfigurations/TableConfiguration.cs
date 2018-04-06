@@ -151,13 +151,51 @@ namespace daVinci.ConfigData
             jsonData.qInfo.qId = SettingsID;
             jsonData.qInfo.qType = "table";
 
+
             jsonData.qHyperCubeDef = new JObject();
             jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
+            jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
+
+            jsonData.qInterColumnSortOrder = new JArray();
+            jsonData.columnOrder = new JArray();
+            int counter = 0;
+
             foreach (var item in Columns)
             {
                 if (item is DimensionColumnData dimensionData)
                 {
                     jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                    jsonData.qInterColumnSortOrder.Add(counter);
+                    counter++;
+                }
+            }
+
+            foreach (var item in Columns)
+            {
+                if (item is MeasureColumnData measureData)
+                {
+                    jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                    jsonData.qInterColumnSortOrder.Add(counter);
+                    counter++;
+                }
+            }
+
+            counter = 0;
+            foreach (var item in SortColumns)
+            {
+                if (item is DimensionColumnData dimensionData)
+                {
+                    jsonData.columnOrder.Add(counter);
+                    counter++;
+                }
+            }
+
+            foreach (var item in SortColumns)
+            {
+                if (item is MeasureColumnData measureData)
+                {
+                    jsonData.columnOrder.Add(counter);
+                    counter++;
                 }
             }
             return jsonData.ToString();

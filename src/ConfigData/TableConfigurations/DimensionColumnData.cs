@@ -332,7 +332,7 @@ namespace daVinci.ConfigData
             SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]);
             SortCriterias.AutoSort = jsonConfig?.qDef?.autoSort ?? false;
 
-            AllowNULLValues = (jsonConfig.qNullSuppression ?? 0) == 0;
+            AllowNULLValues = (jsonConfig?.qNullSuppression ?? false) == false ? true : false;
             switch (jsonConfig?.qOtherTotalSpec?.qOtherMode?.ToString() ?? "OTHER_OFF")
             {
                 case "OTHER_OFF":
@@ -425,6 +425,7 @@ namespace daVinci.ConfigData
             jsonConfig.qDef.qSortCriterias = new JArray();
             jsonConfig.qDef.qSortCriterias.Add(SortCriterias.SaveToJSON());
             jsonConfig.qDef.autoSort = SortCriterias.AutoSort;
+            jsonConfig.qNullSuppression = !AllowNULLValues;
 
             jsonConfig.qOtherTotalSpec = new JObject();
             switch (LimitModeIndex)
@@ -467,7 +468,17 @@ namespace daVinci.ConfigData
                         case 0:
                             jsonConfig.qOtherTotalSpec.qOtherLimitMode = "OTHER_GE_LIMIT";
                             break;
+                        case 1:
+                            jsonConfig.qOtherTotalSpec.qOtherLimitMode = "OTHER_GT_LIMIT";
+                            break;
+                        case 2:
+                            jsonConfig.qOtherTotalSpec.qOtherLimitMode = "OTHER_LT_LIMIT";
+                            break;
+                        case 3:
+                            jsonConfig.qOtherTotalSpec.qOtherLimitMode = "OTHER_LE_LIMIT";
+                            break;
                         default:
+                            jsonConfig.qOtherTotalSpec.qOtherLimitMode = "";
                             break;
                     }
                     break;
@@ -479,7 +490,21 @@ namespace daVinci.ConfigData
 
             jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
             jsonConfig.qDef.othersLabel = OthersLabel;
+            jsonConfig.qAttributeExpressions = new JArray();
+            dynamic expr = new JObject();
+            expr.qExpression = BackgroundColorExpression;
+            jsonConfig.qAttributeExpressions.Add(expr);
+            expr = new JObject();
+            expr.qExpression = TextColorExpression;
+            jsonConfig.qAttributeExpressions.Add(expr);
 
+            jsonConfig.qDef.textAlign = new JObject();
+            jsonConfig.qDef.textAlign.auto = TextAllignment;
+            jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
+
+            jsonConfig.qDef.representation = new JObject();
+            jsonConfig.qDef.representation.type = RepresentationIndex == 0 ? "text" : "url";
+            jsonConfig.qDef.representation.urlLabel = UrlLabel;
 
             return jsonConfig;
         }
