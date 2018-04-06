@@ -5,9 +5,13 @@
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,7 +25,7 @@
             Margin="20,0,20,0"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_triangle_left"
             Command="{Binding BackCommand}"
-            Content="Zurück" />
+            Content="{l:Loc Translate_common:Common_Back}" />
 
         <TextBlock
             VerticalAlignment="Center"
@@ -29,7 +33,7 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="#4D4D4D"
-            Text="Aggregierung" />
+            Text="{l:Loc Visualization_Requirements_Aggregation}" />
 
         <controls:LuiSeparator
             Grid.Row="1"

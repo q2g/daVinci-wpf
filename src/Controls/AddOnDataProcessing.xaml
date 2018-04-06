@@ -8,9 +8,14 @@
     xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+   
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+     xmlns:l="http://wpflocalizeextension.codeplex.com"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,7 +31,7 @@
     <StackPanel>
         <LuiControls:LuiCheckbox
             Margin="10,10,0,0"
-            Content="NULL-Werte einschließen"
+            Content="{l:Loc properties_hyperCube_showZero}"
             IsChecked="{Binding AllowNULLValues}" />
         <LuiControls:LuiSeparator
             Height="0.4"
@@ -34,13 +39,13 @@
         <LuiControls:LuiInputGroup
             Name="CalcCond"
             Margin="10,10,0,10"
-            LabelText="Bedingung für die Berechnung"
+            LabelText="{l:Loc properties_hyperCube_calcCond}"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding CalcCondition}" />
         <LuiControls:LuiInputGroup
             Margin="10,10,0,10"
-            LabelText="Angezeigte Meldung"
+            LabelText="{l:Loc properties_hyperCube_calcCondMessage}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding DisplayedMessage}"
             Visibility="{Binding Text, ElementName=CalcCond, Converter={StaticResource StringLengthToVisibilityConverter}}" />

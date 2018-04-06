@@ -9,11 +9,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     SizeChanged="control_SizeChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -36,7 +40,7 @@
             x:Name="togglebutton"
             Margin="5,10,5,0"
             LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-            Content="Spalte hinzufügen" />
+            Content="{l:Loc properties_columns_add}" />
         <LuiControls:LuiDialog
             x:Name="dialog"
             IsOpen="{Binding IsChecked, ElementName=togglebutton}"
@@ -59,7 +63,7 @@
                     FontSize="12"
                     FontWeight="Bold"
                     Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                    Text="Spalten" />
+                    Text="{l:Loc Translate_common:Common_Columns}" />
                 <LuiControls:LuiSeparator Height="3" />
 
                 <LuiControls:LuiAccordion

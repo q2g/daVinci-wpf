@@ -8,9 +8,13 @@
     xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -43,7 +47,7 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="True"
-            LabelText="Feld"
+            LabelText="{l:Loc Translate_common:Common_Field}"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -51,32 +55,32 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="true"
-            LabelText="Bezeichnung"
+            LabelText="{l:Loc Translate_common:Common_Label}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="False"
-            LabelText="Dimension"
+            LabelText="{l:Loc Translate_common:Common_Dimension}"
             RightCommand="{Binding UnlinkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:DimensionColumnDataView}}"
             RightCommandIcon="lui_icon_link"
             Text="{Binding LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnNotEmpty}}" />
         <LuiControls:LuiCheckbox
             Margin="0,15,0,15"
-            Content="NULL-Werte einschließen"
+            Content="{l:Loc properties_dimensions_showNull}"
             Foreground="{StaticResource LUI.Brush.Grayscale50}"
             IsChecked="{Binding AllowNULLValues}" />
         <LuiControls:LuiCombobox
             Name="LimitCombo"
             Background="White"
-            LabelText="Beschränkung"
+            LabelText="{l:Loc properties_dimensionLimits_limit}"
             SelectedIndex="{Binding LimitModeIndex}">
-            <ComboBoxItem>Keine Beschränkung</ComboBoxItem>
-            <ComboBoxItem>Feste Spaltenanzahl</ComboBoxItem>
-            <ComboBoxItem>Genauer Wert</ComboBoxItem>
-            <ComboBoxItem>Relativer Wert</ComboBoxItem>
+            <ComboBoxItem Content="{l:Loc properties_dimensionLimits_none}" />
+            <ComboBoxItem Content="{l:Loc properties_dimensionLimits_fixedNumber}" />
+            <ComboBoxItem Content="{l:Loc properties_dimensionLimits_exactValue}" />
+            <ComboBoxItem Content="{l:Loc properties_dimensionLimits_relativeValue}" />
         </LuiControls:LuiCombobox>
 
         <StackPanel
@@ -84,8 +88,8 @@
             Margin="0,10,0,0"
             Visibility="{Binding SelectedIndex, ElementName=LimitCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}">
             <LuiControls:LuiButtonGroup SelectedIndex="{Binding TopBottomIndex}">
-                <LuiControls:LuiToggleButton Content="Oben" />
-                <LuiControls:LuiToggleButton Content="Unten" />
+                <LuiControls:LuiToggleButton Content="{l:Loc Common_Top}" />
+                <LuiControls:LuiToggleButton Content="{l:Loc Common_Bottom}" />
             </LuiControls:LuiButtonGroup>
             <LuiControls:LuiInputGroup
                 Margin="0,10,0,0"
@@ -134,34 +138,34 @@
             </StackPanel.Visibility>
             <LuiControls:LuiCheckbox
                 Name="chkShowOthers"
-                Content="Sonstige anzeigen"
+                Content="{l:Loc properties_dimensionLimits_showOthers}"
                 IsChecked="{Binding ShowOthers}" />
             <LuiControls:LuiInputGroup
                 Margin="0,10,0,0"
                 IsInputEnabled="False"
-                LabelText="Bezeichnung für Sonstige"
+                LabelText="{l:Loc properties_dimensionLimits_othersLabel}"
                 RightCommandIcon="lui_icon_expression"
                 Text="{Binding OthersLabel}"
                 Visibility="{Binding IsChecked, ElementName=chkShowOthers, Converter={StaticResource BoolToVisibilityCollapsedConverter}}" />
         </StackPanel>
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
-            LabelText="Formel für Hintergrundfarbe"
+            LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding BackgroundColorExpression}" />
 
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
-            LabelText="Formel für Textfarbe"
+            LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding TextColorExpression}" />
 
         <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
-            CheckedText="Automatisch"
+            CheckedText="{l:Loc Translate_common:Common_Auto}"
             IsChecked="{Binding TextAllignment}"
-            TitleText="Text Ausrichtung"
-            UnCheckedText="Benutzerdefiniert">
+            TitleText="{l:Loc Translate_common:Common_Text_TextAlignment}"
+            UnCheckedText="{l:Loc Translate_common:Common_Custom}">
             <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
             </daViniciControls:ContentSwitch.Content>
@@ -169,8 +173,8 @@
                 <LuiControls:LuiCombobox
                     Background="White"
                     SelectedIndex="{Binding AllignmentIndex}">
-                    <ComboBoxItem>Linksbündig</ComboBoxItem>
-                    <ComboBoxItem>Rechtsbündig</ComboBoxItem>
+                    <ComboBoxItem Content="{l:Loc Common_Text_AlignLeft}" />
+                    <ComboBoxItem Content="{l:Loc Common_Text_AlignRight}" />
                 </LuiControls:LuiCombobox>
             </daViniciControls:ContentSwitch.UnCheckedContent>
         </daViniciControls:ContentSwitch>
@@ -180,15 +184,15 @@
             Name="representationCombo"
             Margin="0,10,0,0"
             Background="White"
-            LabelText="Darstellung"
+            LabelText="{l:Loc Translate_common:Common_Appearance}"
             SelectedIndex="{Binding RepresentationIndex}">
-            <ComboBoxItem>Text</ComboBoxItem>
-            <ComboBoxItem>URL</ComboBoxItem>
+            <ComboBoxItem Content="{l:Loc properties_textImage_responsive_text}" />
+            <ComboBoxItem Content="{l:Loc Common_URL}" />
         </LuiControls:LuiCombobox>
 
         <LuiControls:LuiInputGroup
             Margin="0,7,0,0"
-            LabelText="URL-Beschriftung"
+            LabelText="{l:Loc MediaTool_Toolbar_InsertUrlLink_Title}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding UrlLabel}"
             Visibility="{Binding SelectedIndex, ElementName=representationCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}" />

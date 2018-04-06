@@ -9,9 +9,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -43,7 +47,7 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="True"
-            LabelText="Formel"
+            LabelText="{l:Loc Translate_common:Common_Expression}"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -51,14 +55,14 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="true"
-            LabelText="Bezeichnung"
+            LabelText="{l:Loc Translate_common:Common_Label}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding LibraryID, Converter={StaticResource VisibleOnEmpty}}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="False"
-            LabelText="Kennzahl"
+            LabelText="{l:Loc Translate_common:Common_Measure}"
             RightCommand="{Binding UnlinkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:MeasureColumnDataView}}"
             RightCommandIcon="lui_icon_link"
             Text="{Binding LibraryID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -66,14 +70,14 @@
         <LuiControls:LuiCombobox
             Name="NumberFormatCombo"
             Margin="0,10,0,0"
-            LabelText="Zahlenformat"
+            LabelText="{l:Loc properties_numberFormatting}"
             SelectedIndex="{Binding NumberFormatIndex}">
-            <ComboBoxItem Content="Automatisch" />
-            <ComboBoxItem Content="Zahl" />
-            <ComboBoxItem Content="Währung" />
-            <ComboBoxItem Content="Datum" />
-            <ComboBoxItem Content="Dauer" />
-            <ComboBoxItem Content="Benutzerdefiniert" />
+            <ComboBoxItem Content="{l:Loc Translate_common:Common_Auto}" />
+            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_number}" />
+            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_money}" />
+            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_date}" />
+            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_duration}" />
+            <ComboBoxItem Content="{l:Loc Translate:Common_Custom}" />
             <ComboBoxItem Content="Kennzahlformel" />
         </LuiControls:LuiCombobox>
 
@@ -90,7 +94,7 @@
                 CheckedText="Standard"
                 IsChecked="{Binding IsStandardFormat}"
                 TitleText="Formatierung"
-                UnCheckedText="Benutzerdefiniert">
+                UnCheckedText="{l:Loc Translate:Common_Custom}">
                 <daViniciControls:ContentSwitch.Content>
                     <LuiControls:LuiCombobox SelectedIndex="{Binding StandardFormatIndex}">
                         <ComboBoxItem Content="1,000" />
@@ -104,12 +108,12 @@
                 <daViniciControls:ContentSwitch.UnCheckedContent>
                     <StackPanel>
                         <LuiControls:LuiInput
-                            LabelText="Zahlenformat"
+                            LabelText="{l:Loc properties_numberFormatting}"
                             Text="{Binding NumberFormatText}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
-                            Text="Beispiel" />
+                            Text="{l:Loc properties_numberFormatting_example}" />
                         <TextBlock
                             HorizontalAlignment="Right"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -138,7 +142,7 @@
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
-                Text="Beispiel" />
+                Text="{l:Loc properties_numberFormatting_example}" />
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -185,7 +189,7 @@
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
-                            Text="Beispiel" />
+                            Text="{l:Loc properties_numberFormatting_example}" />
                         <TextBlock
                             HorizontalAlignment="Right"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -214,7 +218,7 @@
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
-                Text="Beispiel" />
+                Text="{l:Loc properties_numberFormatting_example}" />
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -233,20 +237,20 @@
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
             <LuiControls:LuiInput
-                LabelText="Dezimaltrennzeichen"
+                LabelText="{l:Loc properties_numberFormatting_dec}"
                 Text="{Binding Dec_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
-                LabelText="Tausendertrennzeichen"
+                LabelText="{l:Loc properties_numberFormatting_thousandSeparator}"
                 Text="{Binding Thou_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
-                LabelText="Zahlenformat"
+                LabelText="{l:Loc properties_numberFormatting}"
                 Text="{Binding CustomNumberFormatText}" />
             <TextBlock
                 Margin="0,10,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
-                Text="Beispiel" />
+                Text="{l:Loc properties_numberFormatting_example}" />
             <TextBlock
                 HorizontalAlignment="Right"
                 FontFamily="{StaticResource QlikViewSans}"
@@ -257,46 +261,46 @@
 
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
-            LabelText="Formel für Hintergrundfarbe"
+            LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding BackgroundColorExpression}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
-            LabelText="Formel für Textfarbe"
+            LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
             RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding TextColorExpression}" />
         <LuiControls:LuiCombobox
             Margin="0,10,0,0"
-            LabelText="Gesamtwerte-Funktion"
+            LabelText="{l:Loc Object_Table_AggrFunc}"
             SelectedIndex="{Binding TotalValueFunctionIndex}">
-            <ComboBoxItem Content="Automatisch" />
-            <ComboBoxItem Content="Avg" />
-            <ComboBoxItem Content="Count" />
-            <ComboBoxItem Content="Max" />
-            <ComboBoxItem Content="Min" />
-            <ComboBoxItem Content="Sum" />
-            <ComboBoxItem Content="keine" />
+            <ComboBoxItem Content="{l:Loc Translate_common:Common_Auto}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Avg}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Count}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Max}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Min}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Sum}" />
+            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_None}" />
         </LuiControls:LuiCombobox>
         <TextBlock
             Margin="0,10,0,0"
-            Text="Die Gesamtwerte-Spalte ist verborgen. Ändern Sie zum Anzeigen der Gesamtwerte die Einstellung unter Darstellung &gt; Präsentation."
+            Text="{l:Loc Object_Table_AggrFuncMessage}"
             TextWrapping="Wrap"
             Visibility="{Binding IsTotalValueSettingsTextVisible, Converter={StaticResource BoolToVisibilityCollapsedConverter}}" />
         <daViniciControls:ContentSwitch
             Margin="0,10,0,0"
-            CheckedText="Automatisch"
+            CheckedText="{l:Loc Translate_common:Common_Auto}"
             IsChecked="{Binding TextAllignment}"
-            TitleText="Text Ausrichtung"
-            UnCheckedText="Benutzerdefiniert">
+            TitleText="{l:Loc Translate_common:Common_Text_TextAlignment}"
+            UnCheckedText="{l:Loc Translate:Common_Custom}">
             <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
             </daViniciControls:ContentSwitch.Content>
             <daViniciControls:ContentSwitch.UnCheckedContent>
                 <LuiControls:LuiCombobox SelectedIndex="{Binding AllignmentIndex}">
-                    <ComboBoxItem Content="Linksbündig" />
-                    <ComboBoxItem Content="Rechtsbündig" />
+                    <ComboBoxItem Content="{l:Loc Translate:Common_Text_AlignLeft}" />
+                    <ComboBoxItem Content="{l:Loc Translate:Common_Text_AlignRight}" />
                 </LuiControls:LuiCombobox>
             </daViniciControls:ContentSwitch.UnCheckedContent>
         </daViniciControls:ContentSwitch>
