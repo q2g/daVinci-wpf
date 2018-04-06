@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using daVinci_wpf.ConfigData.TableConfigurations;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace daVinci.ConfigData
 {
-    public class DimensionColumnData : INotifyPropertyChanged
+    public class DimensionColumnData : INotifyPropertyChanged, IHasSortCriteria
     {
         private string libraryID;
         public string LibraryID
