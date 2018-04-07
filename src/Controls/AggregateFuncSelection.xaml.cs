@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace daVinci.Controls
     /// <summary>
     /// Interaktionslogik für AggregateFuncSelection.xaml
     /// </summary>
-    public partial class AggregateFuncSelection : UserControl,INotifyPropertyChanged
+    public partial class AggregateFuncSelection : UserControl, INotifyPropertyChanged
     {
         #region Member
         private ObservableCollection<ValueItem> aggregateItems;
@@ -39,7 +40,7 @@ namespace daVinci.Controls
             set
             {
                 aggregateItems = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AggregateItems)));
+                RaisePropertyChanged();
             }
         }
         private ICommand backCommand;
@@ -48,10 +49,10 @@ namespace daVinci.Controls
             get { return backCommand; }
             set
             {
-                if(backCommand!=value)
+                if (backCommand != value)
                 {
                     backCommand = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BackCommand)));
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -64,13 +65,16 @@ namespace daVinci.Controls
                 if (selectedItemCommand != value)
                 {
                     selectedItemCommand = value;
-                    
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItemCommand)));
+                    RaisePropertyChanged();
                 }
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
         #endregion
     }
 }

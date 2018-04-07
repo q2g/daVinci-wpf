@@ -5,9 +5,13 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="en"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -19,10 +23,10 @@
     <StackPanel>
 
         <daVincicontrols:ContentSwitch
-            CheckedText="Automatisch"
+            CheckedText="{l:Loc Translate_common:Common_Auto}"
             IsChecked="{Binding TotalMode}"
-            TitleText="Gesamtwerte"
-            UnCheckedText="Benutzerdefiniert">
+            TitleText="{l:Loc properties_dimensionLimits_totals}"
+            UnCheckedText="{l:Loc Translate_common:Common_Custom}">
             <daVincicontrols:ContentSwitch.Content>
                 <StackPanel />
             </daVincicontrols:ContentSwitch.Content>
@@ -31,11 +35,11 @@
                 <controls:LuiCombobox
                     Margin="10,0,10,0"
                     Background="{StaticResource LUI.Brush.Grayscale100}"
-                    LabelText="Position"
+                    LabelText="{l:Loc Translate_common:Common_Position}"
                     SelectedIndex="{Binding TotalPositionIndex}">
-                    <ComboBoxItem>Keine</ComboBoxItem>
-                    <ComboBoxItem>Oben</ComboBoxItem>
-                    <ComboBoxItem>Unten</ComboBoxItem>
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_None}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Top}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Bottom}" />
                 </controls:LuiCombobox>
 
             </daVincicontrols:ContentSwitch.UnCheckedContent>
@@ -43,7 +47,7 @@
         <StackPanel>
             <controls:LuiInputGroup
                 Margin="10,15,10,0"
-                LabelText="Gesamtwerte-Bezeichnung"
+                LabelText="{l:Loc properties_totals_label}"
                 RightCommandIcon="lui_icon_expression"
                 Text="{Binding TotalLabel}" />
         </StackPanel>

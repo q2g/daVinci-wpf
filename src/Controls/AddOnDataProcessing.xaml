@@ -8,11 +8,10 @@
     xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
-   
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
-     xmlns:l="http://wpflocalizeextension.codeplex.com"
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFLocalizeExtension.Engine;
 
 namespace daVinci.Controls
 {
@@ -91,7 +94,7 @@ namespace daVinci.Controls
                 {
                     selectedItemCommand = value;
                     AllValueItems.ForEach(item => item.ItemSelectedCommand = value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItemCommand)));
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -101,6 +104,10 @@ namespace daVinci.Controls
         private string searchText;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
 
         public string SearchText
         {
@@ -164,7 +171,6 @@ namespace daVinci.Controls
                 .ForEach(ele => DisplayedValueItems.Add(ele));
             }
             //Um die Visibility-Bindings zu triggern
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedFieldItems)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedValueItems)));
         }

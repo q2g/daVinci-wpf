@@ -29,6 +29,7 @@
     <DockPanel>
         <controls:LuiSearch
             DockPanel.Dock="Top"
+            HintText=" "
             SearchText="{Binding SearchText}" />
         <ScrollViewer DockPanel.Dock="Bottom">
             <DockPanel>

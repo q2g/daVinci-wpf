@@ -77,7 +77,7 @@
             <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_money}" />
             <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_date}" />
             <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_duration}" />
-            <ComboBoxItem Content="{l:Loc Translate:Common_Custom}" />
+            <ComboBoxItem Content="{l:Loc Translate_common:Common_Custom}" />
             <ComboBoxItem Content="Kennzahlformel" />
         </LuiControls:LuiCombobox>
 

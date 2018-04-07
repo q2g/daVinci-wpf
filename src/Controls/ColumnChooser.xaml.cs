@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -132,7 +133,7 @@ namespace daVinci.Controls
         //        if (columns != value)
         //        {
         //            columns = value;
-        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
+        //           RaisePropertyChanged();
         //        }
 
         //    }
@@ -172,7 +173,7 @@ namespace daVinci.Controls
                 if (popupContent != value)
                 {
                     popupContent = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PopupContent)));
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -189,6 +190,10 @@ namespace daVinci.Controls
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
 
         private void control_SizeChanged(object sender, SizeChangedEventArgs e)
         {

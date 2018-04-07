@@ -25,7 +25,7 @@ namespace daVinci.ConfigData
             set
             {
                 columns = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Columns)));
+                RaisePropertyChanged();
             }
         }
 
@@ -68,7 +68,7 @@ namespace daVinci.ConfigData
             set
             {
                 sortColumns = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SortColumns)));
+                RaisePropertyChanged();
             }
         }
         private ObservableCollection<object> presentationData = new ObservableCollection<object>();
@@ -81,7 +81,7 @@ namespace daVinci.ConfigData
             set
             {
                 presentationData = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PresentationData)));
+                RaisePropertyChanged();
             }
         }
 
@@ -95,7 +95,7 @@ namespace daVinci.ConfigData
             set
             {
                 addOnData = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddOnData)));
+                RaisePropertyChanged();
             }
         }
 
