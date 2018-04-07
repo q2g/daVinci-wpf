@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace daVinci.Converter
     [ValueConversion(typeof(int), typeof(Visibility))]
     public class IntToVisibilityConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Visibility TrueValue { get; set; }
         public Visibility FalseValue { get; set; }
 
@@ -19,34 +22,42 @@ namespace daVinci.Converter
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            if (value == null || !(value is int))
+            try
             {
-                return Visibility.Visible;
-            }
-            string stringparameter = parameter as string;
-            if (stringparameter == null)
-            {
-                return Visibility.Visible;
-            }
-            if (stringparameter.Contains(","))
-            {
-                return IsValueInIndexes(stringparameter,(int)value) ? TrueValue : FalseValue;
-            }
-            else
-            {
-                if (parameter == null || !Int32.TryParse((string)parameter, out int parametervalue))
+                if (value == null || !(value is int))
                 {
                     return Visibility.Visible;
                 }
-                return (int)value == parametervalue ? TrueValue : FalseValue;
+                string stringparameter = parameter as string;
+                if (stringparameter == null)
+                {
+                    return Visibility.Visible;
+                }
+                if (stringparameter.Contains(","))
+                {
+                    return IsValueInIndexes(stringparameter, (int)value) ? TrueValue : FalseValue;
+                }
+                else
+                {
+                    if (parameter == null || !Int32.TryParse((string)parameter, out int parametervalue))
+                    {
+                        return Visibility.Visible;
+                    }
+                    return (int)value == parametervalue ? TrueValue : FalseValue;
+                }
             }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+            return FalseValue;
 
-            
-        }        
+
+        }
 
         public object ConvertBack(object value, Type targetType,
             object parameter, CultureInfo culture)
-        {          
+        {
             return null;
         }
 

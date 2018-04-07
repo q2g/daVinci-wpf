@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace daVinci.Controls
     /// </summary>
     public partial class ControlLoader : UserControl
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public ControlLoader()
         {
             InitializeComponent();
@@ -30,11 +33,18 @@ namespace daVinci.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (TypeToCreate != null)
+            try
             {
-                var control = (Control)Activator.CreateInstance(TypeToCreate);
-                control.DataContext = DataContext;
-                Content = control;
+                if (TypeToCreate != null)
+                {
+                    var control = (Control)Activator.CreateInstance(TypeToCreate);
+                    control.DataContext = DataContext;
+                    Content = control;
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
             }
         }
     }

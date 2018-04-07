@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -15,29 +16,38 @@ namespace daVinci.Converter
     [ValueConversion(typeof(string), typeof(Visibility))]
     public class StringLengthToVisibilityConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Visibility LengthGreaterZero_Visbility { get; set; }
         public Visibility LengthZero_Visbility { get; set; }
 
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            if (value == null)
+            try
             {
-                return LengthZero_Visbility;
-            }
-            if (value is string stringvalue)
-            {
-                if (stringvalue.Length > 0)
-                {
-                    return LengthGreaterZero_Visbility;
-
-                }
-                else
+                if (value == null)
                 {
                     return LengthZero_Visbility;
                 }
+                if (value is string stringvalue)
+                {
+                    if (stringvalue.Length > 0)
+                    {
+                        return LengthGreaterZero_Visbility;
+                    }
+                    else
+                    {
+                        return LengthZero_Visbility;
+                    }
+                }
+
             }
-            return value;
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+            return LengthZero_Visbility;
 
         }
 

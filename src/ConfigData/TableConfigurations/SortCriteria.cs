@@ -1,5 +1,6 @@
 ﻿using daVinci.Resources;
 using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,8 @@ namespace daVinci.ConfigData
 {
     public class SortCriteria : INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private bool autoSort;
         public bool AutoSort
         {
@@ -184,57 +187,71 @@ namespace daVinci.ConfigData
 
         public void ReadFromJSON(dynamic jsonConfig)
         {
-            var value = jsonConfig?.qSortByNumeric ?? 0;
-            SortByNumeric = (value != 0);
-            SortByNumericDirection = 0;
-            SortByNumericDirection = value == -1 ? 1 : 0;
+            try
+            {
+                var value = jsonConfig?.qSortByNumeric ?? 0;
+                SortByNumeric = (value != 0);
+                SortByNumericDirection = 0;
+                SortByNumericDirection = value == -1 ? 1 : 0;
 
-            value = jsonConfig?.qSortByAscii ?? 0;
-            SortByAscii = (value != 0);
-            SortByAsciiDirection = 0;
-            SortByAsciiDirection = value == -1 ? 1 : 0;
+                value = jsonConfig?.qSortByAscii ?? 0;
+                SortByAscii = (value != 0);
+                SortByAsciiDirection = 0;
+                SortByAsciiDirection = value == -1 ? 1 : 0;
 
-            value = jsonConfig?.qSortByExpression;
-            SortByExpression = (value != 0);
-            SortByExpressionDirection = 0;
-            SortByExpressionDirection = value == -1 ? 1 : 0;
-            SortByExpressionText = jsonConfig?.qExpression?.qv ?? "";
+                value = jsonConfig?.qSortByExpression;
+                SortByExpression = (value != 0);
+                SortByExpressionDirection = 0;
+                SortByExpressionDirection = value == -1 ? 1 : 0;
+                SortByExpressionText = jsonConfig?.qExpression?.qv ?? "";
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
         }
 
         public dynamic SaveToJSON()
         {
             dynamic jsonConfig = new JObject();
-            jsonConfig.qSortByNumeric = 0;
-            if (SortByNumericDirection == 1)
+            try
             {
-                jsonConfig.qSortByNumeric = -1;
-            }
-            if (SortByNumericDirection == 0)
-            {
-                jsonConfig.qSortByNumeric = 1;
-            }
+                jsonConfig.qSortByNumeric = 0;
+                if (SortByNumericDirection == 1)
+                {
+                    jsonConfig.qSortByNumeric = -1;
+                }
+                if (SortByNumericDirection == 0)
+                {
+                    jsonConfig.qSortByNumeric = 1;
+                }
 
-            jsonConfig.qSortByAscii = 0;
-            if (SortByAsciiDirection == 1)
-            {
-                jsonConfig.qSortByAscii = -1;
-            }
-            if (SortByAsciiDirection == 0)
-            {
-                jsonConfig.qSortByAscii = 1;
-            }
+                jsonConfig.qSortByAscii = 0;
+                if (SortByAsciiDirection == 1)
+                {
+                    jsonConfig.qSortByAscii = -1;
+                }
+                if (SortByAsciiDirection == 0)
+                {
+                    jsonConfig.qSortByAscii = 1;
+                }
 
-            jsonConfig.qSortByExpression = 0;
-            if (SortByExpressionDirection == 1)
-            {
-                jsonConfig.qSortByExpression = -1;
+                jsonConfig.qSortByExpression = 0;
+                if (SortByExpressionDirection == 1)
+                {
+                    jsonConfig.qSortByExpression = -1;
+                }
+                if (SortByExpressionDirection == 0)
+                {
+                    jsonConfig.qSortByExpression = 1;
+                }
+                jsonConfig.qExpression = new JObject();
+                jsonConfig.qExpression.qv = SortByExpressionText;
             }
-            if (SortByExpressionDirection == 0)
+            catch (Exception Ex)
             {
-                jsonConfig.qSortByExpression = 1;
+                logger.Error(Ex);
             }
-            jsonConfig.qExpression = new JObject();
-            jsonConfig.qExpression.qv = SortByExpressionText;
             return jsonConfig;
         }
 

@@ -1,8 +1,8 @@
 ﻿using daVinci.ConfigData;
 using daVinci.Controls;
 using daVinci.Resources;
-using daVinci_wpf.Resources;
 using leonardo.Controls;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,8 +27,12 @@ namespace daVinci_Demo
     /// </summary> 
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
+
+
             //ColumnChooser cc = new ColumnChooser();
             ////cc.Height = 300;
             //cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } }});
@@ -205,6 +209,9 @@ namespace daVinci_Demo
             Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
             InitializeComponent();
             DataContext = this;
+            //Logger logger = LogManager.GetCurrentClassLogger();
+            //logger.Error("Hallo Log!");
+
 
         }
         public TableConfiguration Table { get; set; }

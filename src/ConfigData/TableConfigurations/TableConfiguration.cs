@@ -1,6 +1,6 @@
 ﻿using daVinci_wpf.ConfigData.TableConfigurations;
-using daVinci_wpf.Resources;
 using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +15,10 @@ namespace daVinci.ConfigData
 
     public class TableConfiguration : INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private ObservableCollection<object> columns = new ObservableCollection<object>();
+
         public ObservableCollection<object> Columns
         {
             get
@@ -120,104 +123,126 @@ namespace daVinci.ConfigData
 
         public void ReadFromJSON(string JSONstring)
         {
-            dynamic jsonConfig = JObject.Parse(JSONstring);
-            SettingsID = jsonConfig?.qInfo?.qId ?? "";
-            int counter = 0;
-            List<object> items = new List<object>();
-            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+            try
             {
-                var newone = new DimensionColumnData();
-                newone.ReadFromJSON(dimension);
-                newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
-                newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
-                counter++;
-                items.Add(newone);
-            }
+                dynamic jsonConfig = JObject.Parse(JSONstring);
+                SettingsID = jsonConfig?.qInfo?.qId ?? "";
+                int counter = 0;
+                List<object> items = new List<object>();
+                foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+                {
+                    var newone = new DimensionColumnData();
+                    newone.ReadFromJSON(dimension);
+                    newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                    newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    counter++;
+                    items.Add(newone);
+                }
 
-            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
+                foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
+                {
+                    var newone = new MeasureColumnData();
+                    newone.ReadFromJSON(dimension);
+                    newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                    newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    counter++;
+                    items.Add(newone);
+                }
+                items
+                   .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex)
+                   .ToList()
+                   .ForEach((ele) => columns.Add(ele));
+
+                SortColumns.Clear();
+                items
+                   .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.SortOrderIndex)
+                   .ToList()
+                   .ForEach((ele) => SortColumns.Add(ele));
+
+                var addonConfig = new AddOnDataProcessingConfiguration();
+                addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
+                AddOnData.Add(addonConfig);
+
+                var presentationConfig = new PresentationData();
+                presentationConfig.ReadFromJSON(jsonConfig?.totals);
+                PresentationData.Add(presentationConfig);
+            }
+            catch (Exception Ex)
             {
-                var newone = new MeasureColumnData();
-                newone.ReadFromJSON(dimension);
-                newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
-                newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
-                counter++;
-                items.Add(newone);
+                logger.Error(Ex);
             }
-            items
-               .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex)
-               .ToList()
-               .ForEach((ele) => columns.Add(ele));
-
-            SortColumns.Clear();
-            items
-               .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.SortOrderIndex)
-               .ToList()
-               .ForEach((ele) => SortColumns.Add(ele));
-
-            var addonConfig = new AddOnDataProcessingConfiguration();
-            addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
-            AddOnData.Add(addonConfig);
-
-            var presentationConfig = new PresentationData();
-            presentationConfig.ReadFromJSON(jsonConfig?.totals);
-            PresentationData.Add(presentationConfig);
         }
 
         public string SaveToJSON()
         {
             dynamic jsonData = new JObject();
-            jsonData.qInfo = new JObject();
-            jsonData.qInfo.qId = SettingsID;
-            jsonData.qInfo.qType = "table";
-
-
-            jsonData.qHyperCubeDef = new JObject();
-            jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
-            jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
-
-            jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
-            jsonData.qHyperCubeDef.columnOrder = new JArray();
-            int counter = 0;
-
-            foreach (var item in Columns)
+            try
             {
-                if (item is DimensionColumnData dimensionData)
+                jsonData.qInfo = new JObject();
+                jsonData.qInfo.qId = SettingsID;
+                jsonData.qInfo.qType = "table";
+
+
+                jsonData.qHyperCubeDef = new JObject();
+                jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
+                jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
+
+                jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
+                jsonData.qHyperCubeDef.columnOrder = new JArray();
+                int counter = 0;
+
+                foreach (var item in Columns)
                 {
-                    jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
-                    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
-                    counter++;
+                    if (item is DimensionColumnData dimensionData)
+                    {
+                        jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
+                        counter++;
+                    }
                 }
+
+                foreach (var item in Columns)
+                {
+                    if (item is MeasureColumnData measureData)
+                    {
+                        jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
+                        counter++;
+                    }
+                }
+
+                counter = 0;
+                foreach (var item in SortColumns)
+                {
+                    if (item is DimensionColumnData dimensionData)
+                    {
+                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
+                        counter++;
+                    }
+                }
+
+                foreach (var item in SortColumns)
+                {
+                    if (item is MeasureColumnData measureData)
+                    {
+                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
+                        counter++;
+                    }
+                }
+
+                var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
+                addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
+
+
+                var presentationConfig = PresentationData.First() as PresentationData;
+                jsonData.totals = presentationConfig.SaveToJSON();
             }
-
-            foreach (var item in Columns)
+            catch (Exception Ex)
             {
-                if (item is MeasureColumnData measureData)
-                {
-                    jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
-                    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
-                    counter++;
-                }
-            }
-
-            counter = 0;
-            foreach (var item in SortColumns)
-            {
-                if (item is DimensionColumnData dimensionData)
-                {
-                    jsonData.qHyperCubeDef.columnOrder.Add(counter);
-                    counter++;
-                }
-            }
-
-            foreach (var item in SortColumns)
-            {
-                if (item is MeasureColumnData measureData)
-                {
-                    jsonData.qHyperCubeDef.columnOrder.Add(counter);
-                    counter++;
-                }
+                logger.Error(Ex);
             }
             return jsonData.ToString();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

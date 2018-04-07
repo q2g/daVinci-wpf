@@ -6,6 +6,7 @@
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
 
     <ResourceDictionary.MergedDictionaries>
@@ -89,11 +90,11 @@
                                 IsItemsStretchEnabled="False"
                                 ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
 
-                                <controls:LuiAccordionItem Header="Daten">
+                                <controls:LuiAccordionItem Header="{l:Loc properties_data}">
                                     <daVinciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="Sortieren">
+                                <controls:LuiAccordionItem Header="{l:Loc properties_sorting}">
                                     <ScrollViewer>
                                         <controls:LuiAccordion
                                             CollapseAllOnExpandSingle="False"
@@ -104,13 +105,13 @@
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="Add-Ons">
+                                <controls:LuiAccordionItem Header="{l:Loc properties_addons}">
                                     <controls:LuiAccordion
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="Darstellung">
+                                <controls:LuiAccordionItem Header="{l:Loc Translate_common:Common_Appearance}">
                                     <controls:LuiAccordion
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />

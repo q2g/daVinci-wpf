@@ -1,5 +1,6 @@
 ﻿using daVinci.Resources;
 using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,8 @@ namespace daVinci.ConfigData
 {
     public class AddOnDataProcessingConfiguration : INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private bool allowNULLValues;
         public bool AllowNULLValues
         {
@@ -66,18 +69,45 @@ namespace daVinci.ConfigData
 
         public void ReadFromJSON(dynamic jsonConfig)
         {
-            AllowNULLValues = (jsonConfig?.qSuppressZero ?? false) == false ? true : false;
-            CalcCondition = jsonConfig?.qCalcCond?.qv ?? "";
-            if (!string.IsNullOrEmpty(CalcCondition))
+            try
             {
-                CalcCondition = jsonConfig?.qCalcCondition?.qCond?.qv ?? "";
+                AllowNULLValues = (jsonConfig?.qSuppressZero ?? false) == false ? true : false;
+                CalcCondition = jsonConfig?.qCalcCond?.qv ?? "";
+                if (!string.IsNullOrEmpty(CalcCondition))
+                {
+                    CalcCondition = jsonConfig?.qCalcCondition?.qCond?.qv ?? "";
+                }
+                DisplayedMessage = jsonConfig?.qCalcCondition?.qMsg?.qv ?? "";
+                if (!string.IsNullOrEmpty(DisplayedMessage))
+                {
+                    DisplayedMessage = jsonConfig?.customErrorMessage?.calcCond ?? "";
+                }
             }
-            DisplayedMessage = jsonConfig?.qCalcCondition?.qMsg?.qv ?? "";
-            if (!string.IsNullOrEmpty(DisplayedMessage))
+            catch (Exception Ex)
             {
-                DisplayedMessage = jsonConfig?.customErrorMessage?.calcCond ?? "";
+                logger.Error(Ex);
             }
+        }
 
+        public void SaveToJSON(dynamic jsonConfig)
+        {
+            try
+            {
+                jsonConfig.qSuppressZero = !AllowNULLValues;
+                jsonConfig.qCalcCond = new JObject();
+                jsonConfig.qCalcCond.qv = CalcCondition;
+                jsonConfig.qCalcCondition = new JObject();
+                jsonConfig.qCalcCondition.qCond = new JObject();
+                jsonConfig.qCalcCondition.qCond.qv = CalcCondition;
+                jsonConfig.qCalcCond.qMsg = new JObject();
+                jsonConfig.qCalcCond.qMsg.qv = DisplayedMessage;
+                jsonConfig.customErrorMessage = new JObject();
+                jsonConfig.customErrorMessage.calcCond = DisplayedMessage;
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
         }
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections;
 using System.Globalization;
 using System.Linq;
@@ -11,11 +12,20 @@ namespace daVinci.Converter
 {
     public class ZeroListCountToVisibleCollapsedConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ICollection numerable)
+            try
             {
-                return numerable.Count != 0 ? Visibility.Visible : Visibility.Collapsed;
+                if (value is ICollection numerable)
+                {
+                    return numerable.Count != 0 ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
             }
             return Visibility.Visible;
         }

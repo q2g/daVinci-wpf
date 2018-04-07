@@ -1,5 +1,6 @@
 ﻿using daVinci_wpf.ConfigData.TableConfigurations;
 using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ namespace daVinci.ConfigData
 {
     public class MeasureColumnData : INotifyPropertyChanged, IHasSortCriteria
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private string libraryID;
         public string LibraryID
@@ -395,251 +397,265 @@ namespace daVinci.ConfigData
 
         public void ReadFromJSON(dynamic jsonConfig)
         {
-            libraryID = jsonConfig?.qLibraryId;
-            fieldDef = jsonConfig?.qDef?.qDef ?? "";
-            fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
-
-            SortCriterias.ReadFromJSON(jsonConfig?.qSortBy);
-            SortCriterias.AutoSort = jsonConfig?.autoSort ?? false;
-
-            switch (jsonConfig?.qDef?.qNumFormat?.qType?.ToString() ?? "U")
+            try
             {
-                case "U":
-                    NumberFormatIndex = 0;
-                    break;
-                case "F":
-                    NumberFormatIndex = 1;
-                    IsStandardFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
-                    string value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
-                    switch (value?.ToString())
-                    {
-                        case "0.00%":
-                            StandardFormatIndex = 5;
-                            break;
-                        case "0.0%":
-                            StandardFormatIndex = 4;
-                            break;
-                        case "0%":
-                            StandardFormatIndex = 3;
-                            break;
-                        case "#,##0.00":
-                            StandardFormatIndex = 2;
-                            break;
-                        case "#,##0.0":
-                            StandardFormatIndex = 1;
-                            break;
-                        case "#,##0":
-                            StandardFormatIndex = 0;
-                            break;
-                        default:
-                            break;
-                    }
-                    NumberFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
-                    break;
-                case "M":
-                    NumberFormatIndex = 2;
-                    CurrencyFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
-                    break;
-                case "D":
-                    IsStandardDateFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
-                    DateFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
-                    NumberFormatIndex = 3;
-                    value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
-                    DateStandardFormatIndex = DateToIndex.Where(ele => ele.Value == value).DefaultIfEmpty(new KeyValuePair<int, string>(0, "notUsed")).Single().Key;
-                    break;
-                case "IV":
-                    DurationFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
-                    NumberFormatIndex = 4;
-                    break;
-                case "R":
-                    CustomNumberFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
-                    Dec_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qDec ?? ".";
-                    Thou_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qThou ?? ",";
-                    NumberFormatIndex = 5;
-                    break;
-                default:
-                    break;
-            }
+                libraryID = jsonConfig?.qLibraryId;
+                fieldDef = jsonConfig?.qDef?.qDef ?? "";
+                fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
-            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
+                SortCriterias.ReadFromJSON(jsonConfig?.qSortBy);
+                SortCriterias.AutoSort = jsonConfig?.autoSort ?? false;
+
+                switch (jsonConfig?.qDef?.qNumFormat?.qType?.ToString() ?? "U")
+                {
+                    case "U":
+                        NumberFormatIndex = 0;
+                        break;
+                    case "F":
+                        NumberFormatIndex = 1;
+                        IsStandardFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
+                        string value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
+                        switch (value?.ToString())
+                        {
+                            case "0.00%":
+                                StandardFormatIndex = 5;
+                                break;
+                            case "0.0%":
+                                StandardFormatIndex = 4;
+                                break;
+                            case "0%":
+                                StandardFormatIndex = 3;
+                                break;
+                            case "#,##0.00":
+                                StandardFormatIndex = 2;
+                                break;
+                            case "#,##0.0":
+                                StandardFormatIndex = 1;
+                                break;
+                            case "#,##0":
+                                StandardFormatIndex = 0;
+                                break;
+                            default:
+                                break;
+                        }
+                        NumberFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
+                        break;
+                    case "M":
+                        NumberFormatIndex = 2;
+                        CurrencyFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
+                        break;
+                    case "D":
+                        IsStandardDateFormat = jsonConfig?.qDef?.numFormatFromTemplate ?? false;
+                        DateFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
+                        NumberFormatIndex = 3;
+                        value = jsonConfig?.qDef?.qNumFormat?.qFmt?.ToString() ?? "#,##0.0";
+                        DateStandardFormatIndex = DateToIndex.Where(ele => ele.Value == value).DefaultIfEmpty(new KeyValuePair<int, string>(0, "notUsed")).Single().Key;
+                        break;
+                    case "IV":
+                        DurationFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
+                        NumberFormatIndex = 4;
+                        break;
+                    case "R":
+                        CustomNumberFormatText = jsonConfig?.qDef?.qNumFormat?.qFmt ?? "";
+                        Dec_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qDec ?? ".";
+                        Thou_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qThou ?? ",";
+                        NumberFormatIndex = 5;
+                        break;
+                    default:
+                        break;
+                }
+
+                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
+                {
+                    BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+                }
+                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
+                {
+                    TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
+                }
+
+                switch (jsonConfig?.qDef?.qAggrFunc?.ToString() ?? "Expr")
+                {
+                    case "Expr":
+                        TotalValueFunctionIndex = 0;
+                        break;
+                    case "Avg":
+                        TotalValueFunctionIndex = 1;
+                        break;
+                    case "Count":
+                        TotalValueFunctionIndex = 2;
+                        break;
+                    case "Max":
+                        TotalValueFunctionIndex = 3;
+                        break;
+                    case "Min":
+                        TotalValueFunctionIndex = 4;
+                        break;
+                    case "Sum":
+                        TotalValueFunctionIndex = 5;
+                        break;
+                    case "None":
+                        TotalValueFunctionIndex = 6;
+                        break;
+                    default:
+                        break;
+                }
+
+
+                IsTotalValueSettingsTextVisible = true;
+
+                TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
+                AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
+            }
+            catch (Exception Ex)
             {
-                BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+                logger.Error(Ex);
             }
-            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
-            {
-                TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
-            }
-
-            switch (jsonConfig?.qDef?.qAggrFunc?.ToString() ?? "Expr")
-            {
-                case "Expr":
-                    TotalValueFunctionIndex = 0;
-                    break;
-                case "Avg":
-                    TotalValueFunctionIndex = 1;
-                    break;
-                case "Count":
-                    TotalValueFunctionIndex = 2;
-                    break;
-                case "Max":
-                    TotalValueFunctionIndex = 3;
-                    break;
-                case "Min":
-                    TotalValueFunctionIndex = 4;
-                    break;
-                case "Sum":
-                    TotalValueFunctionIndex = 5;
-                    break;
-                case "None":
-                    TotalValueFunctionIndex = 6;
-                    break;
-                default:
-                    break;
-            }
-
-
-            IsTotalValueSettingsTextVisible = true;
-
-            TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
-            AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
         }
 
         public dynamic SaveToJson()
         {
             dynamic jsonConfig = new JObject();
-            jsonConfig.qLibraryId = libraryID;
-            jsonConfig.qDef = new JObject();
-            jsonConfig.qDef.qLabel = FieldLabel;
-            jsonConfig.qDef.qDef = FieldDef;
 
-            jsonConfig.qSortBy = SortCriterias.SaveToJSON();
-            jsonConfig.autosort = SortCriterias.AutoSort;
-
-            switch (TotalValueFunctionIndex)
+            try
             {
-                case 0:
-                    jsonConfig.qDef.qAggrFunc = "Expr";
-                    break;
-                case 1:
-                    jsonConfig.qDef.qAggrFunc = "Avg";
-                    break;
-                case 2:
-                    jsonConfig.qDef.qAggrFunc = "Count";
-                    break;
-                case 3:
-                    jsonConfig.qDef.qAggrFunc = "Max";
-                    break;
-                case 4:
-                    jsonConfig.qDef.qAggrFunc = "Min";
-                    break;
-                case 5:
-                    jsonConfig.qDef.qAggrFunc = "Sum";
-                    break;
-                case 6:
-                    jsonConfig.qDef.qAggrFunc = "None";
-                    break;
-                default:
-                    break;
-            }
+                jsonConfig.qLibraryId = libraryID;
+                jsonConfig.qDef = new JObject();
+                jsonConfig.qDef.qLabel = FieldLabel;
+                jsonConfig.qDef.qDef = FieldDef;
 
-            jsonConfig.qDef.qNumFormat = new JObject();
-            switch (NumberFormatIndex)
-            {
-                case 0:
-                    jsonConfig.qDef.qNumFormat.qType = "U";
-                    break;
-                case 1:
-                    jsonConfig.qDef.qNumFormat.qType = "F";
-                    if (IsStandardFormat)
-                    {
-                        jsonConfig.qDef.qNumFormat = new JObject();
-                        switch (StandardFormatIndex)
+                jsonConfig.qSortBy = SortCriterias.SaveToJSON();
+                jsonConfig.autosort = SortCriterias.AutoSort;
+
+                switch (TotalValueFunctionIndex)
+                {
+                    case 0:
+                        jsonConfig.qDef.qAggrFunc = "Expr";
+                        break;
+                    case 1:
+                        jsonConfig.qDef.qAggrFunc = "Avg";
+                        break;
+                    case 2:
+                        jsonConfig.qDef.qAggrFunc = "Count";
+                        break;
+                    case 3:
+                        jsonConfig.qDef.qAggrFunc = "Max";
+                        break;
+                    case 4:
+                        jsonConfig.qDef.qAggrFunc = "Min";
+                        break;
+                    case 5:
+                        jsonConfig.qDef.qAggrFunc = "Sum";
+                        break;
+                    case 6:
+                        jsonConfig.qDef.qAggrFunc = "None";
+                        break;
+                    default:
+                        break;
+                }
+
+                jsonConfig.qDef.qNumFormat = new JObject();
+                switch (NumberFormatIndex)
+                {
+                    case 0:
+                        jsonConfig.qDef.qNumFormat.qType = "U";
+                        break;
+                    case 1:
+                        jsonConfig.qDef.qNumFormat.qType = "F";
+                        if (IsStandardFormat)
                         {
-                            case 0:
-                                jsonConfig.qDef.qNumFormat.qFmt = "#,##0";
-                                break;
-                            case 1:
-                                jsonConfig.qDef.qNumFormat.qFmt = "#,##0.0";
-                                break;
-                            case 2:
-                                jsonConfig.qDef.qNumFormat.qFmt = "#,##0.00";
-                                break;
-                            case 3:
-                                jsonConfig.qDef.qNumFormat.qFmt = "0%";
-                                break;
-                            case 4:
-                                jsonConfig.qDef.qNumFormat.qFmt = "0.0%";
-                                break;
-                            case 5:
-                                jsonConfig.qDef.qNumFormat.qFmt = "0.00%";
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        jsonConfig.qDef.qNumFormat.qFmt = NumberFormatText;
-                    }
-                    jsonConfig.qDef.numFormatFromTemplate = IsStandardFormat;
-                    break;
-                case 2:
-                    jsonConfig.qDef.qNumFormat.qType = "M";
-                    jsonConfig.qDef.qNumFormat.qFmt = CurrencyFormatText;
-                    break;
-                case 3:
-                    jsonConfig.qDef.qNumFormat.qType = "D";
-                    if (IsStandardDateFormat)
-                    {
-                        if (DateToIndex.ContainsKey(DateStandardFormatIndex))
-                        {
-                            jsonConfig.qDef.qNumFormat.qFmt = DateToIndex[DateStandardFormatIndex];
+                            jsonConfig.qDef.qNumFormat = new JObject();
+                            switch (StandardFormatIndex)
+                            {
+                                case 0:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "#,##0";
+                                    break;
+                                case 1:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "#,##0.0";
+                                    break;
+                                case 2:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "#,##0.00";
+                                    break;
+                                case 3:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "0%";
+                                    break;
+                                case 4:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "0.0%";
+                                    break;
+                                case 5:
+                                    jsonConfig.qDef.qNumFormat.qFmt = "0.00%";
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else
                         {
-                            jsonConfig.qDef.qNumFormat.qFmt = "";
+                            jsonConfig.qDef.qNumFormat.qFmt = NumberFormatText;
                         }
-                    }
-                    else
-                    {
-                        jsonConfig.qDef.qNumFormat.qFmt = DateFormatText;
-                    }
-                    jsonConfig.qDef.numFormatFromTemplate = IsStandardDateFormat;
-                    break;
-                case 4:
-                    jsonConfig.qDef.qNumFormat.qType = "IV";
-                    jsonConfig.qDef.qNumFormat.qFmt = DurationFormatText;
-                    break;
-                case 5:
-                    jsonConfig.qDef.qNumFormat.qType = "R";
-                    jsonConfig.qDef.qNumFormat.qFmt = CustomNumberFormatText;
-                    jsonConfig.qDef.qNumFormat.qDec = Dec_SplitterSign;
-                    jsonConfig.qDef.qNumFormat.qThou = Thou_SplitterSign;
-                    break;
-                default:
-                    break;
-            }
+                        jsonConfig.qDef.numFormatFromTemplate = IsStandardFormat;
+                        break;
+                    case 2:
+                        jsonConfig.qDef.qNumFormat.qType = "M";
+                        jsonConfig.qDef.qNumFormat.qFmt = CurrencyFormatText;
+                        break;
+                    case 3:
+                        jsonConfig.qDef.qNumFormat.qType = "D";
+                        if (IsStandardDateFormat)
+                        {
+                            if (DateToIndex.ContainsKey(DateStandardFormatIndex))
+                            {
+                                jsonConfig.qDef.qNumFormat.qFmt = DateToIndex[DateStandardFormatIndex];
+                            }
+                            else
+                            {
+                                jsonConfig.qDef.qNumFormat.qFmt = "";
+                            }
+                        }
+                        else
+                        {
+                            jsonConfig.qDef.qNumFormat.qFmt = DateFormatText;
+                        }
+                        jsonConfig.qDef.numFormatFromTemplate = IsStandardDateFormat;
+                        break;
+                    case 4:
+                        jsonConfig.qDef.qNumFormat.qType = "IV";
+                        jsonConfig.qDef.qNumFormat.qFmt = DurationFormatText;
+                        break;
+                    case 5:
+                        jsonConfig.qDef.qNumFormat.qType = "R";
+                        jsonConfig.qDef.qNumFormat.qFmt = CustomNumberFormatText;
+                        jsonConfig.qDef.qNumFormat.qDec = Dec_SplitterSign;
+                        jsonConfig.qDef.qNumFormat.qThou = Thou_SplitterSign;
+                        break;
+                    default:
+                        break;
+                }
 
-            jsonConfig.qAttributeExpressions = new JArray();
-            if (!string.IsNullOrEmpty(BackgroundColorExpression))
+                jsonConfig.qAttributeExpressions = new JArray();
+                if (!string.IsNullOrEmpty(BackgroundColorExpression))
+                {
+                    dynamic expr = new JObject();
+                    expr.qExpression = BackgroundColorExpression;
+                    jsonConfig.qAttributeExpressions.Add(expr);
+                }
+                if (!string.IsNullOrEmpty(TextColorExpression))
+                {
+                    dynamic expr = new JObject();
+                    expr.qExpression = TextColorExpression;
+                    jsonConfig.qAttributeExpressions.Add(expr);
+                }
+
+
+
+                jsonConfig.qDef.textAlign = new JObject();
+                jsonConfig.qDef.textAlign.auto = TextAllignment;
+                jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
+            }
+            catch (Exception Ex)
             {
-                dynamic expr = new JObject();
-                expr.qExpression = BackgroundColorExpression;
-                jsonConfig.qAttributeExpressions.Add(expr);
+                logger.Error(Ex);
             }
-            if (!string.IsNullOrEmpty(TextColorExpression))
-            {
-                dynamic expr = new JObject();
-                expr.qExpression = TextColorExpression;
-                jsonConfig.qAttributeExpressions.Add(expr);
-            }
-
-
-
-            jsonConfig.qDef.textAlign = new JObject();
-            jsonConfig.qDef.textAlign.auto = TextAllignment;
-            jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
-
             return jsonConfig;
         }
 

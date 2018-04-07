@@ -1,5 +1,6 @@
 ﻿using daVinci.Resources;
 using leonardo.Resources;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -192,6 +193,8 @@ namespace daVinci.Controls
 
     public class ValueTypeTemplateSelector : DataTemplateSelector
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public DataTemplate MeasureTemplate { get; set; }
         public DataTemplate MeasureFieldTemplate { get; set; }
         public DataTemplate DimensionTemplate { get; set; }
@@ -200,24 +203,31 @@ namespace daVinci.Controls
         public override DataTemplate SelectTemplate(object item,
                    DependencyObject container)
         {
-            if (item is ValueItem vitem)
+            try
             {
-                if (vitem.ValueType == ValueTypeEnum.Measure && vitem.IsField)
+                if (item is ValueItem vitem)
                 {
-                    return MeasureFieldTemplate;
+                    if (vitem.ValueType == ValueTypeEnum.Measure && vitem.IsField)
+                    {
+                        return MeasureFieldTemplate;
+                    }
+                    if (vitem.ValueType == ValueTypeEnum.Measure)
+                    {
+                        return MeasureTemplate;
+                    }
+                    if (vitem.ValueType == ValueTypeEnum.Dimension && vitem.IsField)
+                    {
+                        return DimensionFieldTemplate;
+                    }
+                    if (vitem.ValueType == ValueTypeEnum.Dimension)
+                    {
+                        return DimensionTemplate; ;
+                    }
                 }
-                if (vitem.ValueType == ValueTypeEnum.Measure)
-                {
-                    return MeasureTemplate;
-                }
-                if (vitem.ValueType == ValueTypeEnum.Dimension && vitem.IsField)
-                {
-                    return DimensionFieldTemplate;
-                }
-                if (vitem.ValueType == ValueTypeEnum.Dimension)
-                {
-                    return DimensionTemplate; ;
-                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
             }
 
             return new DataTemplate();

@@ -6,7 +6,8 @@
     xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
-    xmlns:daVinciConverter="clr-namespace:daVinci.Converter">
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />

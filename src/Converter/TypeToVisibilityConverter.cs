@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -14,23 +15,32 @@ namespace daVinci.Converter
 {
     public class TypeToVisibilityConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Visibility MatchValue { get; set; }
         public Visibility DoesNotMatchValue { get; set; }
 
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            if (value == null)
+            try
             {
-                return DoesNotMatchValue;
-            }
-
-            if (parameter is Type type)
-            {
-                if (value.GetType() == type)
+                if (value == null)
                 {
-                    return MatchValue;
+                    return DoesNotMatchValue;
                 }
+
+                if (parameter is Type type)
+                {
+                    if (value.GetType() == type)
+                    {
+                        return MatchValue;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
             }
             return DoesNotMatchValue;
         }

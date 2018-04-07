@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,8 @@ namespace daVinci.ConfigData
 {
     public class PresentationData : INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private bool totalMode;
         public bool TotalMode
         {
@@ -64,23 +67,60 @@ namespace daVinci.ConfigData
 
         public void ReadFromJSON(dynamic jsonConfig)
         {
-            TotalMode = jsonConfig?.show ?? false;
-            TotalLabel = jsonConfig?.label ?? "";
-            switch (jsonConfig?.position?.ToString() ?? "none")
+            try
             {
-                case "none":
-                    TotalPositionIndex = 0;
-                    break;
-                case "top":
-                    TotalPositionIndex = 1;
-                    break;
-                case "bottom":
-                    TotalPositionIndex = 2;
-                    break;
-                default:
-                    TotalPositionIndex = 0;
-                    break;
+                TotalMode = jsonConfig?.show ?? false;
+                TotalLabel = jsonConfig?.label ?? "";
+                switch (jsonConfig?.position?.ToString() ?? "none")
+                {
+                    case "none":
+                        TotalPositionIndex = 0;
+                        break;
+                    case "top":
+                        TotalPositionIndex = 1;
+                        break;
+                    case "bottom":
+                        TotalPositionIndex = 2;
+                        break;
+                    default:
+                        TotalPositionIndex = 0;
+                        break;
+                }
             }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
+
+        public dynamic SaveToJSON()
+        {
+            dynamic jsonConfig = new JObject();
+            try
+            {
+                jsonConfig.show = TotalMode;
+
+                switch (TotalPositionIndex)
+                {
+                    case 0:
+                        jsonConfig.position = "none";
+                        break;
+                    case 1:
+                        jsonConfig.position = "top";
+                        break;
+                    case 2:
+                        jsonConfig.position = "bottom";
+                        break;
+                    default:
+                        break;
+                }
+                jsonConfig.label = TotalLabel;
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+            return jsonConfig;
         }
 
 

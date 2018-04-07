@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -15,18 +16,27 @@ namespace daVinci.Converter
     [ValueConversion(typeof(double), typeof(double))]
     public class AddNumberConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            if (parameter is string stringparameter)
+            try
             {
-                if (double.TryParse(stringparameter, out double doubleparameter))
+                if (parameter is string stringparameter)
                 {
-                    if (value is double doublevalue)
+                    if (double.TryParse(stringparameter, out double doubleparameter))
                     {
-                        return doublevalue + doubleparameter;
+                        if (value is double doublevalue)
+                        {
+                            return doublevalue + doubleparameter;
+                        }
                     }
                 }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
             }
             return value;
 

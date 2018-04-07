@@ -68,7 +68,6 @@ namespace daVinci.Controls
         public static readonly DependencyProperty TitleTextProperty = DependencyProperty.Register(
          "TitleText", typeof(string), typeof(ContentSwitch), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
-        //UnCheckedContent
 
         #region UnCheckedContent - DP       
         public object UnCheckedContent

@@ -1,4 +1,5 @@
 ﻿using daVinci.Controls;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,15 +17,25 @@ namespace daVinci.Converter
     [ValueConversion(typeof(object), typeof(object))]
     public class ControlCreationConverter : IValueConverter
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
-            if (parameter is Type type)
+            try
             {
-                controlHolder.TypeToCreate = type;
+                ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
+                if (parameter is Type type)
+                {
+                    controlHolder.TypeToCreate = type;
+                }
+                return controlHolder;
             }
-            return controlHolder;
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+            return new UserControl();
         }
 
         public object ConvertBack(object value, Type targetType,

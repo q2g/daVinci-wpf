@@ -2,6 +2,7 @@
 using daVinci.Resources;
 using leonardo.Controls;
 using leonardo.Resources;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,8 @@ namespace daVinci.Controls
     /// </summary>
     public partial class ColumnChooser : UserControl, INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public ColumnChooser()
         {
             categorySelection = new CategorySelection()
@@ -76,15 +79,17 @@ namespace daVinci.Controls
                 SelectedItemCommand = new RelayCommand((o) => true,
                 (parameter) =>
                 {
-                    if (parameter is ValueItem item)
+                    try
                     {
-                        if (item.ValueType == ValueTypeEnum.Measure && item.IsField)
+                        if (parameter is ValueItem item)
                         {
-                            PopupContent = new AggregateFuncSelection()
+                            if (item.ValueType == ValueTypeEnum.Measure && item.IsField)
                             {
-                                BackCommand = new RelayCommand((o) => true, (o) => { PopupContent = valueSelection; }),
-                                SelectedItemCommand = selectedAggregateCommand,
-                                AggregateItems = new ObservableCollection<ValueItem>
+                                PopupContent = new AggregateFuncSelection()
+                                {
+                                    BackCommand = new RelayCommand((o) => true, (o) => { PopupContent = valueSelection; }),
+                                    SelectedItemCommand = selectedAggregateCommand,
+                                    AggregateItems = new ObservableCollection<ValueItem>
                                 {
                                     new ValueItem() { Parent = item, DisplayText = $"SUM([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                     new ValueItem() { Parent = item, DisplayText = $"Count([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
@@ -92,26 +97,31 @@ namespace daVinci.Controls
                                     new ValueItem() { Parent = item, DisplayText = $"MIN([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                     new ValueItem() { Parent = item, DisplayText = $"MAX([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand }
                                 }
-                            };
-                        }
-                        else
-                        {
-                            object newone = null;
-                            switch (item.ValueType)
-                            {
-                                case ValueTypeEnum.Dimension:
-                                    newone = new DimensionColumnData() { LibraryID = item.DisplayText };
-                                    Columns.Add(newone);
-                                    break;
-                                case ValueTypeEnum.Measure:
-                                    newone = new MeasureColumnData() { LibraryID = item.DisplayText };
-                                    Columns.Add(newone);
-                                    break;
-                                default:
-                                    break;
+                                };
                             }
-                            togglebutton.IsChecked = false;
+                            else
+                            {
+                                object newone = null;
+                                switch (item.ValueType)
+                                {
+                                    case ValueTypeEnum.Dimension:
+                                        newone = new DimensionColumnData() { LibraryID = item.DisplayText };
+                                        Columns.Add(newone);
+                                        break;
+                                    case ValueTypeEnum.Measure:
+                                        newone = new MeasureColumnData() { LibraryID = item.DisplayText };
+                                        Columns.Add(newone);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                togglebutton.IsChecked = false;
+                            }
                         }
+                    }
+                    catch (Exception Ex)
+                    {
+                        logger.Error(Ex);
                     }
                 })
             };
@@ -122,22 +132,6 @@ namespace daVinci.Controls
             InitializeComponent();
             DataContext = this;
         }
-
-        #region Accordion
-        //private ObservableCollection<LuiAccordionItem> columns=new ObservableCollection<LuiAccordionItem>();
-        //public ObservableCollection<LuiAccordionItem> Columns
-        //{
-        //    get { return columns; }
-        //    set
-        //    {
-        //        if (columns != value)
-        //        {
-        //            columns = value;
-        //           RaisePropertyChanged();
-        //        }
-
-        //    }
-        //}
 
         #region Columns - DP        
         public ObservableCollection<object> Columns
@@ -152,16 +146,23 @@ namespace daVinci.Controls
 
         private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ColumnChooser obj)
+            try
             {
-                if (e.NewValue is ObservableCollection<object> newvalue)
+                if (d is ColumnChooser obj)
                 {
-                    var s = newvalue;
+                    if (e.NewValue is ObservableCollection<object> newvalue)
+                    {
+                        var s = newvalue;
+                    }
                 }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
             }
         }
         #endregion
-        #endregion
+
 
         #region Popup Content
         private object popupContent;
