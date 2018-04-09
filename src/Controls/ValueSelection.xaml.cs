@@ -131,12 +131,12 @@ namespace daVinci.Controls
             switch (valueType)
             {
                 case ValueTypeEnum.Dimension:
-                    CategoryDisplayText = "Dimensionen";
-                    FieldDisplayText = "Felder";
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Dimensions", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Fields", null, LocalizeDictionary.Instance.Culture));
                     break;
                 case ValueTypeEnum.Measure:
-                    CategoryDisplayText = "Kennzahlen";
-                    FieldDisplayText = "Aus einem Feld";
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Measures", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Visualization_Requirements_FromField", null, LocalizeDictionary.Instance.Culture));
                     break;
                 default:
                     break;
