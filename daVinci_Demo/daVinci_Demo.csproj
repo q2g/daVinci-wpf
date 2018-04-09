@@ -118,6 +118,10 @@
       <Project>{2ee2ae07-61c6-43dc-805d-662ad526a430}</Project>
       <Name>leonardo-wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Qlik.Sense.Resources\Qlik.Sense.Resources\Qlik.Sense.Resources.csproj">
+      <Project>{39b8f5a4-5f08-46f2-87cf-5f53f7f0618e}</Project>
+      <Name>Qlik.Sense.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\daVinci-wpf.csproj">
       <Project>{2eca33f5-e95c-4386-b16c-2c894c09b621}</Project>
       <Name>daVinci-wpf</Name>

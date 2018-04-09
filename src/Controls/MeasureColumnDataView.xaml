@@ -293,14 +293,14 @@
             CheckedText="{l:Loc Translate_common:Common_Auto}"
             IsChecked="{Binding TextAllignment}"
             TitleText="{l:Loc Translate_common:Common_Text_TextAlignment}"
-            UnCheckedText="{l:Loc Translate:Common_Custom}">
+            UnCheckedText="{l:Loc Translate_common:Common_Custom}">
             <daViniciControls:ContentSwitch.Content>
                 <StackPanel />
             </daViniciControls:ContentSwitch.Content>
             <daViniciControls:ContentSwitch.UnCheckedContent>
                 <LuiControls:LuiCombobox SelectedIndex="{Binding AllignmentIndex}">
-                    <ComboBoxItem Content="{l:Loc Translate:Common_Text_AlignLeft}" />
-                    <ComboBoxItem Content="{l:Loc Translate:Common_Text_AlignRight}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignLeft}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignRight}" />
                 </LuiControls:LuiCombobox>
             </daViniciControls:ContentSwitch.UnCheckedContent>
         </daViniciControls:ContentSwitch>

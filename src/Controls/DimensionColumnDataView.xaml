@@ -173,8 +173,8 @@
                 <LuiControls:LuiCombobox
                     Background="White"
                     SelectedIndex="{Binding AllignmentIndex}">
-                    <ComboBoxItem Content="{l:Loc Common_Text_AlignLeft}" />
-                    <ComboBoxItem Content="{l:Loc Common_Text_AlignRight}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignLeft}" />
+                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignRight}" />
                 </LuiControls:LuiCombobox>
             </daViniciControls:ContentSwitch.UnCheckedContent>
         </daViniciControls:ContentSwitch>
@@ -187,7 +187,7 @@
             LabelText="{l:Loc Translate_common:Common_Appearance}"
             SelectedIndex="{Binding RepresentationIndex}">
             <ComboBoxItem Content="{l:Loc properties_textImage_responsive_text}" />
-            <ComboBoxItem Content="{l:Loc Common_URL}" />
+            <ComboBoxItem Content="{l:Loc Translate_common:Common_URL}" />
         </LuiControls:LuiCombobox>
 
         <LuiControls:LuiInputGroup

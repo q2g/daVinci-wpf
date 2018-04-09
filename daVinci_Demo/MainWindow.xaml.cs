@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFLocalizeExtension.Engine;
 
 namespace daVinci_Demo
 {
@@ -31,6 +33,7 @@ namespace daVinci_Demo
 
         public MainWindow()
         {
+            LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
 
 
             //ColumnChooser cc = new ColumnChooser();
@@ -208,6 +211,10 @@ namespace daVinci_Demo
 
             Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
             InitializeComponent();
+
+
+            
+
             DataContext = this;
             //Logger logger = LogManager.GetCurrentClassLogger();
             //logger.Error("Hallo Log!");
@@ -220,6 +227,8 @@ namespace daVinci_Demo
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var json = Table.SaveToJSON();
+
+            var nm = (LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Appearance", null, LocalizeDictionary.Instance.Culture));
 
             //Kennzahlformel
         }

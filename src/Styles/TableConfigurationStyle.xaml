@@ -11,22 +11,23 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style
         x:Key="PresentationDataStyle"
-        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc Qlik.Sense.Resources:Translate_client:properties_presentation}" />
         <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
     <Style
         x:Key="PresentationGeneralDataStyle"
-        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="Allgemein" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc Qlik.Sense.Resources:Translate_client:properties_general}" />
         <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
@@ -41,9 +42,9 @@
 
     <Style
         x:Key="AddOnDataStyle"
-        BasedOn="{StaticResource LUI_PresentationAccordionItemStyle}"
+        BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="Präsentation" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc Qlik.Sense.Resources:Translate_client:properties_dataHandling}" />
         <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
 
@@ -88,13 +89,13 @@
                                 CollapseAllOnExpandSingle="true"
                                 IsDragDropEnabled="False"
                                 IsItemsStretchEnabled="False"
-                                ItemContainerStyle="{StaticResource LUI_MainAccordionItemStyle}">
+                                ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
 
-                                <controls:LuiAccordionItem Header="{l:Loc properties_data}">
+                                <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_data}">
                                     <daVinciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc properties_sorting}">
+                                <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_sorting}">
                                     <ScrollViewer>
                                         <controls:LuiAccordion
                                             CollapseAllOnExpandSingle="False"
@@ -105,13 +106,13 @@
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc properties_addons}">
+                                <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_addons}">
                                     <controls:LuiAccordion
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc Translate_common:Common_Appearance}">
+                                <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Appearance}">
                                     <controls:LuiAccordion
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />

@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
-    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
-    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
-    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
-    xmlns:daViniciControls="clr-namespace:daVinci.Controls">
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnOrderAccordionItemStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/MainAccordionItemStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/PresentationAccordionItemStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/SortOrderAccordionItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 

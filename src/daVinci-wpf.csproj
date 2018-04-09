@@ -86,6 +86,9 @@
     <Compile Include="Controls\ControlLoader.xaml.cs">
       <DependentUpon>ControlLoader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HubControl.xaml.cs">
+      <DependentUpon>HubControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MeasureColumnDataView.xaml.cs">
       <DependentUpon>MeasureColumnDataView.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\HubControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MeasureColumnDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +182,18 @@
     <Page Include="Controls\ValueSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ColumnOrderAccordionItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\MainAccordionItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\PresentationAccordionItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\SortOrderAccordionItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
