@@ -66,6 +66,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigData\Hub\AppData.cs" />
+    <Compile Include="ConfigData\Hub\HubData.cs" />
+    <Compile Include="ConfigData\Hub\StreamData.cs" />
     <Compile Include="ConfigData\TableConfigurations\AddOnDataProcessingConfiguration.cs" />
     <Compile Include="ConfigData\TableConfigurations\IHasSortCriteria.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationGeneralData.cs" />
@@ -85,6 +88,9 @@
     </Compile>
     <Compile Include="Controls\ControlLoader.xaml.cs">
       <DependentUpon>ControlLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HubAppArea.xaml.cs">
+      <DependentUpon>HubAppArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\HubControl.xaml.cs">
       <DependentUpon>HubControl.xaml</DependentUpon>
@@ -146,6 +152,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\HubAppArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\HubControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\StreamCategoryAccordionItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\PresentationAccordionItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,6 +245,9 @@
       <Project>{39b8f5a4-5f08-46f2-87cf-5f53f7f0618e}</Project>
       <Name>Qlik.Sense.Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\QlikApp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

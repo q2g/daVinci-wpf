@@ -1,0 +1,119 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.HubAppArea"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource LUI.Brush.Grayscale100}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="False">
+            <TextBlock
+                Margin="10"
+                DockPanel.Dock="left"
+                Text="{Binding StreamName}" />
+
+            <Luicontrols:LuiButtonGroup
+                Margin="10,0,0,0"
+                DockPanel.Dock="Right">
+                <Luicontrols:LuiToggleButton LuiAttached:ThemeProperties.IconLeft="lui_icon_list" />
+                <Luicontrols:LuiToggleButton LuiAttached:ThemeProperties.IconRight="lui_icon_grid" />
+            </Luicontrols:LuiButtonGroup>
+            <StackPanel
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
+
+                <Luicontrols:LuiToggleButton
+                    LuiAttached:ThemeProperties.BorderThickness="1,1,0,1"
+                    LuiAttached:ThemeProperties.CornerRadius="3,0,0,3"
+                    LuiAttached:ThemeProperties.DisableCheckedStyle="True"
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_ascending"
+                    CheckedIcon="lui_icon_descending" />
+                <Luicontrols:LuiCombobox
+                    Width="150"
+                    VerticalAlignment="Center"
+                    LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
+                    SelectedIndex="0">
+                    <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByAlphabetical}" />
+                    <ComboBoxItem Content="Created Date?" />
+                    <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByPublishedDate}" />
+                </Luicontrols:LuiCombobox>
+            </StackPanel>
+        </DockPanel>
+        <ItemsControl
+            Grid.Row="1"
+            Background="{StaticResource LUI.Brush.Grayscale90}"
+            ItemsSource="{Binding Apps}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel
+                        Width="140"
+                        Margin="20"
+                        Cursor="Hand">
+                        <Border
+                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                            BorderThickness="1">
+                            <Image
+                                Width="140"
+                                Height="110"
+                                Source="{Binding AppImage}"
+                                Stretch="Fill" />
+                        </Border>
+                        <Border
+                            Background="{StaticResource LUI.Brush.Grayscale100}"
+                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                            BorderThickness="1">
+                            <Grid Height="40">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Left"
+                                    FontFamily="{StaticResource QlikViewSans}"
+                                    FontWeight="Normal"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Text="{Binding AppName}"
+                                    TextWrapping="Wrap" />
+                                <Luicontrols:LuiIcon
+                                    Grid.Column="1"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="right"
+                                    FontWeight="Normal"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Icon="lui_icon_info"
+                                    IconSize="Large" />
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

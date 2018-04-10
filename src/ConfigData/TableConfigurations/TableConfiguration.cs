@@ -18,7 +18,6 @@ namespace daVinci.ConfigData
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private ObservableCollection<object> columns = new ObservableCollection<object>();
-
         public ObservableCollection<object> Columns
         {
             get

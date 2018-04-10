@@ -1,6 +1,8 @@
 ﻿using daVinci.ConfigData;
 using daVinci.Controls;
 using daVinci.Resources;
+using daVinci_wpf.ConfigData;
+using daVinci_wpf.ConfigData.Hub;
 using leonardo.Controls;
 using NLog;
 using System;
@@ -209,11 +211,56 @@ namespace daVinci_Demo
             //    TotalLabel = "GesamtwerteTest"
             //});
 
+
+            Hub = new HubData();
+            Hub.Streams = new ObservableCollection<object>()
+            {
+                new StreamData()
+                {
+                    StreamName ="Everyone",
+                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
+                    Apps=new ObservableCollection<AppData>()
+                    {
+                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                    }
+                },
+                new StreamData()
+                {
+                    StreamName ="Manufacturing",
+                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
+                     Apps=new ObservableCollection<AppData>()
+                    {
+                        new AppData(){ AppName="Very very Long App", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                    }
+                },
+                new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData(){ StreamName="Sales", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream}
+            };
+
+            Hub.PersonalStreams = new ObservableCollection<object>()
+            {
+                new StreamData()
+                {
+                    StreamName ="Work",
+
+                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
+                    Apps=new ObservableCollection<AppData>()
+                    {
+                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
+                        new AppData(){ AppName="App3", Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                    }
+                }
+            };
+
             Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
             InitializeComponent();
 
 
-            
+
 
             DataContext = this;
             //Logger logger = LogManager.GetCurrentClassLogger();
@@ -222,7 +269,7 @@ namespace daVinci_Demo
 
         }
         public TableConfiguration Table { get; set; }
-        public ObservableCollection<LuiAccordionItem> ItemList { get; set; }
+        public HubData Hub { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

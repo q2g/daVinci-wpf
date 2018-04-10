@@ -26,14 +26,14 @@
     </Style>
 
     <Style
-        x:Key="DarstellungExpanderDownHeaderStyle"
+        x:Key="StreamCategoryExpanderDownHeaderStyle"
         TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource LUI.Brush.Grayscale95}"
+                        Background="{StaticResource LUI.Brush.Grayscale100}"
                         BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
                         BorderThickness="0.3">
                         <Grid
@@ -41,14 +41,21 @@
                             Background="Transparent"
                             SnapsToDevicePixels="False">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <controls:LuiIcon
+                            <ContentPresenter
                                 Grid.Column="0"
-                                Margin="0,0,10,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
+                            <controls:LuiIcon
+                                Grid.Column="1"
+                                Margin="10,0,10,0"
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Left"
+                                FontWeight="Normal"
                                 Foreground="{StaticResource LUI.Brush.Grayscale30}">
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
@@ -56,24 +63,17 @@
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
                                                 Value="True">
-                                                <Setter Property="Icon" Value="lui_icon_triangle_bottom" />
+                                                <Setter Property="Icon" Value="lui_icon_arrow_down" />
                                             </DataTrigger>
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
                                                 Value="False">
-                                                <Setter Property="Icon" Value="lui_icon_triangle_right" />
+                                                <Setter Property="Icon" Value="lui_icon_arrow_up" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </controls:LuiIcon.Style>
                             </controls:LuiIcon>
-                            <ContentPresenter
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                RecognizesAccessKey="True"
-                                SnapsToDevicePixels="True" />
-
                         </Grid>
 
                     </Border>
@@ -82,7 +82,7 @@
         </Setter>
     </Style>
     <Style
-        x:Key="DarstellungAccordionExpanderStyle"
+        x:Key="StreamCategoryAccordionExpanderStyle"
         TargetType="{x:Type Expander}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 
@@ -107,7 +107,7 @@
                                 Padding="{TemplateBinding Padding}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Background="{StaticResource LUI.Brush.Grayscale95}"
+                                Background="{StaticResource LUI.Brush.Grayscale100}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -120,7 +120,7 @@
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{StaticResource LUI.Brush.Grayscale30}"
                                 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                Style="{StaticResource DarstellungExpanderDownHeaderStyle}" />
+                                Style="{StaticResource StreamCategoryExpanderDownHeaderStyle}" />
                             <ContentPresenter
                                 x:Name="ExpandSite"
                                 Margin="{TemplateBinding Padding}"
@@ -152,13 +152,15 @@
                 Padding="4"
                 HorizontalAlignment="Stretch"
                 DockPanel.Dock="Left"
-                FontSize="16"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontSize="14"
+                FontWeight="Normal"
                 Text="{Binding}" />
         </Grid>
     </DataTemplate>
 
     <Style
-        x:Key="PresentationAccordionItemStyle"
+        x:Key="StreamCategoryAccordionItemStyle"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
@@ -168,7 +170,7 @@
                         Header="{TemplateBinding Header}"
                         HeaderTemplate="{StaticResource ExpanderHeaderDataTemplate}"
                         IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                        Style="{StaticResource DarstellungAccordionExpanderStyle}" />
+                        Style="{StaticResource StreamCategoryAccordionExpanderStyle}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

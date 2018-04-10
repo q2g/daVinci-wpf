@@ -5,6 +5,7 @@
     xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:daVinci.Controls;assembly=daVinci-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:daVinci_Demo"
     xmlns:lui="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
@@ -52,6 +53,10 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem Header="Hub" />
+        <TabItem
+            Header="Hub"
+            IsSelected="True">
+            <controls:HubControl DataContext="{Binding Hub}" />
+        </TabItem>
     </TabControl>
 </Window>

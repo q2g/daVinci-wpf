@@ -2,10 +2,116 @@
     x:Class="daVinci.Controls.HubStreamSelection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVinciControls="clr-namespace:daVinci.Controls"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
-    <Grid />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style
+                x:Key="StreamSelectionStyle"
+                TargetType="ListBoxItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Grid
+                                Name="mainGrid"
+                                Height="39"
+                                VerticalAlignment="Center"
+                                Background="{StaticResource LUI.Brush.Grayscale100}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Name="selectedIndicationBorder"
+                                    Background="{StaticResource LUI.Brush.Grayscale100}" />
+                                <Luicontrols:LuiIcon
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Icon="{Binding Icon}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource QlikViewSans}"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Text="{Binding StreamName}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource LUI.Brush.GREEN}" />
+                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource LUI.Brush.Grayscale80}" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="IsSelected" Value="false" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource LUI.Brush.Grayscale90}" />
+                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource LUI.Brush.Grayscale90}" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <DataTemplate x:Key="StreamsDataTemplate" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Name="Maingrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Background="{StaticResource LUI.Brush.Grayscale100}"
+            DockPanel.Dock="Top">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource QlikViewSans}"
+                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                Text="User Name" />
+        </Border>
+        <Luicontrols:LuiAccordion
+            Grid.Row="1"
+            Background="White"
+            CollapseAllOnExpandSingle="False"
+            IsDragDropEnabled="False"
+            ItemContainerStyle="{StaticResource StreamCategoryAccordionItemStyle}">
+            <Luicontrols:LuiAccordionItem
+                Header="Personal?"
+                IsExpanded="True">
+                <ListBox
+                    ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                    ItemsSource="{Binding PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                    SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+            </Luicontrols:LuiAccordionItem>
+            <Luicontrols:LuiAccordionItem
+                Header="{l:Loc Translate_qmc:qmc_resourceType_Stream}"
+                IsExpanded="True">
+                <ListBox
+                    ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                    ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                    SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+            </Luicontrols:LuiAccordionItem>
+        </Luicontrols:LuiAccordion>
+    </Grid>
 </UserControl>

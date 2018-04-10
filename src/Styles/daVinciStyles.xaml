@@ -9,6 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/MainAccordionItemStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/PresentationAccordionItemStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/SortOrderAccordionItemStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/StreamCategoryAccordionItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
