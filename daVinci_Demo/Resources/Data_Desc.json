@@ -1,0 +1,1123 @@
+{
+  "qInfo": {
+    "qId": "rytJT",
+    "qType": "table"
+  },
+  "qExtendsId": "",
+  "qMetaDef": {},
+  "qHyperCubeDef": {
+    "qStateName": "",
+    "qDimensions": [
+      {
+        "qLibraryId": "",
+        "qDef": {
+          "qGrouping": "N",
+          "qFieldDefs": [
+            "AccountDesc"
+          ],
+          "qFieldLabels": [
+            "Account"
+          ],
+          "qSortCriterias": [
+            {
+              "qSortByState": 0,
+              "qSortByFrequency": 0,
+              "qSortByNumeric": 1,
+              "qSortByAscii": 1,
+              "qSortByLoadOrder": 1,
+              "qSortByExpression": 1,
+              "qExpression": {
+                "qv": "exp"
+              },
+              "qSortByGreyness": 0
+            }
+          ],
+          "qNumberPresentations": [],
+          "qReverseSort": false,
+          "qActiveField": 0,
+          "qLabelExpression": "",
+          "autoSort": false,
+          "cId": "hyJrVj",
+          "othersLabel": "Otherz",
+          "textAlign": {
+            "auto": false,
+            "align": "right"
+          },
+          "representation": {
+            "type": "url",
+            "urlLabel": "hhh"
+          }
+        },
+        "qNullSuppression": false,
+        "qIncludeElemValue": false,
+        "qOtherTotalSpec": {
+          "qOtherMode": "OTHER_REL_LIMITED",
+          "qOtherCounted": {
+            "qv": "10"
+          },
+          "qOtherLimit": {
+            "qv": "17%"
+          },
+          "qOtherLimitMode": "OTHER_GT_LIMIT",
+          "qSuppressOther": true,
+          "qForceBadValueKeeping": true,
+          "qApplyEvenWhenPossiblyWrongResult": true,
+          "qGlobalOtherGrouping": false,
+          "qOtherCollapseInnerDimensions": false,
+          "qOtherSortMode": "OTHER_SORT_ASCENDING",
+          "qTotalMode": "TOTAL_OFF",
+          "qReferencedExpression": {
+            "qv": ""
+          }
+        },
+        "qShowTotal": false,
+        "qShowAll": false,
+        "qOtherLabel": {
+          "qv": "Otherz"
+        },
+        "qTotalLabel": {
+          "qv": ""
+        },
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "uu",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "oo",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      }
+    ],
+    "qMeasures": [
+      {
+        "qLibraryId": "KdPhAt",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "",
+            "qDec": ".",
+            "qThou": ","
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "None",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": false,
+          "cId": "KRNBS",
+          "numFormatFromTemplate": true,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 1,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "bbb",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "ttt",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "",
+        "qDef": {
+          "qLabel": "zzz",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "if( Sum ([AR60+])>0, count ( distinct [Customer Number]))",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "M/D/YYYY",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Sum",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": false,
+          "cId": "LHSBnT",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": false,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": 0,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "0",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "R",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "#thou##0dec00",
+            "qDec": "dec",
+            "qThou": "thou"
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Min",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": false,
+          "cId": "csuTpL",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": false,
+            "align": "right"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": 1,
+          "qSortByAscii": 1,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "1",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "U",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "",
+            "qDec": ".",
+            "qThou": ","
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "XfAjAZW",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": true
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "3",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "DD MM YYYY",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "VUpNvCn",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "2",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "DD MMMM YYYY",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "Cpmu",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "4",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "MM/DD/YYYY",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "GmQJmp",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "5",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "MMMM DD, YYYY",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "zpFNye",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "6",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "6",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "M/D/YYYY h:mm:ss[.fff] TT",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "LFhTUv",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "7",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "7",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "YYYY-MM-DD hh:mm:ss[.fff]",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "PpNEPk",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "8",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "8",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "h:mm:ss TT",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "TzMrVJ",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "9",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "9",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "hh:mm:ss",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "PJkNmmp",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "10",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "10",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      },
+      {
+        "qLibraryId": "RRcCqu",
+        "qDef": {
+          "qLabel": "",
+          "qDescription": "",
+          "qTags": [],
+          "qGrouping": "N",
+          "qDef": "",
+          "qNumFormat": {
+            "qType": "D",
+            "qnDec": 2,
+            "qUseThou": 0,
+            "qFmt": "h:mm:ss tt",
+            "qDec": "",
+            "qThou": ""
+          },
+          "qRelative": false,
+          "qBrutalSum": false,
+          "qAggrFunc": "Expr",
+          "qAccumulate": 0,
+          "qReverseSort": false,
+          "qActiveExpression": 0,
+          "qExpressions": [],
+          "qLabelExpression": "",
+          "autoSort": true,
+          "cId": "PrATqeB",
+          "numFormatFromTemplate": false,
+          "textAlign": {
+            "auto": true,
+            "align": "left"
+          },
+          "isCustomFormatted": false
+        },
+        "qSortBy": {
+          "qSortByState": 0,
+          "qSortByFrequency": 0,
+          "qSortByNumeric": -1,
+          "qSortByAscii": 0,
+          "qSortByLoadOrder": 1,
+          "qSortByExpression": 0,
+          "qExpression": {
+            "qv": ""
+          },
+          "qSortByGreyness": 0
+        },
+        "qAttributeExpressions": [
+          {
+            "qExpression": "11",
+            "qLibraryId": "",
+            "id": "cellBackgroundColor"
+          },
+          {
+            "qExpression": "11",
+            "qLibraryId": "",
+            "id": "cellForegroundColor"
+          }
+        ],
+        "qAttributeDimensions": [],
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        }
+      }
+    ],
+    "qInterColumnSortOrder": [
+      13,
+      1,
+      2,
+      3,
+      5,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      0
+    ],
+    "qSuppressZero": false,
+    "qSuppressMissing": true,
+    "qInitialDataFetch": [],
+    "qReductionMode": "N",
+    "qMode": "S",
+    "qPseudoDimPos": -1,
+    "qNoOfLeftDims": -1,
+    "qAlwaysFullyExpanded": false,
+    "qMaxStackedCells": 5000,
+    "qPopulateMissing": false,
+    "qShowTotalsAbove": false,
+    "qIndentMode": false,
+    "qCalcCond": {
+      "qv": "ss"
+    },
+    "qSortbyYValue": 0,
+    "qTitle": {
+      "qv": ""
+    },
+    "qCalcCondition": {
+      "qCond": {
+        "qv": "ss"
+      },
+      "qMsg": {
+        "qv": "Displaymessage"
+      }
+    },
+    "qColumnOrder": [],
+    "columnOrder": [
+      1,
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "columnWidths": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "qLayoutExclude": {
+      "qHyperCubeDef": {
+        "qStateName": "",
+        "qDimensions": [],
+        "qMeasures": [],
+        "qInterColumnSortOrder": [],
+        "qSuppressZero": false,
+        "qSuppressMissing": false,
+        "qInitialDataFetch": [],
+        "qReductionMode": "N",
+        "qMode": "S",
+        "qPseudoDimPos": -1,
+        "qNoOfLeftDims": -1,
+        "qAlwaysFullyExpanded": false,
+        "qMaxStackedCells": 5000,
+        "qPopulateMissing": false,
+        "qShowTotalsAbove": false,
+        "qIndentMode": false,
+        "qCalcCond": {
+          "qv": ""
+        },
+        "qSortbyYValue": 0,
+        "qTitle": {
+          "qv": ""
+        },
+        "qCalcCondition": {
+          "qCond": {
+            "qv": ""
+          },
+          "qMsg": {
+            "qv": ""
+          }
+        },
+        "qColumnOrder": []
+      }
+    },
+    "customErrorMessage": {
+      "calcCond": "Displaymessage"
+    }
+  },
+  "showTitles": true,
+  "title": "",
+  "subtitle": "",
+  "footnote": "",
+  "showDetails": false,
+  "totals": {
+    "show": false,
+    "position": "top",
+    "label": "ttt8"
+  },
+  "scrolling": {
+    "keepFirstColumnInView": false
+  },
+  "multiline": {
+    "wrapTextInHeaders": true,
+    "wrapTextInCells": true
+  },
+  "visualization": "table"
+}

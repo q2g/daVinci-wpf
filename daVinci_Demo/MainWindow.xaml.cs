@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,6 +212,8 @@ namespace daVinci_Demo
             //    TotalLabel = "GesamtwerteTest"
             //});
 
+            Table.ReadFromJSON(GetEmbeddedResourceFile("daVinci_Demo.Resources.Data_Desc.json"));
+
 
             Hub = new HubData();
             Hub.Streams = new ObservableCollection<object>()
@@ -256,7 +259,7 @@ namespace daVinci_Demo
                 }
             };
 
-            Table.ReadFromJSON(File.ReadAllText(@"C:\work\Programming\dotnet\Data_Desc.json"));
+
             InitializeComponent();
 
 
@@ -279,5 +282,17 @@ namespace daVinci_Demo
 
             //Kennzahlformel
         }
+        public string GetEmbeddedResourceFile(string filename)
+        {
+            var a = System.Reflection.Assembly.GetExecutingAssembly();
+            using (var s = a.GetManifestResourceStream(filename))
+            using (var r = new System.IO.StreamReader(s))
+            {
+                string result = r.ReadToEnd();
+                return result;
+            }
+            return "";
+        }
     }
+
 }
