@@ -28,7 +28,89 @@ namespace daVinci.Controls
         public HubAppArea()
         {
             InitializeComponent();
+        }
 
+        #region IsEditMode DP
+        public bool IsEditMode
+        {
+            get { return (bool)this.GetValue(IsEditModeProperty); }
+            set { this.SetValue(IsEditModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(
+         "IsEditMode", typeof(bool), typeof(HubAppArea), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region ShowDetail DP
+        public bool ShowDetail
+        {
+            get { return (bool)this.GetValue(ShowDetailProperty); }
+            set { this.SetValue(ShowDetailProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowDetailProperty = DependencyProperty.Register(
+         "ShowDetail", typeof(bool), typeof(HubAppArea), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region SelectedApp DP
+        public AppData SelectedApp
+        {
+            get { return (AppData)this.GetValue(SelectedAppProperty); }
+            set { this.SetValue(SelectedAppProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedAppProperty = DependencyProperty.Register(
+         "SelectedApp", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        private bool isNewMode;
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsEditMode = false;
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsEditMode = false;
+
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsEditMode = true;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (sender is FrameworkElement sendercontrol)
+            {
+                if (sendercontrol.DataContext is AppData appdata)
+                {
+
+                    if (!ShowDetail)
+                    {
+                        SelectedApp = appdata;
+                        ShowDetail = true;
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
+        private void itemsControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CancelButton_Click(sender, e);
+            ShowDetail = false;
+            e.Handled = true;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            CancelButton_Click(sender, e);
+            ShowDetail = false;
+            SelectedApp = null;
         }
     }
 }

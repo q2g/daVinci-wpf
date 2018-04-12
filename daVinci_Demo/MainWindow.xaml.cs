@@ -224,8 +224,8 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
                     Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
+                        new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 },
                 new StreamData()
@@ -234,8 +234,8 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
                      Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="Very very Long App", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
+                        new AppData(){ AppName="Very very Long App",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 },
                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
@@ -252,9 +252,9 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
                     Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
-                        new AppData(){ AppName="App3", Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
+                        new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App3",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 }
             };

@@ -113,15 +113,6 @@
                         <LuiControls:LuiInput
                             LabelText="{l:Loc properties_numberFormatting}"
                             Text="{Binding NumberFormatText, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock
-                            Margin="0,10,0,0"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Text="{l:Loc properties_numberFormatting_example}" />
-                        <TextBlock
-                            HorizontalAlignment="Right"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontWeight="Bold"
-                            Text="{Binding NumberFormatText, Converter={StaticResource FormatConverter}, ConverterParameter=d}" />
                     </StackPanel>
                 </daViniciControls:ContentSwitch.UnCheckedContent>
             </daViniciControls:ContentSwitch>
@@ -142,15 +133,7 @@
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
                 Text="{Binding CurrencyFormatText}" />
-            <TextBlock
-                Margin="0,10,0,0"
-                FontFamily="{StaticResource QlikViewSans}"
-                Text="{l:Loc properties_numberFormatting_example}" />
-            <TextBlock
-                HorizontalAlignment="Right"
-                FontFamily="{StaticResource QlikViewSans}"
-                FontWeight="Bold"
-                Text="$????0" />
+
         </StackPanel>
 
         <StackPanel
@@ -189,15 +172,7 @@
                         <LuiControls:LuiInput
                             LabelText="Zahlenformat"
                             Text="{Binding DateFormatText}" />
-                        <TextBlock
-                            Margin="0,10,0,0"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Text="{l:Loc properties_numberFormatting_example}" />
-                        <TextBlock
-                            HorizontalAlignment="Right"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontWeight="Bold"
-                            Text="{Binding DateFormatText}" />
+
                     </StackPanel>
                 </daViniciControls:ContentSwitch.UnCheckedContent>
             </daViniciControls:ContentSwitch>
@@ -218,15 +193,6 @@
             <LuiControls:LuiInput
                 LabelText="Zahlenformat"
                 Text="{Binding DurationFormatText}" />
-            <TextBlock
-                Margin="0,10,0,0"
-                FontFamily="{StaticResource QlikViewSans}"
-                Text="{l:Loc properties_numberFormatting_example}" />
-            <TextBlock
-                HorizontalAlignment="Right"
-                FontFamily="{StaticResource QlikViewSans}"
-                FontWeight="Bold"
-                Text="????25:05:20" />
         </StackPanel>
 
         <StackPanel
@@ -250,15 +216,6 @@
                 Margin="0,10,0,0"
                 LabelText="{l:Loc properties_numberFormatting}"
                 Text="{Binding CustomNumberFormatText}" />
-            <TextBlock
-                Margin="0,10,0,0"
-                FontFamily="{StaticResource QlikViewSans}"
-                Text="{l:Loc properties_numberFormatting_example}" />
-            <TextBlock
-                HorizontalAlignment="Right"
-                FontFamily="{StaticResource QlikViewSans}"
-                FontWeight="Bold"
-                Text="????" />
         </StackPanel>
 
 

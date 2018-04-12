@@ -92,6 +92,9 @@
     <Compile Include="Controls\HubAppArea.xaml.cs">
       <DependentUpon>HubAppArea.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HubAppDataView.xaml.cs">
+      <DependentUpon>HubAppDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HubControl.xaml.cs">
       <DependentUpon>HubControl.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\HubAppArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HubAppDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
