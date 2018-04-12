@@ -1,4 +1,7 @@
-﻿using System;
+﻿using daVinci_wpf.ConfigData;
+using daVinci_wpf.ConfigData.Hub;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,21 +23,12 @@ namespace daVinci.Controls
     /// </summary>
     public partial class HubAppArea : UserControl
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public HubAppArea()
         {
             InitializeComponent();
 
         }
-
-        #region Stream - DP        
-        public object Stream
-        {
-            get { return (object)this.GetValue(StreamProperty); }
-            set { this.SetValue(StreamProperty, value); }
-        }
-
-        public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
-         "Stream", typeof(object), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
     }
 }

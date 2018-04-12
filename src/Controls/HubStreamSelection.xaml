@@ -43,6 +43,8 @@
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Normal"
                                     Foreground="{StaticResource LUI.Brush.Grayscale30}"
                                     Icon="{Binding Icon}" />
                                 <TextBlock

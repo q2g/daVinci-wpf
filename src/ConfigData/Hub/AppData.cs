@@ -1,4 +1,6 @@
-﻿using System;
+﻿using leonardo_wpf.Resources;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -119,10 +121,65 @@ namespace daVinci_wpf.ConfigData.Hub
                 }
             }
         }
+    }
 
+    public class AppDataFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            if (data is AppData appdata)
+            {
+                return (appdata.AppDescription.ToLower().Contains(searchString.ToLower())
+                    || appdata.AppName.ToLower().Contains(searchString.ToLower())
+                    || (appdata.Created + "").ToLower().Contains(searchString.ToLower())
+                    || (appdata.Published + "").ToLower().Contains(searchString.ToLower())
+                    || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower()));
 
+            }
+            return false;
+        }
+    }
 
-
-
+    public class AppNameComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            if (x is AppData xappdata)
+            {
+                if (y is AppData yappdata)
+                {
+                    return xappdata.AppName.CompareTo(yappdata.AppName);
+                }
+            }
+            return 0;
+        }
+    }
+    public class AppPublishedComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            if (x is AppData xappdata)
+            {
+                if (y is AppData yappdata)
+                {
+                    return xappdata.Published.CompareTo(yappdata.Published);
+                }
+            }
+            return 0;
+        }
+    }
+    public class AppCreatedComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            if (x is AppData xappdata)
+            {
+                if (y is AppData yappdata)
+                {
+                    return xappdata.Created.CompareTo(yappdata.Created);
+                }
+            }
+            return 0;
+        }
     }
 }

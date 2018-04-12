@@ -214,7 +214,7 @@ namespace daVinci_Demo
 
             Table.ReadFromJSON(GetEmbeddedResourceFile("daVinci_Demo.Resources.Data_Desc.json"));
 
-
+            string apptext = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
             Hub = new HubData();
             Hub.Streams = new ObservableCollection<object>()
             {
@@ -224,8 +224,8 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
                     Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 },
                 new StreamData()
@@ -234,8 +234,8 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
                      Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="Very very Long App", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                        new AppData(){ AppName="Very very Long App", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 },
                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
@@ -252,9 +252,9 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
                     Apps=new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
-                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"},
-                        new AppData(){ AppName="App3", Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png"}
+                        new AppData(){ AppName="App1", Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App2", Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext},
+                        new AppData(){ AppName="App3", Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext}
                     }
                 }
             };
@@ -291,7 +291,7 @@ namespace daVinci_Demo
                 string result = r.ReadToEnd();
                 return result;
             }
-            return "";
+
         }
     }
 

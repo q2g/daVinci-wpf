@@ -23,6 +23,9 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <converter:FormatConverter
+                x:Key="FormatConverter"
+                NumberToFormat="1000.12" />
             <LUIConverter:BooleanToVisibilityConverter
                 x:Key="BoolToVisibilityCollapsedConverter"
                 FalseValue="Collapsed"
@@ -94,7 +97,7 @@
                 CheckedText="Standard"
                 IsChecked="{Binding IsStandardFormat}"
                 TitleText="Formatierung"
-                UnCheckedText="{l:Loc Translate:Common_Custom}">
+                UnCheckedText="{l:Loc Translate_common:Common_Custom}">
                 <daViniciControls:ContentSwitch.Content>
                     <LuiControls:LuiCombobox SelectedIndex="{Binding StandardFormatIndex}">
                         <ComboBoxItem Content="1,000" />
@@ -109,7 +112,7 @@
                     <StackPanel>
                         <LuiControls:LuiInput
                             LabelText="{l:Loc properties_numberFormatting}"
-                            Text="{Binding NumberFormatText}" />
+                            Text="{Binding NumberFormatText, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock
                             Margin="0,10,0,0"
                             FontFamily="{StaticResource QlikViewSans}"
@@ -118,7 +121,7 @@
                             HorizontalAlignment="Right"
                             FontFamily="{StaticResource QlikViewSans}"
                             FontWeight="Bold"
-                            Text="????0" />
+                            Text="{Binding NumberFormatText, Converter={StaticResource FormatConverter}, ConverterParameter=d}" />
                     </StackPanel>
                 </daViniciControls:ContentSwitch.UnCheckedContent>
             </daViniciControls:ContentSwitch>

@@ -5,7 +5,9 @@
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hub="clr-namespace:daVinci_wpf.ConfigData.Hub"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -16,6 +18,138 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="ItemTemplateWrapPanel">
+                <StackPanel
+                    Width="140"
+                    Margin="20"
+                    Cursor="Hand">
+                    <Border
+                        BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                        BorderThickness="1">
+                        <Image
+                            Width="140"
+                            Height="110"
+                            Source="{Binding AppImage}"
+                            Stretch="Fill" />
+                    </Border>
+                    <Border
+                        Background="{StaticResource LUI.Brush.Grayscale100}"
+                        BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                        BorderThickness="1">
+                        <Grid Height="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Text="{Binding AppName}"
+                                TextWrapping="Wrap" />
+                            <Luicontrols:LuiIcon
+                                Grid.Column="1"
+                                Margin="0,0,10,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="right"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Icon="lui_icon_info"
+                                IconSize="Large" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </DataTemplate>
+
+            <ItemsPanelTemplate x:Key="ItemsPanelTemplateStackPanel">
+                <StackPanel />
+            </ItemsPanelTemplate>
+
+            <ItemsPanelTemplate x:Key="ItemsPanelTemplateWrapPanel">
+                <WrapPanel />
+            </ItemsPanelTemplate>
+
+            <DataTemplate x:Key="ItemTemplateStackPanel">
+                <StackPanel
+                    Width="800"
+                    Margin="20,20,0,20"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <Image
+                        Width="140"
+                        Height="110"
+                        VerticalAlignment="Top"
+                        Source="{Binding AppImage}"
+                        Stretch="Fill" />
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                            Text="{Binding AppName}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale50}"
+                                Text="{l:Loc AppDetails_FileName}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale50}"
+                                Text="C:\Folder\Filename.qvf" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale50}"
+                                Text="{l:Loc Toolbar_DataLastLoaded}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource LUI.Brush.Grayscale50}"
+                                Text="{Binding DataLastLoaded}" />
+                        </StackPanel>
+                        <TextBlock
+                            Width="650"
+                            Margin="0,20,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Normal"
+                            Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                            Text="{Binding AppDescription}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+
+            <hub:AppDataFilter x:Key="AppDataFilter" />
+            <hub:AppNameComparer x:Key="AppNameComparer" />
+            <hub:AppPublishedComparer x:Key="AppPublishedComparer" />
+            <hub:AppCreatedComparer x:Key="AppCreatedComparer" />
+
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="{StaticResource LUI.Brush.Grayscale100}">
@@ -28,92 +162,100 @@
                 Margin="10"
                 DockPanel.Dock="left"
                 Text="{Binding StreamName}" />
-
+            <Luicontrols:LuiSearch
+                Name="search"
+                HintText="{l:Loc Translate_common:Common_Search}" />
             <Luicontrols:LuiButtonGroup
+                Name="itemPanelSelection"
                 Margin="10,0,0,0"
                 DockPanel.Dock="Right">
-                <Luicontrols:LuiToggleButton LuiAttached:ThemeProperties.IconLeft="lui_icon_list" />
-                <Luicontrols:LuiToggleButton LuiAttached:ThemeProperties.IconRight="lui_icon_grid" />
+                <Luicontrols:LuiToggleButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_list"
+                    FontSize="16" />
+                <Luicontrols:LuiToggleButton
+                    LuiAttached:ThemeProperties.IconRight="lui_icon_grid"
+                    FontSize="16" />
             </Luicontrols:LuiButtonGroup>
             <StackPanel
                 DockPanel.Dock="Right"
                 Orientation="Horizontal">
 
                 <Luicontrols:LuiToggleButton
+                    Name="sortdescendingtoggle"
                     LuiAttached:ThemeProperties.BorderThickness="1,1,0,1"
                     LuiAttached:ThemeProperties.CornerRadius="3,0,0,3"
                     LuiAttached:ThemeProperties.DisableCheckedStyle="True"
                     LuiAttached:ThemeProperties.IconLeft="lui_icon_ascending"
                     CheckedIcon="lui_icon_descending" />
                 <Luicontrols:LuiCombobox
+                    Name="orderByCombo"
                     Width="150"
                     VerticalAlignment="Center"
                     LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
-                    SelectedIndex="0">
+                    SelectedIndex="{Binding SortByIndex, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}">
                     <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByAlphabetical}" />
                     <ComboBoxItem Content="Created Date?" />
                     <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByPublishedDate}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>
         </DockPanel>
+        <Luicontrols:CollectionView
+            Name="appsCollectionview"
+            CollectionViewFilter="{StaticResource AppDataFilter}"
+            FilterText="{Binding SearchText, ElementName=search}"
+            ItemsSource="{Binding Apps}"
+            SortDescending="{Binding IsChecked, ElementName=sortdescendingtoggle}">
+            <Luicontrols:CollectionView.Style>
+                <Style TargetType="Luicontrols:CollectionView">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
+                            Value="0">
+                            <Setter Property="CollectionViewComparer" Value="{StaticResource AppNameComparer}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
+                            Value="1">
+                            <Setter Property="CollectionViewComparer" Value="{StaticResource AppCreatedComparer}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
+                            Value="2">
+                            <Setter Property="CollectionViewComparer" Value="{StaticResource AppPublishedComparer}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Luicontrols:CollectionView.Style>
+        </Luicontrols:CollectionView>
         <ItemsControl
+            Name="itemsControl"
             Grid.Row="1"
             Background="{StaticResource LUI.Brush.Grayscale90}"
-            ItemsSource="{Binding Apps}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel
-                        Width="140"
-                        Margin="20"
-                        Cursor="Hand">
-                        <Border
-                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
-                            BorderThickness="1">
-                            <Image
-                                Width="140"
-                                Height="110"
-                                Source="{Binding AppImage}"
-                                Stretch="Fill" />
-                        </Border>
-                        <Border
-                            Background="{StaticResource LUI.Brush.Grayscale100}"
-                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
-                            BorderThickness="1">
-                            <Grid Height="40">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Left"
-                                    FontFamily="{StaticResource QlikViewSans}"
-                                    FontWeight="Normal"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                                    Text="{Binding AppName}"
-                                    TextWrapping="Wrap" />
-                                <Luicontrols:LuiIcon
-                                    Grid.Column="1"
-                                    Margin="0,0,10,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="right"
-                                    FontWeight="Normal"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                                    Icon="lui_icon_info"
-                                    IconSize="Large" />
-                            </Grid>
-                        </Border>
-
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+            ItemsSource="{Binding ProcessedCollection, ElementName=appsCollectionview}">
+            <ItemsControl.Style>
+                <Style TargetType="ItemsControl">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
+                            Value="0">
+                            <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateStackPanel}" />
+                            <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateStackPanel}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
+                            Value="-1">
+                            <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
+                            <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
+                            Value="1">
+                            <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
+                            <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Style>
         </ItemsControl>
     </Grid>
 </UserControl>
