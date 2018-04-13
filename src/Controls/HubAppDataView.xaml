@@ -73,7 +73,6 @@
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource QlikViewSans}"
                 FontWeight="Bold"
-                Foreground="{StaticResource LUI.Brush.Grayscale30}"
                 Text="{Binding AppName}" />
             <StackPanel Orientation="Horizontal">
                 <TextBlock
@@ -82,7 +81,6 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}"
                     Text="{l:Loc AppDetails_FileName}" />
                 <TextBlock
                     VerticalAlignment="Center"
@@ -90,7 +88,6 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}"
                     Text="{Binding Filename}" />
 
                 <!--<TextBlock
@@ -99,7 +96,7 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}">
+                    >
                     <TextBlock.Text>
                         <m:Cat Format="{}{0} {1}">
                             <l:Loc Key="AppDetails_FileName" />
@@ -116,7 +113,6 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}"
                     Text="{l:Loc Toolbar_DataLastLoaded}" />
                 <TextBlock
                     VerticalAlignment="Center"
@@ -124,7 +120,6 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}"
                     Text="{Binding DataLastLoaded, StringFormat=D, ConverterCulture=de-DE}" />
                 <!--<TextBlock
                     VerticalAlignment="Center"
@@ -132,7 +127,7 @@
                     FontSize="12"
                     FontStyle="Italic"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale50}">
+                    >
                     <TextBlock.Text>
                         <m:Cat Format="{}{0} {1}">
                             <l:Loc Key="Toolbar_DataLastLoaded" />
@@ -150,7 +145,6 @@
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource QlikViewSans}"
                 FontWeight="Normal"
-                Foreground="{StaticResource LUI.Brush.Grayscale30}"
                 Text="{Binding AppDescription}"
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -159,23 +153,32 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
-            <Luicontrols:LuiInput
-                LabelText="{l:Loc Translate_common:Common_Title}"
-                Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}" />
+            <StackPanel>
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    Text="{l:Loc Translate_common:Common_Title}" />
+                <Luicontrols:LuiInput
+                    Margin="0,7,0,0"
+                    Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}" />
+            </StackPanel>
 
-
-            <Luicontrols:LuiInput
-                Width="500"
-                VerticalAlignment="Stretch"
-                VerticalContentAlignment="Top"
-                AcceptsReturn="True"
-                LUIInputSize="Custom"
-                LabelText="{l:Loc Translate_common:Common_Description}"
-                MaxLines="5"
-                MinLines="5"
-                Text="{Binding AppToEdit.AppDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto" />
+            <StackPanel Margin="0,10,0,0">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    Text="{l:Loc Translate_common:Common_Description}" />
+                <Luicontrols:LuiInput
+                    Width="500"
+                    Margin="0,7,0,0"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Top"
+                    AcceptsReturn="True"
+                    LUIInputSize="Custom"
+                    MaxLines="5"
+                    MinLines="5"
+                    Text="{Binding AppToEdit.AppDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" />
+            </StackPanel>
 
         </StackPanel>
 

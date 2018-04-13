@@ -61,6 +61,7 @@ namespace daVinci.Controls
 
         public static readonly DependencyProperty SelectedAppProperty = DependencyProperty.Register(
          "SelectedApp", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         #endregion
 
         private bool isNewMode;
@@ -160,6 +161,22 @@ namespace daVinci.Controls
                     {
                         stream.Apps.Remove(data);
                     }
+                }
+            }
+        }
+
+        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CloseButton_Click(sender, new RoutedEventArgs());
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedApp != null)
+            {
+                if (DataContext is StreamData stream)
+                {
+                    stream.Apps.Remove(SelectedApp);
                 }
             }
         }

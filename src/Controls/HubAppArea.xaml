@@ -16,6 +16,7 @@
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -31,7 +32,6 @@
                     BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
                     BorderThickness="1"
                     Click="MenuDeleteItem_Click"
-                    CommandParameter="{Binding}"
                     Header="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Clear}" />
             </ContextMenu>
 
@@ -111,7 +111,7 @@
             </DataTemplate>
 
             <ItemsPanelTemplate x:Key="ItemsPanelTemplateStackPanel">
-                <StackPanel />
+                <StackPanel CanVerticallyScroll="True" />
             </ItemsPanelTemplate>
 
             <ItemsPanelTemplate x:Key="ItemsPanelTemplateWrapPanel">
@@ -124,7 +124,8 @@
                 <controls:HubAppDataView
                     dd:DragDrop.IsDragSource="True"
                     ContextMenu="{StaticResource deleteMenu}"
-                    DataContext="{Binding}" />
+                    DataContext="{Binding}"
+                    Foreground="{StaticResource LUI.Brush.Grayscale30}" />
             </DataTemplate>
 
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
@@ -148,7 +149,7 @@
     </UserControl.Resources>
     <Grid Background="{StaticResource LUI.Brush.Grayscale100}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -161,12 +162,19 @@
             <Luicontrols:LuiButtonGroup
                 Name="itemPanelSelection"
                 Margin="10,0,0,0"
-                DockPanel.Dock="Right">
+                DockPanel.Dock="Right"
+                IsLoose="True">
+
                 <Luicontrols:LuiToggleButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_list"
+                    LuiAttached:ThemeProperties.BorderThickness="0"
+                    LuiAttached:ThemeProperties.IconRight="lui_icon_grid"
+                    LuiAttached:ThemeProperties.LightCheckedStyle="True"
                     FontSize="16" />
                 <Luicontrols:LuiToggleButton
-                    LuiAttached:ThemeProperties.IconRight="lui_icon_grid"
+                    Margin="10,0,0,0"
+                    LuiAttached:ThemeProperties.BorderThickness="0"
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_list"
+                    LuiAttached:ThemeProperties.LightCheckedStyle="True"
                     FontSize="16" />
             </Luicontrols:LuiButtonGroup>
             <StackPanel
@@ -192,9 +200,10 @@
             </StackPanel>
             <Luicontrols:LuiButton
                 Margin="5,0,5,0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
                 Click="NewAppButton_Click"
-                Content="{l:Loc Hub_CreateApp}"
-                DockPanel.Dock="Right" />
+                DockPanel.Dock="Right"
+                FontSize="16" />
             <Luicontrols:LuiSearch
                 Name="search"
                 Width="150"
@@ -240,21 +249,21 @@
                     <Style.Triggers>
                         <DataTrigger
                             Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
-                            Value="0">
-                            <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateStackPanel}" />
-                            <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateStackPanel}" />
-                        </DataTrigger>
-                        <DataTrigger
-                            Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
                             Value="-1">
                             <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
                             <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
                         </DataTrigger>
                         <DataTrigger
                             Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
-                            Value="1">
+                            Value="0">
                             <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
                             <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
+                            Value="1">
+                            <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateStackPanel}" />
+                            <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateStackPanel}" />
                         </DataTrigger>
                         <DataTrigger
                             Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
@@ -269,20 +278,61 @@
             Grid.Row="2"
             Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="15*" />
+
+                <RowDefinition Height="10*" />
                 <RowDefinition Height="70*" />
             </Grid.RowDefinitions>
+
             <Border
+                Grid.Row="0"
                 Background="{StaticResource LUI.Brush.Grayscale95}"
                 BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
                 BorderThickness="1">
-                <DockPanel>
+                <DockPanel Background="{StaticResource LUI.Brush.Grayscale95}">
                     <Luicontrols:LuiButton
-                        HorizontalAlignment="right"
+                        Margin="10,0,0,0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                        Click="EditButton_Click"
+                        FontSize="16"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+                    <Luicontrols:LuiButton
+                        Margin="10,0,0,0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                        Click="DeleteButton_Click"
+                        FontSize="16"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+                    <Luicontrols:LuiButton
+                        Width="40"
+                        Height="28"
+                        Margin="5,0,0,0"
+                        HorizontalContentAlignment="Center"
+                        LuiAttached:ThemeProperties.ButtonScheme="Error"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
+                        Click="CancelButton_Click"
+                        FontSize="16"
+                        FontWeight="Normal"
+                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+                    <Luicontrols:LuiButton
+                        Width="40"
+                        Height="28"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Center"
+                        LuiAttached:ThemeProperties.ButtonScheme="Success"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_tick"
+                        Click="SaveButton_Click"
+                        FontSize="16"
+                        FontWeight="Normal"
+                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+
+                    <Luicontrols:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
+                        Background="{StaticResource LUI.Brush.Grayscale95}"
                         Click="CloseButton_Click"
                         DockPanel.Dock="Right" />
+
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -290,46 +340,23 @@
                         FontWeight="Normal"
                         Foreground="{StaticResource LUI.Brush.Grayscale30}"
                         Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-                </DockPanel>
-            </Border>
-            <Border
-                Grid.Row="1"
-                Background="{StaticResource LUI.Brush.Grayscale95}"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
-                BorderThickness="1">
-                <DockPanel
-                    Background="{StaticResource LUI.Brush.Grayscale95}"
-                    LastChildFill="False">
-                    <Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        Click="EditButton_Click"
-                        Content="{l:Loc Translate_common:Common_Edit}"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-                    <Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        Click="SaveButton_Click"
-                        Content="{l:Loc Translate_common:Common_Save}"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-                    <Luicontrols:LuiButton
-                        Margin="5,0,0,0"
-                        Click="CancelButton_Click"
-                        Content="{l:Loc Translate_common:Common_Cancel}"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+
 
                 </DockPanel>
             </Border>
             <Border
                 Grid.Row="2"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource LUI.Brush.Grayscale95}"
+                Background="{StaticResource LUI.Brush.Grayscale35}"
                 BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
                 BorderThickness="1">
                 <controls:HubAppDataView
                     x:Name="AppView"
                     Margin="20,20,0,0"
                     VerticalAlignment="Top"
-                    Background="{StaticResource LUI.Brush.Grayscale95}"
+                    Background="{StaticResource LUI.Brush.Grayscale35}"
                     DataContext="{Binding SelectedApp, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
+                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
                     IsEditMode="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
             </Border>
         </Grid>
