@@ -20,6 +20,29 @@ namespace daVinci_wpf.ConfigData.Hub
         }
         #endregion
 
+        public AppData()
+        {
+
+        }
+        public AppData(AppData other)
+        {
+            CopyFrom(other);
+        }
+        public void CopyFrom(AppData other)
+        {
+            if (other != null)
+            {
+                AppName = other.AppName;
+                AppDescription = other.AppDescription;
+                AppImage = other.AppImage;
+                DataLastLoaded = other.DataLastLoaded;
+                Published = other.Published;
+                Created = other.Created;
+                filename = other.Filename;
+                IsPublished = other.isPublished;
+            }
+        }
+
         private string appName;
         public string AppName
         {
@@ -121,6 +144,40 @@ namespace daVinci_wpf.ConfigData.Hub
                 }
             }
         }
+
+        private string filename;
+        public string Filename
+        {
+            get
+            {
+                return filename;
+            }
+            set
+            {
+                if (filename != value)
+                {
+                    filename = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool isPublished;
+        public bool IsPublished
+        {
+            get
+            {
+                return isPublished;
+            }
+            set
+            {
+                if (isPublished != value)
+                {
+                    isPublished = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
     }
 
     public class AppDataFilter : ICollectionViewFilter
@@ -133,7 +190,8 @@ namespace daVinci_wpf.ConfigData.Hub
                     || appdata.AppName.ToLower().Contains(searchString.ToLower())
                     || (appdata.Created + "").ToLower().Contains(searchString.ToLower())
                     || (appdata.Published + "").ToLower().Contains(searchString.ToLower())
-                    || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower()));
+                    || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower())
+                    || appdata.Filename.ToLower().Contains(searchString.ToLower()));
 
             }
             return false;

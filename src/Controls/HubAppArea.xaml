@@ -7,11 +7,12 @@
     xmlns:controls="clr-namespace:daVinci.Controls"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:hub="clr-namespace:daVinci_wpf.ConfigData.Hub"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="650"
+    d:DesignWidth="1200"
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
@@ -22,19 +23,58 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <ContextMenu
+                x:Key="deleteMenu"
+                Style="{StaticResource ContextmenuAccordion}">
+                <MenuItem
+                    Height="40"
+                    BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                    BorderThickness="1"
+                    Click="MenuDeleteItem_Click"
+                    CommandParameter="{Binding}"
+                    Header="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Clear}" />
+            </ContextMenu>
+
             <DataTemplate x:Key="ItemTemplateWrapPanel">
                 <StackPanel
                     Width="140"
                     Margin="20"
+                    dd:DragDrop.IsDragSource="True"
+                    ContextMenu="{StaticResource deleteMenu}"
                     Cursor="Hand">
                     <Border
                         BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
                         BorderThickness="1">
-                        <Image
-                            Width="140"
-                            Height="110"
-                            Source="{Binding AppImage}"
-                            Stretch="Fill" />
+                        <Grid>
+                            <Image
+                                Width="140"
+                                Height="90"
+                                Source="{Binding AppImage}"
+                                Stretch="None" />
+                            <Border
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                                BorderThickness="1">
+                                <Luicontrols:LuiIcon
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    FontSize="16"
+                                    Icon="lui_icon_stream" />
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsPublished}"
+                                                Value="false">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Grid>
+
                     </Border>
                     <Border
                         Background="{StaticResource LUI.Brush.Grayscale100}"
@@ -78,8 +118,13 @@
                 <WrapPanel />
             </ItemsPanelTemplate>
 
+
+
             <DataTemplate x:Key="ItemTemplateStackPanel">
-                <controls:HubAppDataView DataContext="{Binding}" />
+                <controls:HubAppDataView
+                    dd:DragDrop.IsDragSource="True"
+                    ContextMenu="{StaticResource deleteMenu}"
+                    DataContext="{Binding}" />
             </DataTemplate>
 
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
@@ -145,6 +190,11 @@
                     <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByPublishedDate}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>
+            <Luicontrols:LuiButton
+                Margin="5,0,5,0"
+                Click="NewAppButton_Click"
+                Content="{l:Loc Hub_CreateApp}"
+                DockPanel.Dock="Right" />
             <Luicontrols:LuiSearch
                 Name="search"
                 Width="150"
@@ -270,13 +320,13 @@
             </Border>
             <Border
                 Grid.Row="2"
+                VerticalAlignment="Stretch"
                 Background="{StaticResource LUI.Brush.Grayscale95}"
                 BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
                 BorderThickness="1">
                 <controls:HubAppDataView
-                    Grid.Row="2"
-                    Width="800"
-                    Height="150"
+                    x:Name="AppView"
+                    Margin="20,20,0,0"
                     VerticalAlignment="Top"
                     Background="{StaticResource LUI.Brush.Grayscale95}"
                     DataContext="{Binding SelectedApp, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"

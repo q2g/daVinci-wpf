@@ -7,7 +7,9 @@
     xmlns:controls="clr-namespace:daVinci.Controls"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:m="http://xamlmarkupextensions.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -33,16 +35,37 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel
-        Width="800"
         Margin="20,0,0,0"
         HorizontalAlignment="Left"
         Orientation="Horizontal">
-        <Image
-            Width="140"
-            Height="150"
-            VerticalAlignment="Top"
-            Source="{Binding AppImage}"
-            Stretch="Fill" />
+        <Grid>
+            <Image
+                Width="140"
+                Height="90"
+                VerticalAlignment="Top"
+                Source="{Binding AppImage}"
+                Stretch="None" />
+            <Border
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top">
+                <Luicontrols:LuiIcon
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="16"
+                    Icon="lui_icon_stream" />
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsPublished}"
+                                Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </Grid>
         <StackPanel
             Margin="10,0,0,0"
             Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
@@ -68,7 +91,23 @@
                     FontStyle="Italic"
                     FontWeight="Normal"
                     Foreground="{StaticResource LUI.Brush.Grayscale50}"
-                    Text="C:\Folder\Filename.qvf" />
+                    Text="{Binding Filename}" />
+
+                <!--<TextBlock
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    FontStyle="Italic"
+                    FontWeight="Normal"
+                    Foreground="{StaticResource LUI.Brush.Grayscale50}">
+                    <TextBlock.Text>
+                        <m:Cat Format="{}{0} {1}">
+                            <l:Loc Key="AppDetails_FileName" />
+                            <l:Loc Key="AppDetails_FileName" />
+                            <Binding Path="Filename" />
+                        </m:Cat>
+                    </TextBlock.Text>
+                </TextBlock>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock
@@ -87,6 +126,23 @@
                     FontWeight="Normal"
                     Foreground="{StaticResource LUI.Brush.Grayscale50}"
                     Text="{Binding DataLastLoaded, StringFormat=D, ConverterCulture=de-DE}" />
+                <!--<TextBlock
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    FontStyle="Italic"
+                    FontWeight="Normal"
+                    Foreground="{StaticResource LUI.Brush.Grayscale50}">
+                    <TextBlock.Text>
+                        <m:Cat Format="{}{0} {1}">
+                            <l:Loc Key="Toolbar_DataLastLoaded" />
+                            <Binding
+                                ConverterCulture="de-DE"
+                                Path="DataLastLoaded"
+                                StringFormat="D" />
+                        </m:Cat>
+                    </TextBlock.Text>
+                </TextBlock>-->
             </StackPanel>
             <TextBlock
                 Width="650"
@@ -99,24 +155,28 @@
                 TextWrapping="Wrap" />
         </StackPanel>
         <StackPanel
-            Height="250"
             Margin="10,0,0,0"
-            VerticalAlignment="Top"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
             <Luicontrols:LuiInput
-                Width="500"
                 LabelText="{l:Loc Translate_common:Common_Title}"
-                Text="{Binding AppName}" />
+                Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}" />
+
 
             <Luicontrols:LuiInput
                 Width="500"
-                Height="200"
                 VerticalAlignment="Stretch"
+                VerticalContentAlignment="Top"
                 AcceptsReturn="True"
+                LUIInputSize="Custom"
                 LabelText="{l:Loc Translate_common:Common_Description}"
-                Text="{Binding AppDescription}"
+                MaxLines="5"
+                MinLines="5"
+                Text="{Binding AppToEdit.AppDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
                 TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Visible" />
+                VerticalScrollBarVisibility="Auto" />
+
         </StackPanel>
 
     </StackPanel>

@@ -53,6 +53,20 @@ namespace daVinci_wpf.ConfigData
             }
         }
 
+        private string username;
+        public string UserName
+        {
+            get
+            {
+                return username;
+            }
+            set
+            {
+                username = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {

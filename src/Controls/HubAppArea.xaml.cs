@@ -64,36 +64,59 @@ namespace daVinci.Controls
         #endregion
 
         private bool isNewMode;
+        private AppData toEdit;
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            IsEditMode = false;
+            if (isNewMode)
+            {
+                isNewMode = false;
+                IsEditMode = false;
+                if (DataContext is StreamData stream)
+                {
+                    stream.Apps.Add(toEdit);
+                }
+                SelectedApp = toEdit;
+
+            }
+            else
+            {
+                SelectedApp.CopyFrom(toEdit);
+                IsEditMode = false;
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            toEdit = null;
+            isNewMode = false;
             IsEditMode = false;
 
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            toEdit = new AppData();
+            toEdit.CopyFrom(SelectedApp);
+            AppView.AppToEdit = toEdit;
             IsEditMode = true;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            if (sender is FrameworkElement sendercontrol)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
-                if (sendercontrol.DataContext is AppData appdata)
+                if (sender is FrameworkElement sendercontrol)
                 {
-
-                    if (!ShowDetail)
+                    if (sendercontrol.DataContext is AppData appdata)
                     {
-                        SelectedApp = appdata;
-                        ShowDetail = true;
-                        e.Handled = true;
+
+                        if (!ShowDetail)
+                        {
+                            SelectedApp = appdata;
+                            ShowDetail = true;
+                            e.Handled = true;
+                        }
                     }
                 }
             }
@@ -111,6 +134,34 @@ namespace daVinci.Controls
             CancelButton_Click(sender, e);
             ShowDetail = false;
             SelectedApp = null;
+        }
+
+        private void NewAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is StreamData stream)
+            {
+                isNewMode = true;
+                toEdit = new AppData() { Created = DateTime.Now };
+                SelectedApp = toEdit;
+                AppView.AppToEdit = toEdit;
+                IsEditMode = true;
+                ShowDetail = true;
+            }
+
+        }
+
+        private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement source)
+            {
+                if (source.DataContext is AppData data)
+                {
+                    if (DataContext is StreamData stream)
+                    {
+                        stream.Apps.Remove(data);
+                    }
+                }
+            }
         }
     }
 }

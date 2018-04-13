@@ -5,6 +5,7 @@
     xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="control"
@@ -30,6 +31,7 @@
                                 Name="mainGrid"
                                 Height="39"
                                 VerticalAlignment="Center"
+                                dd:DragDrop.IsDropTarget="True"
                                 Background="{StaticResource LUI.Brush.Grayscale100}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="5" />
@@ -78,42 +80,27 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Name="Maingrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Border
-            Background="{StaticResource LUI.Brush.Grayscale100}"
-            DockPanel.Dock="Top">
-            <TextBlock
-                VerticalAlignment="Center"
-                FontFamily="{StaticResource QlikViewSans}"
-                Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                Text="User Name" />
-        </Border>
-        <Luicontrols:LuiAccordion
-            Grid.Row="1"
-            Background="White"
-            CollapseAllOnExpandSingle="False"
-            IsDragDropEnabled="False"
-            ItemContainerStyle="{StaticResource StreamCategoryAccordionItemStyle}">
-            <Luicontrols:LuiAccordionItem
-                Header="Personal?"
-                IsExpanded="True">
-                <ListBox
-                    ItemContainerStyle="{StaticResource StreamSelectionStyle}"
-                    ItemsSource="{Binding PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
-                    SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
-            </Luicontrols:LuiAccordionItem>
-            <Luicontrols:LuiAccordionItem
-                Header="{l:Loc Translate_qmc:qmc_resourceType_Stream}"
-                IsExpanded="True">
-                <ListBox
-                    ItemContainerStyle="{StaticResource StreamSelectionStyle}"
-                    ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
-                    SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
-            </Luicontrols:LuiAccordionItem>
-        </Luicontrols:LuiAccordion>
-    </Grid>
+    <Luicontrols:LuiAccordion
+        Grid.Row="1"
+        Background="White"
+        CollapseAllOnExpandSingle="False"
+        IsDragDropEnabled="False"
+        ItemContainerStyle="{StaticResource StreamCategoryAccordionItemStyle}">
+        <Luicontrols:LuiAccordionItem
+            Header="{l:Loc Hub_NavigationPanel_MyWork}"
+            IsExpanded="True">
+            <ListBox
+                ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                ItemsSource="{Binding PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+        </Luicontrols:LuiAccordionItem>
+        <Luicontrols:LuiAccordionItem
+            Header="Streams"
+            IsExpanded="True">
+            <ListBox
+                ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+        </Luicontrols:LuiAccordionItem>
+    </Luicontrols:LuiAccordion>
 </UserControl>

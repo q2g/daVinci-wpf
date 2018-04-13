@@ -1,4 +1,5 @@
-﻿using System;
+﻿using daVinci_wpf.ConfigData.Hub;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,17 @@ namespace daVinci.Controls
 
         public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(
          "IsEditMode", typeof(bool), typeof(HubAppDataView), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region AppToEdit DP
+        public AppData AppToEdit
+        {
+            get { return (AppData)this.GetValue(AppToEditProperty); }
+            set { this.SetValue(AppToEditProperty, value); }
+        }
+
+        public static readonly DependencyProperty AppToEditProperty = DependencyProperty.Register(
+         "AppToEdit", typeof(AppData), typeof(HubAppDataView), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
     }
 }
