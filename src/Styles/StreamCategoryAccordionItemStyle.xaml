@@ -127,6 +127,7 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 DockPanel.Dock="Bottom"
+                                
                                 Focusable="false"
                                 Visibility="Collapsed" />
                         </DockPanel>

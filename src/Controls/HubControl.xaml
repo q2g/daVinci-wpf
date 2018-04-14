@@ -30,6 +30,8 @@
             Grid.Row="0"
             Grid.Column="0"
             Background="{StaticResource LUI.Brush.Grayscale100}"
+            BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+            BorderThickness="0,0,1,0"
             DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <Luicontrols:LuiIcon
@@ -57,12 +59,15 @@
                     Text="{Binding UserName}" />
             </StackPanel>
         </Border>
-        <controls:HubStreamSelection
+        <Border
             Grid.Row="1"
             Grid.Column="0"
-            PersonalStreams="{Binding PersonalStreams}"
-            SelectedStream="{Binding SelectedStream}"
-            Streams="{Binding Streams}" />
+            Background="{StaticResource LUI.Brush.Grayscale95}">
+            <controls:HubStreamSelection
+                PersonalStreams="{Binding PersonalStreams}"
+                SelectedStream="{Binding SelectedStream}"
+                Streams="{Binding Streams}" />
+        </Border>
 
         <controls:HubAppArea
             Grid.Row="0"

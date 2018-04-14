@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:daVinci.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
@@ -20,6 +21,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:AddNumberConverter x:Key="AddNumberConverter" />
 
             <Style
                 x:Key="StreamSelectionStyle"
@@ -90,17 +92,23 @@
             Header="{l:Loc Hub_NavigationPanel_MyWork}"
             IsExpanded="True">
             <ListBox
+                BorderThickness="0"
                 ItemContainerStyle="{StaticResource StreamSelectionStyle}"
                 ItemsSource="{Binding PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
                 SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+
         </Luicontrols:LuiAccordionItem>
         <Luicontrols:LuiAccordionItem
             Header="Streams"
             IsExpanded="True">
-            <ListBox
-                ItemContainerStyle="{StaticResource StreamSelectionStyle}"
-                ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
-                SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+            <ScrollViewer Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}">
+                <ListBox
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                    ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+            </ScrollViewer>
         </Luicontrols:LuiAccordionItem>
     </Luicontrols:LuiAccordion>
 </UserControl>

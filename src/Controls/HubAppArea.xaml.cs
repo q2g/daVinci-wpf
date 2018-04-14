@@ -1,5 +1,7 @@
 ﻿using daVinci_wpf.ConfigData;
 using daVinci_wpf.ConfigData.Hub;
+using leonardo.Controls;
+using leonardo.Resources;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFLocalizeExtension.Engine;
 
 namespace daVinci.Controls
 {
@@ -153,13 +156,17 @@ namespace daVinci.Controls
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
         {
+
             if (sender is FrameworkElement source)
             {
                 if (source.DataContext is AppData data)
                 {
-                    if (DataContext is StreamData stream)
+                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.AppName)) == true)
                     {
-                        stream.Apps.Remove(data);
+                        if (DataContext is StreamData stream)
+                        {
+                            stream.Apps.Remove(data);
+                        }
                     }
                 }
             }
@@ -174,9 +181,12 @@ namespace daVinci.Controls
         {
             if (SelectedApp != null)
             {
-                if (DataContext is StreamData stream)
+                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedApp.AppName)) == true)
                 {
-                    stream.Apps.Remove(SelectedApp);
+                    if (DataContext is StreamData stream)
+                    {
+                        stream.Apps.Remove(SelectedApp);
+                    }
                 }
             }
         }

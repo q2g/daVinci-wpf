@@ -31,7 +31,9 @@
             DockPanel.Dock="Top"
             HintText=" "
             SearchText="{Binding SearchText}" />
-        <ScrollViewer DockPanel.Dock="Bottom">
+        <ScrollViewer
+            DockPanel.Dock="Bottom"
+            Style="{StaticResource LUI_SenseScrollViewerStyle}">
             <DockPanel>
                 <Grid
                     DockPanel.Dock="Top"

@@ -96,7 +96,10 @@
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_sorting}">
-                                    <ScrollViewer>
+
+                                    <ScrollViewer
+                                        Style="{StaticResource LUI_SenseScrollViewerStyle}"
+                                        VerticalScrollBarVisibility="Auto">
                                         <controls:LuiAccordion
                                             CollapseAllOnExpandSingle="False"
                                             IsDragDropChangesUnderlyingCollection="True"

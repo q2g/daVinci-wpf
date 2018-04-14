@@ -53,10 +53,13 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem
-            Header="Hub"
-            IsSelected="True">
+        <TabItem Header="Hub">
             <controls:HubControl DataContext="{Binding Hub}" />
+        </TabItem>
+        <TabItem
+            Header="Bookmarks"
+            IsSelected="True">
+            <controls:BookmarkControl DataContext="{Binding Bookmarks}" />
         </TabItem>
     </TabControl>
 </Window>

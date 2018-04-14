@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigData\Bookmark\BookmarkData.cs" />
     <Compile Include="ConfigData\Hub\AppData.cs" />
     <Compile Include="ConfigData\Hub\HubData.cs" />
     <Compile Include="ConfigData\Hub\StreamData.cs" />
@@ -82,6 +83,9 @@
     </Compile>
     <Compile Include="Controls\AggregateFuncSelection.xaml.cs">
       <DependentUpon>AggregateFuncSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BookmarkControl.xaml.cs">
+      <DependentUpon>BookmarkControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CategorySelection.xaml.cs">
       <DependentUpon>CategorySelection.xaml</DependentUpon>
@@ -146,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AggregateFuncSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BookmarkControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
