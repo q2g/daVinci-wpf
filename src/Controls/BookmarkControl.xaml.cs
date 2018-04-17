@@ -59,7 +59,7 @@ namespace daVinci.Controls
         }
 
         public static readonly DependencyProperty SelectedBookmarkProperty = DependencyProperty.Register(
-         "SelectedApp", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "SelectedBookmark", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         #endregion
 
@@ -226,6 +226,25 @@ namespace daVinci.Controls
             }
         }
 
-
+        // route event to parent
+        private void li_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is ListBox && !e.Handled)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                {
+                    RoutedEvent = UIElement.MouseWheelEvent,
+                    Source = sender
+                };
+                if (sender is Control sendercontrol)
+                {
+                    if (sendercontrol.Parent is UIElement parent)
+                    {
+                        parent.RaiseEvent(eventArg);
+                    }
+                }
+            }
+        }
     }
 }

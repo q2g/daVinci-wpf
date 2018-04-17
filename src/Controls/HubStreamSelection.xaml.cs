@@ -124,5 +124,26 @@ namespace daVinci.Controls
         public static readonly DependencyProperty PersonalStreamsProperty = DependencyProperty.Register(
          "PersonalStreams", typeof(ObservableCollection<object>), typeof(HubStreamSelection), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
+        //route Event to Parent
+        private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is ListBox && !e.Handled)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                {
+                    RoutedEvent = UIElement.MouseWheelEvent,
+                    Source = sender
+                };
+                if (sender is Control sendercontrol)
+                {
+                    if (sendercontrol.Parent is UIElement parent)
+                    {
+                        parent.RaiseEvent(eventArg);
+                    }
+                }
+            }
+        }
     }
 }

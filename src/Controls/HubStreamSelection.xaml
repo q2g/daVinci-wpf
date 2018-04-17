@@ -106,6 +106,7 @@
                     BorderThickness="0"
                     ItemContainerStyle="{StaticResource StreamSelectionStyle}"
                     ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                    PreviewMouseWheel="ListBox_PreviewMouseWheel"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
             </ScrollViewer>

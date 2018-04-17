@@ -62,56 +62,66 @@
             CollectionViewFilter="{StaticResource BookmarkDataFilter}"
             FilterText="{Binding SearchText, ElementName=search}"
             ItemsSource="{Binding Path=.}" />
-        <ListBox
-            Name="li"
+        <ScrollViewer
             Grid.Row="1"
-            ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
-            MouseDown="Listbox_MouseDown">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <DockPanel LastChildFill="False">
-                                    <TextBlock
-                                        DockPanel.Dock="Left"
-                                        FontFamily="{StaticResource QlikViewSans}"
-                                        Foreground="{StaticResource LUI.Brush.Grayscale30}">
-                                        <Run Text="{Binding BookmarkName}" />
-                                        <Run Text=":" />
-                                        <Run Text="{Binding BookmarkSelection}" />
-                                    </TextBlock>
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox
+                Name="li"
+                Grid.Row="1"
+                ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
+                MouseDown="Listbox_MouseDown"
+                PreviewMouseWheel="li_PreviewMouseWheel"
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Left"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            Foreground="{StaticResource LUI.Brush.Grayscale30}">
+                                            <Run Text="{Binding BookmarkName}" />
+                                            <Run Text=":" />
+                                            <Run Text="{Binding BookmarkSelection}" />
+                                        </TextBlock>
+                                        <Luicontrols:LuiButton
+                                            LuiAttached:ThemeProperties.BorderThickness="0"
+                                            LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                            Click="DeleteButton_Click"
+                                            DockPanel.Dock="Right" />
+                                        <Luicontrols:LuiButton
+                                            LuiAttached:ThemeProperties.BorderThickness="0"
+                                            LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                                            Click="EditButton_Click"
+                                            DockPanel.Dock="Right" />
+                                        <Luicontrols:LuiButton
+                                            LuiAttached:ThemeProperties.BorderThickness="0"
+                                            LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
+                                            Click="Info_Click"
+                                            DockPanel.Dock="Right" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Right"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                            Text="{Binding BookmarkCreated, StringFormat=D, ConverterCulture=de-DE}" />
+                                    </DockPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
 
-
-
-                                    <Luicontrols:LuiButton
-                                        LuiAttached:ThemeProperties.BorderThickness="0"
-                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                                        Click="DeleteButton_Click"
-                                        DockPanel.Dock="Right" />
-                                    <Luicontrols:LuiButton
-                                        LuiAttached:ThemeProperties.BorderThickness="0"
-                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
-                                        Click="EditButton_Click"
-                                        DockPanel.Dock="Right" />
-                                    <Luicontrols:LuiButton
-                                        LuiAttached:ThemeProperties.BorderThickness="0"
-                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
-                                        Click="Info_Click"
-                                        DockPanel.Dock="Right" />
-                                    <TextBlock
-                                        DockPanel.Dock="Right"
-                                        FontFamily="{StaticResource QlikViewSans}"
-                                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                                        Text="{Binding BookmarkCreated, StringFormat=D, ConverterCulture=de-DE}" />
-                                </DockPanel>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.Style>
-                <Style TargetType="ListBox">
+            </ListBox>
+            <ScrollViewer.Style>
+                <Style
+                    BasedOn="{StaticResource LUI_SenseScrollViewerStyle}"
+                    TargetType="ScrollViewer">
                     <Style.Triggers>
                         <DataTrigger
                             Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
@@ -120,8 +130,8 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListBox.Style>
-        </ListBox>
+            </ScrollViewer.Style>
+        </ScrollViewer>
         <Grid
             Grid.Row="2"
             Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">

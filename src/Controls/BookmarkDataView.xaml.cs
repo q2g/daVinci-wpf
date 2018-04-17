@@ -50,6 +50,6 @@ namespace daVinci.Controls
 
         public static readonly DependencyProperty BookmarkToEditProperty = DependencyProperty.Register(
          "BookmarkToEdit", typeof(BookmarkData), typeof(BookmarkDataView), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
+        #endregion  
     }
 }
