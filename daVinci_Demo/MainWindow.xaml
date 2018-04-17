@@ -53,7 +53,9 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem Header="Hub">
+        <TabItem
+            Header="Hub"
+            IsSelected="False">
             <controls:HubControl DataContext="{Binding Hub}" />
         </TabItem>
         <TabItem

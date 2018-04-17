@@ -29,7 +29,7 @@ namespace daVinci.Converter
                     {
                         if (value is double doublevalue)
                         {
-                            return doublevalue + doubleparameter;
+                            return Math.Max(doublevalue + doubleparameter, 0);
                         }
                     }
                 }

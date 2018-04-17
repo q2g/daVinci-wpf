@@ -54,6 +54,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     FontSize="16"
+                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
                     Icon="lui_icon_stream" />
                 <Border.Style>
                     <Style TargetType="Border">

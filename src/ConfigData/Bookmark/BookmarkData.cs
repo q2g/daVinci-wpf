@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leonardo_wpf.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -52,8 +53,25 @@ namespace daVinci_wpf.ConfigData.Bookmark
             }
         }
 
+        private DateTime bmCreated;
+        public DateTime BookmarkCreated
+        {
+            get
+            {
+                return bmCreated;
+            }
+            set
+            {
+                if (bmCreated != value)
+                {
+                    bmCreated = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private string bmSelection;
-        public string BookmarSelection
+        public string BookmarkSelection
         {
             get
             {
@@ -84,6 +102,33 @@ namespace daVinci_wpf.ConfigData.Bookmark
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        public void CopyFrom(BookmarkData other)
+        {
+            BookmarkName = other.BookmarkName;
+            BookmarkBelongsTo = other.BookmarkBelongsTo;
+            BookmarkCreated = other.BookmarkCreated;
+            BookmarkDescription = other.BookmarkDescription;
+            BookmarkSelection = other.BookmarkSelection;
+        }
+    }
+
+    public class BookmarkDataFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            if (data is BookmarkData bmdata)
+            {
+                return ((bmdata.BookmarkName + "").ToLower().Contains(searchString.ToLower())
+                    || (bmdata.BookmarkDescription + "").ToLower().Contains(searchString.ToLower())
+                    || (bmdata.BookmarkCreated + "").ToLower().Contains(searchString.ToLower())
+                    || (bmdata.BookmarkSelection + "").ToLower().Contains(searchString.ToLower())
+                    || (bmdata.BookmarkBelongsTo + "").ToLower().Contains(searchString.ToLower())
+                    );
+
+            }
+            return false;
         }
     }
 }

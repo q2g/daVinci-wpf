@@ -292,20 +292,22 @@ namespace daVinci_Demo
                 }
             };
 
-            List<BookmarkData> bookmarks = new List<BookmarkData>()
+            Bookmarks = new ObservableCollection<BookmarkData>()
             {
                 new BookmarkData()
                 {
                     BookmarkName = "Bookmark1",
+                    BookmarkCreated=DateTime.Now,
                     BookmarkDescription = apptext,
-                    BookmarSelection = "The Selection",
+                    BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 },
                 new BookmarkData()
                 {
                     BookmarkName = "Bookmark2",
+                    BookmarkCreated=DateTime.Now,
                     BookmarkDescription = apptext,
-                    BookmarSelection = "The other Selection",
+                    BookmarkSelection = "The other Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }
             };
@@ -325,6 +327,7 @@ namespace daVinci_Demo
         }
         public TableConfiguration Table { get; set; }
         public HubData Hub { get; set; }
+        public ObservableCollection<BookmarkData> Bookmarks { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
