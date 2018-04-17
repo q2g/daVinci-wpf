@@ -55,6 +55,7 @@
     <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
 
     <daVinciConverter:AddNumberConverter x:Key="AddNumberConverter" />
+    <daVinciConfig:SortOrderComparer x:Key="SortOrderComparer" />
 
 
     <Style
@@ -95,17 +96,23 @@
                                     <daVinciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
+
                                 <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_sorting}">
 
                                     <ScrollViewer
                                         Style="{StaticResource LUI_SenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
-                                        <controls:LuiAccordion
-                                            CollapseAllOnExpandSingle="False"
-                                            IsDragDropChangesUnderlyingCollection="True"
-                                            IsDragDropEnabled="True"
-                                            ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
-                                            ItemsSource="{Binding DataContext.SortColumns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                        <Grid>
+                                            <controls:CollectionView
+                                                CollectionViewComparer="{StaticResource SortOrderComparer}"
+                                                ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                            <controls:LuiAccordion
+                                                CollapseAllOnExpandSingle="False"
+                                                IsDragDropChangesUnderlyingCollection="True"
+                                                IsDragDropEnabled="True"
+                                                ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"
+                                                ItemsSource="{Binding Path=Children[0].ProcessedCollection, RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}" />
+                                        </Grid>
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 

@@ -73,12 +73,14 @@
     <Compile Include="ConfigData\Hub\HubData.cs" />
     <Compile Include="ConfigData\Hub\StreamData.cs" />
     <Compile Include="ConfigData\TableConfigurations\AddOnDataProcessingConfiguration.cs" />
+    <Compile Include="ConfigData\TableConfigurations\ColumnOrderComparer.cs" />
     <Compile Include="ConfigData\TableConfigurations\IHasSortCriteria.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationGeneralData.cs" />
     <Compile Include="ConfigData\TableConfigurations\PresentationData.cs" />
     <Compile Include="ConfigData\TableConfigurations\DimensionColumnData.cs" />
     <Compile Include="ConfigData\TableConfigurations\MeasureColumnData.cs" />
     <Compile Include="ConfigData\TableConfigurations\SortCriteria.cs" />
+    <Compile Include="ConfigData\TableConfigurations\SortOrderComparer.cs" />
     <Compile Include="ConfigData\TableConfigurations\TableConfiguration.cs" />
     <Compile Include="Controls\AddOnDataProcessing.xaml.cs">
       <DependentUpon>AddOnDataProcessing.xaml</DependentUpon>

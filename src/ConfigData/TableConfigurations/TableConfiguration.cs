@@ -34,45 +34,8 @@ namespace daVinci.ConfigData
         public TableConfiguration()
         {
             Columns = new ObservableCollection<object>();
-            Columns.CollectionChanged += Columns_CollectionChanged;
         }
 
-        private void Columns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                foreach (var item in e.NewItems)
-                {
-
-                    SortColumns.Add(item);
-
-                }
-            }
-
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
-            {
-                foreach (var item in e.OldItems)
-                {
-
-                    SortColumns.Remove(item);
-
-                }
-            }
-        }
-
-        private ObservableCollection<object> sortColumns = new ObservableCollection<object>();
-        public ObservableCollection<object> SortColumns
-        {
-            get
-            {
-                return sortColumns;
-            }
-            set
-            {
-                sortColumns = value;
-                RaisePropertyChanged();
-            }
-        }
         private ObservableCollection<object> presentationData = new ObservableCollection<object>();
         public ObservableCollection<object> PresentationData
         {
@@ -127,7 +90,7 @@ namespace daVinci.ConfigData
                 dynamic jsonConfig = JObject.Parse(JSONstring);
                 SettingsID = jsonConfig?.qInfo?.qId ?? "";
                 int counter = 0;
-                List<object> items = new List<object>();
+
                 foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
                 {
                     var newone = new DimensionColumnData();
@@ -135,7 +98,7 @@ namespace daVinci.ConfigData
                     newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
                     newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
                     counter++;
-                    items.Add(newone);
+                    columns.Add(newone);
                 }
 
                 foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
@@ -145,18 +108,11 @@ namespace daVinci.ConfigData
                     newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
                     newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
                     counter++;
-                    items.Add(newone);
+                    columns.Add(newone);
                 }
-                items
-                   .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex)
-                   .ToList()
-                   .ForEach((ele) => columns.Add(ele));
 
-                SortColumns.Clear();
-                items
-                   .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.SortOrderIndex)
-                   .ToList()
-                   .ForEach((ele) => SortColumns.Add(ele));
+
+
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
                 addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
@@ -196,6 +152,7 @@ namespace daVinci.ConfigData
                     {
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
+                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
                         counter++;
                     }
                 }
@@ -205,29 +162,13 @@ namespace daVinci.ConfigData
                     if (item is MeasureColumnData measureData)
                     {
                         jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
                         counter++;
                     }
                 }
 
-                counter = 0;
-                foreach (var item in SortColumns)
-                {
-                    if (item is DimensionColumnData dimensionData)
-                    {
-                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
-                        counter++;
-                    }
-                }
 
-                foreach (var item in SortColumns)
-                {
-                    if (item is MeasureColumnData measureData)
-                    {
-                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
-                        counter++;
-                    }
-                }
 
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);

@@ -26,6 +26,8 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -51,6 +53,10 @@
             <ContentControl Content="{Binding PopupContent}" />
         </LuiControls:LuiDialog>
 
+        <LuiControls:CollectionView
+            Name="collectionview"
+            CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+            ItemsSource="{Binding Columns}" />
         <ScrollViewer
             x:Name="scrollviewer"
             Grid.Row="1"
@@ -71,7 +77,7 @@
                     IsDragDropChangesUnderlyingCollection="True"
                     IsDragDropEnabled="True"
                     ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
-                    ItemsSource="{Binding Columns}" />
+                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
