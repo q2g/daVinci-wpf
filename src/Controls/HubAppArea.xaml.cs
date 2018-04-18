@@ -1,5 +1,5 @@
-﻿using daVinci_wpf.ConfigData;
-using daVinci_wpf.ConfigData.Hub;
+﻿using daVinci.ConfigData;
+using daVinci.ConfigData.Hub;
 using leonardo.Controls;
 using leonardo.Resources;
 using NLog;

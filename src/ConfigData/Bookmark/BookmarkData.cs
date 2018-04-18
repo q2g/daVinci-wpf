@@ -1,4 +1,4 @@
-﻿using leonardo_wpf.Resources;
+﻿using leonardo.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace daVinci_wpf.ConfigData.Bookmark
+namespace daVinci.ConfigData.Bookmark
 {
     public class BookmarkData : INotifyPropertyChanged
     {

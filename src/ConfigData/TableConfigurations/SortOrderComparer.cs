@@ -1,4 +1,4 @@
-﻿using daVinci_wpf.ConfigData.TableConfigurations;
+﻿using daVinci.ConfigData.TableConfigurations;
 using System;
 using System.Collections;
 using System.Collections.Generic;

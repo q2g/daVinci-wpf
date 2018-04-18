@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace daVinci_wpf.ConfigData
+namespace daVinci.ConfigData
 {
     public class HubData : INotifyPropertyChanged
     {

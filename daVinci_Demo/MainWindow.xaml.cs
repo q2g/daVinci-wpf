@@ -1,9 +1,8 @@
 ﻿using daVinci.ConfigData;
 using daVinci.Controls;
 using daVinci.Resources;
-using daVinci_wpf.ConfigData;
-using daVinci_wpf.ConfigData.Bookmark;
-using daVinci_wpf.ConfigData.Hub;
+using daVinci.ConfigData.Bookmark;
+using daVinci.ConfigData.Hub;
 using leonardo.Controls;
 using NLog;
 using System;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace daVinci_wpf.ConfigData.TableConfigurations
+namespace daVinci.ConfigData.TableConfigurations
 {
     public interface IHasSortCriteria
     {
