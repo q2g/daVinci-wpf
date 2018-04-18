@@ -60,6 +60,23 @@ namespace daVinci.ConfigData.Hub
             }
         }
 
+        private string appID;
+        public string AppID
+        {
+            get
+            {
+                return appID;
+            }
+            set
+            {
+                if (appID != value)
+                {
+                    appID = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private string appDescription;
         public string AppDescription
         {

@@ -101,7 +101,9 @@
         <Luicontrols:LuiAccordionItem
             Header="Streams"
             IsExpanded="True">
-            <ScrollViewer Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}">
+            <ScrollViewer
+                Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}"
+                VerticalScrollBarVisibility="Auto">
                 <ListBox
                     BorderThickness="0"
                     ItemContainerStyle="{StaticResource StreamSelectionStyle}"

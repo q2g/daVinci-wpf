@@ -64,7 +64,17 @@ namespace daVinci.Controls
 
         public static readonly DependencyProperty SelectedAppProperty = DependencyProperty.Register(
          "SelectedApp", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
 
+        #region AppSelectionCommand - DP        
+        public ICommand AppSelectionCommand
+        {
+            get { return (ICommand)this.GetValue(AppSelectionCommandProperty); }
+            set { this.SetValue(AppSelectionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty AppSelectionCommandProperty = DependencyProperty.Register(
+         "AppSelectionCommand", typeof(ICommand), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         private bool isNewMode;
@@ -186,6 +196,34 @@ namespace daVinci.Controls
                     if (DataContext is StreamData stream)
                     {
                         stream.Apps.Remove(SelectedApp);
+                    }
+                }
+            }
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (sender is FrameworkElement sendercontrol)
+                {
+                    if (sendercontrol.DataContext is AppData appdata)
+                    {
+                        AppSelectionCommand?.Execute(appdata);
+                    }
+                }
+            }
+        }
+
+        private void HubAppDataView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (sender is FrameworkElement sendercontrol)
+                {
+                    if (sendercontrol.DataContext is AppData appdata)
+                    {
+                        AppSelectionCommand?.Execute(appdata);
                     }
                 }
             }

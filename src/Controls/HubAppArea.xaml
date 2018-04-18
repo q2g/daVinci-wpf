@@ -49,6 +49,7 @@
                             <Image
                                 Width="140"
                                 Height="90"
+                                MouseDown="Image_MouseDown"
                                 Source="{Binding AppImage}"
                                 Stretch="None" />
                             <Border
@@ -72,7 +73,6 @@
                                 </Border.Style>
                             </Border>
                         </Grid>
-
                     </Border>
                     <Border
                         Background="{StaticResource LUI.Brush.Grayscale100}"
@@ -124,7 +124,8 @@
                     dd:DragDrop.IsDragSource="False"
                     ContextMenu="{StaticResource deleteMenu}"
                     DataContext="{Binding}"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}" />
+                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    MouseDown="HubAppDataView_MouseDown" />
             </DataTemplate>
 
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />

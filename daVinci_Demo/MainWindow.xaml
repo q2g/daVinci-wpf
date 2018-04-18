@@ -56,7 +56,9 @@
         <TabItem
             Header="Hub"
             IsSelected="False">
-            <controls:HubControl DataContext="{Binding Hub}" />
+            <controls:HubControl
+                AppSelectionCommand="{Binding AppSelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=local:MainWindow}}"
+                DataContext="{Binding Hub}" />
         </TabItem>
         <TabItem
             Header="Bookmarks"

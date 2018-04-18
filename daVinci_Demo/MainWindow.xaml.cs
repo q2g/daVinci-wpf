@@ -24,6 +24,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFLocalizeExtension.Engine;
+using leonardo.Resources;
 
 namespace daVinci_Demo
 {
@@ -449,7 +450,13 @@ namespace daVinci_Demo
             InitializeComponent();
 
 
-
+            AppSelectedCommand = new RelayCommand((o) => true, (o) =>
+                 {
+                     if (o is AppData appdata)
+                     {
+                         LuiMessageBox.ShowDialog($"App '{appdata.AppName}' selektiert");
+                     }
+                 });
 
             DataContext = this;
             //Logger logger = LogManager.GetCurrentClassLogger();
@@ -460,6 +467,7 @@ namespace daVinci_Demo
         public TableConfiguration Table { get; set; }
         public HubData Hub { get; set; }
         public ObservableCollection<BookmarkData> Bookmarks { get; set; }
+        public ICommand AppSelectedCommand { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

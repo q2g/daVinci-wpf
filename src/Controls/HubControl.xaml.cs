@@ -24,5 +24,16 @@ namespace daVinci.Controls
         {
             InitializeComponent();
         }
+
+        #region AppSelectionCommand - DP        
+        public ICommand AppSelectionCommand
+        {
+            get { return (ICommand)this.GetValue(AppSelectionCommandProperty); }
+            set { this.SetValue(AppSelectionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty AppSelectionCommandProperty = DependencyProperty.Register(
+         "AppSelectionCommand", typeof(ICommand), typeof(HubControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
     }
 }
