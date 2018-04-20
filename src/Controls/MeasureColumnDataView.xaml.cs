@@ -24,7 +24,7 @@ namespace daVinci.Controls
     {
         public MeasureColumnDataView()
         {
-            UnlinkCommand = new RelayCommand((o) => true,
+            UnlinkCommand = new RelayCommand(
                    (o) =>
                    {
 
@@ -35,7 +35,7 @@ namespace daVinci.Controls
                            measureconfig.LibraryID = "";
                        }
 
-                   });
+                   }, (o) => true);
             InitializeComponent();
         }
 

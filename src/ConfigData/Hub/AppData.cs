@@ -32,6 +32,7 @@ namespace daVinci.ConfigData.Hub
         {
             if (other != null)
             {
+                AppID = other.AppID;
                 AppName = other.AppName;
                 AppDescription = other.AppDescription;
                 AppImage = other.AppImage;
@@ -195,6 +196,24 @@ namespace daVinci.ConfigData.Hub
                 }
             }
         }
+
+        private System.Windows.Media.Imaging.BitmapImage image;
+        public System.Windows.Media.Imaging.BitmapImage Image
+        {
+            get
+            {
+                return image;
+            }
+            set
+            {
+                if (image != value)
+                {
+                    image = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
     }
 
     public class AppDataFilter : ICollectionViewFilter
@@ -208,7 +227,8 @@ namespace daVinci.ConfigData.Hub
                     || (appdata.Created + "").ToLower().Contains(searchString.ToLower())
                     || (appdata.Published + "").ToLower().Contains(searchString.ToLower())
                     || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower())
-                    || appdata.Filename.ToLower().Contains(searchString.ToLower()));
+                    || appdata.Filename.ToLower().Contains(searchString.ToLower())
+                    || appdata.AppID.ToLower().Contains(searchString.ToLower()));
 
             }
             return false;

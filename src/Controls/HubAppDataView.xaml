@@ -25,12 +25,12 @@
 
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
-                FalseValue="Visible"
-                TrueValue="Collapsed" />
+                False="Visible"
+                True="Collapsed" />
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityVisibleConverter"
-                FalseValue="Collapsed"
-                TrueValue="Visible" />
+                False="Collapsed"
+                True="Visible" />
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -43,8 +43,8 @@
                 Width="140"
                 Height="90"
                 VerticalAlignment="Top"
-                Source="{Binding AppImage}"
-                Stretch="None" />
+                Source="{Binding Image}"
+                Stretch="UniformToFill" />
             <Border
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"

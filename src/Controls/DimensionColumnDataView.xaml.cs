@@ -25,7 +25,7 @@ namespace daVinci.Controls
     {
         public DimensionColumnDataView()
         {
-            UnlinkCommand = new RelayCommand((o) => true,
+            UnlinkCommand = new RelayCommand(
                 (o) =>
                 {
                     if (DataContext is DimensionColumnData dimensionconfig)
@@ -34,7 +34,7 @@ namespace daVinci.Controls
                         dimensionconfig.FieldLabel = dimensionconfig.LibraryID;
                         dimensionconfig.LibraryID = "";
                     }
-                });
+                }, (o) => true);
             InitializeComponent();
 
 

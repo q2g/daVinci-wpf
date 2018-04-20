@@ -34,7 +34,7 @@ namespace daVinci.Controls
         {
             categorySelection = new CategorySelection()
             {
-                SelectedCommand = new RelayCommand((o) => true,
+                SelectedCommand = new RelayCommand(
                 (parameter) =>
                 {
                     dialog.PanelWidth = 300;
@@ -59,11 +59,11 @@ namespace daVinci.Controls
                         }
 
                     }
-                }
+                }, (o) => true
                 )
             };
 
-            ICommand selectedAggregateCommand = new RelayCommand((o) => true,
+            ICommand selectedAggregateCommand = new RelayCommand(
                 (parameter) =>
                 {
                     if (parameter is ValueItem item)
@@ -72,11 +72,11 @@ namespace daVinci.Controls
                         Columns.Add(newone);
                         togglebutton.IsChecked = false;
                     }
-                });
+                }, (o) => true);
 
             valueSelection = new ValueSelection()
             {
-                SelectedItemCommand = new RelayCommand((o) => true,
+                SelectedItemCommand = new RelayCommand(
                 (parameter) =>
                 {
                     try
@@ -87,7 +87,7 @@ namespace daVinci.Controls
                             {
                                 PopupContent = new AggregateFuncSelection()
                                 {
-                                    BackCommand = new RelayCommand((o) => true, (o) => { PopupContent = valueSelection; }),
+                                    BackCommand = new RelayCommand((o) => { PopupContent = valueSelection; }, (o) => true),
                                     SelectedItemCommand = selectedAggregateCommand,
                                     AggregateItems = new ObservableCollection<ValueItem>
                                 {
@@ -123,7 +123,7 @@ namespace daVinci.Controls
                     {
                         logger.Error(Ex);
                     }
-                })
+                }, (o) => true)
             };
 
 

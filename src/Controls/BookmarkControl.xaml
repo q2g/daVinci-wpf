@@ -25,12 +25,12 @@
             <bookmark:BookmarkDataFilter x:Key="BookmarkDataFilter" />
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
-                FalseValue="Visible"
-                TrueValue="Collapsed" />
+                False="Visible"
+                True="Collapsed" />
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityVisibleConverter"
-                FalseValue="Collapsed"
-                TrueValue="Visible" />
+                False="Collapsed"
+                True="Visible" />
         </ResourceDictionary>
     </UserControl.Resources>
 

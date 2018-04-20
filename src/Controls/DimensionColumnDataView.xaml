@@ -25,22 +25,22 @@
             <LUIConverter:BindingDiagConverter x:Key="BindingDiagConverter" />
             <LUIConverter:BooleanToVisibilityConverter
                 x:Key="BoolToVisibilityCollapsedConverter"
-                FalseValue="Collapsed"
-                TrueValue="Visible" />
+                False="Collapsed"
+                True="Visible" />
             <converter:IntToVisibilityConverter
                 x:Key="IntToVisibilityConverter"
                 FalseValue="Collapsed"
                 TrueValue="Visible" />
 
-            <converter:StringLengthToVisibilityConverter
+            <LUIConverter:NullOrEmptyToVisibilityConverter
                 x:Key="VisibleOnEmpty"
-                LengthGreaterZero_Visbility="Collapsed"
-                LengthZero_Visbility="Visible" />
+                False="Collapsed"
+                True="Visible" />
 
-            <converter:StringLengthToVisibilityConverter
+            <LUIConverter:NullOrEmptyToVisibilityConverter
                 x:Key="VisibleOnNotEmpty"
-                LengthGreaterZero_Visbility="Visible"
-                LengthZero_Visbility="Collapsed" />
+                False="Visible"
+                True="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="5,0,5,0">

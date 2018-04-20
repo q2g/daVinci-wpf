@@ -139,15 +139,12 @@
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converter\AppAreaCollectionConverter.cs" />
     <Compile Include="Converter\FormatConverter.cs" />
     <Compile Include="Converter\TypeToVisibilityConverter.cs" />
     <Compile Include="Converter\ColumnNameConverter.cs" />
-    <Compile Include="Converter\StringLengthToVisibilityConverter.cs" />
     <Compile Include="Converter\AddNumberConverter.cs" />
     <Compile Include="Converter\ControlCreationConverter.cs" />
     <Compile Include="Converter\IntToVisibilityConverter.cs" />
-    <Compile Include="Converter\ZeroListCountToVisibleCollapsedConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ValueTypeEnum.cs" />
   </ItemGroup>

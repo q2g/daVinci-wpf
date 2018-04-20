@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:converter="clr-namespace:daVinci.Converter"
+    xmlns:LUIconverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,7 +18,10 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converter:ZeroListCountToVisibleCollapsedConverter x:Key="ZeroListCountToVisibleCollapsedConverter" />
+            <LUIconverter:CountToVisibilityConverter
+                x:Key="ZeroListCountToVisibleCollapsedConverter"
+                Empty="Collapsed"
+                Full="Visible" />
             <daVincicontrols:ValueTypeTemplateSelector
                 x:Key="templateselector"
                 DimensionFieldTemplate="{StaticResource FieldDatatemplate}"
@@ -37,7 +41,7 @@
             <DockPanel>
                 <Grid
                     DockPanel.Dock="Top"
-                    Visibility="{Binding DisplayedValueItems, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                    Visibility="{Binding DisplayedValueItems.Count, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />
@@ -69,7 +73,7 @@
                 </Grid>
                 <Grid
                     DockPanel.Dock="Top"
-                    Visibility="{Binding DisplayedFieldItems, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                    Visibility="{Binding DisplayedFieldItems.Count, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />

@@ -16,16 +16,12 @@
             </ResourceDictionary.MergedDictionaries>
             <LuiConverter:BooleanToVisibilityConverter
                 x:Key="VisibilityCollapsedOnFalseConverter"
-                FalseValue="Collapsed"
-                TrueValue="Visible" />
+                False="Collapsed"
+                True="Visible" />
             <LuiConverter:BooleanToVisibilityConverter
                 x:Key="VisibilityCollapsedOnTrueConverter"
-                FalseValue="Visible"
-                TrueValue="Collapsed" />
-            <!--<LuiConverter:BooleanToObjectConverter
-                x:Key="IsCheckedToContentConverter"
-                FalseValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
-                TrueValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UnCheckedContent}" />-->
+                False="Visible"
+                True="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.Style>

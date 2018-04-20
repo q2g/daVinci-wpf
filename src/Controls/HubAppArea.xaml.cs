@@ -66,6 +66,17 @@ namespace daVinci.Controls
          "SelectedApp", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
+        #region LastSelectedAppID DP
+        public string LastSelectedAppID
+        {
+            get { return (string)this.GetValue(LastSelectedAppIDProperty); }
+            set { this.SetValue(LastSelectedAppIDProperty, value); }
+        }
+
+        public static readonly DependencyProperty LastSelectedAppIDProperty = DependencyProperty.Register(
+         "LastSelectedAppID", typeof(string), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region AppSelectionCommand - DP        
         public ICommand AppSelectionCommand
         {

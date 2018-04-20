@@ -21,10 +21,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converter:StringLengthToVisibilityConverter
+            <LUIConverter:NullOrEmptyToVisibilityConverter
                 x:Key="StringLengthToVisibilityConverter"
-                LengthGreaterZero_Visbility="Visible"
-                LengthZero_Visbility="Collapsed" />
+                False="Visible"
+                True="Collapsed" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
