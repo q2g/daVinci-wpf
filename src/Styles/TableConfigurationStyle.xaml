@@ -63,6 +63,7 @@
         x:Shared="false"
         TargetType="UserControl">
         <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale100}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
@@ -72,6 +73,7 @@
                                 Background="{StaticResource LUI.Brush.Grayscale30}"
                                 Orientation="Horizontal">
                                 <controls:LuiIcon
+                                    Margin="10,0,0,0"
                                     VerticalAlignment="Center"
                                     Foreground="{StaticResource LUI.Brush.Grayscale100}"
                                     Icon="lui_icon_table"
@@ -93,7 +95,10 @@
                                 ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
 
                                 <controls:LuiAccordionItem Header="{l:Loc Qlik.Sense.Resources:Translate_client:properties_data}">
-                                    <daVinciControls:ColumnChooser Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                    <daVinciControls:ColumnChooser
+                                        Background="{StaticResource LUI.Brush.Grayscale100}"
+                                        Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        DimensionMeasures="{Binding DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
 

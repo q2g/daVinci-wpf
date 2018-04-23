@@ -34,6 +34,6 @@
             LuiAttached:ThemeProperties.BorderThickness="0"
             Command="{Binding SelectedCommand, ElementName=control}"
             CommandParameter="EQU"
-            Content="Formel" />
+            Content="Expression" />
     </StackPanel>
 </UserControl>

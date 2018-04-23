@@ -54,7 +54,7 @@ namespace daVinci_Demo
 
             var dimension1 = new DimensionColumnData()
             {
-                LibraryID = "DimensionLibId1",
+                DimensionMeasure = new DimensionMeasure() { LibID = "DimensionLibId1", Text = "DimensionLibId1", Dimension = true },
                 FieldDef = "A+2/7",
                 FieldLabel = "should not be visible",
                 AllignmentIndex = 1,
@@ -82,7 +82,7 @@ namespace daVinci_Demo
 
             var dimension2 = new DimensionColumnData()
             {
-                LibraryID = "",
+                DimensionMeasure = new DimensionMeasure() { LibID = "", Text = "", Dimension = true },
                 FieldDef = "A+2/7",
                 FieldLabel = "a Description",
                 AllignmentIndex = 1,
@@ -117,7 +117,7 @@ namespace daVinci_Demo
 
             var measure1 = new MeasureColumnData()
             {
-                LibraryID = "MeasureLibId",
+                DimensionMeasure = new DimensionMeasure() { LibID = "MeasureLibId1", Text = "MeasureLibId1", Dimension = false },
                 FieldDef = "A+2/7",
                 FieldLabel = "should not be visible",
                 AllignmentIndex = 1,
@@ -147,7 +147,7 @@ namespace daVinci_Demo
 
             var measure2 = new MeasureColumnData()
             {
-                LibraryID = "",
+                DimensionMeasure = new DimensionMeasure() { LibID = "", Text = "", Dimension = true },
                 FieldDef = "A+2/7",
                 FieldLabel = "MeasureDescription",
                 AllignmentIndex = 1,
@@ -220,52 +220,52 @@ namespace daVinci_Demo
             Hub.Streams = new ObservableCollection<object>()
             {
                 new StreamData()
-                {
-                    StreamName ="Everyone",
+        {
+            StreamName = "Everyone",
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
-                    Apps=new ObservableCollection<AppData>()
+                    Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true}
                     }
                 },
                 new StreamData()
-                {
-                    StreamName ="Manufacturing",
+        {
+            StreamName = "Manufacturing",
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
-                     Apps=new ObservableCollection<AppData>()
+                     Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="Very very Long App",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true}
                     }
                 },
-                new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData(){ StreamName="Marketing", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Operations", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData(){ StreamName="Sales", Icon= leonardo.Resources.LUIiconsEnum.lui_icon_stream}
-            };
+                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Sales", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream}
+    };
 
             Hub.PersonalStreams = new ObservableCollection<object>()
             {
                 new StreamData()
-                {
-                    StreamName ="Work",
+    {
+        StreamName = "Work",
 
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
-                    Apps=new ObservableCollection<AppData>()
+                    Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
@@ -290,155 +290,155 @@ namespace daVinci_Demo
                         new AppData(){ AppID="THE_ID", AppName="App21",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
                     }
                 }
-            };
+};
 
             Bookmarks = new ObservableCollection<BookmarkData>()
             {
                 new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 }, new BookmarkData()
-                {
-                    BookmarkName = "Bookmark1",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark1",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
                 },
                 new BookmarkData()
-                {
-                    BookmarkName = "Bookmark2",
-                    BookmarkCreated=DateTime.Now,
+{
+    BookmarkName = "Bookmark2",
+                    BookmarkCreated = DateTime.Now,
                     BookmarkDescription = apptext,
                     BookmarkSelection = "The other Selection",
                     BookmarkBelongsTo = "Belongs to Sheet"
@@ -451,12 +451,12 @@ namespace daVinci_Demo
 
 
             AppSelectedCommand = new RelayCommand((o) =>
-                {
-                    if (o is AppData appdata)
-                    {
-                        LuiMessageBox.ShowDialog($"App '{appdata.AppName}' selektiert");
-                    }
-                }, (o) => true);
+                            {
+                                if (o is AppData appdata)
+                                {
+                                    LuiMessageBox.ShowDialog($"App '{appdata.AppName}' selektiert");
+                                }
+                            }, (o) => true);
 
             DataContext = this;
             //Logger logger = LogManager.GetCurrentClassLogger();

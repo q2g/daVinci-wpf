@@ -105,11 +105,11 @@ namespace daVinci.Controls
                                 switch (item.ValueType)
                                 {
                                     case ValueTypeEnum.Dimension:
-                                        newone = new DimensionColumnData() { LibraryID = item.DisplayText };
+                                        newone = new DimensionColumnData() { DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, item.DisplayText, true) };
                                         Columns.Add(newone);
                                         break;
                                     case ValueTypeEnum.Measure:
-                                        newone = new MeasureColumnData() { LibraryID = item.DisplayText };
+                                        newone = new MeasureColumnData() { DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, item.DisplayText, false) };
                                         Columns.Add(newone);
                                         break;
                                     default:
@@ -141,18 +141,41 @@ namespace daVinci.Controls
         }
 
         public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
+         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region DimensionMeasures DP
+        public ObservableCollection<DimensionMeasure> dimensionMeasures;
+        public ObservableCollection<DimensionMeasure> DimensionMeasures_Internal
+        {
+            get { return dimensionMeasures; }
+            set
+            {
+                if (dimensionMeasures != value)
+                {
+                    dimensionMeasures = value;
+                }
+            }
+        }
+        public ObservableCollection<DimensionMeasure> DimensionMeasures
+        {
+            get { return (ObservableCollection<DimensionMeasure>)this.GetValue(DimensionMeasuresProperty); }
+            set { this.SetValue(DimensionMeasuresProperty, value); }
+        }
+
+        public static readonly DependencyProperty DimensionMeasuresProperty = DependencyProperty.Register(
+         "DimensionMeasures", typeof(ObservableCollection<DimensionMeasure>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<DimensionMeasure>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnDimensionMeasuresChanged)));
 
 
-        private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDimensionMeasuresChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             try
             {
                 if (d is ColumnChooser obj)
                 {
-                    if (e.NewValue is ObservableCollection<object> newvalue)
+                    if (e.NewValue is ObservableCollection<DimensionMeasure> newvalue)
                     {
-                        var s = newvalue;
+                        obj.DimensionMeasures_Internal = newvalue;
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using daVinci.ConfigData.TableConfigurations;
+using leonardo.Resources;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
@@ -27,6 +28,20 @@ namespace daVinci.ConfigData
             set
             {
                 columns = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<DimensionMeasure> dimensionMeasures = new ObservableCollection<DimensionMeasure>();
+        public ObservableCollection<DimensionMeasure> DimensionMeasures
+        {
+            get
+            {
+                return dimensionMeasures;
+            }
+            set
+            {
+                dimensionMeasures = value;
                 RaisePropertyChanged();
             }
         }
@@ -95,18 +110,32 @@ namespace daVinci.ConfigData
                 {
                     var newone = new DimensionColumnData();
                     newone.ReadFromJSON(dimension);
-                    newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
-                    newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
+                    if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
+                    {
+                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                    }
+                    if ((jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0) > 0)
+                    {
+                        newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    }
                     counter++;
                     columns.Add(newone);
                 }
 
-                foreach (var dimension in jsonConfig?.qHyperCubeDef?.qMeasures)
+                foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
                 {
                     var newone = new MeasureColumnData();
-                    newone.ReadFromJSON(dimension);
-                    newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
-                    newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    newone.ReadFromJSON(measure);
+                    newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
+                    if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
+                    {
+                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                    }
+                    if ((jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0) > 0)
+                    {
+                        newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
+                    }
                     counter++;
                     columns.Add(newone);
                 }

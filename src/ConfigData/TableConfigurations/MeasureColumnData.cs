@@ -1,4 +1,5 @@
 ﻿using daVinci.ConfigData.TableConfigurations;
+using leonardo.Resources;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
@@ -15,18 +16,18 @@ namespace daVinci.ConfigData
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private string libraryID;
-        public string LibraryID
+        private DimensionMeasure dimensionMeasure;
+        public DimensionMeasure DimensionMeasure
         {
             get
             {
-                return libraryID;
+                return dimensionMeasure;
             }
             set
             {
-                if (libraryID != value)
+                if (dimensionMeasure != value)
                 {
-                    libraryID = value;
+                    dimensionMeasure = value;
                     RaisePropertyChanged();
                 }
             }
@@ -399,7 +400,7 @@ namespace daVinci.ConfigData
         {
             try
             {
-                libraryID = jsonConfig?.qLibraryId;
+                //libraryID = jsonConfig?.qLibraryId;
                 fieldDef = jsonConfig?.qDef?.qDef ?? "";
                 fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
@@ -519,7 +520,7 @@ namespace daVinci.ConfigData
 
             try
             {
-                jsonConfig.qLibraryId = libraryID;
+                //jsonConfig.qLibraryId = libraryID;
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qLabel = FieldLabel;
                 jsonConfig.qDef.qDef = FieldDef;

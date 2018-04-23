@@ -1,4 +1,5 @@
 ﻿using daVinci.ConfigData.TableConfigurations;
+using leonardo.Resources;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
@@ -15,18 +16,19 @@ namespace daVinci.ConfigData
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private string libraryID;
-        public string LibraryID
+
+        private DimensionMeasure dimensionMeasure;
+        public DimensionMeasure DimensionMeasure
         {
             get
             {
-                return libraryID;
+                return dimensionMeasure;
             }
             set
             {
-                if (libraryID != value)
+                if (dimensionMeasure != value)
                 {
-                    libraryID = value;
+                    dimensionMeasure = value;
                     RaisePropertyChanged();
                 }
             }
@@ -326,7 +328,7 @@ namespace daVinci.ConfigData
         {
             try
             {
-                libraryID = jsonConfig?.qLibraryId;
+                //libraryID = jsonConfig?.qLibraryId;
                 if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
                 {
                     FieldDef = jsonConfig.qDef.qFieldDefs[0];
@@ -335,8 +337,11 @@ namespace daVinci.ConfigData
                 {
                     FieldLabel = jsonConfig.qDef.qFieldLabels[0];
                 }
-                SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]);
-                SortCriterias.AutoSort = jsonConfig?.qDef?.autoSort ?? false;
+                if ((jsonConfig?.qDef?.qSortCriterias?.Count ?? 0) > 0)
+                {
+                    SortCriterias.ReadFromJSON(jsonConfig?.qDef?.qSortCriterias[0]);
+                    SortCriterias.AutoSort = jsonConfig?.qDef?.autoSort ?? false;
+                }
 
                 AllowNULLValues = (jsonConfig?.qNullSuppression ?? false) == false ? true : false;
                 switch (jsonConfig?.qOtherTotalSpec?.qOtherMode?.ToString() ?? "OTHER_OFF")
@@ -400,7 +405,8 @@ namespace daVinci.ConfigData
 
 
                 ShowOthers = (jsonConfig?.qOtherTotalSpec?.qSuppressOther ?? false) == false;
-                OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
+                //OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
+                //OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
                 OthersLabel = !string.IsNullOrEmpty(OthersLabel) ? jsonConfig?.qOtherLabel?.qv ?? "" : "";
 
                 if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
@@ -429,7 +435,7 @@ namespace daVinci.ConfigData
             try
             {
                 dynamic jsonConfig = new JObject();
-                jsonConfig.qLibraryId = LibraryID;
+                //jsonConfig.qLibraryId = LibraryID;
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qFieldDefs = new JArray();
                 jsonConfig.qDef.qFieldDefs.Add(FieldDef);

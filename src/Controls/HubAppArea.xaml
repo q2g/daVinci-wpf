@@ -261,7 +261,7 @@
                     VerticalAlignment="Center"
                     LuiAttached:ThemeProperties.CornerRadius="0,3,3,0">
                     <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByAlphabetical}" />
-                    <ComboBoxItem Content="Created Date?" />
+                    <ComboBoxItem Content="Create Date" />
                     <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByPublishedDate}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>

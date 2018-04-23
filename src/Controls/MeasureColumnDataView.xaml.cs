@@ -30,9 +30,9 @@ namespace daVinci.Controls
 
                        if (DataContext is MeasureColumnData measureconfig)
                        {
-                           measureconfig.FieldDef = $"Formel von {measureconfig.LibraryID}";
-                           measureconfig.FieldLabel = measureconfig.LibraryID;
-                           measureconfig.LibraryID = "";
+                           measureconfig.FieldDef = $"Formel von {measureconfig.DimensionMeasure.LibID}";
+                           measureconfig.FieldLabel = measureconfig.DimensionMeasure.LibID;
+                           measureconfig.DimensionMeasure.LibID = "";
                        }
 
                    }, (o) => true);

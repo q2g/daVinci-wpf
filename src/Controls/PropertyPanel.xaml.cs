@@ -1,5 +1,7 @@
-﻿using System;
+﻿using leonardo.Resources;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +26,16 @@ namespace daVinci.Controls
         {
             InitializeComponent();
         }
+
+        #region DimensionMeasures DP
+        public ObservableCollection<DimensionMeasure> DimensionMeasures
+        {
+            get { return (ObservableCollection<DimensionMeasure>)this.GetValue(DimensionMeasuresProperty); }
+            set { this.SetValue(DimensionMeasuresProperty, value); }
+        }
+
+        public static readonly DependencyProperty DimensionMeasuresProperty = DependencyProperty.Register(
+         "DimensionMeasures", typeof(ObservableCollection<DimensionMeasure>), typeof(PropertyPanel), new FrameworkPropertyMetadata(new ObservableCollection<DimensionMeasure>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
     }
 }
