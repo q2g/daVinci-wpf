@@ -42,7 +42,10 @@
       <HintPath>..\..\..\leonardo-wpf\src\bin\Debug\leonardo-wpf.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\src\packages\NLog.4.5.2\lib\net45\NLog.dll</HintPath>
+      <HintPath>packages\NLog.4.5.3\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="qlik-resources, Version=4.86.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\qlik-resources.4.86.8\lib\net452\qlik-resources.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
