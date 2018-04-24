@@ -11,7 +11,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <StackPanel>
@@ -34,6 +34,6 @@
             LuiAttached:ThemeProperties.BorderThickness="0"
             Command="{Binding SelectedCommand, ElementName=control}"
             CommandParameter="EQU"
-            Content="Expression" />
+            Content="Formula" />
     </StackPanel>
 </UserControl>

@@ -328,7 +328,6 @@ namespace daVinci.ConfigData
         {
             try
             {
-                //libraryID = jsonConfig?.qLibraryId;
                 if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
                 {
                     FieldDef = jsonConfig.qDef.qFieldDefs[0];
@@ -435,7 +434,7 @@ namespace daVinci.ConfigData
             try
             {
                 dynamic jsonConfig = new JObject();
-                //jsonConfig.qLibraryId = LibraryID;
+                jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qFieldDefs = new JArray();
                 jsonConfig.qDef.qFieldDefs.Add(FieldDef);

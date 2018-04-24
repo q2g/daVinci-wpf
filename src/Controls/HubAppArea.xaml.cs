@@ -182,7 +182,7 @@ namespace daVinci.Controls
             {
                 if (source.DataContext is AppData data)
                 {
-                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.AppName)) == true)
+                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.AppName)) == true)
                     {
                         if (DataContext is StreamData stream)
                         {
@@ -202,7 +202,7 @@ namespace daVinci.Controls
         {
             if (SelectedApp != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedApp.AppName)) == true)
+                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedApp.AppName)) == true)
                 {
                     if (DataContext is StreamData stream)
                     {

@@ -214,7 +214,13 @@ namespace daVinci_Demo
             //});
 
             Table.ReadFromJSON(GetEmbeddedResourceFile("daVinci_Demo.Resources.Data_Desc.json"));
-
+            Table.DimensionMeasures = new ObservableCollection<DimensionMeasure>()
+            {
+                new DimensionMeasure(){ Dimension=true, LibID="dim lib1", Text="DimensionLib1" },
+                new DimensionMeasure(){ Dimension=true, LibID="dim lib2", Text="DimensionLib2" },
+                new DimensionMeasure(){ Dimension=false, LibID="mea lib1", Text="MeasureLib1" },
+                new DimensionMeasure(){ Dimension=false, LibID="mea lib2", Text="MeasureLib2" }
+            };
             string apptext = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
             Hub = new HubData() { UserName = "Mr. User" };
             Hub.Streams = new ObservableCollection<object>()
@@ -267,7 +273,7 @@ namespace daVinci_Demo
                     Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
                     Apps = new ObservableCollection<AppData>()
                     {
-                        new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
+                        new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription="short Text", Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
                         new AppData(){ AppName="App3",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
                      new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
@@ -473,7 +479,7 @@ namespace daVinci_Demo
         {
             var json = Table.SaveToJSON();
 
-            var nm = (LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Appearance", null, LocalizeDictionary.Instance.Culture));
+            var nm = (LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Appearance", null, LocalizeDictionary.Instance.Culture));
 
             //Kennzahlformel
         }

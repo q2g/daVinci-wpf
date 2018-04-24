@@ -14,7 +14,7 @@
     d:DesignHeight="650"
     d:DesignWidth="1200"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
@@ -34,7 +34,7 @@
                     BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
                     BorderThickness="1"
                     Click="MenuDeleteItem_Click"
-                    Header="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Clear}" />
+                    Header="{l:Loc qlik-resources:Translate_common:Common_Clear}" />
             </ContextMenu>
 
             <DataTemplate x:Key="ItemTemplateWrapPanel">
@@ -260,9 +260,9 @@
                     Width="150"
                     VerticalAlignment="Center"
                     LuiAttached:ThemeProperties.CornerRadius="0,3,3,0">
-                    <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByAlphabetical}" />
+                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByAlphabetical}" />
                     <ComboBoxItem Content="Create Date" />
-                    <ComboBoxItem Content="{l:Loc Qlik.Sense.Resources:Translate_common:Common_SortByPublishedDate}" />
+                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByPublishedDate}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>
             <Luicontrols:LuiButton
@@ -380,28 +380,14 @@
                         Click="DeleteButton_Click"
                         FontSize="16"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-                    <Luicontrols:LuiButton
-                        Width="40"
-                        Height="28"
+                    <Luicontrols:LuiAbortButton
                         Margin="5,0,0,0"
-                        HorizontalContentAlignment="Center"
-                        LuiAttached:ThemeProperties.ButtonScheme="Error"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
                         Click="CancelButton_Click"
-                        FontSize="16"
-                        FontWeight="Normal"
                         Foreground="{StaticResource LUI.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-                    <Luicontrols:LuiButton
-                        Width="40"
-                        Height="28"
+                    <Luicontrols:LuiOKButton
                         Margin="10,0,0,0"
-                        HorizontalContentAlignment="Center"
-                        LuiAttached:ThemeProperties.ButtonScheme="Success"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_tick"
                         Click="SaveButton_Click"
-                        FontSize="16"
-                        FontWeight="Normal"
                         Foreground="{StaticResource LUI.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
 
@@ -431,7 +417,7 @@
                 BorderThickness="1">
                 <controls:HubAppDataView
                     x:Name="AppView"
-                    Margin="20,20,0,0"
+                    Margin="20,20,20,0"
                     VerticalAlignment="Top"
                     Background="{StaticResource LUI.Brush.Grayscale35}"
                     DataContext="{Binding SelectedApp, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"

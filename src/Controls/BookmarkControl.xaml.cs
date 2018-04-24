@@ -166,7 +166,7 @@ namespace daVinci.Controls
             {
                 if (source.DataContext is BookmarkData data)
                 {
-                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.BookmarkName)) == true)
+                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.BookmarkName)) == true)
                     {
                         if (DataContext is ObservableCollection<BookmarkData> list)
                         {
@@ -187,7 +187,7 @@ namespace daVinci.Controls
             SetSelectedBookmark(sender);
             if (SelectedBookmark != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
+                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
                 {
                     if (DataContext is ObservableCollection<BookmarkData> list)
                     {
@@ -203,7 +203,7 @@ namespace daVinci.Controls
         {
             if (SelectedBookmark != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
+                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
                 {
                     if (DataContext is ObservableCollection<BookmarkData> list)
                     {

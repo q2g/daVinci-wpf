@@ -400,7 +400,6 @@ namespace daVinci.ConfigData
         {
             try
             {
-                //libraryID = jsonConfig?.qLibraryId;
                 fieldDef = jsonConfig?.qDef?.qDef ?? "";
                 fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
@@ -520,7 +519,7 @@ namespace daVinci.ConfigData
 
             try
             {
-                //jsonConfig.qLibraryId = libraryID;
+                jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qLabel = FieldLabel;
                 jsonConfig.qDef.qDef = FieldDef;

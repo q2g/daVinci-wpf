@@ -34,6 +34,10 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="leonardo-wpf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\leonardo-wpf\src\bin\Debug\leonardo-wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -42,6 +46,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="qlik-resources, Version=4.86.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\examples\daVinci_Demo\packages\qlik-resources.4.86.8\lib\net452\qlik-resources.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -257,16 +264,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\leonardo-wpf\src\leonardo-wpf\leonardo-wpf.csproj">
-      <Project>{2ee2ae07-61c6-43dc-805d-662ad526a430}</Project>
-      <Name>leonardo-wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Qlik.Sense.Resources\Qlik.Sense.Resources\Qlik.Sense.Resources.csproj">
-      <Project>{39b8f5a4-5f08-46f2-87cf-5f53f7f0618e}</Project>
-      <Name>Qlik.Sense.Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\QlikApp.png" />

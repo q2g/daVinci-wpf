@@ -154,6 +154,19 @@ namespace daVinci.Controls
                 if (dimensionMeasures != value)
                 {
                     dimensionMeasures = value;
+                    var newlist = new List<ValueItem>();
+                    foreach (var item in dimensionMeasures)
+                    {
+                        newlist.Add(new ValueItem()
+                        {
+                            DisplayText = item.Text,
+                            IsAggregate = false,
+                            ValueType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                            IsField = item.Dimension == null
+                        });
+                    }
+                    valueSelection.AllValueItems = newlist;
+
                 }
             }
         }

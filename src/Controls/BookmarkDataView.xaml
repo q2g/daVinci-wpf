@@ -15,7 +15,7 @@
     d:DesignHeight="650"
     d:DesignWidth="1200"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -31,7 +31,7 @@
                     Height="40"
                     BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
                     BorderThickness="1"
-                    Header="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Clear}" />
+                    Header="{l:Loc qlik-resources:Translate_common:Common_Clear}" />
             </ContextMenu>
 
             <DataTemplate x:Key="ItemTemplateStackPanel">

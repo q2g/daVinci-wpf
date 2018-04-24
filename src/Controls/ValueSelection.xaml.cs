@@ -28,38 +28,23 @@ namespace daVinci.Controls
     /// </summary>
     public partial class ValueSelection : UserControl, INotifyPropertyChanged
     {
-        private List<ValueItem> AllValueItems = new List<ValueItem>()
+        private List<ValueItem> allValueItems;
+        public List<ValueItem> AllValueItems
         {
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="Account" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="Account Drill", Icon=LUIiconsEnum.lui_icon_select_alternative },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="Account Group" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="ARAge" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="Customer" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, DisplayText="Customer Number" },
-
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="Account" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="Account Desc" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="AccountGroup", Icon=LUIiconsEnum.lui_icon_calendar },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="AccountGroupDesc" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="Address Number" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Dimension, IsField=true, DisplayText="AR1-30" },
-
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Cust AR60+" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Customers" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="# of Products" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="% of Items" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="Amound Overdue" },
-            new ValueItem(){ ValueType=ValueTypeEnum.Measure, DisplayText="AR % Overdue" },
-
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Account" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Account Desc" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AccountGroup" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AccountGroupDesc" },
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="Address Number", Icon=LUIiconsEnum.lui_icon_calendar },
-            new ValueItem(){  ValueType=ValueTypeEnum.Measure, IsField=true, DisplayText="AR1-30" }
-        };
+            get { return allValueItems; }
+            set
+            {
+                if (allValueItems != value)
+                {
+                    allValueItems = value;
+                    SetSelectedCommand();
+                    CalculateDisplayedLists();
+                }
+            }
+        }
         public ValueSelection()
         {
+            AllValueItems = new List<ValueItem>();
             SetLabels();
             CalculateDisplayedLists();
             InitializeComponent();
@@ -94,7 +79,7 @@ namespace daVinci.Controls
                 if (selectedItemCommand != value)
                 {
                     selectedItemCommand = value;
-                    AllValueItems.ForEach(item => item.ItemSelectedCommand = value);
+                    SetSelectedCommand();
                     RaisePropertyChanged();
                 }
             }
@@ -126,17 +111,25 @@ namespace daVinci.Controls
         #endregion
 
         #region Functions
+        private void SetSelectedCommand()
+        {
+            if (selectedItemCommand != null && allValueItems != null)
+            {
+                AllValueItems.ForEach(item => item.ItemSelectedCommand = selectedItemCommand);
+
+            }
+        }
         private void SetLabels()
         {
             switch (valueType)
             {
                 case ValueTypeEnum.Dimension:
-                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Dimensions", null, LocalizeDictionary.Instance.Culture));
-                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Fields", null, LocalizeDictionary.Instance.Culture));
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Dimensions", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Fields", null, LocalizeDictionary.Instance.Culture));
                     break;
                 case ValueTypeEnum.Measure:
-                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_common:Common_Measures", null, LocalizeDictionary.Instance.Culture));
-                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("Qlik.Sense.Resources:Translate_client:Visualization_Requirements_FromField", null, LocalizeDictionary.Instance.Culture));
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measures", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Visualization_Requirements_FromField", null, LocalizeDictionary.Instance.Culture));
                     break;
                 default:
                     break;

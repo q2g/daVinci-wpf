@@ -13,7 +13,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -45,7 +45,7 @@
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
                 Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                Text="{l:Loc Translate_common:Common_Bookmarks}" />
+                Text="{l:Loc qlik-resources:Translate_common:Common_Bookmarks}" />
             <Luicontrols:LuiButton
                 Margin="10,0,0,0"
                 Click="NewBookmarkButton_Click"
@@ -159,28 +159,14 @@
                         Click="DetailDeleteButton_Click"
                         FontSize="16"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    <Luicontrols:LuiButton
-                        Width="40"
-                        Height="28"
+                    <Luicontrols:LuiAbortButton
                         Margin="5,0,0,0"
-                        HorizontalContentAlignment="Center"
-                        LuiAttached:ThemeProperties.ButtonScheme="Error"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
                         Click="CancelButton_Click"
-                        FontSize="16"
-                        FontWeight="Normal"
                         Foreground="{StaticResource LUI.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    <Luicontrols:LuiButton
-                        Width="40"
-                        Height="28"
+                    <Luicontrols:LuiOKButton
                         Margin="10,0,0,0"
-                        HorizontalContentAlignment="Center"
-                        LuiAttached:ThemeProperties.ButtonScheme="Success"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_tick"
                         Click="SaveButton_Click"
-                        FontSize="16"
-                        FontWeight="Normal"
                         Foreground="{StaticResource LUI.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
 
