@@ -28,9 +28,7 @@
                 DimensionTemplate="{StaticResource FieldDatatemplate}"
                 MeasureFieldTemplate="{StaticResource EFieldDatatemplate}"
                 MeasureTemplate="{StaticResource FieldDatatemplate}" />
-
-            <daVincicontrols:FieldValueItemFilter x:Key="FieldValueItemFilter" />
-            <daVincicontrols:ValueItemFilter x:Key="ValueItemFilter" />
+           
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>

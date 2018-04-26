@@ -175,19 +175,6 @@ namespace daVinci.Controls
         }
     }
 
-    public class FieldValueItemFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            if (data is ValueItem item)
-            {
-                return item.DisplayText.ToLower().Contains(searchString.ToLower());
-
-            }
-            return false;
-        }
-    }
-
     public class ValueTypeTemplateSelector : DataTemplateSelector
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
