@@ -22,17 +22,13 @@ namespace daVinci.Converter
         {
             try
             {
-                if (values.Length != 2)
-                {
-                    return "";
-                }
-                if (values[0] != null && values[0] is string && !string.IsNullOrEmpty((string)values[0]))
-                {
-                    return values[0];
-                }
-                if (values[1] != null && values[1] is string && !string.IsNullOrEmpty((string)values[1]))
+                if (values[0] != null && values[0] is bool && !((bool)values[0]))
                 {
                     return values[1];
+                }
+                else
+                {
+                    return values[2];
                 }
             }
             catch (Exception Ex)

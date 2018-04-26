@@ -24,6 +24,7 @@
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
                 </MultiBinding>
@@ -40,6 +41,7 @@
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
                 </MultiBinding>
@@ -69,6 +71,7 @@
         <Setter Property="LuiControls:LuiAccordionItem.Header">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ColumnNameConverter}">
+                    <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
                 </MultiBinding>

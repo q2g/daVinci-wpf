@@ -38,7 +38,7 @@ namespace daVinci.Controls
                 {
                     allValueItems = value;
                     SetSelectedCommand();
-                    CalculateDisplayedLists();
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -46,7 +46,8 @@ namespace daVinci.Controls
         {
             AllValueItems = new List<ValueItem>();
             SetLabels();
-            CalculateDisplayedLists();
+            ItemFilter = new ValueItemFilter();
+            FieldItemFilter = new ValueItemFilter() { OnlyFields = true };
             InitializeComponent();
             DataContext = this;
         }
@@ -54,8 +55,8 @@ namespace daVinci.Controls
         #region Properties      
         public string CategoryDisplayText { get; set; }
         public string FieldDisplayText { get; set; }
-        public ObservableCollection<ValueItem> DisplayedFieldItems { get; set; } = new ObservableCollection<ValueItem>();
-        public ObservableCollection<ValueItem> DisplayedValueItems { get; set; } = new ObservableCollection<ValueItem>();
+        public ValueItemFilter ItemFilter { get; set; }
+        public ValueItemFilter FieldItemFilter { get; set; }
         private ValueTypeEnum valueType;
         public ValueTypeEnum ValueType
         {
@@ -66,7 +67,10 @@ namespace daVinci.Controls
                 {
                     valueType = value;
                     SetLabels();
-                    CalculateDisplayedLists();
+                    ItemFilter.ValType = value;
+                    FieldItemFilter.ValType = value;
+                    RaisePropertyChanged(nameof(AllValueItems));
+                    SearchText = "";
                 }
             }
         }
@@ -103,7 +107,7 @@ namespace daVinci.Controls
                 if (searchText != value)
                 {
                     searchText = value;
-                    CalculateDisplayedLists();
+                    RaisePropertyChanged();
 
                 }
             }
@@ -137,37 +141,7 @@ namespace daVinci.Controls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoryDisplayText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FieldDisplayText)));
         }
-        private void CalculateDisplayedLists()
-        {
-            DisplayedFieldItems.Clear();
-            DisplayedValueItems.Clear();
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                AllValueItems
-                    .Where(item => item.ValueType == ValueType && item.IsField)
-                    .ToList()
-                    .ForEach(ele => DisplayedFieldItems.Add(ele));
-                AllValueItems
-                   .Where(item => item.ValueType == ValueType && !item.IsField)
-                   .ToList()
-                   .ForEach(ele => DisplayedValueItems.Add(ele));
-            }
-            else
-            {
-                AllValueItems
-                    .Where(item => item.ValueType == ValueType && item.DisplayText.ToLower().Contains(searchText.ToLower()) && item.IsField)
-                    .ToList()
-                .ForEach(ele => DisplayedFieldItems.Add(ele));
 
-                AllValueItems
-                    .Where(item => item.ValueType == ValueType && item.DisplayText.ToLower().Contains(searchText.ToLower()) && !item.IsField)
-                    .ToList()
-                .ForEach(ele => DisplayedValueItems.Add(ele));
-            }
-            //Um die Visibility-Bindings zu triggern
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedFieldItems)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedValueItems)));
-        }
         #endregion
     }
 
@@ -176,13 +150,42 @@ namespace daVinci.Controls
         #region properties
         public string DisplayText { get; set; }
         public LUIiconsEnum Icon { get; set; } = LUIiconsEnum.lui_icon_none;
-        public ValueTypeEnum ValueType { get; set; }
+        public ValueTypeEnum ItemType { get; set; }
         public bool IsAggregate { get; set; }
         public bool IsField { get; set; }
         public ValueItem Parent { get; set; }
         public ICommand ItemSelectedCommand { get; set; }
         public DimensionMeasure DimensionMeasure { get; set; }
         #endregion
+    }
+
+    public class ValueItemFilter : ICollectionViewFilter
+    {
+        public ValueTypeEnum ValType { get; set; }
+        public bool OnlyFields { get; set; }
+        public bool Filter(object data, string searchString)
+        {
+            if (data is ValueItem item)
+            {
+
+                return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == OnlyFields && item.ItemType == ValType;
+
+            }
+            return false;
+        }
+    }
+
+    public class FieldValueItemFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            if (data is ValueItem item)
+            {
+                return item.DisplayText.ToLower().Contains(searchString.ToLower());
+
+            }
+            return false;
+        }
     }
 
     public class ValueTypeTemplateSelector : DataTemplateSelector
@@ -201,19 +204,19 @@ namespace daVinci.Controls
             {
                 if (item is ValueItem vitem)
                 {
-                    if (vitem.ValueType == ValueTypeEnum.Measure && vitem.IsField)
+                    if (vitem.ItemType == ValueTypeEnum.Measure && vitem.IsField)
                     {
                         return MeasureFieldTemplate;
                     }
-                    if (vitem.ValueType == ValueTypeEnum.Measure)
+                    if (vitem.ItemType == ValueTypeEnum.Measure)
                     {
                         return MeasureTemplate;
                     }
-                    if (vitem.ValueType == ValueTypeEnum.Dimension && vitem.IsField)
+                    if (vitem.ItemType == ValueTypeEnum.Dimension && vitem.IsField)
                     {
                         return DimensionFieldTemplate;
                     }
-                    if (vitem.ValueType == ValueTypeEnum.Dimension)
+                    if (vitem.ItemType == ValueTypeEnum.Dimension)
                     {
                         return DimensionTemplate; ;
                     }

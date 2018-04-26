@@ -28,20 +28,23 @@
                 DimensionTemplate="{StaticResource FieldDatatemplate}"
                 MeasureFieldTemplate="{StaticResource EFieldDatatemplate}"
                 MeasureTemplate="{StaticResource FieldDatatemplate}" />
+
+            <daVincicontrols:FieldValueItemFilter x:Key="FieldValueItemFilter" />
+            <daVincicontrols:ValueItemFilter x:Key="ValueItemFilter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
         <controls:LuiSearch
             DockPanel.Dock="Top"
             HintText=" "
-            SearchText="{Binding SearchText}" />
+            SearchText="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <ScrollViewer
             DockPanel.Dock="Bottom"
             Style="{StaticResource LUI_SenseScrollViewerStyle}">
             <DockPanel>
                 <Grid
                     DockPanel.Dock="Top"
-                    Visibility="{Binding DisplayedValueItems.Count, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                    Visibility="{Binding ProcessedCollection.Count, ElementName=collectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />
@@ -66,14 +69,19 @@
 
                         </DockPanel>
                     </Border>
+                    <controls:CollectionView
+                        Name="collectionView"
+                        CollectionViewFilter="{Binding ItemFilter}"
+                        FilterText="{Binding SearchText}"
+                        ItemsSource="{Binding AllValueItems}" />
                     <ItemsControl
                         Grid.Row="2"
                         ItemTemplate="{StaticResource ResourceKey=FieldDatatemplate}"
-                        ItemsSource="{Binding DisplayedValueItems}" />
+                        ItemsSource="{Binding ProcessedCollection, ElementName=collectionView}" />
                 </Grid>
                 <Grid
                     DockPanel.Dock="Top"
-                    Visibility="{Binding DisplayedFieldItems.Count, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                    Visibility="{Binding ProcessedCollection.Count, ElementName=fieldCollectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />
@@ -97,13 +105,20 @@
 
                         </DockPanel>
                     </Border>
+                    <controls:CollectionView
+                        Name="fieldCollectionView"
+                        CollectionViewFilter="{Binding FieldItemFilter}"
+                        FilterText="{Binding SearchText}"
+                        ItemsSource="{Binding AllValueItems}" />
                     <ItemsControl
                         Grid.Row="2"
                         ItemTemplateSelector="{StaticResource templateselector}"
-                        ItemsSource="{Binding DisplayedFieldItems}">
+                        ItemsSource="{Binding ProcessedCollection, ElementName=fieldCollectionView}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling"  />
+                                <VirtualizingStackPanel
+                                    IsVirtualizing="True"
+                                    VirtualizationMode="Recycling" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>

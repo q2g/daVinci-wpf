@@ -16,6 +16,22 @@ namespace daVinci.ConfigData
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private bool isExpression;
+        public bool IsExpression
+        {
+            get
+            {
+                return isExpression;
+            }
+            set
+            {
+                if (isExpression != value)
+                {
+                    isExpression = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         private DimensionMeasure dimensionMeasure;
         public DimensionMeasure DimensionMeasure
@@ -29,6 +45,23 @@ namespace daVinci.ConfigData
                 if (dimensionMeasure != value)
                 {
                     dimensionMeasure = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string libraryID;
+        public string LibraryID
+        {
+            get
+            {
+                return libraryID;
+            }
+            set
+            {
+                if (libraryID != value)
+                {
+                    libraryID = value;
                     RaisePropertyChanged();
                 }
             }

@@ -83,7 +83,7 @@ namespace daVinci.Controls
                     {
                         if (parameter is ValueItem item)
                         {
-                            if (item.ValueType == ValueTypeEnum.Measure && item.IsField)
+                            if (item.ItemType == ValueTypeEnum.Measure && item.IsField)
                             {
                                 PopupContent = new AggregateFuncSelection()
                                 {
@@ -102,14 +102,14 @@ namespace daVinci.Controls
                             else
                             {
                                 object newone = null;
-                                switch (item.ValueType)
+                                switch (item.ItemType)
                                 {
                                     case ValueTypeEnum.Dimension:
-                                        newone = new DimensionColumnData() { DimensionMeasure = item.DimensionMeasure };
+                                        newone = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
                                         Columns.Add(newone);
                                         break;
                                     case ValueTypeEnum.Measure:
-                                        newone = new MeasureColumnData() { DimensionMeasure = item.DimensionMeasure };
+                                        newone = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
                                         Columns.Add(newone);
                                         break;
                                     default:
@@ -161,7 +161,7 @@ namespace daVinci.Controls
                         {
                             DisplayText = item.Text,
                             IsAggregate = false,
-                            ValueType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                            ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
                             IsField = item.LibID == null,
                             DimensionMeasure = item
 

@@ -102,16 +102,16 @@
                                 </controls:LuiAccordionItem>
 
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_sorting}">
+                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_sorting}" Background="{StaticResource LUI.Brush.Grayscale100}">
 
-                                    <ScrollViewer
+                                    <ScrollViewer Background="{StaticResource LUI.Brush.Grayscale100}"
                                         Style="{StaticResource LUI_SenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <controls:CollectionView
                                                 CollectionViewComparer="{StaticResource SortOrderComparer}"
                                                 ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                                            <controls:LuiAccordion
+                                            <controls:LuiAccordion  Background="{StaticResource LUI.Brush.Grayscale100}"
                                                 CollapseAllOnExpandSingle="False"
                                                 IsDragDropChangesUnderlyingCollection="True"
                                                 IsDragDropEnabled="True"
@@ -122,13 +122,13 @@
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_addons}">
-                                    <controls:LuiAccordion
+                                    <controls:LuiAccordion Background="{StaticResource LUI.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
-                                    <controls:LuiAccordion
+                                    <controls:LuiAccordion Background="{StaticResource LUI.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>

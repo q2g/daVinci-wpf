@@ -111,6 +111,8 @@ namespace daVinci.ConfigData
                     var newone = new DimensionColumnData();
                     newone.ReadFromJSON(dimension);
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
+                    newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
+                    newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                     if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
                     {
                         newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
@@ -128,6 +130,8 @@ namespace daVinci.ConfigData
                     var newone = new MeasureColumnData();
                     newone.ReadFromJSON(measure);
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
+                    newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
+                    newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                     if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
                     {
                         newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;

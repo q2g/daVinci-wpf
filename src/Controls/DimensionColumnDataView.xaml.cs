@@ -30,9 +30,9 @@ namespace daVinci.Controls
                 {
                     if (DataContext is DimensionColumnData dimensionconfig)
                     {
-                        dimensionconfig.FieldDef = $"Formel von {dimensionconfig.DimensionMeasure.LibID}";
-                        dimensionconfig.FieldLabel = dimensionconfig.DimensionMeasure.LibID;
-                        dimensionconfig.DimensionMeasure.LibID = "";
+                        dimensionconfig.FieldDef = $" Field of {dimensionconfig.DimensionMeasure.LibID}";
+                        dimensionconfig.FieldLabel = dimensionconfig.DimensionMeasure.Text;
+                        dimensionconfig.IsExpression = true;
                     }
                 }, (o) => true);
             InitializeComponent();
