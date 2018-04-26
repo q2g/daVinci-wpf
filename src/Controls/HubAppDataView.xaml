@@ -11,6 +11,7 @@
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:m="http://xamlmarkupextensions.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:daVinciconverter="clr-namespace:daVinci.Converter"
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
@@ -22,6 +23,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <daVinciconverter:DefaultImageConverter x:Key="DefaultImageConverter" DefaultImagePath="Images/QlikApp.png"/>
 
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
@@ -49,7 +52,7 @@
                 Width="140"
                 Height="90"
                 VerticalAlignment="Top"
-                Source="{Binding Image}"
+                Source="{Binding Image, Converter={StaticResource DefaultImageConverter},IsAsync=True}"                
                 Stretch="UniformToFill" />
             <Border
                 HorizontalAlignment="Right"

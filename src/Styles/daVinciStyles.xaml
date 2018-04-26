@@ -96,10 +96,64 @@
     </StackPanel>
 
     <DataTemplate x:Key="FieldDatatemplate">
-        <ContentPresenter Content="{StaticResource FieldDatatemplateStackpanel}" />
+        <!--<StackPanel>
+            <Border Height="40">
+                <StackPanel
+                    Orientation="Horizontal"
+                    Style="{StaticResource StackanelMouseOverStyle}">
+                    <StackPanel.InputBindings>
+                        <MouseBinding
+                            Command="{Binding ItemSelectedCommand}"
+                            CommandParameter="{Binding}"
+                            MouseAction="LeftClick" />
+                    </StackPanel.InputBindings>
+                    <controls:LuiIcon
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Icon="{Binding Icon}" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontWeight="Normal"
+                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Text="{Binding DisplayText}" />
+                </StackPanel>
+            </Border>
+            <controls:LuiSeparator Height="0.2" />
+        </StackPanel>-->
+        <StackPanel>
+            <Border Height="40">
+                <StackPanel
+                    Orientation="Horizontal"
+                    Style="{StaticResource StackanelMouseOverStyle}">
+                    <StackPanel.InputBindings>
+                        <MouseBinding
+                            Command="{Binding ItemSelectedCommand}"
+                            CommandParameter="{Binding}"
+                            MouseAction="LeftClick" />
+                    </StackPanel.InputBindings>
+                    <controls:LuiIcon
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Icon="{Binding Icon}" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontWeight="Normal"
+                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Text="{Binding DisplayText}" />
+                </StackPanel>
+            </Border>
+            <Separator  Foreground="{StaticResource LUI.Brush.Grayscale30}"/>
+
+        </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="EFieldDatatemplate">
         <ContentPresenter Content="{StaticResource ExtendedFieldDatatemplateStackpanel}" />
     </DataTemplate>
+
+    <!--<DataTemplate x:Key="FieldDatatemplate">
+        <ContentPresenter Content="{StaticResource FieldDatatemplateStackpanel}" />
+    </DataTemplate>-->
 </ResourceDictionary>

@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:daVinci.Controls"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVinciconverter="clr-namespace:daVinci.Converter"
     xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:hub="clr-namespace:daVinci.ConfigData.Hub"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
@@ -23,6 +24,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <daVinciconverter:DefaultImageConverter
+                x:Key="DefaultImageConverter"
+                DefaultImagePath="Images/QlikApp.png" />
 
             <converter:StringCompareConverter x:Key="StringCompareConverter" />
 
@@ -52,7 +57,7 @@
                                     Width="140"
                                     Height="90"
                                     MouseDown="Image_MouseDown"
-                                    Source="{Binding Image}"
+                                    Source="{Binding Image, Converter={StaticResource DefaultImageConverter}}"
                                     Stretch="UniformToFill" />
                                 <Border
                                     HorizontalAlignment="Right"
@@ -132,7 +137,10 @@
             </DataTemplate>
 
             <ItemsPanelTemplate x:Key="ItemsPanelTemplateStackPanel">
-                <StackPanel CanVerticallyScroll="True" />
+                <VirtualizingStackPanel
+                    CanVerticallyScroll="True"
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                    VirtualizingStackPanel.VirtualizationMode="Recycling" />
             </ItemsPanelTemplate>
 
             <ItemsPanelTemplate x:Key="ItemsPanelTemplateWrapPanel">
@@ -142,7 +150,7 @@
 
 
             <DataTemplate x:Key="ItemTemplateStackPanel">
-                <Grid>
+                <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="*" />
@@ -177,11 +185,137 @@
                         Grid.ColumnSpan="2">
                         <controls:HubAppDataView
                             Margin="10,10,0,0"
-                            dd:DragDrop.IsDragSource="False"
                             ContextMenu="{StaticResource deleteMenu}"
                             DataContext="{Binding}"
                             Foreground="{StaticResource LUI.Brush.Grayscale30}"
                             MouseDown="HubAppDataView_MouseDown" />
+
+
+                        <!--<Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Width="140"
+                                Height="90"
+                                VerticalAlignment="Top"
+                                Source="{Binding Image, Converter={StaticResource DefaultImageConverter}, IsAsync=True}"
+                                Stretch="UniformToFill" />
+                            <Border
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                                BorderThickness="1">
+                                <Luicontrols:LuiIcon
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    FontSize="16"
+                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Icon="lui_icon_stream" />
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsPublished}"
+                                                Value="false">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <Grid Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource QlikViewSans}"
+                                        FontWeight="Bold"
+                                        Text="{Binding AppName}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontStyle="Italic"
+                                            FontWeight="Normal"
+                                            Text="{l:Loc AppDetails_FileName}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontStyle="Italic"
+                                            FontWeight="Normal"
+                                            Text="{Binding Filename}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontStyle="Italic"
+                                            FontWeight="Normal"
+                                            Text="{l:Loc Toolbar_DataLastLoaded}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontStyle="Italic"
+                                            FontWeight="Normal"
+                                            Text="{Binding DataLastLoaded, StringFormat=D, ConverterCulture=de-DE}" />
+                                    </StackPanel>
+                                    <TextBlock
+                                        MaxWidth="650"
+                                        Margin="0,20,0,0"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource QlikViewSans}"
+                                        FontWeight="Normal"
+                                        Text="{Binding AppDescription}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Visibility="Collapsed">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            Text="{l:Loc Translate_common:Common_Title}" />
+                                        <Luicontrols:LuiInput
+                                            Width="650"
+                                            Margin="0,7,0,0"
+                                            Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,10,0,0">
+                                        <TextBlock
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            Text="{l:Loc Translate_common:Common_Description}" />
+                                        <Luicontrols:LuiInput
+                                            Width="650"
+                                            Margin="0,7,0,0"
+                                            VerticalAlignment="Stretch"
+                                            VerticalContentAlignment="Top"
+                                            AcceptsReturn="True"
+                                            LUIInputSize="Custom"
+                                            MaxLines="5"
+                                            MinLines="5"
+                                            Text="{Binding AppToEdit.AppDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
+                                            TextWrapping="Wrap"
+                                            VerticalScrollBarVisibility="Auto" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>-->
+
+
+
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Style.Triggers>

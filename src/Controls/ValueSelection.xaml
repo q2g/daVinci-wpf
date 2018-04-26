@@ -2,9 +2,9 @@
     x:Class="daVinci.Controls.ValueSelection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LUIconverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:converter="clr-namespace:daVinci.Converter"
-    xmlns:LUIconverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daVincicontrols="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -100,7 +100,14 @@
                     <ItemsControl
                         Grid.Row="2"
                         ItemTemplateSelector="{StaticResource templateselector}"
-                        ItemsSource="{Binding DisplayedFieldItems}" />
+                        ItemsSource="{Binding DisplayedFieldItems}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling"  />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
                 </Grid>
             </DockPanel>
         </ScrollViewer>

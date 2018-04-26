@@ -181,6 +181,7 @@ namespace daVinci.Controls
         public bool IsField { get; set; }
         public ValueItem Parent { get; set; }
         public ICommand ItemSelectedCommand { get; set; }
+        public DimensionMeasure DimensionMeasure { get; set; }
         #endregion
     }
 

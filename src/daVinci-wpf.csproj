@@ -145,6 +145,7 @@
     <Compile Include="Controls\ValueSelection.xaml.cs">
       <DependentUpon>ValueSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\DefaultImageConverter.cs" />
     <Compile Include="Converter\FormatConverter.cs" />
     <Compile Include="Converter\TypeToVisibilityConverter.cs" />
     <Compile Include="Converter\ColumnNameConverter.cs" />

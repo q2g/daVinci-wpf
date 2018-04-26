@@ -200,10 +200,7 @@ namespace daVinci.ConfigData.Hub
         private System.Windows.Media.Imaging.BitmapImage image;
         public System.Windows.Media.Imaging.BitmapImage Image
         {
-            get
-            {
-                return image;
-            }
+            get => image;
             set
             {
                 if (image != value)
