@@ -7,11 +7,11 @@
     xmlns:controls="clr-namespace:daVinci.Controls"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVinciconverter="clr-namespace:daVinci.Converter"
     xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:m="http://xamlmarkupextensions.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:daVinciconverter="clr-namespace:daVinci.Converter"
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
@@ -24,7 +24,9 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <daVinciconverter:DefaultImageConverter x:Key="DefaultImageConverter" DefaultImagePath="Images/QlikApp.png"/>
+            <daVinciconverter:DefaultImageConverter
+                x:Key="DefaultImageConverter"
+                DefaultImagePath="Images/QlikApp.png" />
 
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
@@ -37,132 +39,93 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel
-        Margin="20,0,0,0"
-        HorizontalAlignment="Left"
-        Orientation="Horizontal">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="20" />
-            </Grid.ColumnDefinitions>
-            <Image
-                Width="140"
-                Height="90"
-                VerticalAlignment="Top"
-                Source="{Binding Image, Converter={StaticResource DefaultImageConverter},IsAsync=True}"                
-                Stretch="UniformToFill" />
-            <Border
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+        <Image
+            Width="140"
+            Height="90"
+            VerticalAlignment="Top"
+            Source="{Binding Image, Converter={StaticResource DefaultImageConverter}, IsAsync=True}"
+            Stretch="UniformToFill" />
+        <Border
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+            BorderThickness="1">
+            <Luicontrols:LuiIcon
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
-                BorderThickness="1">
-                <Luicontrols:LuiIcon
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    FontSize="16"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
-                    Icon="lui_icon_stream" />
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsPublished}"
-                                Value="false">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-            </Border>
-            <Grid Grid.Column="2">
-                <Grid.ColumnDefinitions>                                       
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
+                FontSize="16"
+                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                Icon="lui_icon_stream" />
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsPublished}"
+                            Value="false">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+        <Grid Grid.Column="2">           
+            <StackPanel>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontWeight="Bold"
+                    Text="{Binding AppName}" />
+                <StackPanel Orientation="Horizontal">
                     <TextBlock
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource QlikViewSans}"
-                        FontWeight="Bold"
-                        Text="{Binding AppName}" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontSize="12"
-                            FontStyle="Italic"
-                            FontWeight="Normal"
-                            Text="{l:Loc AppDetails_FileName}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontSize="12"
-                            FontStyle="Italic"
-                            FontWeight="Normal"
-                            Text="{Binding Filename}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontSize="12"
-                            FontStyle="Italic"
-                            FontWeight="Normal"
-                            Text="{l:Loc Toolbar_DataLastLoaded}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource QlikViewSans}"
-                            FontSize="12"
-                            FontStyle="Italic"
-                            FontWeight="Normal"
-                            Text="{Binding DataLastLoaded, StringFormat=D, ConverterCulture=de-DE}" />
-                    </StackPanel>
-                    <TextBlock
-                       MaxWidth="650"
-                        Margin="0,20,0,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
+                        FontSize="12"
+                        FontStyle="Italic"
                         FontWeight="Normal"
-                        Text="{Binding AppDescription}"
-                        TextWrapping="Wrap" />
+                        Text="{l:Loc AppDetails_FileName}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource QlikViewSans}"
+                        FontSize="12"
+                        FontStyle="Italic"
+                        FontWeight="Normal"
+                        Text="{Binding Filename}" />
                 </StackPanel>
-                <StackPanel
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
-                    <StackPanel >
-                        <TextBlock
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Text="{l:Loc Translate_common:Common_Title}" />
-                        <Luicontrols:LuiInput
-                            Width="650"
-                            Margin="0,7,0,0"
-                            Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}" />
-                    </StackPanel>
-
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Text="{l:Loc Translate_common:Common_Description}" />
-                        <Luicontrols:LuiInput
-                            Width="650"
-                            Margin="0,7,0,0"
-                            VerticalAlignment="Stretch"
-                            VerticalContentAlignment="Top"
-                            AcceptsReturn="True"
-                            LUIInputSize="Custom"
-                            MaxLines="5"
-                            MinLines="5"
-                            Text="{Binding AppToEdit.AppDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
-                            TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto" />
-                    </StackPanel>
-
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource QlikViewSans}"
+                        FontSize="12"
+                        FontStyle="Italic"
+                        FontWeight="Normal"
+                        Text="{l:Loc Toolbar_DataLastLoaded}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource QlikViewSans}"
+                        FontSize="12"
+                        FontStyle="Italic"
+                        FontWeight="Normal"
+                        Text="{Binding DataLastLoaded, StringFormat=D, ConverterCulture=de-DE}" />
                 </StackPanel>
-            </Grid>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontWeight="Normal"
+                    Text="{Binding AppDescription}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
         </Grid>
-    </StackPanel>
+    </Grid>
+
 </UserControl>

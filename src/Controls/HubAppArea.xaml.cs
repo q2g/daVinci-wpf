@@ -66,6 +66,17 @@ namespace daVinci.Controls
          "SelectedApp", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
+        #region AppToEdit DP
+        public AppData AppToEdit
+        {
+            get { return (AppData)this.GetValue(AppToEditProperty); }
+            set { this.SetValue(AppToEditProperty, value); }
+        }
+
+        public static readonly DependencyProperty AppToEditProperty = DependencyProperty.Register(
+         "AppToEdit", typeof(AppData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region LastSelectedAppID DP
         public string LastSelectedAppID
         {
@@ -123,7 +134,7 @@ namespace daVinci.Controls
         {
             toEdit = new AppData();
             toEdit.CopyFrom(SelectedApp);
-            AppView.AppToEdit = toEdit;
+            AppToEdit = toEdit;
             IsEditMode = true;
         }
 
@@ -168,7 +179,7 @@ namespace daVinci.Controls
                 isNewMode = true;
                 toEdit = new AppData() { Created = DateTime.Now };
                 SelectedApp = toEdit;
-                AppView.AppToEdit = toEdit;
+                AppToEdit = toEdit;
                 IsEditMode = true;
                 ShowDetail = true;
             }
