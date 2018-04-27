@@ -219,13 +219,13 @@ namespace daVinci.ConfigData.Hub
         {
             if (data is AppData appdata)
             {
-                return (appdata.AppDescription.ToLower().Contains(searchString.ToLower())
-                    || appdata.AppName.ToLower().Contains(searchString.ToLower())
+                return ((appdata?.AppDescription?.ToLower() ?? "").Contains(searchString.ToLower())
+                    || (appdata?.AppName?.ToLower() ?? "").Contains(searchString.ToLower())
                     || (appdata.Created + "").ToLower().Contains(searchString.ToLower())
                     || (appdata.Published + "").ToLower().Contains(searchString.ToLower())
                     || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower())
-                    || appdata.Filename.ToLower().Contains(searchString.ToLower())
-                    || appdata.AppID.ToLower().Contains(searchString.ToLower()));
+                    || (appdata?.Filename?.ToLower() ?? "").Contains(searchString.ToLower())
+                    || (appdata?.AppID?.ToLower() ?? "").Contains(searchString.ToLower()));
 
             }
             return false;
