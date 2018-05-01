@@ -57,7 +57,9 @@
         <Border
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Padding="5"
             BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+            Background="{StaticResource LUI.Brush.Grayscale100}"
             BorderThickness="1">
             <Luicontrols:LuiIcon
                 HorizontalAlignment="Right"

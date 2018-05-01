@@ -63,6 +63,8 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                                    Background="{StaticResource LUI.Brush.Grayscale100}"
+                                    Padding="5"
                                     BorderThickness="1">
                                     <Luicontrols:LuiIcon
                                         FontSize="16"

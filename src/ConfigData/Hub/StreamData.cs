@@ -13,6 +13,23 @@ namespace daVinci.ConfigData
 {
     public class StreamData : INotifyPropertyChanged
     {
+        private string streamID;
+        public string StreamID
+        {
+            get
+            {
+                return streamID;
+            }
+            set
+            {
+                if (streamID != value)
+                {
+                    streamID = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private string streamName;
         public string StreamName
         {

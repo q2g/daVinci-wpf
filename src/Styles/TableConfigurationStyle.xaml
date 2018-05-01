@@ -7,7 +7,8 @@
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
-    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
@@ -47,7 +48,7 @@
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_dataHandling}" />
         <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}, IsAsync=True, FallbackValue=Loading...}" />
     </Style>
-
+    <tableconfigurations:SortOrderIndexProvider x:Key="SortOrderIndexProvider"/>
 
     <LuiConverter:TypeToStyleSelector
         x:Key="AddOnStyleselector"
@@ -113,6 +114,7 @@
                                                 ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                             <controls:LuiAccordion  Background="{StaticResource LUI.Brush.Grayscale100}"
                                                 CollapseAllOnExpandSingle="False"
+                                                                    IndexProvider="{StaticResource SortOrderIndexProvider}"
                                                 IsDragDropChangesUnderlyingCollection="True"
                                                 IsDragDropEnabled="True"
                                                 ItemContainerStyle="{StaticResource SortOrderColumnDataStyle}"

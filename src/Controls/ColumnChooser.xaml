@@ -12,6 +12,7 @@
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations"
     Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -27,6 +28,7 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider"/>
             <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -74,6 +76,7 @@
 
                 <LuiControls:LuiAccordion
                     x:Name="acc"
+                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                     CollapseAllOnExpandSingle="false"
                     IsDragDropChangesUnderlyingCollection="True"
                     IsDragDropEnabled="True"

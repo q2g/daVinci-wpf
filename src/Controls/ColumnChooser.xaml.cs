@@ -53,7 +53,7 @@ namespace daVinci.Controls
                         }
                         if (param == "EQU")
                         {
-                            object newone = new MeasureColumnData();
+                            object newone = new MeasureColumnData() { IsExpression = true };
                             Columns.Add(newone);
                             togglebutton.IsChecked = false;
                         }
