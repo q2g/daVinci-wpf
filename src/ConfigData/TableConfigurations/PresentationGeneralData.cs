@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using System.ComponentModel; 
+    #endregion
+
     public class PresentationGeneralData : INotifyPropertyChanged
     {
         public PresentationGeneralData()

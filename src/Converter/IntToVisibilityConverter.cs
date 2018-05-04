@@ -1,15 +1,14 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-
-namespace daVinci.Converter
+﻿namespace daVinci.Converter
 {
+    #region Usings
+    using NLog;
+    using System;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Globalization; 
+    #endregion
+
     [ValueConversion(typeof(int), typeof(Visibility))]
     public class IntToVisibilityConverter : IValueConverter
     {

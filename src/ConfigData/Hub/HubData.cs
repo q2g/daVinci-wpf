@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using System.ComponentModel;
+    using System.Collections.ObjectModel;
+    using System.Runtime.CompilerServices; 
+    #endregion
+
     public class HubData : INotifyPropertyChanged
     {
         private ObservableCollection<object> streams = new ObservableCollection<object>();

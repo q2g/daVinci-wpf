@@ -1,13 +1,10 @@
-﻿using daVinci.ConfigData.TableConfigurations;
-using leonardo.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci_wpf.ConfigData.TableConfigurations
+﻿namespace daVinci_wpf.ConfigData.TableConfigurations
 {
+    #region Usings
+    using leonardo.Resources;
+    using daVinci.ConfigData.TableConfigurations; 
+    #endregion
+
     public class SortOrderIndexProvider : IIndexProvider
     {
         public int GetIndex(object objectWithIndexProperty)

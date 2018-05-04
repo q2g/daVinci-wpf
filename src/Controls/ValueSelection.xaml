@@ -38,7 +38,7 @@
             SearchText="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <ScrollViewer
             DockPanel.Dock="Bottom"
-            Style="{StaticResource LUI_SenseScrollViewerStyle}">
+            Style="{StaticResource LuiSenseScrollViewerStyle}">
             <DockPanel>
                 <Grid
                     DockPanel.Dock="Top"

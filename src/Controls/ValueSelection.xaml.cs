@@ -1,28 +1,19 @@
-﻿using daVinci.Resources;
-using leonardo.Resources;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Resources;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WPFLocalizeExtension.Engine;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using NLog;
+    using System;
+    using System.Windows;
+    using daVinci.Resources;
+    using leonardo.Resources;
+    using System.Windows.Input;
+    using System.ComponentModel;
+    using System.Windows.Controls;
+    using System.Collections.Generic;
+    using WPFLocalizeExtension.Engine;
+    using System.Runtime.CompilerServices; 
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für ValueSelection.xaml
     /// </summary>
@@ -149,7 +140,7 @@ namespace daVinci.Controls
     {
         #region properties
         public string DisplayText { get; set; }
-        public LUIiconsEnum Icon { get; set; } = LUIiconsEnum.lui_icon_none;
+        public LuiIconsEnum Icon { get; set; } = LuiIconsEnum.lui_icon_none;
         public ValueTypeEnum ItemType { get; set; }
         public bool IsAggregate { get; set; }
         public bool IsField { get; set; }

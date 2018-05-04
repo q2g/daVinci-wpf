@@ -1,15 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using NLog;
+    using System;
+    using Newtonsoft.Json.Linq;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices; 
+    #endregion
+
     public class PresentationData : INotifyPropertyChanged
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();

@@ -4,7 +4,7 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <FontFamily x:Key="QlikViewSans">
         pack://application:,,,/leonardo-wpf;component/#QlikView Sans

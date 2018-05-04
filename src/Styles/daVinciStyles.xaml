@@ -4,7 +4,7 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnOrderAccordionItemStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/MainAccordionItemStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/PresentationAccordionItemStyle.xaml" />

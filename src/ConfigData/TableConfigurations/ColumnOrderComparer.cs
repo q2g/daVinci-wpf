@@ -1,13 +1,10 @@
-﻿using daVinci.ConfigData.TableConfigurations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using System.Collections;
+    using daVinci.ConfigData.TableConfigurations; 
+    #endregion
+
     class ColumnOrderComparer : IComparer
     {
         public int Compare(object x, object y)

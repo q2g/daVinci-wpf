@@ -11,7 +11,7 @@
     xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -106,7 +106,7 @@
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_sorting}" Background="{StaticResource LUI.Brush.Grayscale100}">
 
                                     <ScrollViewer Background="{StaticResource LUI.Brush.Grayscale100}"
-                                        Style="{StaticResource LUI_SenseScrollViewerStyle}"
+                                        Style="{StaticResource LuiSenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <controls:CollectionView

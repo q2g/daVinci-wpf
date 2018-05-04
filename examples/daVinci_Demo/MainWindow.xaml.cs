@@ -234,7 +234,7 @@ namespace daVinci_Demo
                 new StreamData()
         {
             StreamName = "Everyone",
-                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
+                    Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream,
                     Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
@@ -244,30 +244,30 @@ namespace daVinci_Demo
                 new StreamData()
         {
             StreamName = "Manufacturing",
-                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream,
+                    Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream,
                      Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="Very very Long App",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true}
                     }
                 },
-                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream},
-                new StreamData() { StreamName = "Sales", Icon = leonardo.Resources.LUIiconsEnum.lui_icon_stream}
+                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                 new StreamData() { StreamName = "Marketing", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Operations", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream},
+                new StreamData() { StreamName = "Sales", Icon = leonardo.Resources.LuiIconsEnum.lui_icon_stream}
     };
 
             Hub.PersonalStreams = new ObservableCollection<object>()
@@ -276,7 +276,7 @@ namespace daVinci_Demo
     {
         StreamName = "Work",
 
-                    Icon = leonardo.Resources.LUIiconsEnum.lui_icon_sheet,
+                    Icon = leonardo.Resources.LuiIconsEnum.lui_icon_sheet,
                     Apps = new ObservableCollection<AppData>()
                     {
                         new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription="short Text", Filename=@"c:\Folder\File.qvf"},

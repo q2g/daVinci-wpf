@@ -1,16 +1,13 @@
-﻿using daVinci.ConfigData.Hub;
-using leonardo.Resources;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using leonardo.Resources;
+    using System.ComponentModel;
+    using daVinci.ConfigData.Hub;
+    using System.Collections.ObjectModel;
+    using System.Runtime.CompilerServices; 
+    #endregion
+
     public class StreamData : INotifyPropertyChanged
     {
         private string streamID;
@@ -61,8 +58,8 @@ namespace daVinci.ConfigData
             }
         }
 
-        private LUIiconsEnum icon;
-        public LUIiconsEnum Icon
+        private LuiIconsEnum icon;
+        public LuiIconsEnum Icon
         {
             get
             {

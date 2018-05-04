@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
-    /// <summary>
+    #region Usings
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Controls;
+    /// <summary> 
+	#endregion
     /// Interaktionslogik für CategorySelection.xaml
     /// </summary>
     public partial class CategorySelection : UserControl

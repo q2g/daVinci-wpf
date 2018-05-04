@@ -1,17 +1,17 @@
-﻿using daVinci.ConfigData.TableConfigurations;
-using leonardo.Resources;
-using Newtonsoft.Json.Linq;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData
+﻿namespace daVinci.ConfigData
 {
+    #region Usings
+    using NLog;
+    using System;
+    using System.Linq;
+    using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
+    using System.ComponentModel;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.TableConfigurations; 
+    #endregion
+
     public class MeasureColumnData : INotifyPropertyChanged, IHasSortCriteria
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();

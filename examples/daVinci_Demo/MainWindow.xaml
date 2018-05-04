@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <TabControl
-        ItemContainerStyle="{StaticResource LUITabItemStyle}"
+        ItemContainerStyle="{StaticResource LuiTabItemStyle}"
         TabStripPlacement="Left">
         <TabItem Header="PropertyPanel">
             <Grid>

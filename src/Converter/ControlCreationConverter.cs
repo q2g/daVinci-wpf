@@ -1,19 +1,14 @@
-﻿using daVinci.Controls;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-
-namespace daVinci.Converter
+﻿namespace daVinci.Converter
 {
+    #region Usings
+    using NLog;
+    using System;
+    using daVinci.Controls;
+    using System.Windows.Data;
+    using System.Globalization;
+    using System.Windows.Controls; 
+    #endregion
+
     [ValueConversion(typeof(object), typeof(object))]
     public class ControlCreationConverter : IValueConverter
     {

@@ -1,14 +1,12 @@
-﻿using leonardo.Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData.Bookmark
+﻿namespace daVinci.ConfigData.Bookmark
 {
+    #region Usings
+    using System;
+    using leonardo.Resources;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices; 
+    #endregion
+
     public class BookmarkData : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged

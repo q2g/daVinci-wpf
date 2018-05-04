@@ -1,26 +1,17 @@
-﻿using daVinci.ConfigData;
-using daVinci.ConfigData.Hub;
-using leonardo.Controls;
-using leonardo.Resources;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WPFLocalizeExtension.Engine;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using NLog;
+    using System;
+    using System.Windows;
+    using leonardo.Controls;
+    using daVinci.ConfigData;
+    using leonardo.Resources;
+    using System.Windows.Input;
+    using daVinci.ConfigData.Hub;
+    using System.Windows.Controls;
+    using WPFLocalizeExtension.Engine; 
+    #endregion
     /// <summary>
     /// Interaction logic for HubAppArea.xaml
     /// </summary>

@@ -120,7 +120,7 @@
             </ListBox>
             <ScrollViewer.Style>
                 <Style
-                    BasedOn="{StaticResource LUI_SenseScrollViewerStyle}"
+                    BasedOn="{StaticResource LuiSenseScrollViewerStyle}"
                     TargetType="ScrollViewer">
                     <Style.Triggers>
                         <DataTrigger

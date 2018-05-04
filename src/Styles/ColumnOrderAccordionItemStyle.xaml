@@ -6,7 +6,7 @@
     xmlns:l="http://wpflocalizeextension.codeplex.com">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
