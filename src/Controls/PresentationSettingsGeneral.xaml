@@ -43,7 +43,7 @@
                 UnCheckedText="Ausblenden" />
             <TextBlock
                 Margin="5,0,5,0"
-                Foreground="{StaticResource LUI.Brush.Grayscale50}"
+                Foreground="{StaticResource Lui.Brush.Grayscale50}"
                 Text="Mit Anzeigen können Benutzer wählen, welche Details, zum Beispiel Beschreibungen,Kennzahlen und Dimensionen, angezeigt werden sollen."
                 TextWrapping="Wrap" />
         </StackPanel>

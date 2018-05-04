@@ -36,7 +36,7 @@
                 Style="{StaticResource ContextmenuAccordion}">
                 <MenuItem
                     Height="40"
-                    BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                     BorderThickness="1"
                     Click="MenuDeleteItem_Click"
                     Header="{l:Loc qlik-resources:Translate_common:Common_Clear}" />
@@ -50,7 +50,7 @@
                         ContextMenu="{StaticResource deleteMenu}"
                         Cursor="Hand">
                         <Border
-                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                            BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
                             BorderThickness="1">
                             <Grid>
                                 <Image
@@ -62,8 +62,8 @@
                                 <Border
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
-                                    Background="{StaticResource LUI.Brush.Grayscale100}"
+                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                    Background="{StaticResource Lui.Brush.Grayscale100}"
                                     Padding="5"
                                     BorderThickness="1">
                                     <Luicontrols:LuiIcon
@@ -84,8 +84,8 @@
                             </Grid>
                         </Border>
                         <Border
-                            Background="{StaticResource LUI.Brush.Grayscale100}"
-                            BorderBrush="{StaticResource LUI.Brush.Grayscale50}"
+                            Background="{StaticResource Lui.Brush.Grayscale100}"
+                            BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
                             BorderThickness="1"
                             MouseDown="Border_MouseDown">
                             <Grid Height="40">
@@ -99,7 +99,7 @@
                                     DockPanel.Dock="Left"
                                     FontFamily="{StaticResource QlikViewSans}"
                                     FontWeight="Normal"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Text="{Binding AppName}"
                                     TextWrapping="Wrap" />
                                 <Luicontrols:LuiIcon
@@ -109,7 +109,7 @@
                                     VerticalAlignment="Center"
                                     DockPanel.Dock="right"
                                     FontWeight="Normal"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Icon="lui_icon_info"
                                     IconSize="Large" />
                             </Grid>
@@ -129,7 +129,7 @@
                                         </MultiBinding>
                                     </DataTrigger.Binding>
                                     <DataTrigger.Setters>
-                                        <Setter Property="BorderBrush" Value="{StaticResource LUI.Brush.Grayscale50}" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource Lui.Brush.Grayscale50}" />
                                     </DataTrigger.Setters>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -162,7 +162,7 @@
                             <Style TargetType="Border">
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale50}" />
+                                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale50}" />
                                     </Trigger>
                                     <DataTrigger Value="true">
                                         <DataTrigger.Binding>
@@ -175,7 +175,7 @@
                                             </MultiBinding>
                                         </DataTrigger.Binding>
                                         <DataTrigger.Setters>
-                                            <Setter Property="Background" Value="{StaticResource LUI.Brush.ORANGE}" />
+                                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Orange}" />
                                         </DataTrigger.Setters>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -189,14 +189,14 @@
                             Margin="10,10,0,0"
                             ContextMenu="{StaticResource deleteMenu}"
                             DataContext="{Binding}"
-                            Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
                             MouseDown="HubAppDataView_MouseDown" />
 
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale80}" />
+                                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -224,7 +224,7 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="{StaticResource LUI.Brush.Grayscale100}">
+    <Grid Background="{StaticResource Lui.Brush.Grayscale100}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
@@ -321,7 +321,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ItemsControl
                 Name="itemsControl"
-                Background="{StaticResource LUI.Brush.Grayscale90}"
+                Background="{StaticResource Lui.Brush.Grayscale90}"
                 ItemsSource="{Binding ProcessedCollection, ElementName=appsCollectionview}"
                 MouseDown="itemsControl_MouseDown">
                 <ItemsControl.Style>
@@ -374,10 +374,10 @@
 
             <Border
                 Grid.Row="0"
-                Background="{StaticResource LUI.Brush.Grayscale95}"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
+                Background="{StaticResource Lui.Brush.Grayscale95}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                 BorderThickness="1">
-                <DockPanel Background="{StaticResource LUI.Brush.Grayscale95}">
+                <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
                     <Luicontrols:LuiButton
                         Margin="10,0,0,0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
@@ -393,18 +393,18 @@
                     <Luicontrols:LuiAbortButton
                         Margin="5,0,0,0"
                         Click="CancelButton_Click"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
                     <Luicontrols:LuiOKButton
                         Margin="10,0,0,0"
                         Click="SaveButton_Click"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
 
                     <Luicontrols:LuiButton
                         LuiAttached:ThemeProperties.BorderThickness="0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
-                        Background="{StaticResource LUI.Brush.Grayscale95}"
+                        Background="{StaticResource Lui.Brush.Grayscale95}"
                         Click="CloseButton_Click"
                         DockPanel.Dock="Right" />
 
@@ -413,7 +413,7 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource QlikViewSans}"
                         FontWeight="Normal"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
 
 
@@ -422,29 +422,29 @@
             <Border
                 Grid.Row="2"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource LUI.Brush.Grayscale35}"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
+                Background="{StaticResource Lui.Brush.Grayscale35}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                 BorderThickness="1"
                 Visibility="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}, Converter={StaticResource trueToVisibilityCollapsedConverter}}">
                 <controls:HubAppDataView
                     x:Name="AppView"
                     Margin="20,20,20,0"
                     VerticalAlignment="Top"
-                    Background="{StaticResource LUI.Brush.Grayscale35}"
+                    Background="{StaticResource Lui.Brush.Grayscale35}"
                     DataContext="{Binding SelectedApp, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
-                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     IsEditMode="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
             </Border>
             <StackPanel
                 Grid.Row="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource LUI.Brush.Grayscale35}"
+                Background="{StaticResource Lui.Brush.Grayscale35}"
                 Visibility="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}, Converter={StaticResource trueToVisibilityVisibleConverter}}">
                 <StackPanel Margin="10,7,10,0">
                     <TextBlock
                         Margin="0,7,0,0"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         FontFamily="{StaticResource QlikViewSans}"
                         Text="{l:Loc Translate_common:Common_Title}" />
                     <Luicontrols:LuiInput
@@ -455,7 +455,7 @@
                 <StackPanel Margin="10,10,10,0">
                     <TextBlock
                         FontFamily="{StaticResource QlikViewSans}"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Text="{l:Loc Translate_common:Common_Description}" />
                     <Luicontrols:LuiInput
                         Margin="0,7,0,0"

@@ -60,7 +60,7 @@
             Margin="0,10,0,5"
             IsInputEnabled="True"
             LabelText="{l:Loc Translate_common:Common_Field}"
-            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToVisibleConverter}}" />
@@ -231,13 +231,13 @@
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
-            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding BackgroundColorExpression}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
-            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding TextColorExpression}" />
         <LuiControls:LuiCombobox

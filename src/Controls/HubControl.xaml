@@ -29,8 +29,8 @@
         <Border
             Grid.Row="0"
             Grid.Column="0"
-            Background="{StaticResource LUI.Brush.Grayscale100}"
-            BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+            Background="{StaticResource Lui.Brush.Grayscale100}"
+            BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
             BorderThickness="0,0,1,0"
             DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
@@ -40,10 +40,10 @@
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Background="{StaticResource LUI.Brush.Grayscale75}"
+                    Background="{StaticResource Lui.Brush.Grayscale75}"
                     CornerRadius="10"
                     FontSize="16"
-                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     Icon="lui_icon_person">
                     <Luicontrols:LuiIcon.Resources>
                         <Style TargetType="Border">
@@ -55,14 +55,14 @@
                     Margin="5,0,0,0"
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource QlikViewSans}"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                     Text="{Binding UserName}" />
             </StackPanel>
         </Border>
         <Border
             Grid.Row="1"
             Grid.Column="0"
-            Background="{StaticResource LUI.Brush.Grayscale95}">
+            Background="{StaticResource Lui.Brush.Grayscale95}">
             <controls:HubStreamSelection
                 PersonalStreams="{Binding PersonalStreams}"
                 SelectedStream="{Binding SelectedStream}"

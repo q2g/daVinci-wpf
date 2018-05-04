@@ -44,7 +44,7 @@
             <TextBlock
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
-                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                 Text="{l:Loc qlik-resources:Translate_common:Common_Bookmarks}" />
             <Luicontrols:LuiButton
                 Margin="10,0,0,0"
@@ -84,7 +84,7 @@
                                             VerticalAlignment="Center"
                                             DockPanel.Dock="Left"
                                             FontFamily="{StaticResource QlikViewSans}"
-                                            Foreground="{StaticResource LUI.Brush.Grayscale30}">
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}">
                                             <Run Text="{Binding BookmarkName}" />
                                             <Run Text=":" />
                                             <Run Text="{Binding BookmarkSelection}" />
@@ -108,7 +108,7 @@
                                             VerticalAlignment="Center"
                                             DockPanel.Dock="Right"
                                             FontFamily="{StaticResource QlikViewSans}"
-                                            Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                             Text="{Binding BookmarkCreated, StringFormat=D, ConverterCulture=de-DE}" />
                                     </DockPanel>
                                 </ControlTemplate>
@@ -143,10 +143,10 @@
 
             <Border
                 Grid.Row="0"
-                Background="{StaticResource LUI.Brush.Grayscale95}"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
+                Background="{StaticResource Lui.Brush.Grayscale95}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                 BorderThickness="1">
-                <DockPanel Background="{StaticResource LUI.Brush.Grayscale95}">
+                <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
                     <Luicontrols:LuiButton
                         Margin="10,0,0,0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
@@ -162,18 +162,18 @@
                     <Luicontrols:LuiAbortButton
                         Margin="5,0,0,0"
                         Click="CancelButton_Click"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
                     <Luicontrols:LuiOKButton
                         Margin="10,0,0,0"
                         Click="SaveButton_Click"
-                        Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
 
                     <Luicontrols:LuiButton
                         LuiAttached:ThemeProperties.BorderThickness="0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
-                        Background="{StaticResource LUI.Brush.Grayscale95}"
+                        Background="{StaticResource Lui.Brush.Grayscale95}"
                         Click="CloseButton_Click"
                         DockPanel.Dock="Right" />
 
@@ -182,7 +182,7 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource QlikViewSans}"
                         FontWeight="Normal"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Text="{Binding SelectedBookmark.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
 
 
@@ -191,16 +191,16 @@
             <Border
                 Grid.Row="2"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource LUI.Brush.Grayscale35}"
-                BorderBrush="{StaticResource LUI.Brush.Grayscale80}"
+                Background="{StaticResource Lui.Brush.Grayscale35}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                 BorderThickness="1">
                 <controls:BookmarkDataView
                     x:Name="BookmarkView"
                     Margin="20,20,0,0"
                     VerticalAlignment="Top"
-                    Background="{StaticResource LUI.Brush.Grayscale35}"
+                    Background="{StaticResource Lui.Brush.Grayscale35}"
                     DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     IsEditMode="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
             </Border>
         </Grid>

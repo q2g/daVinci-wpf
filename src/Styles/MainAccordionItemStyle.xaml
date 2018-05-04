@@ -35,7 +35,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource LUI.Brush.Grayscale30}"
+                        Background="{StaticResource Lui.Brush.Grayscale30}"
                         BorderThickness="0.1">
                         <Grid
                             Background="Transparent"
@@ -89,7 +89,7 @@
                                                 <DataTrigger
                                                     Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
                                                     Value="False">
-                                                    <Setter Property="Stroke" Value="{StaticResource LUI.Brush.Grayscale30}" />
+                                                    <Setter Property="Stroke" Value="{StaticResource Lui.Brush.Grayscale30}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>

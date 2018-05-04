@@ -60,15 +60,15 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource LUI.Brush.Grayscale95}"
-                        BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                        Background="{StaticResource Lui.Brush.Grayscale95}"
+                        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                         BorderThickness="0.3"
                         Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:LuiAccordion}}, Path=.}">
                         <Border.ContextMenu>
                             <ContextMenu Style="{StaticResource ContextmenuAccordion}">
                                 <MenuItem
                                     Height="40"
-                                    BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                                     BorderThickness="1"
                                     Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.Tag.DeleteCommand}"
                                     CommandParameter="{Binding}"
@@ -90,7 +90,7 @@
                                 Margin="0,0,10,0"
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Left"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}">
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}">
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
                                         <Style.Triggers>
@@ -120,7 +120,7 @@
                                 VerticalAlignment="Bottom"
                                 DockPanel.Dock="Right"
                                 FontSize="10"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LuiAccordionItem}}, Path=Index}" />
                             <controls:LuiIcon
                                 Grid.Column="3"
@@ -130,7 +130,7 @@
                                 DockPanel.Dock="Right"
                                 FontSize="16"
                                 FontWeight="Bold"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 Icon="lui_icon_menu" />
                         </Grid>
 
@@ -165,7 +165,7 @@
                                 Padding="{TemplateBinding Padding}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Background="{StaticResource LUI.Brush.Grayscale95}"
+                                Background="{StaticResource Lui.Brush.Grayscale95}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -176,7 +176,7 @@
                                 FontStretch="{TemplateBinding FontStretch}"
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 Style="{StaticResource InnerExpanderDownHeaderStyle}" />
 

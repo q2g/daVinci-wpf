@@ -34,7 +34,7 @@
                                 Height="39"
                                 VerticalAlignment="Center"
                                 dd:DragDrop.IsDropTarget="True"
-                                Background="{StaticResource LUI.Brush.Grayscale100}">
+                                Background="{StaticResource Lui.Brush.Grayscale100}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="5" />
                                     <ColumnDefinition Width="30" />
@@ -42,35 +42,35 @@
                                 </Grid.ColumnDefinitions>
                                 <Border
                                     Name="selectedIndicationBorder"
-                                    Background="{StaticResource LUI.Brush.Grayscale100}" />
+                                    Background="{StaticResource Lui.Brush.Grayscale100}" />
                                 <Luicontrols:LuiIcon
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     FontWeight="Normal"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Icon="{Binding Icon}" />
                                 <TextBlock
                                     Grid.Column="2"
                                     VerticalAlignment="Center"
                                     FontFamily="{StaticResource QlikViewSans}"
                                     FontWeight="Bold"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Text="{Binding StreamName}" />
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource LUI.Brush.GREEN}" />
-                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource LUI.Brush.Grayscale80}" />
+                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource Lui.Brush.Green}" />
+                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsMouseOver" Value="True" />
                                         <Condition Property="IsSelected" Value="false" />
                                     </MultiTrigger.Conditions>
-                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource LUI.Brush.Grayscale90}" />
-                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource LUI.Brush.Grayscale90}" />
+                                    <Setter TargetName="selectedIndicationBorder" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                    <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
                                 </MultiTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

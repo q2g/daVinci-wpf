@@ -56,7 +56,7 @@
                 <LuiControls:LuiInputGroup
                     Margin="0,10,0,0"
                     LabelText="{l:Loc Translate_common:Common_Expression}"
-                    RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+                    RightCommandForeground="{StaticResource Lui.Brush.Orange}"
                     RightCommandIcon="lui_icon_expression"
                     Text="{Binding SortCriterias.SortByExpressionText}"
                     Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />

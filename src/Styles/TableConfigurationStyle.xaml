@@ -64,19 +64,19 @@
         x:Shared="false"
         TargetType="UserControl">
         <Style.Setters>
-            <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale100}" />
+            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale100}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
                         <StackPanel>
                             <StackPanel
                                 Height="39"
-                                Background="{StaticResource LUI.Brush.Grayscale30}"
+                                Background="{StaticResource Lui.Brush.Grayscale30}"
                                 Orientation="Horizontal">
                                 <controls:LuiIcon
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Center"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Icon="lui_icon_table"
                                     IconSize="Normal" />
                                 <TextBlock
@@ -84,7 +84,7 @@
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     FontWeight="Bold"
-                                    Foreground="{StaticResource LUI.Brush.Grayscale100}"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Text="{Binding TableName}" />
                             </StackPanel>
                             <controls:LuiAccordion
@@ -97,22 +97,22 @@
 
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}">
                                     <daVinciControls:ColumnChooser
-                                        Background="{StaticResource LUI.Brush.Grayscale100}"
+                                        Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                         DimensionMeasures="{Binding DataContext.DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_sorting}" Background="{StaticResource LUI.Brush.Grayscale100}">
+                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_sorting}" Background="{StaticResource Lui.Brush.Grayscale100}">
 
-                                    <ScrollViewer Background="{StaticResource LUI.Brush.Grayscale100}"
+                                    <ScrollViewer Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Style="{StaticResource LuiSenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <controls:CollectionView
                                                 CollectionViewComparer="{StaticResource SortOrderComparer}"
                                                 ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                                            <controls:LuiAccordion  Background="{StaticResource LUI.Brush.Grayscale100}"
+                                            <controls:LuiAccordion  Background="{StaticResource Lui.Brush.Grayscale100}"
                                                 CollapseAllOnExpandSingle="False"
                                                                     IndexProvider="{StaticResource SortOrderIndexProvider}"
                                                 IsDragDropChangesUnderlyingCollection="True"
@@ -124,13 +124,13 @@
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_addons}">
-                                    <controls:LuiAccordion Background="{StaticResource LUI.Brush.Grayscale100}"
+                                    <controls:LuiAccordion Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
-                                    <controls:LuiAccordion Background="{StaticResource LUI.Brush.Grayscale100}"
+                                    <controls:LuiAccordion Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>

@@ -18,10 +18,10 @@
         TargetType="{x:Type StackPanel}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale95}" />
+                <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale95}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
-                <Setter Property="Background" Value="{StaticResource LUI.Brush.Grayscale100}" />
+                <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale100}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -42,13 +42,13 @@
                 </StackPanel.InputBindings>
                 <controls:LuiIcon
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                     Icon="{Binding Icon}" />
                 <TextBlock
                     Margin="10,0,0,0"
                     VerticalAlignment="Center"
                     FontWeight="Normal"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                     Text="{Binding DisplayText}" />
             </StackPanel>
         </Border>
@@ -75,20 +75,20 @@
                 <StackPanel Orientation="Horizontal">
                     <controls:LuiIcon
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Icon="{Binding Icon}" />
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         FontWeight="Normal"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Text="{Binding DisplayText}" />
                 </StackPanel>
                 <controls:LuiIcon
                     Grid.Column="1"
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
                     Icon="lui_icon_triangle_right" />
             </Grid>
         </Border>
@@ -109,13 +109,13 @@
                     </StackPanel.InputBindings>
                     <controls:LuiIcon
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Icon="{Binding Icon}" />
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         FontWeight="Normal"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Text="{Binding DisplayText}" />
                 </StackPanel>
             </Border>
@@ -134,17 +134,17 @@
                     </StackPanel.InputBindings>
                     <controls:LuiIcon
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Icon="{Binding Icon}" />
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         FontWeight="Normal"
-                        Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
                         Text="{Binding DisplayText}" />
                 </StackPanel>
             </Border>
-            <Separator  Foreground="{StaticResource LUI.Brush.Grayscale30}"/>
+            <Separator  Foreground="{StaticResource Lui.Brush.Grayscale30}"/>
 
         </StackPanel>
     </DataTemplate>

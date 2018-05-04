@@ -39,7 +39,7 @@
             Name="CalcCond"
             Margin="10,10,0,10"
             LabelText="{l:Loc properties_hyperCube_calcCond}"
-            RightCommandForeground="{StaticResource LUI.Brush.ORANGE}"
+            RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding CalcCondition}" />
         <LuiControls:LuiInputGroup

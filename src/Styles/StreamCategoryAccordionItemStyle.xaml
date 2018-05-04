@@ -33,8 +33,8 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource LUI.Brush.Grayscale100}"
-                        BorderBrush="{StaticResource LUI.Brush.Grayscale30}"
+                        Background="{StaticResource Lui.Brush.Grayscale100}"
+                        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                         BorderThickness="0.3">
                         <Grid
                             Margin="10,0,0,0"
@@ -56,7 +56,7 @@
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Left"
                                 FontWeight="Normal"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}">
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}">
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
                                         <Style.Triggers>
@@ -107,7 +107,7 @@
                                 Padding="{TemplateBinding Padding}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Background="{StaticResource LUI.Brush.Grayscale100}"
+                                Background="{StaticResource Lui.Brush.Grayscale100}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -118,7 +118,7 @@
                                 FontStretch="{TemplateBinding FontStretch}"
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
-                                Foreground="{StaticResource LUI.Brush.Grayscale30}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 Style="{StaticResource StreamCategoryExpanderDownHeaderStyle}" />
                             <ContentPresenter
