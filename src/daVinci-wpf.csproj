@@ -38,10 +38,10 @@
 
   <ItemGroup>
      <!-- XAML elements -->
-    <Page Include="**\*.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="**\*.xaml" SubType="Designer">      
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
+    
     <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
 
     <!-- Resources -->
@@ -70,6 +70,7 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="5.0.4" />
     <PackageReference Include="GitVersionTask" Version="4.0.0-beta0008">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
@@ -104,4 +105,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
  </ItemGroup>
+
+  
 </Project>

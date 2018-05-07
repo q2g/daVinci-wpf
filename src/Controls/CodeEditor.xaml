@@ -1,0 +1,350 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.CodeEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:luiconverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="en"
+    l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.Resources>
+                <luiconverter:Null2BooleanConverter x:Key="NullIsFalse" NullIs="False" />
+
+                <!--<Style TargetType="{x:Type TextBox}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="AllowDrop" Value="true"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                            <Border
+                                  Name="Border"
+                                  CornerRadius="2"
+                                  Padding="2"
+                                  Background="#FFFFFF"
+                                  BorderBrush="#888888"
+                                  BorderThickness="1" >
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
+                                    <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
+                                    <Setter Property="Foreground" Value="#888888"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+                <!--<DataTemplate x:Key="ItemTemplate">
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Width="140"
+                            MaxWidth="140"
+                            Margin="10,13,0,0"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding Name}"
+                            TextTrimming="CharacterEllipsis" />
+                    </Grid>
+                </DataTemplate>-->
+
+
+
+
+
+                <DataTemplate x:Key="ListDatatemplate">
+                    <DockPanel Height="40" Background="Transparent">
+                        <controls:LuiIcon
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontSize="24"
+                            Icon="lui_icon_menu" />
+                        <controls:LuiButton
+                            Margin="0,0,20,0"
+                            HorizontalAlignment="Right"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                            LuiAttached:ThemeProperties.Inverted="True"
+                            Command="{Binding Path=DataContext.RemoveTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
+                            CommandParameter="{Binding}"
+                            DockPanel.Dock="Right"
+                            FontSize="20" />
+                        <controls:LuiInput
+                            Grid.Column="1"
+                            MaxWidth="140"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            DockPanel.Dock="Left"
+                            Text="{Binding Name}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                </DataTemplate>
+
+                <DataTemplate x:Key="ListSelectedDatatemplate">
+                    <DockPanel Height="40" Background="Transparent">
+                        <controls:LuiIcon
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontSize="24"
+                            Icon="lui_icon_menu" />
+                        <controls:LuiInput
+                            Grid.Column="1"
+                            MaxWidth="140"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            DockPanel.Dock="Left"
+                            Text="{Binding Name}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                </DataTemplate>
+
+
+
+                <Style x:Key="CodeTabListBoxItemStyle" TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <DockPanel
+                                    Name="mainGrid"
+                                    Height="39"
+                                    VerticalAlignment="Center"
+                                    Background="{StaticResource Lui.Brush.Grayscale100}">
+                                    <controls:LuiIcon
+                                        Grid.Column="1"
+                                        Margin="10,0,10,0"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Left"
+                                        FontSize="16"
+                                        FontWeight="Normal"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                        Icon="lui_icon_menu" />
+                                    <controls:LuiButton
+                                        Name="DeleteButton"
+                                        Grid.Column="1"
+                                        Margin="10,0,10,0"
+                                        VerticalAlignment="Center"
+                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                        Command="{Binding Path=DataContext.RemoveTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
+                                        CommandParameter="{Binding}"
+                                        DockPanel.Dock="Right"
+                                        FontSize="16"
+                                        FontWeight="Normal"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                        Visibility="Hidden" />
+                                    <controls:LuiInput
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        LuiAttached:ThemeProperties.BorderThickness="0"
+                                        DockPanel.Dock="Left"
+                                        FontFamily="{StaticResource QlikViewSans}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                        Text="{Binding Name}"
+                                        TextWrapping="Wrap" />
+                                </DockPanel>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
+                                        <Setter TargetName="DeleteButton" Property="Visibility" Value="Visible" />
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource Self}}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(ListBoxItem.IsSelected)">
+                                                        <DiscreteBooleanKeyFrame KeyTime="0" Value="True" />
+                                                    </BooleanAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True" />
+                                            <Condition Property="IsSelected" Value="false" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                        <Setter TargetName="DeleteButton" Property="Visibility" Value="Visible" />
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="200"
+                    MinWidth="300"
+                    MaxWidth="500" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition
+                    Width="0"
+                    MinWidth="0"
+                    MaxWidth="0" />
+                <!--  TODO: Add Dataconnection Visible & Edit  -->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Column="4"
+                Padding="10"
+                Background="#666666">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="{l:Loc scripteditor_accordion_dataconnectors}" />
+            </Border>
+
+            <Border
+                Grid.Column="0"
+                Padding="5"
+                Background="#666666">
+                <controls:LuiButton
+                    Width="40"
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
+                    LuiAttached:ThemeProperties.Inverted="True"
+                    Command="{Binding AddTabCommand}"
+                    FontSize="20" />
+
+            </Border>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <!--<StackPanel.Resources>
+                    <Style BasedOn="{StaticResource SenseSelectFieldButtons}" TargetType="{x:Type Button}">
+                        <Setter Property="FontSize" Value="28" />
+                        <Setter Property="Width" Value="50" />
+                    </Style>
+                </StackPanel.Resources>-->
+                <controls:LuiButton LuiAttached:ThemeProperties.IconLeft="lui_icon_search" IsEnabled="False" />
+                <Rectangle Width="1" Fill="LightGray" />
+                <controls:LuiButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_more"
+                    Command="{Binding UnComment}"
+                    ToolTip="{l:Loc scripteditor_toolbar_commentTooltip}" />
+                <Rectangle Width="1" Fill="LightGray" />
+                <controls:LuiButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_indent"
+                    Command="{Binding Indent}"
+                    ToolTip="{l:Loc scripteditor_toolbar_indentTooltip}" />
+                <controls:LuiButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_undent"
+                    Command="{Binding Outdent}"
+                    ToolTip="{l:Loc scripteditor_toolbar_outdentTooltip}" />
+                <Rectangle Width="1" Fill="LightGray" />
+                <controls:LuiButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_back"
+                    Command="{Binding Undo}"
+                    ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Undo}" />
+                <controls:LuiButton
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_forward"
+                    Command="{Binding Redo}"
+                    ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Redo}" />
+            </StackPanel>
+
+            <avalonEdit:TextEditor
+                Name="TextEditor"
+                Grid.Row="1"
+                Grid.Column="2"
+                FontFamily="Consolas"
+                FontSize="12pt"
+                IsEnabled="{Binding Selected, Converter={StaticResource NullIsFalse}}"
+                ShowLineNumbers="True"
+                SyntaxHighlighting="Qlik"
+                Text=""
+                WordWrap="False" />
+
+            <ListBox
+                Grid.Row="1"
+                Grid.Column="0"
+                dd:DragDrop.DragAdornerTemplate="{StaticResource ListSelectedDatatemplate}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                ItemContainerStyle="{StaticResource CodeTabListBoxItemStyle}"
+                ItemsSource="{Binding CodeTabs}"
+                SelectedItem="{Binding Selected}">
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ScrollViewer
+                            Padding="{TemplateBinding Control.Padding}"
+                            Focusable="False"
+                            Style="{DynamicResource SenseScrollViewer}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListBox.Template>
+            </ListBox>
+
+            <Border
+                Grid.Row="1"
+                Grid.Column="4"
+                Background="LightGray">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Bold">
+                    TODO
+                </TextBlock>
+            </Border>
+
+            <!--<GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="5" HorizontalAlignment="Stretch"  />-->
+            <GridSplitter
+                Grid.RowSpan="2"
+                Grid.Column="3"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+    </Border>
+</UserControl>
