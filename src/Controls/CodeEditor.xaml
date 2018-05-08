@@ -23,98 +23,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border
+        Background="{StaticResource Lui.Brush.Grayscale100}"
+        BorderBrush="Black"
+        BorderThickness="1">
         <Grid>
             <Grid.Resources>
                 <luiconverter:Null2BooleanConverter x:Key="NullIsFalse" NullIs="False" />
 
-                <!--<Style TargetType="{x:Type TextBox}">
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
-                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                <Setter Property="AllowDrop" Value="true"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                            <Border
-                                  Name="Border"
-                                  CornerRadius="2"
-                                  Padding="2"
-                                  Background="#FFFFFF"
-                                  BorderBrush="#888888"
-                                  BorderThickness="1" >
-                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="Border" Property="Background" Value="#EEEEEE"/>
-                                    <Setter TargetName="Border" Property="BorderBrush" Value="#EEEEEE"/>
-                                    <Setter Property="Foreground" Value="#888888"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
-
-                <!--<DataTemplate x:Key="ItemTemplate">
-                    <Grid Height="40">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="15" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Width="140"
-                            MaxWidth="140"
-                            Margin="10,13,0,0"
-                            HorizontalAlignment="Stretch"
-                            Text="{Binding Name}"
-                            TextTrimming="CharacterEllipsis" />
-                    </Grid>
-                </DataTemplate>-->
-
-
-
-
-
-                <DataTemplate x:Key="ListDatatemplate">
-                    <DockPanel Height="40" Background="Transparent">
-                        <controls:LuiIcon
-                            Margin="20,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            DockPanel.Dock="Left"
-                            FontSize="24"
-                            Icon="lui_icon_menu" />
-                        <controls:LuiButton
-                            Margin="0,0,20,0"
-                            HorizontalAlignment="Right"
-                            LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                            LuiAttached:ThemeProperties.Inverted="True"
-                            Command="{Binding Path=DataContext.RemoveTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
-                            CommandParameter="{Binding}"
-                            DockPanel.Dock="Right"
-                            FontSize="20" />
-                        <controls:LuiInput
-                            Grid.Column="1"
-                            MaxWidth="140"
-                            Margin="20,0,0,0"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            DockPanel.Dock="Left"
-                            Text="{Binding Name}"
-                            TextWrapping="Wrap" />
-                    </DockPanel>
-                </DataTemplate>
 
                 <DataTemplate x:Key="ListSelectedDatatemplate">
                     <DockPanel Height="40" Background="Transparent">
@@ -238,7 +154,7 @@
             <Border
                 Grid.Column="4"
                 Padding="10"
-                Background="#666666">
+                Background="{StaticResource Lui.Brush.Grayscale40}">
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="14"
@@ -250,7 +166,7 @@
             <Border
                 Grid.Column="0"
                 Padding="5"
-                Background="#666666">
+                Background="{StaticResource Lui.Brush.Grayscale40}">
                 <controls:LuiButton
                     Width="40"
                     LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
@@ -319,7 +235,7 @@
                         <ScrollViewer
                             Padding="{TemplateBinding Control.Padding}"
                             Focusable="False"
-                            Style="{DynamicResource SenseScrollViewer}">
+                            Style="{StaticResource LuiSenseScrollViewerStyle}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                         </ScrollViewer>
                     </ControlTemplate>
