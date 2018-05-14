@@ -1,0 +1,357 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.SearchField"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="225"
+    Height="300"
+    d:DesignHeight="300"
+    d:DesignWidth="225"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    Background="White"
+    BorderBrush="LightGray"
+    BorderThickness="1"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+        <Grid.Resources>
+
+            <converter:SelectionStateBrushConverter
+                x:Key="State2Color"
+                ALTERNATIVE="#DDDDDD"
+                DEFAULT="#FFFFFF"
+                EXCLUDED="#9A9A9A"
+                EXCL_SELECTED="#9A9A9A">
+                <converter:SelectionStateBrushConverter.LOCKED>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="#52CC52" />
+                        <GradientStop Offset="1.0" Color="#4DC04D" />
+                    </LinearGradientBrush>
+                </converter:SelectionStateBrushConverter.LOCKED>
+                <converter:SelectionStateBrushConverter.SELECTED>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="#52CC52" />
+                        <GradientStop Offset="1.0" Color="#4DC04D" />
+                    </LinearGradientBrush>
+                </converter:SelectionStateBrushConverter.SELECTED>
+            </converter:SelectionStateBrushConverter>
+
+            <converter:SelectionStateBrushConverter
+                x:Key="State2FGColor"
+                ALTERNATIVE="#000000"
+                DEFAULT="#FFFFFF"
+                OPTION="#000000" />
+
+            <converter:SelectionStateIconConverter
+                x:Key="Sate2Icon"
+                EXCL_LOCKED="lui_icon_lock"
+                EXCL_SELECTED="lui_icon_tick"
+                LOCKED="lui_icon_lock"
+                SELECTED="lui_icon_tick" />
+
+            <converter:BooleanToVisibilityConverter
+                x:Key="Bool2Vis"
+                False="Hidden"
+                True="Visible" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="NotBool2Vis"
+                False="Visible"
+                True="Hidden" />
+            <converter:NullOrEmptyToVisibilityConverter
+                x:Key="NullEmpty2Vis"
+                False="Visible"
+                True="Hidden" />
+            <converter:NullOrEmptyToVisibilityConverter
+                x:Key="NotNullEmpty2Vis"
+                False="Hidden"
+                True="Visible" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <controls:LuiButton
+            Grid.Column="0"
+            Width="40"
+            HorizontalContentAlignment="Center"
+            LuiAttached:ThemeProperties.BorderThickness="0"
+            LuiAttached:ThemeProperties.ButtonSize="Custom"
+            LuiAttached:ThemeProperties.IconLeft="lui_icon_more"
+            Command="{Binding MoreCommand}"
+            FontSize="20"
+            ToolTip="{l:Loc Tooltip_SelectionMenu}" />
+        <TextBlock
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Text="{Binding Title}"
+            TextTrimming="CharacterEllipsis"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource Bool2Vis}}" />
+        <controls:LuiButton
+            Grid.Column="1"
+            Width="35"
+            HorizontalContentAlignment="Center"
+            LuiAttached:ThemeProperties.BorderThickness="0"
+            LuiAttached:ThemeProperties.ButtonSize="Custom"
+            LuiAttached:ThemeProperties.IconLeft="lui_icon_unlock"
+            Command="{Binding FilterCommand}"
+            CommandParameter="Lock"
+            FontSize="20"
+            ToolTip="{l:Loc DataModelViewer_RightMenu_Tooltip_ClickToLock}"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+        <Rectangle
+            Grid.Column="2"
+            Width="2"
+            Height="10"
+            Fill="LightGray"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+        <controls:LuiAbortButton
+            Grid.Column="3"
+            Command="{Binding CancelCommand}"
+            FontSize="20"
+            IsCancel="True"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+        <controls:LuiOKButton
+            Grid.Column="4"
+            Command="{Binding AcceptCommand}"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+
+        <controls:LuiButton
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            LuiAttached:ThemeProperties.BorderThickness="0"
+            LuiAttached:ThemeProperties.ButtonSize="Custom"
+            LuiAttached:ThemeProperties.CornerRadius="0"
+            LuiAttached:ThemeProperties.IconLeft="lui_icon_lock"
+            LuiAttached:ThemeProperties.Inverted="True"
+            Command="{Binding FilterCommand}"
+            CommandParameter="UnLock"
+            Content="{l:Loc SelectionToolbar_ClickToUnlock}"
+            FontSize="16"
+            ToolTip="{l:Loc DataModelViewer_RightMenu_Tooltip_ClickToUnlock}"
+            Visibility="{Binding IsLocked, Converter={StaticResource Bool2Vis}, FallbackValue=Collapsed}" />
+
+        <controls:LuiSearch
+            Grid.Row="1"
+            Grid.ColumnSpan="5"
+            Margin="2"
+            HintText="{l:Loc MappingAction_Content_SearchInputPlaceHolder}"
+            SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SnapsToDevicePixels="True" />
+
+        <!--  SenseSelectFieldItemscontrol  -->
+
+        <Ellipse
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Width="180"
+            Height="180"
+            RenderTransformOrigin="0.5,0.5"
+            StrokeThickness="20"
+            Visibility="{Binding Selections, Converter={StaticResource NotNullEmpty2Vis}}">
+            <Ellipse.Stroke>
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5">
+                    <GradientStop Offset="0" Color="White" />
+                    <GradientStop Offset="1" Color="Black" />
+                </LinearGradientBrush>
+            </Ellipse.Stroke>
+            <Ellipse.RenderTransform>
+                <RotateTransform Angle="90" />
+            </Ellipse.RenderTransform>
+            <Ellipse.Style>
+                <Style TargetType="Ellipse">
+                    <Style.Triggers>
+                        <Trigger Property="Visibility" Value="Visible">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="RotationBeginStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            RepeatBehavior="Forever"
+                                            Storyboard.TargetProperty="RenderTransform.Angle"
+                                            From="0"
+                                            To="359"
+                                            Duration="0:0:4" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="RotationBeginStoryBoard" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Ellipse.Style>
+        </Ellipse>
+
+        <ItemsControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Margin="2,0,2,2"
+            Focusable="False"
+            ItemsSource="{Binding Selections}"
+            VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling"
+            Visibility="{Binding Selections, Converter={StaticResource NullEmpty2Vis}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <Border
+                        Padding="{TemplateBinding Control.Padding}"
+                        Background="{TemplateBinding Panel.Background}"
+                        BorderBrush="{TemplateBinding Border.BorderBrush}"
+                        BorderThickness="{TemplateBinding Border.BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <ScrollViewer
+                            Padding="{TemplateBinding Control.Padding}"
+                            Focusable="False"
+                            Style="{StaticResource LuiSenseScrollViewerStyle}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Background="{Binding SelectionState, Converter={StaticResource State2Color}, FallbackValue=DESELECTED}"
+                        BorderBrush="LightGray"
+                        BorderThickness="0.5"
+                        SnapsToDevicePixels="True">
+                        <Border.InputBindings>
+                            <MouseBinding
+                                Command="{Binding Path=DataContext.SelectionClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                CommandParameter="{Binding}"
+                                Gesture="LeftClick" />
+                            <MouseBinding
+                                Command="{Binding Path=DataContext.SelectionClickCtrlCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                CommandParameter="{Binding}"
+                                Gesture="Ctrl+LeftClick" />
+                        </Border.InputBindings>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="10,5,0,0"
+                                Foreground="{Binding SelectionState, Converter={StaticResource State2FGColor}}"
+                                Text="{Binding Text}"
+                                TextTrimming="CharacterEllipsis" />
+                            <controls:LuiIcon
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontSize="24"
+                                Foreground="{Binding SelectionState, Converter={StaticResource State2FGColor}}"
+                                Icon="{Binding SelectionState, Converter={StaticResource Sate2Icon}}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Visibility="{Binding MoreVisible, Converter={StaticResource Bool2Vis}, FallbackValue=Hidden}">
+            <controls:LuiButton
+                LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.CornerRadius="0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_clear_selection"
+                Command="{Binding FilterCommand}"
+                CommandParameter="ClearSelections"
+                Content="{l:Loc Tooltip_clearSelection}"
+                Tag=":" />
+            <controls:LuiButton
+                LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.CornerRadius="0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_select_all"
+                Command="{Binding FilterCommand}"
+                CommandParameter="SelectAll"
+                Content="{l:Loc Selections_All}"
+                Tag="|" />
+            <controls:LuiButton
+                LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.CornerRadius="0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_selectiontool"
+                Command="{Binding FilterCommand}"
+                CommandParameter="SelectPossible"
+                Content="{l:Loc Selections_Possible}"
+                Tag="9" />
+            <controls:LuiButton
+                LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.CornerRadius="0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_select_alternative"
+                Command="{Binding FilterCommand}"
+                CommandParameter="SelectAlternative"
+                Content="{l:Loc Selections_Alternative}"
+                Tag="ö" />
+            <controls:LuiButton
+                LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.CornerRadius="0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_excluded"
+                Command="{Binding FilterCommand}"
+                CommandParameter="SelectExcluded"
+                Content="{l:Loc Selections_Excluded}"
+                Tag="x" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <controls:LuiButton
+                    Grid.Column="0"
+                    LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                    LuiAttached:ThemeProperties.CornerRadius="0"
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_export"
+                    Command="{Binding FilterCommand}"
+                    CommandParameter="ExportData"
+                    Content="{l:Loc contextMenu_export}"
+                    Tag="I" />
+                <controls:LuiButton
+                    Grid.Column="1"
+                    Command="{Binding FilterCommand}"
+                    CommandParameter="ExportDataRows"
+                    Content="{l:Loc properties_columns_add}"
+                    Tag="" />
+            </Grid>
+            <!--  Visibility="{Binding CurrentSelection.Count, Converter={StaticResource GreaterZeroVisible}}"  -->
+            <!--<ProgressBar Value="{Binding ExportProgress}" LargeChange="0.01" Minimum="0" Maximum="1" Height="10"/>-->
+        </StackPanel>
+    </Grid>
+</UserControl>

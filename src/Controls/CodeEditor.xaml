@@ -19,7 +19,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiPalette.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiFonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiSenseScrollViewerStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -177,16 +179,10 @@
             </Border>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <!--<StackPanel.Resources>
-                    <Style BasedOn="{StaticResource SenseSelectFieldButtons}" TargetType="{x:Type Button}">
-                        <Setter Property="FontSize" Value="28" />
-                        <Setter Property="Width" Value="50" />
-                    </Style>
-                </StackPanel.Resources>-->
                 <controls:LuiButton LuiAttached:ThemeProperties.IconLeft="lui_icon_search" IsEnabled="False" />
                 <Rectangle Width="1" Fill="LightGray" />
                 <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_more"
+                    LuiAttached:ThemeProperties.IconLeft="lui_icon_comment"
                     Command="{Binding UnComment}"
                     ToolTip="{l:Loc scripteditor_toolbar_commentTooltip}" />
                 <Rectangle Width="1" Fill="LightGray" />

@@ -13,9 +13,7 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style
-        x:Key="StackanelMouseOverStyle"
-        TargetType="{x:Type StackPanel}">
+    <Style x:Key="StackanelMouseOverStyle" TargetType="{x:Type StackPanel}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale95}" />
@@ -27,13 +25,9 @@
     </Style>
 
 
-    <StackPanel
-        x:Key="FieldDatatemplateStackpanel"
-        x:Shared="False">
+    <StackPanel x:Key="FieldDatatemplateStackpanel" x:Shared="False">
         <Border Height="40">
-            <StackPanel
-                Orientation="Horizontal"
-                Style="{StaticResource StackanelMouseOverStyle}">
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackanelMouseOverStyle}">
                 <StackPanel.InputBindings>
                     <MouseBinding
                         Command="{Binding ItemSelectedCommand}"
@@ -123,9 +117,7 @@
         </StackPanel>-->
         <StackPanel>
             <Border Height="40">
-                <StackPanel
-                    Orientation="Horizontal"
-                    Style="{StaticResource StackanelMouseOverStyle}">
+                <StackPanel Orientation="Horizontal" Style="{StaticResource StackanelMouseOverStyle}">
                     <StackPanel.InputBindings>
                         <MouseBinding
                             Command="{Binding ItemSelectedCommand}"
@@ -144,7 +136,7 @@
                         Text="{Binding DisplayText}" />
                 </StackPanel>
             </Border>
-            <Separator  Foreground="{StaticResource Lui.Brush.Grayscale30}"/>
+            <Separator Foreground="{StaticResource Lui.Brush.Grayscale30}" />
 
         </StackPanel>
     </DataTemplate>

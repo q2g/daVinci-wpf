@@ -42,6 +42,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     
+    <Content Include="Images\QlikApp.png" />
+    
     <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
 
     <!-- Resources -->
@@ -106,5 +108,5 @@
     <Reference Include="WindowsBase" />
  </ItemGroup>
 
-  
+
 </Project>

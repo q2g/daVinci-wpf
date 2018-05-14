@@ -22,18 +22,15 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/davinci-wpf;component/Styles/ColumnOrderAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <daVinciconverter:DefaultImageConverter
-                x:Key="DefaultImageConverter"
-                DefaultImagePath="Images/QlikApp.png" />
+            <daVinciconverter:DefaultImageConverter x:Key="DefaultImageConverter" DefaultImagePath="Images/QlikApp.png" />
 
             <converter:StringCompareConverter x:Key="StringCompareConverter" />
 
-            <ContextMenu
-                x:Key="deleteMenu"
-                Style="{StaticResource ContextmenuAccordion}">
+            <ContextMenu x:Key="deleteMenu" Style="{StaticResource ContextmenuAccordion}">
                 <MenuItem
                     Height="40"
                     BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
@@ -49,9 +46,7 @@
                         dd:DragDrop.IsDragSource="True"
                         ContextMenu="{StaticResource deleteMenu}"
                         Cursor="Hand">
-                        <Border
-                            BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
-                            BorderThickness="1">
+                        <Border BorderBrush="{StaticResource Lui.Brush.Grayscale50}" BorderThickness="1">
                             <Grid>
                                 <Image
                                     Width="140"
@@ -60,21 +55,17 @@
                                     Source="{Binding Image, Converter={StaticResource DefaultImageConverter}}"
                                     Stretch="UniformToFill" />
                                 <Border
+                                    Padding="5"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                                     Background="{StaticResource Lui.Brush.Grayscale100}"
-                                    Padding="5"
+                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                                     BorderThickness="1">
-                                    <Luicontrols:LuiIcon
-                                        FontSize="16"
-                                        Icon="lui_icon_stream" />
+                                    <Luicontrols:LuiIcon FontSize="16" Icon="lui_icon_stream" />
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding IsPublished}"
-                                                    Value="false">
+                                                <DataTrigger Binding="{Binding IsPublished}" Value="false">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -121,10 +112,7 @@
                                 <DataTrigger Value="true">
                                     <DataTrigger.Binding>
                                         <MultiBinding Converter="{StaticResource StringCompareConverter}">
-                                            <Binding
-                                                Path="LastSelectedAppID"
-                                                RelativeSource="{RelativeSource FindAncestor,
-                                                                                AncestorType=controls:HubAppArea}" />
+                                            <Binding Path="LastSelectedAppID" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:HubAppArea}" />
                                             <Binding Path="AppID" />
                                         </MultiBinding>
                                     </DataTrigger.Binding>
@@ -167,10 +155,7 @@
                                     <DataTrigger Value="true">
                                         <DataTrigger.Binding>
                                             <MultiBinding Converter="{StaticResource StringCompareConverter}">
-                                                <Binding
-                                                    Path="LastSelectedAppID"
-                                                    RelativeSource="{RelativeSource FindAncestor,
-                                                                                    AncestorType=controls:HubAppArea}" />
+                                                <Binding Path="LastSelectedAppID" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:HubAppArea}" />
                                                 <Binding Path="AppID" />
                                             </MultiBinding>
                                         </DataTrigger.Binding>
@@ -182,9 +167,7 @@
                             </Style>
                         </Border.Style>
                     </Border>
-                    <Border
-                        Grid.Column="1"
-                        Grid.ColumnSpan="2">
+                    <Border Grid.Column="1" Grid.ColumnSpan="2">
                         <controls:HubAppDataView
                             Margin="10,10,0,0"
                             ContextMenu="{StaticResource deleteMenu}"
@@ -254,9 +237,7 @@
                     LuiAttached:ThemeProperties.LightCheckedStyle="True"
                     FontSize="16" />
             </Luicontrols:LuiButtonGroup>
-            <StackPanel
-                DockPanel.Dock="Right"
-                Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
 
                 <Luicontrols:LuiToggleButton
                     Name="sortdescendingtoggle"
@@ -296,19 +277,13 @@
             <Luicontrols:CollectionView.Style>
                 <Style TargetType="Luicontrols:CollectionView">
                     <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
-                            Value="0">
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=orderByCombo}" Value="0">
                             <Setter Property="CollectionViewComparer" Value="{StaticResource AppNameComparer}" />
                         </DataTrigger>
-                        <DataTrigger
-                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
-                            Value="1">
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=orderByCombo}" Value="1">
                             <Setter Property="CollectionViewComparer" Value="{StaticResource AppCreatedComparer}" />
                         </DataTrigger>
-                        <DataTrigger
-                            Binding="{Binding SelectedIndex, ElementName=orderByCombo}"
-                            Value="2">
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=orderByCombo}" Value="2">
                             <Setter Property="CollectionViewComparer" Value="{StaticResource AppPublishedComparer}" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -327,21 +302,15 @@
                 <ItemsControl.Style>
                     <Style TargetType="ItemsControl">
                         <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
-                                Value="-1">
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}" Value="-1">
                                 <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
                                 <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
                             </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
-                                Value="0">
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}" Value="0">
                                 <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateWrapPanel}" />
                                 <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateWrapPanel}" />
                             </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}"
-                                Value="1">
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=itemPanelSelection}" Value="1">
                                 <Setter Property="ItemsPanel" Value="{StaticResource ItemsPanelTemplateStackPanel}" />
                                 <Setter Property="ItemTemplate" Value="{StaticResource ItemTemplateStackPanel}" />
                             </DataTrigger>
@@ -350,22 +319,16 @@
                 </ItemsControl.Style>
             </ItemsControl>
             <ScrollViewer.Style>
-                <Style
-                    BasedOn="{StaticResource LuiSenseScrollViewerStyle}"
-                    TargetType="ScrollViewer">
+                <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
                     <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
-                            Value="false">
+                        <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" Value="false">
                             <Setter Property="Grid.RowSpan" Value="2" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ScrollViewer.Style>
         </ScrollViewer>
-        <Grid
-            Grid.Row="2"
-            Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}">
+        <Grid Grid.Row="2" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}">
             <Grid.RowDefinitions>
 
                 <RowDefinition Height="10*" />
@@ -444,12 +407,10 @@
                 <StackPanel Margin="10,7,10,0">
                     <TextBlock
                         Margin="0,7,0,0"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         FontFamily="{StaticResource QlikViewSans}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Text="{l:Loc Translate_common:Common_Title}" />
-                    <Luicontrols:LuiInput
-                        Margin="0,7,0,0"
-                        Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+                    <Luicontrols:LuiInput Margin="0,7,0,0" Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
                 </StackPanel>
 
                 <StackPanel Margin="10,10,10,0">
