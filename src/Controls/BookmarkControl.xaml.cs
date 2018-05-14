@@ -8,7 +8,7 @@
     using System.Windows.Controls;
     using daVinci.ConfigData.Bookmark;
     using WPFLocalizeExtension.Engine;
-    using System.Collections.ObjectModel; 
+    using System.Collections.ObjectModel;
     #endregion
 
     /// <summary>
@@ -31,6 +31,17 @@
         public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(
          "IsEditMode", typeof(bool), typeof(BookmarkControl), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
+        #region BookmarkToEdit DP
+        public BookmarkData BookmarkToEdit
+        {
+            get { return (BookmarkData)this.GetValue(BookmarkToEditProperty); }
+            set { this.SetValue(BookmarkToEditProperty, value); }
+        }
+
+        public static readonly DependencyProperty BookmarkToEditProperty = DependencyProperty.Register(
+         "BookmarkToEdit", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion  
 
         #region ShowDetail DP
         public bool ShowDetail
@@ -92,7 +103,7 @@
             {
                 toEdit = new BookmarkData();
                 toEdit.CopyFrom(SelectedBookmark);
-                BookmarkView.BookmarkToEdit = toEdit;
+                BookmarkToEdit = toEdit;
                 IsEditMode = true;
             }
         }
@@ -144,11 +155,10 @@
                 isNewMode = true;
                 toEdit = new BookmarkData() { BookmarkCreated = DateTime.Now };
                 SelectedBookmark = toEdit;
-                BookmarkView.BookmarkToEdit = toEdit;
+                BookmarkToEdit = toEdit;
                 IsEditMode = true;
                 ShowDetail = true;
             }
-
         }
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
@@ -158,13 +168,7 @@
             {
                 if (source.DataContext is BookmarkData data)
                 {
-                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.BookmarkName)) == true)
-                    {
-                        if (DataContext is ObservableCollection<BookmarkData> list)
-                        {
-                            list.Remove(data);
-                        }
-                    }
+                    RemoveBookmark(data);
                 }
             }
         }
@@ -179,15 +183,7 @@
             SetSelectedBookmark(sender);
             if (SelectedBookmark != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
-                {
-                    if (DataContext is ObservableCollection<BookmarkData> list)
-                    {
-                        list.Remove(SelectedBookmark);
-                        CancelButton_Click(sender, e);
-                        ShowDetail = false;
-                    }
-                }
+                RemoveBookmark(SelectedBookmark);
             }
         }
 
@@ -195,14 +191,18 @@
         {
             if (SelectedBookmark != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedBookmark.BookmarkName)) == true)
+                RemoveBookmark(SelectedBookmark);
+            }
+        }
+        private void RemoveBookmark(BookmarkData bookmark)
+        {
+            if (System.Windows.MessageBox.Show(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Do you realy want to remove the Bookmark'{0}'?", SelectedBookmark.BookmarkName), "Delete Bookmark", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                if (DataContext is ObservableCollection<BookmarkData> list)
                 {
-                    if (DataContext is ObservableCollection<BookmarkData> list)
-                    {
-                        list.Remove(SelectedBookmark);
-                        CancelButton_Click(sender, e);
-                        ShowDetail = false;
-                    }
+                    list.Remove(bookmark);
+                    CancelButton_Click(this, new RoutedEventArgs());
+                    ShowDetail = false;
                 }
             }
         }
@@ -213,7 +213,7 @@
             {
                 toEdit = new BookmarkData();
                 toEdit.CopyFrom(SelectedBookmark);
-                BookmarkView.BookmarkToEdit = toEdit;
+                BookmarkToEdit = toEdit;
                 IsEditMode = true;
             }
         }

@@ -62,9 +62,7 @@
             CollectionViewFilter="{StaticResource BookmarkDataFilter}"
             FilterText="{Binding SearchText, ElementName=search}"
             ItemsSource="{Binding Path=.}" />
-        <ScrollViewer
-            Grid.Row="1"
-            ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox
                 Name="li"
                 Grid.Row="1"
@@ -119,22 +117,16 @@
 
             </ListBox>
             <ScrollViewer.Style>
-                <Style
-                    BasedOn="{StaticResource LuiSenseScrollViewerStyle}"
-                    TargetType="ScrollViewer">
+                <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
                     <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                            Value="false">
+                        <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" Value="false">
                             <Setter Property="Grid.RowSpan" Value="2" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ScrollViewer.Style>
         </ScrollViewer>
-        <Grid
-            Grid.Row="2"
-            Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+        <Grid Grid.Row="2" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
             <Grid.RowDefinitions>
 
                 <RowDefinition Height="10*" />
@@ -193,15 +185,53 @@
                 VerticalAlignment="Stretch"
                 Background="{StaticResource Lui.Brush.Grayscale35}"
                 BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                BorderThickness="1">
+                BorderThickness="1"
+                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
                 <controls:BookmarkDataView
                     x:Name="BookmarkView"
                     Margin="20,20,0,0"
                     VerticalAlignment="Top"
                     Background="{StaticResource Lui.Brush.Grayscale35}"
                     DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                    IsEditMode="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+            </Border>
+            <Border
+                Grid.Row="2"
+                VerticalAlignment="Stretch"
+                Background="{StaticResource Lui.Brush.Grayscale35}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                BorderThickness="1"
+                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+                <StackPanel
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <StackPanel>
+                        <TextBlock
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{l:Loc Translate_common:Common_Title}" />
+                        <Luicontrols:LuiInput Margin="0,7,10,0" Text="{Binding BookmarkToEdit.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock
+                            FontFamily="{StaticResource QlikViewSans}"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{l:Loc Translate_common:Common_Description}" />
+                        <Luicontrols:LuiInput
+                            Margin="0,7,10,0"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Top"
+                            AcceptsReturn="True"
+                            LUIInputSize="Custom"
+                            MaxLines="5"
+                            MinLines="5"
+                            Text="{Binding BookmarkToEdit.BookmarkDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                    </StackPanel>
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>
