@@ -6,7 +6,7 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Controls;
-    using System.Collections.ObjectModel; 
+    using System.Collections.ObjectModel;
     #endregion
     /// <summary>
     /// Interaction logic for HubStreamSelection.xaml
@@ -94,7 +94,8 @@
         #endregion
 
 
-        #region Streams - DP        
+        #region Streams - DP  
+
         public ObservableCollection<object> Streams
         {
             get { return (ObservableCollection<object>)this.GetValue(StreamsProperty); }
@@ -105,7 +106,31 @@
          "Streams", typeof(ObservableCollection<object>), typeof(HubStreamSelection), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region PersonalStreams - DP        
+        #region PersonalStreams - DP    
+        private ObservableCollection<object> personalStreams;
+        private ObservableCollection<object> PersonalStreams_Internal
+        {
+            get { return personalStreams; }
+            set
+            {
+                try
+                {
+                    if (personalStreams != value)
+                    {
+
+                        personalStreams = value;
+                        if (personalStreams.Count > 0)
+                        {
+                            //SelectedPersonalItem = personalStreams[0];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                }
+            }
+        }
         public ObservableCollection<object> PersonalStreams
         {
             get { return (ObservableCollection<object>)this.GetValue(PersonalStreamsProperty); }
@@ -113,7 +138,27 @@
         }
 
         public static readonly DependencyProperty PersonalStreamsProperty = DependencyProperty.Register(
-         "PersonalStreams", typeof(ObservableCollection<object>), typeof(HubStreamSelection), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "PersonalStreams", typeof(ObservableCollection<object>), typeof(HubStreamSelection), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(StreamsChanged)));
+
+        private static void StreamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (d is HubStreamSelection obj)
+                {
+                    if (e.NewValue is ObservableCollection<object> list)
+                    {
+
+                        obj.PersonalStreams_Internal = list;
+                    }
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
         #endregion
 
         //route Event to Parent

@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+            <converter:MultiBindingToObjectArrayConverter x:Key="MultiBindingToObjectArrayConverter" />
             <FontFamily x:Key="QlikViewSans">
                 pack://application:,,,/qlik-resources;component/#QlikView Sans
             </FontFamily>
@@ -147,6 +148,7 @@
             ToolTip="{l:Loc}"
             Visibility="{Binding CurrentSelection.Count, Converter={StaticResource ZeroVisible}}" />
         <ItemsControl
+            Name="ItemsControl"
             Grid.Column="3"
             Focusable="False"
             IsEnabled="{Binding CurrentSelectionEnabled}"
@@ -178,10 +180,14 @@
                         VerticalAlignment="Bottom"
                         BorderBrush="#EEEEEE">
                         <Border.InputBindings>
-                            <MouseBinding
-                                Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
-                                CommandParameter="{Binding}"
-                                MouseAction="LeftClick" />
+                            <MouseBinding Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" MouseAction="LeftClick">
+                                <MouseBinding.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource MultiBindingToObjectArrayConverter}">
+                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}" />
+                                        <Binding Path="." />
+                                    </MultiBinding>
+                                </MouseBinding.CommandParameter>
+                            </MouseBinding>
 
                         </Border.InputBindings>
                         <Border.Style>
@@ -194,8 +200,8 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <Border.Triggers>
-                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <!--<Border.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseDown">
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <BooleanAnimationUsingKeyFrames Storyboard.TargetName="SearchFieldPopup" Storyboard.TargetProperty="IsOpen">
@@ -204,7 +210,7 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
-                        </Border.Triggers>
+                        </Border.Triggers>-->
 
                         <Grid Width="150">
                             <Grid.ColumnDefinitions>
@@ -278,12 +284,15 @@
                                     Fill="#9A9A9A"
                                     SnapsToDevicePixels="True" />
                             </Grid>
-                            <controls:LuiDialog
+                            <!--<controls:LuiDialog
                                 Name="SearchFieldPopup"
+                                IsOpen="{Binding DataContext.IsFilterFieldPopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                 PanelHeight="300"
-                                PanelWidth="200">
-                                <local:SearchField />
-                            </controls:LuiDialog>
+                                PanelWidth="200"
+                                Placement="Bottom"
+                                PlacementTarget="{Binding ElementName=FilterFieldBorder}">
+                                <TextBlock Text="Hallo welt" />
+                            </controls:LuiDialog>-->
                             <controls:LuiIcon
                                 Name="closeIcon"
                                 Grid.Row="0"
