@@ -18,15 +18,17 @@
     Background="White"
     BorderBrush="LightGray"
     BorderThickness="1"
+    DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+    <Grid>
         <Grid.Resources>
 
             <converter:SelectionStateBrushConverter

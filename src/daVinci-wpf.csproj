@@ -77,10 +77,10 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.0.1" />
-    <PackageReference Include="XAMLMarkupExtensions" Version="1.2.2" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.1.2" />
+    <PackageReference Include="XAMLMarkupExtensions" Version="1.3.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="1.1.0" />
-    <PackageReference Include="NLog" Version="4.5.3" />
+    <PackageReference Include="NLog" Version="4.5.4" />
     <PackageReference Include="qlik-resources" Version="4.86.9"></PackageReference>
   </ItemGroup>
 

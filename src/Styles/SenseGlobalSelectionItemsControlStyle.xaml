@@ -1,11 +1,14 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:daVinciControls="clr-namespace:daVinci.Controls">
+    xmlns:converter="clr-namespace:daVinci.Converter"
+    xmlns:daVinciControls="clr-namespace:daVinci.Controls"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <system:Boolean x:Key="BooleanTrue">True</system:Boolean>
 
     <Style x:Key="SenseGlobalSelectionItemsControlStyle" TargetType="{x:Type ItemsControl}">
         <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
@@ -40,11 +43,11 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <daVinciControls:SearchField Width="200" Margin="10,0,10,20" />
-                    <!--
-                        GlobalSelectMode="True"
-                        SenseListbox="{Binding Listbox}"
-                    -->
+                    <DataTemplate.Resources />
+                    <daVinciControls:SearchField
+                        Width="200"
+                        Margin="10,0,10,20"
+                        DataContext="{Binding SearchFieldViewmodel}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>

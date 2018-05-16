@@ -147,7 +147,6 @@
             ToolTip="{l:Loc}"
             Visibility="{Binding CurrentSelection.Count, Converter={StaticResource ZeroVisible}}" />
         <ItemsControl
-            x:Name="TEST_ItemsControl"
             Grid.Column="3"
             Focusable="False"
             IsEnabled="{Binding CurrentSelectionEnabled}"
@@ -174,6 +173,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border
+                        Name="FilterFieldBorder"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         BorderBrush="#EEEEEE">
@@ -181,12 +181,7 @@
                             <MouseBinding
                                 Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                 CommandParameter="{Binding}"
-                                MouseAction="LeftClick">
-                                <!--<MouseBinding.CommandParameter>
-                                    <Binding  Path="{}"/>
-                                </MouseBinding.CommandParameter>-->
-
-                            </MouseBinding>
+                                MouseAction="LeftClick" />
 
                         </Border.InputBindings>
                         <Border.Style>
@@ -199,6 +194,17 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="SearchFieldPopup" Storyboard.TargetProperty="IsOpen">
+                                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
 
                         <Grid Width="150">
                             <Grid.ColumnDefinitions>
@@ -272,7 +278,12 @@
                                     Fill="#9A9A9A"
                                     SnapsToDevicePixels="True" />
                             </Grid>
-
+                            <controls:LuiDialog
+                                Name="SearchFieldPopup"
+                                PanelHeight="300"
+                                PanelWidth="200">
+                                <local:SearchField />
+                            </controls:LuiDialog>
                             <controls:LuiIcon
                                 Name="closeIcon"
                                 Grid.Row="0"

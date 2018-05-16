@@ -24,5 +24,10 @@ namespace daVinci.Controls
         {
             InitializeComponent();
         }
+
+        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
     }
 }
