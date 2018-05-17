@@ -21,6 +21,28 @@
             InitializeComponent();
         }
 
+        #region BookmarkSelectionCommand - DP        
+        public ICommand BookmarkSelectionCommand
+        {
+            get { return (ICommand)this.GetValue(BookmarkSelectionCommandProperty); }
+            set { this.SetValue(BookmarkSelectionCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BookmarkSelectionCommandProperty = DependencyProperty.Register(
+         "BookmarkSelectionCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region BookmarkNewCommand - DP        
+        public ICommand BookmarkNewCommand
+        {
+            get { return (ICommand)this.GetValue(BookmarkNewCommandProperty); }
+            set { this.SetValue(BookmarkNewCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BookmarkNewCommandProperty = DependencyProperty.Register(
+         "BookmarkNewCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region IsEditMode DP
         public bool IsEditMode
         {
@@ -41,7 +63,7 @@
 
         public static readonly DependencyProperty BookmarkToEditProperty = DependencyProperty.Register(
          "BookmarkToEdit", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion  
+        #endregion
 
         #region ShowDetail DP
         public bool ShowDetail
@@ -78,6 +100,10 @@
                 if (DataContext is ObservableCollection<BookmarkData> list)
                 {
                     list.Add(toEdit);
+                    if (BookmarkNewCommand != null)
+                    {
+                        BookmarkNewCommand.Execute(toEdit);
+                    }
                 }
                 SelectedBookmark = toEdit;
 

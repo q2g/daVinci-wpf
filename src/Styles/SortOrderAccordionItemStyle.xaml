@@ -16,9 +16,7 @@
 
 
 
-    <Style
-        x:Key="ExpanderHeaderFocusVisual"
-        x:Shared="false">
+    <Style x:Key="ExpanderHeaderFocusVisual" x:Shared="false">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -81,14 +79,10 @@
                                 <LuiControls:LuiIcon.Style>
                                     <Style TargetType="LuiControls:LuiIcon">
                                         <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="True">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="True">
                                                 <Setter Property="Icon" Value="lui_icon_triangle_bottom" />
                                             </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="False">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="False">
                                                 <Setter Property="Icon" Value="lui_icon_triangle_right" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -182,9 +176,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate
-        x:Key="ExpanderHeaderDataTemplate"
-        x:Shared="false">
+    <DataTemplate x:Key="ExpanderHeaderDataTemplate" x:Shared="false">
         <Grid>
             <TextBlock
                 Grid.Column="0"

@@ -102,7 +102,7 @@
             LuiAttached:ThemeProperties.ButtonSize="Custom"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_more"
             Command="{Binding MoreCommand}"
-            FontSize="20"
+            FontSize="16"
             ToolTip="{l:Loc Tooltip_SelectionMenu}" />
         <TextBlock
             Grid.Column="1"
@@ -276,7 +276,8 @@
                             <controls:LuiIcon
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                FontSize="24"
+                                VerticalContentAlignment="Center"
+                                FontSize="12"
                                 Foreground="{Binding SelectionState, Converter={StaticResource State2FGColor}}"
                                 Icon="{Binding SelectionState, Converter={StaticResource Sate2Icon}}" />
                         </Grid>
@@ -292,45 +293,101 @@
             Grid.ColumnSpan="5"
             Visibility="{Binding MoreVisible, Converter={StaticResource Bool2Vis}, FallbackValue=Hidden}">
             <controls:LuiButton
+                Height="35"
+                HorizontalContentAlignment="Left"
                 LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,10,0"
+                LuiAttached:ThemeProperties.ButtonSize="Custom"
                 LuiAttached:ThemeProperties.CornerRadius="0"
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_clear_selection"
                 Command="{Binding FilterCommand}"
                 CommandParameter="ClearSelections"
-                Content="{l:Loc Tooltip_clearSelection}"
-                Tag=":" />
+                FontSize="16"
+                Tag=":">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    Text="{l:Loc Tooltip_clearSelection}"
+                    TextWrapping="Wrap" />
+                <!--<controls:LuiButton.Triggers>
+                    <Trigger Property="Button.IsMouseOver" Value="true">
+                        <Setter Property="Button.Background" Value="{StaticResource Lui.Brush.Grayscale30}" />
+                        <Setter Property="Button.Foreground" Value="{StaticResource Lui.Brush.Grayscale100}" />
+                    </Trigger>
+                </controls:LuiButton.Triggers>-->
+            </controls:LuiButton>
+
             <controls:LuiButton
+                Height="35"
+                HorizontalContentAlignment="Left"
                 LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,15,0"
+                LuiAttached:ThemeProperties.ButtonSize="Custom"
                 LuiAttached:ThemeProperties.CornerRadius="0"
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_select_all"
                 Command="{Binding FilterCommand}"
                 CommandParameter="SelectAll"
-                Content="{l:Loc Selections_All}"
-                Tag="|" />
+                FontSize="16"
+                Tag="|">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    Text="{l:Loc Selections_All}"
+                    TextWrapping="Wrap" />
+            </controls:LuiButton>
             <controls:LuiButton
+                Height="35"
+                HorizontalContentAlignment="Left"
                 LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,20,0"
+                LuiAttached:ThemeProperties.ButtonSize="Custom"
                 LuiAttached:ThemeProperties.CornerRadius="0"
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_selectiontool"
                 Command="{Binding FilterCommand}"
                 CommandParameter="SelectPossible"
-                Content="{l:Loc Selections_Possible}"
-                Tag="9" />
+                FontSize="16"
+                Tag="9">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    Text="{l:Loc Selections_Possible}"
+                    TextWrapping="Wrap" />
+            </controls:LuiButton>
             <controls:LuiButton
+                Height="35"
+                HorizontalContentAlignment="Left"
                 LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,10,0"
+                LuiAttached:ThemeProperties.ButtonSize="Custom"
                 LuiAttached:ThemeProperties.CornerRadius="0"
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_select_alternative"
                 Command="{Binding FilterCommand}"
                 CommandParameter="SelectAlternative"
-                Content="{l:Loc Selections_Alternative}"
-                Tag="ö" />
+                FontSize="16"
+                Tag="ö">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    Text="{l:Loc Selections_Alternative}"
+                    TextWrapping="Wrap" />
+            </controls:LuiButton>
             <controls:LuiButton
+                Height="35"
+                HorizontalContentAlignment="Left"
                 LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,10,0"
+                LuiAttached:ThemeProperties.ButtonSize="Custom"
                 LuiAttached:ThemeProperties.CornerRadius="0"
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_excluded"
                 Command="{Binding FilterCommand}"
                 CommandParameter="SelectExcluded"
-                Content="{l:Loc Selections_Excluded}"
-                Tag="x" />
+                FontSize="16"
+                Tag="x">
+                <TextBlock
+                    FontFamily="{StaticResource QlikViewSans}"
+                    FontSize="12"
+                    Text="{l:Loc Selections_Excluded}"
+                    TextWrapping="Wrap" />
+            </controls:LuiButton>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -338,13 +395,22 @@
                 </Grid.ColumnDefinitions>
                 <controls:LuiButton
                     Grid.Column="0"
+                    HorizontalContentAlignment="Left"
                     LuiAttached:ThemeProperties.BorderThickness="0,1,0,1"
+                    LuiAttached:ThemeProperties.ButtonLeftIconMargin="10,0,10,0"
+                    LuiAttached:ThemeProperties.ButtonSize="Custom"
                     LuiAttached:ThemeProperties.CornerRadius="0"
                     LuiAttached:ThemeProperties.IconLeft="lui_icon_export"
                     Command="{Binding FilterCommand}"
                     CommandParameter="ExportData"
-                    Content="{l:Loc contextMenu_export}"
-                    Tag="I" />
+                    FontSize="16"
+                    Tag="I">
+                    <TextBlock
+                        FontFamily="{StaticResource QlikViewSans}"
+                        FontSize="12"
+                        Text="{l:Loc contextMenu_export}"
+                        TextWrapping="Wrap" />
+                </controls:LuiButton>
                 <controls:LuiButton
                     Grid.Column="1"
                     Command="{Binding FilterCommand}"

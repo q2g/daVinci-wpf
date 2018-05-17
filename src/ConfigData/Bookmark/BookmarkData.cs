@@ -4,7 +4,7 @@
     using System;
     using leonardo.Resources;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class BookmarkData : INotifyPropertyChanged
@@ -29,6 +29,23 @@
                 if (bmName != value)
                 {
                     bmName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string bmID;
+        public string BookmarkID
+        {
+            get
+            {
+                return bmID;
+            }
+            set
+            {
+                if (bmID != value)
+                {
+                    bmID = value;
                     RaisePropertyChanged();
                 }
             }

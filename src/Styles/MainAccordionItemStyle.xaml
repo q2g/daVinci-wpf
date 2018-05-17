@@ -27,9 +27,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style
-        x:Key="ExpanderDownHeaderStyle"
-        TargetType="{x:Type ToggleButton}">
+    <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -37,9 +35,7 @@
                         Padding="{TemplateBinding Padding}"
                         Background="{StaticResource Lui.Brush.Grayscale30}"
                         BorderThickness="0.1">
-                        <Grid
-                            Background="Transparent"
-                            SnapsToDevicePixels="False">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
                             <ContentPresenter
                                 Margin="0,0,0,0"
                                 HorizontalAlignment="Left"
@@ -53,9 +49,7 @@
         </Setter>
     </Style>
 
-    <Style
-        x:Key="AccordionExpanderStyle"
-        TargetType="{x:Type Expander}">
+    <Style x:Key="AccordionExpanderStyle" TargetType="{x:Type Expander}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -71,9 +65,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         SnapsToDevicePixels="true">
                         <DockPanel>
-                            <StackPanel
-                                DockPanel.Dock="Top"
-                                Orientation="Horizontal">
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                                 <Line
                                     StrokeThickness="5"
                                     Y1="0"
@@ -81,14 +73,10 @@
                                     <Line.Style>
                                         <Style TargetType="Line">
                                             <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                    Value="True">
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="True">
                                                     <Setter Property="Stroke" Value="Orange" />
                                                 </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                    Value="False">
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="False">
                                                     <Setter Property="Stroke" Value="{StaticResource Lui.Brush.Grayscale30}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -154,9 +142,7 @@
         </Grid>
     </DataTemplate>
 
-    <Style
-        x:Key="MainAccordionItemStyle"
-        TargetType="controls:LuiAccordionItem">
+    <Style x:Key="MainAccordionItemStyle" TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LuiAccordionItem">

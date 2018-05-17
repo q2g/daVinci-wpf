@@ -25,9 +25,7 @@
         </Setter>
     </Style>
 
-    <Style
-        x:Key="StreamCategoryExpanderDownHeaderStyle"
-        TargetType="{x:Type ToggleButton}">
+    <Style x:Key="StreamCategoryExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -60,14 +58,10 @@
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
                                         <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="True">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="True">
                                                 <Setter Property="Icon" Value="lui_icon_arrow_down" />
                                             </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="False">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="False">
                                                 <Setter Property="Icon" Value="lui_icon_arrow_up" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -81,9 +75,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style
-        x:Key="StreamCategoryAccordionExpanderStyle"
-        TargetType="{x:Type Expander}">
+    <Style x:Key="StreamCategoryAccordionExpanderStyle" TargetType="{x:Type Expander}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -127,7 +119,6 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 DockPanel.Dock="Bottom"
-                                
                                 Focusable="false"
                                 Visibility="Collapsed" />
                         </DockPanel>
@@ -160,9 +151,7 @@
         </Grid>
     </DataTemplate>
 
-    <Style
-        x:Key="StreamCategoryAccordionItemStyle"
-        TargetType="controls:LuiAccordionItem">
+    <Style x:Key="StreamCategoryAccordionItemStyle" TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LuiAccordionItem">

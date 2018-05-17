@@ -82,9 +82,7 @@
     </Style>
 
 
-    <LuiConverter:TypeToStyleSelector
-        x:Key="Sortstyleselector"
-        DefaultStyle="{StaticResource SortOrderColumnDataStyle}" />
+    <LuiConverter:TypeToStyleSelector x:Key="Sortstyleselector" DefaultStyle="{StaticResource SortOrderColumnDataStyle}" />
 
 
 </ResourceDictionary>

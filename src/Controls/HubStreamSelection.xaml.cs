@@ -90,7 +90,26 @@
         }
 
         public static readonly DependencyProperty SelectedStreamProperty = DependencyProperty.Register(
-         "SelectedStream", typeof(object), typeof(HubStreamSelection), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "SelectedStream", typeof(object), typeof(HubStreamSelection), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(SelectedStreamChanged)));
+
+        private static void SelectedStreamChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (d is HubStreamSelection obj)
+                {
+                    if (e.NewValue != null)
+                    {
+
+                    }
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
         #endregion
 
 
@@ -119,10 +138,7 @@
                     {
 
                         personalStreams = value;
-                        if (personalStreams.Count > 0)
-                        {
-                            //SelectedPersonalItem = personalStreams[0];
-                        }
+
                     }
                 }
                 catch (Exception ex)
@@ -179,6 +195,14 @@
                         parent.RaiseEvent(eventArg);
                     }
                 }
+            }
+        }
+
+        private void control_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (personalStreams.Count > 0)
+            {
+                SelectedPersonalItem = personalStreams[0];
             }
         }
     }

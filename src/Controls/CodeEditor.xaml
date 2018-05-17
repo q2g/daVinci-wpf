@@ -83,7 +83,9 @@
                                         Grid.Column="1"
                                         Margin="10,0,10,0"
                                         VerticalAlignment="Center"
-                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                        LuiAttached:ThemeProperties.BorderThickness="0"
+                                        LuiAttached:ThemeProperties.ButtonSize="Custom"
+                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_remove"
                                         Command="{Binding Path=DataContext.RemoveTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
                                         CommandParameter="{Binding}"
                                         DockPanel.Dock="Right"
@@ -92,6 +94,7 @@
                                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                         Visibility="Hidden" />
                                     <controls:LuiInput
+                                        Name="input"
                                         Grid.Column="2"
                                         VerticalAlignment="Center"
                                         LuiAttached:ThemeProperties.BorderThickness="0"
@@ -106,6 +109,9 @@
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
                                         <Setter TargetName="DeleteButton" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="DeleteButton" Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
+
+                                        <Setter TargetName="input" Property="Background" Value="{StaticResource Lui.Brush.Grayscale80}" />
                                     </Trigger>
                                     <DataTrigger Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource Self}}" Value="True">
                                         <DataTrigger.EnterActions>
@@ -123,8 +129,10 @@
                                             <Condition Property="IsMouseOver" Value="True" />
                                             <Condition Property="IsSelected" Value="false" />
                                         </MultiTrigger.Conditions>
+                                        <Setter TargetName="input" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
                                         <Setter TargetName="mainGrid" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
                                         <Setter TargetName="DeleteButton" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="DeleteButton" Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
                                     </MultiTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -171,39 +179,64 @@
                 Background="{StaticResource Lui.Brush.Grayscale40}">
                 <controls:LuiButton
                     Width="40"
+                    LuiAttached:ThemeProperties.BorderThickness="0"
+                    LuiAttached:ThemeProperties.ButtonSize="Custom"
+                    LuiAttached:ThemeProperties.CornerRadius="0"
                     LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
                     LuiAttached:ThemeProperties.Inverted="True"
                     Command="{Binding AddTabCommand}"
                     FontSize="20" />
 
             </Border>
-
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <controls:LuiButton LuiAttached:ThemeProperties.IconLeft="lui_icon_search" IsEnabled="False" />
-                <Rectangle Width="1" Fill="LightGray" />
-                <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_comment"
-                    Command="{Binding UnComment}"
-                    ToolTip="{l:Loc scripteditor_toolbar_commentTooltip}" />
-                <Rectangle Width="1" Fill="LightGray" />
-                <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_indent"
-                    Command="{Binding Indent}"
-                    ToolTip="{l:Loc scripteditor_toolbar_indentTooltip}" />
-                <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_undent"
-                    Command="{Binding Outdent}"
-                    ToolTip="{l:Loc scripteditor_toolbar_outdentTooltip}" />
-                <Rectangle Width="1" Fill="LightGray" />
-                <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_back"
-                    Command="{Binding Undo}"
-                    ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Undo}" />
-                <controls:LuiButton
-                    LuiAttached:ThemeProperties.IconLeft="lui_icon_forward"
-                    Command="{Binding Redo}"
-                    ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Redo}" />
-            </StackPanel>
+            <Border
+                Grid.Column="2"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale40}"
+                BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal">
+                    <controls:LuiButton
+                        Width="40"
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_search"
+                        IsEnabled="False" />
+                    <Rectangle
+                        Width="1"
+                        Margin="0,6,0,6"
+                        Fill="LightGray" />
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_comment"
+                        Command="{Binding UnComment}"
+                        ToolTip="{l:Loc scripteditor_toolbar_commentTooltip}" />
+                    <Rectangle
+                        Width="1"
+                        Margin="0,6,0,6"
+                        Fill="LightGray" />
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_indent"
+                        Command="{Binding Indent}"
+                        ToolTip="{l:Loc scripteditor_toolbar_indentTooltip}" />
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_undent"
+                        Command="{Binding Outdent}"
+                        ToolTip="{l:Loc scripteditor_toolbar_outdentTooltip}" />
+                    <Rectangle
+                        Width="1"
+                        Margin="0,6,0,6"
+                        Fill="LightGray" />
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_back"
+                        Command="{Binding Undo}"
+                        ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Undo}" />
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_forward"
+                        Command="{Binding Redo}"
+                        ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Redo}" />
+                </StackPanel>
+            </Border>
 
             <avalonEdit:TextEditor
                 Name="TextEditor"

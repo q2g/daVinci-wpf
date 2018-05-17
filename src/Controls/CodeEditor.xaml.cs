@@ -197,6 +197,7 @@
                         var line = TextEditor.Document.GetLineByNumber(item);
                         // TODO: Outdent
                         //  TextEditor.Document.Insert(line.Offset, "  ");
+
                     }
                 }
                 catch (Exception ex)

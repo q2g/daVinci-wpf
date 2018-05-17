@@ -25,9 +25,7 @@
         </Setter>
     </Style>
 
-    <Style
-        x:Key="DarstellungExpanderDownHeaderStyle"
-        TargetType="{x:Type ToggleButton}">
+    <Style x:Key="DarstellungExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -53,14 +51,10 @@
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
                                         <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="True">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="True">
                                                 <Setter Property="Icon" Value="lui_icon_triangle_bottom" />
                                             </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}"
-                                                Value="False">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Expander}, Path=IsExpanded}" Value="False">
                                                 <Setter Property="Icon" Value="lui_icon_triangle_right" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -81,9 +75,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style
-        x:Key="DarstellungAccordionExpanderStyle"
-        TargetType="{x:Type Expander}">
+    <Style x:Key="DarstellungAccordionExpanderStyle" TargetType="{x:Type Expander}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -157,9 +149,7 @@
         </Grid>
     </DataTemplate>
 
-    <Style
-        x:Key="PresentationAccordionItemStyle"
-        TargetType="controls:LuiAccordionItem">
+    <Style x:Key="PresentationAccordionItemStyle" TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LuiAccordionItem">
