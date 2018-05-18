@@ -39,6 +39,7 @@
                 <Luicontrols:LuiIcon
                     Width="30"
                     Height="30"
+                    Margin="10,0,0,0"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"

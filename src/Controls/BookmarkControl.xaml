@@ -77,30 +77,42 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
-                                    <Border BorderBrush="{StaticResource Lui.Brush.Grayscale30}" BorderThickness="0,0,0,0.5">
-                                        <DockPanel LastChildFill="False">
+                                    <Border
+                                        Name="border"
+                                        Height="35"
+                                        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                        BorderThickness="0,0,0,0.5">
+                                        <DockPanel
+                                            Margin="0,0,0,3"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            LastChildFill="False">
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 DockPanel.Dock="Left"
                                                 FontFamily="{StaticResource QlikViewSans}"
                                                 Foreground="{StaticResource Lui.Brush.Grayscale30}">
                                                 <Run Text="{Binding BookmarkName}" />
-                                                <Run Text=":" />
-                                                <Run Text="{Binding BookmarkSelection}" />
                                             </TextBlock>
                                             <Luicontrols:LuiButton
                                                 LuiAttached:ThemeProperties.BorderThickness="0"
+                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                 LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                                Background="Transparent"
                                                 Click="DeleteButton_Click"
                                                 DockPanel.Dock="Right" />
                                             <Luicontrols:LuiButton
                                                 LuiAttached:ThemeProperties.BorderThickness="0"
+                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                 LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                                                Background="Transparent"
                                                 Click="EditButton_Click"
                                                 DockPanel.Dock="Right" />
                                             <Luicontrols:LuiButton
                                                 LuiAttached:ThemeProperties.BorderThickness="0"
+                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                 LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
+                                                Background="Transparent"
                                                 Click="Info_Click"
                                                 DockPanel.Dock="Right" />
                                             <TextBlock
@@ -111,6 +123,15 @@
                                                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                                 Text="{Binding BookmarkCreated, StringFormat=d, ConverterCulture=de-DE}" />
                                         </DockPanel>
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <Border.InputBindings>
                                             <MouseBinding
                                                 Command="{Binding BookmarkSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:BookmarkControl}}}"
@@ -118,11 +139,7 @@
                                                 Gesture="LeftClick" />
                                         </Border.InputBindings>
                                     </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
+
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

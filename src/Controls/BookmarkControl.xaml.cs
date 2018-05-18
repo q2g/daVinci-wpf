@@ -43,6 +43,28 @@
          "BookmarkNewCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
+        #region BookmarkChangedCommand - DP        
+        public ICommand BookmarkChangedCommand
+        {
+            get { return (ICommand)this.GetValue(BookmarkChangedCommandProperty); }
+            set { this.SetValue(BookmarkChangedCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BookmarkChangedCommandProperty = DependencyProperty.Register(
+         "BookmarkChangedCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region BookmarkDeleteCommand - DP        
+        public ICommand BookmarkDeleteCommand
+        {
+            get { return (ICommand)this.GetValue(BookmarkDeleteCommandProperty); }
+            set { this.SetValue(BookmarkDeleteCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BookmarkDeleteCommandProperty = DependencyProperty.Register(
+         "BookmarkDeleteCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region IsEditMode DP
         public bool IsEditMode
         {
@@ -111,6 +133,7 @@
             else
             {
                 SelectedBookmark.CopyFrom(toEdit);
+                BookmarkChangedCommand?.Execute(toEdit);
                 IsEditMode = false;
             }
         }
@@ -227,9 +250,14 @@
                 if (DataContext is ObservableCollection<BookmarkData> list)
                 {
                     list.Remove(bookmark);
+                    BookmarkDeleteCommand?.Execute(bookmark);
                     CancelButton_Click(this, new RoutedEventArgs());
                     ShowDetail = false;
                 }
+            }
+            else
+            {
+                BookmarkDeleteCommand?.Execute(null);
             }
         }
 

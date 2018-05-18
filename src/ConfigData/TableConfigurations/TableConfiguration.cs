@@ -7,7 +7,7 @@
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
     using System.ComponentModel;
-    using System.Collections.ObjectModel; 
+    using System.Collections.ObjectModel;
     #endregion
     using System.Runtime.CompilerServices;
 
@@ -101,6 +101,8 @@
             {
                 dynamic jsonConfig = JObject.Parse(JSONstring);
                 SettingsID = jsonConfig?.qInfo?.qId ?? "";
+                var columnOrderCount = (jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0);
+                var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
                 int counter = 0;
 
                 foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
@@ -110,17 +112,18 @@
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
                     newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
+                    if (columnOrderCount > 0 && counter < columnOrderCount)
                     {
                         newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
                     }
-                    if ((jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0) > 0)
+                    if (interColumnSort > 0 && counter < interColumnSort)
                     {
                         newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
                     }
                     counter++;
                     columns.Add(newone);
                 }
+
 
                 foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
                 {
@@ -129,11 +132,12 @@
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
                     newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    if ((jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0) > 0)
+                    if (columnOrderCount > 0 && counter < columnOrderCount)
                     {
                         newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
                     }
-                    if ((jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0) > 0)
+
+                    if (interColumnSort > 0 && counter < interColumnSort)
                     {
                         newone.SortCriterias.SortOrderIndex = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder[counter] ?? 0;
                     }

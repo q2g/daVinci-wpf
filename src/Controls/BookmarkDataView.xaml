@@ -79,14 +79,14 @@
                 <Run Text=":" />
                 <Run FontWeight="Normal" Text="{Binding BookmarkSelection}" />
             </TextBlock>
-            <TextBlock
+            <!--<TextBlock
                 Margin="10,0,0,0"
                 FontFamily="{StaticResource QlikViewSans}"
                 Foreground="{StaticResource Lui.Brush.Grayscale100}">
                 <Run Text="{l:Loc Bookmarks_Location}" />
                 <Run Text=":" />
                 <Run FontWeight="Normal" Text="{Binding BookmarkBelongsTo}" />
-            </TextBlock>
+            </TextBlock>-->
         </StackPanel>
 
     </Grid>

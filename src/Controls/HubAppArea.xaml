@@ -60,7 +60,7 @@
                                     VerticalAlignment="Top"
                                     Background="{StaticResource Lui.Brush.Grayscale100}"
                                     BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                                    BorderThickness="1">
+                                    BorderThickness="0.5,0,0,0.5">
                                     <Luicontrols:LuiIcon FontSize="16" Icon="lui_icon_stream" />
                                     <Border.Style>
                                         <Style TargetType="Border">
@@ -217,6 +217,8 @@
             <TextBlock
                 Margin="10"
                 DockPanel.Dock="Left"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontWeight="Bold"
                 Text="{Binding StreamName}" />
 
             <Luicontrols:LuiButtonGroup

@@ -121,6 +121,7 @@
 
         public void CopyFrom(BookmarkData other)
         {
+            BookmarkID = other.BookmarkID;
             BookmarkName = other.BookmarkName;
             BookmarkBelongsTo = other.BookmarkBelongsTo;
             BookmarkCreated = other.BookmarkCreated;
