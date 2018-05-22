@@ -9,6 +9,10 @@
     using daVinci.ConfigData.Bookmark;
     using WPFLocalizeExtension.Engine;
     using System.Collections.ObjectModel;
+    using leonardo.Resources;
+    using System.Runtime.CompilerServices;
+    using System.ComponentModel;
+    using System.Windows.Interop;
     #endregion
 
     /// <summary>
@@ -16,6 +20,7 @@
     /// </summary>
     public partial class BookmarkControl : UserControl
     {
+
         public BookmarkControl()
         {
             InitializeComponent();
@@ -108,6 +113,10 @@
         public static readonly DependencyProperty SelectedBookmarkProperty = DependencyProperty.Register(
          "SelectedBookmark", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        #endregion
+
+        #region Properties
+        public IntPtr? Owner { get; set; }
         #endregion
 
         private bool isNewMode;
@@ -245,7 +254,7 @@
         }
         private void RemoveBookmark(BookmarkData bookmark)
         {
-            if (System.Windows.MessageBox.Show(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Do you realy want to remove the Bookmark'{0}'?", SelectedBookmark.BookmarkName), "Delete Bookmark", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Do you realy want to remove the Bookmark'{0}'?", SelectedBookmark.BookmarkName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is ObservableCollection<BookmarkData> list)
                 {

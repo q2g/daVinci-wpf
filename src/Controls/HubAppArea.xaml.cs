@@ -10,7 +10,9 @@
     using System.Windows.Input;
     using daVinci.ConfigData.Hub;
     using System.Windows.Controls;
-    using WPFLocalizeExtension.Engine; 
+    using WPFLocalizeExtension.Engine;
+    using System.Runtime.CompilerServices;
+    using System.ComponentModel;
     #endregion
     /// <summary>
     /// Interaction logic for HubAppArea.xaml
@@ -88,6 +90,19 @@
 
         public static readonly DependencyProperty AppSelectionCommandProperty = DependencyProperty.Register(
          "AppSelectionCommand", typeof(ICommand), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+
+
+        #region Owner DP
+        public IntPtr? Owner
+        {
+            get { return (IntPtr?)this.GetValue(OwnerProperty); }
+            set { this.SetValue(OwnerProperty, value); }
+        }
+
+        public static readonly DependencyProperty OwnerProperty = DependencyProperty.Register(
+         "Owner", typeof(IntPtr?), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         private bool isNewMode;
@@ -184,13 +199,7 @@
             {
                 if (source.DataContext is AppData data)
                 {
-                    if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), data.AppName)) == true)
-                    {
-                        if (DataContext is StreamData stream)
-                        {
-                            stream.Apps.Remove(data);
-                        }
-                    }
+                    DeleteApp(data);
                 }
             }
         }
@@ -204,12 +213,19 @@
         {
             if (SelectedApp != null)
             {
-                if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)), SelectedApp.AppName)) == true)
+                DeleteApp(SelectedApp);
+            }
+        }
+
+        private void DeleteApp(AppData appdata)
+        {
+
+            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Delete App {0}?", SelectedApp.AppName), ownerPtr: Owner ?? null))
+            {
+                if (DataContext is StreamData stream)
                 {
-                    if (DataContext is StreamData stream)
-                    {
-                        stream.Apps.Remove(SelectedApp);
-                    }
+                    stream.Apps.Remove(appdata);
+                    ShowDetail = false;
                 }
             }
         }

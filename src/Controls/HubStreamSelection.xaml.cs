@@ -200,7 +200,7 @@
 
         private void control_Loaded(object sender, RoutedEventArgs e)
         {
-            if (personalStreams.Count > 0)
+            if (personalStreams != null && personalStreams.Count > 0)
             {
                 SelectedPersonalItem = personalStreams[0];
             }

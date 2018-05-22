@@ -3,7 +3,8 @@
     #region Usings
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Controls; 
+    using System.Windows.Controls;
+    using System;
     #endregion
 
     /// <summary>
@@ -36,6 +37,17 @@
 
         public static readonly DependencyProperty LastSelectedAppIDProperty = DependencyProperty.Register(
          "LastSelectedAppID", typeof(string), typeof(HubControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region Owner DP
+        public IntPtr? Owner
+        {
+            get { return (IntPtr?)this.GetValue(OwnerProperty); }
+            set { this.SetValue(OwnerProperty, value); }
+        }
+
+        public static readonly DependencyProperty OwnerProperty = DependencyProperty.Register(
+         "Owner", typeof(IntPtr?), typeof(HubControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
     }
 }
