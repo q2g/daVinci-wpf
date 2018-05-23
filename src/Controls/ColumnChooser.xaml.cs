@@ -12,7 +12,7 @@
     using System.ComponentModel;
     using System.Windows.Controls;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel; 
+    using System.Collections.ObjectModel;
     #endregion
 
     using System.Runtime.CompilerServices;
@@ -61,7 +61,7 @@
                 {
                     if (parameter is ValueItem item)
                     {
-                        var newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText };
+                        var newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText, IsExpression = true };
                         Columns.Add(newone);
                         togglebutton.IsChecked = false;
                     }
@@ -76,7 +76,7 @@
                     {
                         if (parameter is ValueItem item)
                         {
-                            if (item.ItemType == ValueTypeEnum.Measure && item.IsField)
+                            if (valueSelection.ValueType == ValueTypeEnum.Measure && item.IsField)
                             {
                                 PopupContent = new AggregateFuncSelection()
                                 {

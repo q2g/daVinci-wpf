@@ -11,7 +11,7 @@
     using System.Windows.Controls;
     using System.Collections.Generic;
     using WPFLocalizeExtension.Engine;
-    using System.Runtime.CompilerServices; 
+    using System.Runtime.CompilerServices;
     #endregion
 
     /// <summary>
@@ -29,6 +29,7 @@
                 {
                     allValueItems = value;
                     SetSelectedCommand();
+                    SetValueTypeContextofFields();
                     RaisePropertyChanged();
                 }
             }
@@ -60,8 +61,10 @@
                     SetLabels();
                     ItemFilter.ValType = value;
                     FieldItemFilter.ValType = value;
+                    SetValueTypeContextofFields();
                     RaisePropertyChanged(nameof(AllValueItems));
                     SearchText = "";
+                    scrollviewer.ScrollToTop();
                 }
             }
         }
@@ -114,6 +117,21 @@
 
             }
         }
+
+        /// <summary>
+        /// Set ValueTypeContext of Fields, so the Styleselector has access to the ValueTypeContext
+        /// </summary>
+        private void SetValueTypeContextofFields()
+        {
+            if (allValueItems != null)
+            {
+                foreach (var item in AllValueItems)
+                {
+                    if (item.IsField)
+                        item.ItemContext = valueType;
+                }
+            }
+        }
         private void SetLabels()
         {
             switch (valueType)
@@ -147,6 +165,7 @@
         public ValueItem Parent { get; set; }
         public ICommand ItemSelectedCommand { get; set; }
         public DimensionMeasure DimensionMeasure { get; set; }
+        public ValueTypeEnum ItemContext { get; set; }
         #endregion
     }
 
@@ -158,8 +177,10 @@
         {
             if (data is ValueItem item)
             {
-
-                return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == OnlyFields && item.ItemType == ValType;
+                if (OnlyFields)
+                    return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == true;
+                else
+                    return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == false && item.ItemType == ValType;
 
             }
             return false;
@@ -182,22 +203,31 @@
             {
                 if (item is ValueItem vitem)
                 {
-                    if (vitem.ItemType == ValueTypeEnum.Measure && vitem.IsField)
+                    if (vitem.IsField)
                     {
-                        return MeasureFieldTemplate;
+                        if (vitem.ItemContext == ValueTypeEnum.Measure)
+                        {
+                            return MeasureFieldTemplate;
+                        }
+                        if (vitem.ItemContext == ValueTypeEnum.Dimension)
+                        {
+                            return DimensionFieldTemplate;
+                        }
                     }
-                    if (vitem.ItemType == ValueTypeEnum.Measure)
+                    else
                     {
-                        return MeasureTemplate;
+                        if (vitem.ItemType == ValueTypeEnum.Measure)
+                        {
+                            return MeasureTemplate;
+                        }
+                        if (vitem.ItemType == ValueTypeEnum.Dimension)
+                        {
+                            return DimensionTemplate; ;
+                        }
                     }
-                    if (vitem.ItemType == ValueTypeEnum.Dimension && vitem.IsField)
-                    {
-                        return DimensionFieldTemplate;
-                    }
-                    if (vitem.ItemType == ValueTypeEnum.Dimension)
-                    {
-                        return DimensionTemplate; ;
-                    }
+
+
+
                 }
             }
             catch (Exception Ex)

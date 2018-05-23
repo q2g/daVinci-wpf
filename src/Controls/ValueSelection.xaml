@@ -28,7 +28,7 @@
                 DimensionTemplate="{StaticResource FieldDatatemplate}"
                 MeasureFieldTemplate="{StaticResource EFieldDatatemplate}"
                 MeasureTemplate="{StaticResource FieldDatatemplate}" />
-           
+
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
@@ -37,12 +37,11 @@
             HintText=" "
             SearchText="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <ScrollViewer
+            x:Name="scrollviewer"
             DockPanel.Dock="Bottom"
             Style="{StaticResource LuiSenseScrollViewerStyle}">
             <DockPanel>
-                <Grid
-                    DockPanel.Dock="Top"
-                    Visibility="{Binding ProcessedCollection.Count, ElementName=collectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                <Grid DockPanel.Dock="Top" Visibility="{Binding ProcessedCollection.Count, ElementName=collectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />
@@ -54,9 +53,7 @@
                         Padding="0,5,0,0"
                         Background="{StaticResource Lui.Brush.Grayscale100}">
                         <DockPanel>
-                            <controls:LuiSeparator
-                                Height="3"
-                                DockPanel.Dock="Bottom" />
+                            <controls:LuiSeparator Height="3" DockPanel.Dock="Bottom" />
                             <Label
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
@@ -77,9 +74,7 @@
                         ItemTemplate="{StaticResource ResourceKey=FieldDatatemplate}"
                         ItemsSource="{Binding ProcessedCollection, ElementName=collectionView}" />
                 </Grid>
-                <Grid
-                    DockPanel.Dock="Top"
-                    Visibility="{Binding ProcessedCollection.Count, ElementName=fieldCollectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
+                <Grid DockPanel.Dock="Top" Visibility="{Binding ProcessedCollection.Count, ElementName=fieldCollectionView, Converter={StaticResource ZeroListCountToVisibleCollapsedConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="0" />
@@ -90,9 +85,7 @@
                         Height="40"
                         Background="{StaticResource Lui.Brush.Grayscale100}">
                         <DockPanel>
-                            <controls:LuiSeparator
-                                Height="3"
-                                DockPanel.Dock="Bottom" />
+                            <controls:LuiSeparator Height="3" DockPanel.Dock="Bottom" />
                             <Label
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
@@ -114,9 +107,7 @@
                         ItemsSource="{Binding ProcessedCollection, ElementName=fieldCollectionView}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel
-                                    IsVirtualizing="True"
-                                    VirtualizationMode="Recycling" />
+                                <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
