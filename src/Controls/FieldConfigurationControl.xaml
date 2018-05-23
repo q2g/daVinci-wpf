@@ -1,0 +1,70 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.FieldConfigurationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LUIConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:configdata="clr-namespace:daVinci.ConfigData"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciControls="clr-namespace:daVinci.Controls"
+    xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <LuiControls:LuiAccordion
+            HorizontalAlignment="Left"
+            LuiAttached:ThemeProperties.Itemheight="60"
+            CollapseAllOnExpandSingle="True"
+            ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
+            <LuiControls:LuiAccordionItem>
+                <LuiControls:LuiAccordionItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
+                            <LuiControls:LuiIcon
+                                HorizontalAlignment="Left"
+                                FontSize="16"
+                                Icon="lui_icon_database" />
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                Text="Felder" />
+                        </StackPanel>
+                    </DataTemplate>
+                </LuiControls:LuiAccordionItem.HeaderTemplate>
+            </LuiControls:LuiAccordionItem>
+            <LuiControls:LuiAccordionItem>
+                <LuiControls:LuiAccordionItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
+                            <LuiControls:LuiIcon
+                                HorizontalAlignment="Left"
+                                FontSize="16"
+                                Icon="lui_icon_link" />
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                Text="Master-Elemente"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </DataTemplate>
+                </LuiControls:LuiAccordionItem.HeaderTemplate>
+            </LuiControls:LuiAccordionItem>
+        </LuiControls:LuiAccordion>
+    </Grid>
+</UserControl>

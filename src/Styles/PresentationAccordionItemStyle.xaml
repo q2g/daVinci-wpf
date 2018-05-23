@@ -92,7 +92,7 @@
                         <DockPanel>
                             <ToggleButton
                                 x:Name="HeaderSite"
-                                Height="39"
+                                Height="{Binding Path=(attachedP:ThemeProperties.Itemheight)}"
                                 MinWidth="0"
                                 MinHeight="0"
                                 Margin="0"

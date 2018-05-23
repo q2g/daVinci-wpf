@@ -22,6 +22,10 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
             <converter:MultiBindingToObjectArrayConverter x:Key="MultiBindingToObjectArrayConverter" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="TrueIsVisible"
+                False="Collapsed"
+                True="Visible" />
             <FontFamily x:Key="QlikViewSans">
                 pack://application:,,,/qlik-resources;component/#QlikView Sans
             </FontFamily>
@@ -200,18 +204,6 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <!--<Border.Triggers>
-                            <EventTrigger RoutedEvent="UIElement.MouseDown">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="SearchFieldPopup" Storyboard.TargetProperty="IsOpen">
-                                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
-                                        </BooleanAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Border.Triggers>-->
-
                         <Grid Width="150">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -222,6 +214,12 @@
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="2" />
                             </Grid.RowDefinitions>
+                            <controls:LuiIcon
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="2"
+                                FontSize="20"
+                                Icon="lui_icon_lock"
+                                Visibility="{Binding IsPinned, Converter={StaticResource TrueIsVisible}}" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -284,15 +282,6 @@
                                     Fill="#9A9A9A"
                                     SnapsToDevicePixels="True" />
                             </Grid>
-                            <!--<controls:LuiDialog
-                                Name="SearchFieldPopup"
-                                IsOpen="{Binding DataContext.IsFilterFieldPopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
-                                PanelHeight="300"
-                                PanelWidth="200"
-                                Placement="Bottom"
-                                PlacementTarget="{Binding ElementName=FilterFieldBorder}">
-                                <TextBlock Text="Hallo welt" />
-                            </controls:LuiDialog>-->
                             <controls:LuiIcon
                                 Name="closeIcon"
                                 Grid.Row="0"
@@ -329,7 +318,7 @@
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
                                             </MultiDataTrigger>
-                                            <DataTrigger Binding="{Binding IsPinnedGray, Converter={StaticResource BindingDiagConverter}}" Value="true">
+                                            <DataTrigger Binding="{Binding IsPinned}" Value="true">
                                                 <Setter Property="Foreground" Value="Transparent" />
                                             </DataTrigger>
                                         </Style.Triggers>

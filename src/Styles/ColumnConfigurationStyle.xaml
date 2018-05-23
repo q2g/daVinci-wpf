@@ -34,6 +34,8 @@
         <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:DimensionColumnDataView}}" />
     </Style>
 
+
+
     <Style
         x:Key="MeasureColumnDataStyle"
         BasedOn="{StaticResource ColumnOrderAccordionItemStyle}"

@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:attachedP="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
@@ -93,7 +94,17 @@
                                 IsItemsStretchEnabled="False"
                                 ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}">
+                                <controls:LuiAccordionItem>
+                                    <controls:LuiAccordionItem.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LuiAccordionItem}}, Path=ActualWidth}">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Text="{l:Loc qlik-resources:Translate_client:properties_data}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </controls:LuiAccordionItem.HeaderTemplate>
                                     <daVinciControls:ColumnChooser
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
@@ -101,8 +112,17 @@
                                 </controls:LuiAccordionItem>
 
 
-                                <controls:LuiAccordionItem Background="{StaticResource Lui.Brush.Grayscale100}" Header="{l:Loc qlik-resources:Translate_client:properties_sorting}">
-
+                                <controls:LuiAccordionItem Background="{StaticResource Lui.Brush.Grayscale100}">
+                                    <controls:LuiAccordionItem.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LuiAccordionItem}}, Path=ActualWidth}">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Text="{l:Loc qlik-resources:Translate_client:properties_sorting}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </controls:LuiAccordionItem.HeaderTemplate>
                                     <ScrollViewer
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Style="{StaticResource LuiSenseScrollViewerStyle}"
@@ -110,6 +130,7 @@
                                         <Grid>
                                             <controls:CollectionView CollectionViewComparer="{StaticResource SortOrderComparer}" ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                             <controls:LuiAccordion
+                                                attachedP:ThemeProperties.Itemheight="39"
                                                 Background="{StaticResource Lui.Brush.Grayscale100}"
                                                 CollapseAllOnExpandSingle="False"
                                                 IndexProvider="{StaticResource SortOrderIndexProvider}"
@@ -121,14 +142,34 @@
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_addons}">
+                                <controls:LuiAccordionItem>
+                                    <controls:LuiAccordionItem.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LuiAccordionItem}}, Path=ActualWidth}">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Text="{l:Loc qlik-resources:Translate_client:properties_addons}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </controls:LuiAccordionItem.HeaderTemplate>
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
+                                <controls:LuiAccordionItem>
+                                    <controls:LuiAccordionItem.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LuiAccordionItem}}, Path=ActualWidth}">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Text="{l:Loc qlik-resources:Translate_common:Common_Appearance}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </controls:LuiAccordionItem.HeaderTemplate>
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
