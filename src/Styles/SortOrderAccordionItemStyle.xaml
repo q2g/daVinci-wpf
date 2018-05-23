@@ -14,8 +14,6 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-
-
     <Style x:Key="ExpanderHeaderFocusVisual" x:Shared="false">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -189,6 +187,8 @@
         </Grid>
     </DataTemplate>
 
+    <daVinciConverter:HeaderTypeToDataTemplateConverter x:Key="HeaderTypeToDataTemplateConverter" HeaderIsStringTemplate="{StaticResource ExpanderHeaderDataTemplate}" />
+
     <Style
         x:Key="SortOrderAccordionItemStyle"
         x:Shared="false"
@@ -199,9 +199,10 @@
                     <Expander
                         Content="{TemplateBinding Content}"
                         Header="{TemplateBinding Header}"
-                        HeaderTemplate="{StaticResource ExpanderHeaderDataTemplate}"
+                        HeaderTemplate="{TemplateBinding HeaderTemplate}"
                         IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                         Style="{StaticResource SortOrderAccordionExpanderStyle}" />
+                    <!--  ,Converter={StaticResource HeaderTypeToDataTemplateConverter}}"  -->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
