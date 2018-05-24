@@ -187,7 +187,7 @@
         </Grid>
     </DataTemplate>
 
-    <daVinciConverter:HeaderTypeToDataTemplateConverter x:Key="HeaderTypeToDataTemplateConverter" HeaderIsStringTemplate="{StaticResource ExpanderHeaderDataTemplate}" />
+    <daVinciConverter:DefaultDataTemplateConverter x:Key="DefaultDataTemplateConverter" DefaultdataTemplate="{StaticResource ExpanderHeaderDataTemplate}" />
 
     <Style
         x:Key="SortOrderAccordionItemStyle"
@@ -199,10 +199,10 @@
                     <Expander
                         Content="{TemplateBinding Content}"
                         Header="{TemplateBinding Header}"
-                        HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                        HeaderTemplate="{TemplateBinding HeaderTemplate,
+                                                         Converter={StaticResource DefaultDataTemplateConverter}}"
                         IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                         Style="{StaticResource SortOrderAccordionExpanderStyle}" />
-                    <!--  ,Converter={StaticResource HeaderTypeToDataTemplateConverter}}"  -->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

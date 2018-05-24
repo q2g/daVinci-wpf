@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attachedP="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com">
 
     <ResourceDictionary.MergedDictionaries>
@@ -217,6 +218,8 @@
         </Grid>
     </DataTemplate>
 
+    <daVinciConverter:DefaultDataTemplateConverter x:Key="DefaultDataTemplateConverter" DefaultdataTemplate="{StaticResource ExpanderHeaderDataTemplate}" />
+
     <Style x:Key="ColumnOrderAccordionItemStyle" TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
@@ -224,7 +227,8 @@
                     <Expander
                         Content="{TemplateBinding Content}"
                         Header="{TemplateBinding Header}"
-                        HeaderTemplate="{StaticResource ExpanderHeaderDataTemplate}"
+                        HeaderTemplate="{TemplateBinding HeaderTemplate,
+                                                         Converter={StaticResource DefaultDataTemplateConverter}}"
                         IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                         Style="{StaticResource InnerAccordionExpanderStyle}" />
                 </ControlTemplate>

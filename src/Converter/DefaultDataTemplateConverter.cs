@@ -8,28 +8,21 @@
     using System.Windows;
     #endregion
 
-    public class HeaderTypeToDataTemplateConverter : IValueConverter
+    public class DefaultDataTemplateConverter : IValueConverter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public DataTemplate HeaderIsStringTemplate { get; set; }
+        public DataTemplate DefaultdataTemplate { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            try
-            {
-                if (value is DataTemplate templ)
-                {
-                    return templ;
-                }
-                return HeaderIsStringTemplate;
 
-            }
-            catch (Exception Ex)
+            if (value == null)
             {
-                logger.Error(Ex);
+                return DefaultdataTemplate;
             }
-            return "";
+
+            return value;
 
         }
 
