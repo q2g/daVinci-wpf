@@ -24,6 +24,10 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <LUIConverter:BooleanToVisibilityConverter
+                x:Key="trueIsVisible"
+                False="Hidden"
+                True="Visible" />
             <daViniciConverter:AddNumberConverter x:Key="AddNumberConverter" />
             <fieldconfigurations:IsFieldFilter x:Key="IsFieldFilter" />
             <fieldconfigurations:FieldComparer x:Key="FieldComparer" />
@@ -34,7 +38,7 @@
                     BorderBrush="{StaticResource Lui.Brush.Grayscale28}"
                     BorderThickness="0,0,0,0.5">
                     <Grid>
-                        <ToggleButton 
+                        <ToggleButton
                             Name="button"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
@@ -52,13 +56,11 @@
                         </ToggleButton>
                         <LuiControls:LuiDialog
                             Name="fieldPopup"
-                            HorizontalOffset="100"
                             IsOpen="{Binding IsChecked, ElementName=button}"
                             PanelHeight="200"
                             PanelWidth="200"
                             Placement="Right"
-                            PlacementTarget="{Binding ElementName=button}"
-                            VerticalOffset="100">
+                            PlacementTarget="{Binding ElementName=button}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -139,8 +141,9 @@
                 HorizontalAlignment="Left"
                 LuiAttached:ThemeProperties.Itemheight="70"
                 CollapseAllOnExpandSingle="True"
+                ExpandedItemIndex="0"
                 ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
-                <LuiControls:LuiAccordionItem>
+                <LuiControls:LuiAccordionItem IsExpanded="True">
                     <LuiControls:LuiAccordionItem.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
@@ -193,10 +196,13 @@
             ItemsSource="{Binding DimensionMeasures}"
             Visibility="Collapsed" />
         <ItemsControl
+            Name="fielditemsControl"
             Grid.Row="1"
             Grid.Column="1"
             ItemTemplate="{StaticResource itemtemplate}"
-            ItemsSource="{Binding ProcessedCollection, ElementName=fieldsCollectionView}">
+            ItemsSource="{Binding ProcessedCollection, ElementName=fieldsCollectionView}"
+            Visibility="{Binding IsExpanded, ElementName=fielditem, Converter={StaticResource trueIsVisible}}">
+            <!--    -->
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer
