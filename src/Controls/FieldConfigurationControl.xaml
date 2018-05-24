@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:fieldconfigurations="clr-namespace:daVinci.ConfigData.FieldConfigurations"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -20,51 +21,195 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <daViniciConverter:AddNumberConverter x:Key="AddNumberConverter" />
+            <fieldconfigurations:IsFieldFilter x:Key="IsFieldFilter" />
+            <fieldconfigurations:FieldComparer x:Key="FieldComparer" />
+
+            <DataTemplate x:Key="itemtemplate">
+                <Border
+                    Height="39"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale28}"
+                    BorderThickness="0,0,0,0.5">
+                    <Grid>
+                        <ToggleButton 
+                            Name="button"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <TextBlock
+                                        Name="fieldtextblock"
+                                        Margin="10,0,0,0"
+                                        Background="Transparent"
+                                        Text="{Binding Text}" />
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <LuiControls:LuiDialog
+                            Name="fieldPopup"
+                            HorizontalOffset="100"
+                            IsOpen="{Binding IsChecked, ElementName=button}"
+                            PanelHeight="200"
+                            PanelWidth="200"
+                            Placement="Right"
+                            PlacementTarget="{Binding ElementName=button}"
+                            VerticalOffset="100">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="39" />
+                                </Grid.RowDefinitions>
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="0,10,0,10"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale28}"
+                                        Text="{Binding Text}" />
+                                    <TextBlock
+                                        Margin="0,0,0,5"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale28}"
+                                        Text="Table:" />
+                                    <TextBlock Foreground="{StaticResource Lui.Brush.Grayscale28}" Text="someTable" />
+                                </StackPanel>
+                                <DockPanel
+                                    Grid.Row="1"
+                                    Background="{StaticResource Lui.Brush.Grayscale70}"
+                                    LastChildFill="False">
+
+                                    <LuiControls:LuiButton
+                                        LuiAttached:ThemeProperties.BorderThickness="0"
+                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_drop"
+                                        Background="Transparent"
+                                        DockPanel.Dock="Right"
+                                        FontSize="16" />
+                                    <LuiControls:LuiButton
+                                        LuiAttached:ThemeProperties.BorderThickness="0"
+                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_box"
+                                        Background="Transparent"
+                                        DockPanel.Dock="Right"
+                                        FontSize="16" />
+                                    <LuiControls:LuiButton
+                                        LuiAttached:ThemeProperties.BorderThickness="0"
+                                        LuiAttached:ThemeProperties.IconLeft="lui_icon_expression"
+                                        Background="Transparent"
+                                        DockPanel.Dock="Right"
+                                        FontSize="16" />
+
+                                </DockPanel>
+                            </Grid>
+                        </LuiControls:LuiDialog>
+                    </Grid>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale100}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                </Border>
+            </DataTemplate>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <LuiControls:LuiAccordion
-            HorizontalAlignment="Left"
-            LuiAttached:ThemeProperties.Itemheight="60"
-            CollapseAllOnExpandSingle="True"
-            ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
-            <LuiControls:LuiAccordionItem>
-                <LuiControls:LuiAccordionItem.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
-                            <LuiControls:LuiIcon
-                                HorizontalAlignment="Left"
-                                FontSize="16"
-                                Icon="lui_icon_database" />
-                            <TextBlock
-                                HorizontalAlignment="Left"
-                                FontFamily="{StaticResource QlikViewSans}"
-                                Text="Felder" />
-                        </StackPanel>
-                    </DataTemplate>
-                </LuiControls:LuiAccordionItem.HeaderTemplate>
-            </LuiControls:LuiAccordionItem>
-            <LuiControls:LuiAccordionItem>
-                <LuiControls:LuiAccordionItem.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
-                            <LuiControls:LuiIcon
-                                HorizontalAlignment="Left"
-                                FontSize="16"
-                                Icon="lui_icon_link" />
-                            <TextBlock
-                                HorizontalAlignment="Left"
-                                FontFamily="{StaticResource QlikViewSans}"
-                                Text="Master-Elemente"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </DataTemplate>
-                </LuiControls:LuiAccordionItem.HeaderTemplate>
-            </LuiControls:LuiAccordionItem>
-        </LuiControls:LuiAccordion>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.RowSpan="2"
+            Background="{StaticResource Lui.Brush.Grayscale28}"
+            BorderBrush="{StaticResource Lui.Brush.Grayscale0}"
+            BorderThickness="0,0,1,1">
+            <LuiControls:LuiAccordion
+                Width="80"
+                HorizontalAlignment="Left"
+                LuiAttached:ThemeProperties.Itemheight="70"
+                CollapseAllOnExpandSingle="True"
+                ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
+                <LuiControls:LuiAccordionItem>
+                    <LuiControls:LuiAccordionItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
+                                <LuiControls:LuiIcon
+                                    HorizontalAlignment="Center"
+                                    FontSize="16"
+                                    Icon="lui_icon_database" />
+                                <TextBlock
+                                    Margin="0,5,0,5"
+                                    HorizontalAlignment="Center"
+                                    FontFamily="{StaticResource QlikViewSans}"
+                                    Text="Felder" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </LuiControls:LuiAccordionItem.HeaderTemplate>
+                </LuiControls:LuiAccordionItem>
+                <LuiControls:LuiAccordionItem>
+                    <LuiControls:LuiAccordionItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type LuiControls:LuiAccordionItem}}, Path=ActualWidth}">
+                                <LuiControls:LuiIcon
+                                    HorizontalAlignment="Center"
+                                    FontSize="16"
+                                    Icon="lui_icon_link" />
+                                <TextBlock
+                                    Margin="0,5,0,5"
+                                    HorizontalAlignment="Center"
+                                    FontFamily="{StaticResource QlikViewSans}"
+                                    Text="Master-Elemente"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </LuiControls:LuiAccordionItem.HeaderTemplate>
+                </LuiControls:LuiAccordionItem>
+            </LuiControls:LuiAccordion>
+        </Border>
+
+        <LuiControls:LuiSearch
+            Name="search"
+            Grid.Row="0"
+            Grid.Column="1"
+            Height="39"
+            LuiAttached:ThemeProperties.Inverted="True" />
+
+        <LuiControls:CollectionView
+            Name="fieldsCollectionView"
+            CollectionViewComparer="{StaticResource FieldComparer}"
+            CollectionViewFilter="{StaticResource IsFieldFilter}"
+            FilterText="{Binding SearchText, ElementName=search}"
+            ItemsSource="{Binding DimensionMeasures}"
+            Visibility="Collapsed" />
+        <ItemsControl
+            Grid.Row="1"
+            Grid.Column="1"
+            ItemTemplate="{StaticResource itemtemplate}"
+            ItemsSource="{Binding ProcessedCollection, ElementName=fieldsCollectionView}">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer
+                        Padding="{TemplateBinding Control.Padding}"
+                        Focusable="False"
+                        Style="{StaticResource LuiSenseScrollViewerStyle}"
+                        VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+        </ItemsControl>
+
+
     </Grid>
 </UserControl>
