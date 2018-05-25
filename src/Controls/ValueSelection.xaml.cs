@@ -62,12 +62,16 @@
                     ItemFilter.ValType = value;
                     FieldItemFilter.ValType = value;
                     SetValueTypeContextofFields();
-                    RaisePropertyChanged(nameof(AllValueItems));
                     SearchText = "";
                     scrollviewer.ScrollToTop();
+                    RaisePropertyChanged(nameof(AllValueItems));
+                    //Force an list-rebuild, which executes the reevaluation of the ItemContainerSelector of valueSelection 
+                    SearchText = " ";
+                    SearchText = "";
                 }
             }
         }
+
         private ICommand selectedItemCommand;
         public ICommand SelectedItemCommand
         {
@@ -113,7 +117,19 @@
         {
             if (selectedItemCommand != null && allValueItems != null)
             {
-                AllValueItems.ForEach(item => item.ItemSelectedCommand = selectedItemCommand);
+                var newselectedCommand = new RelayCommand((o) =>
+                {
+                    selectedItemCommand.Execute(o);
+                    if (o is ValueItem vitem)
+                    {
+                        if (!(vitem.IsField && vitem.ItemContext == ValueTypeEnum.Measure) || vitem.IsAggregate)
+                        {
+                            SearchText = "";
+                            scrollviewer.ScrollToTop();
+                        }
+                    }
+                }, (o) => true);
+                AllValueItems.ForEach(item => item.ItemSelectedCommand = newselectedCommand);
 
             }
         }
@@ -125,7 +141,7 @@
         {
             if (allValueItems != null)
             {
-                foreach (var item in AllValueItems)
+                foreach (var item in allValueItems)
                 {
                     if (item.IsField)
                         item.ItemContext = valueType;

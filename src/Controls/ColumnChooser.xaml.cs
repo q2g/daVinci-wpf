@@ -64,6 +64,8 @@
                         var newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText, IsExpression = true };
                         Columns.Add(newone);
                         togglebutton.IsChecked = false;
+                        valueSelection.SearchText = " ";
+                        valueSelection.SearchText = "";
                     }
                 }, (o) => true);
 
