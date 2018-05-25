@@ -38,33 +38,33 @@
                 <Setter Property="LuiAttached:ThemeProperties.BorderThickness" Value="0" />
                 <Setter Property="LuiAttached:ThemeProperties.ButtonSize" Value="Custom" />
                 <Setter Property="LuiAttached:ThemeProperties.CornerRadius" Value="0" />
-                <Setter Property="LuiAttached:ThemeProperties.Inverted" Value="True" />
+                <!--<Setter Property="LuiAttached:ThemeProperties.Inverted" Value="True" />-->
                 <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
-                <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale35}" />
+                <Setter Property="Background" Value="Transparent" />
                 <Style.Triggers>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
                             <Condition Property="IsMouseOver" Value="true" />
                             <Condition Property="IsEnabled" Value="true" />
                         </MultiTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale28}" />
-                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
+                        <!--<Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale28}" />-->
+                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale0}" />
                     </MultiTrigger>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
                             <Condition Property="IsMouseOver" Value="false" />
                             <Condition Property="IsEnabled" Value="true" />
                         </MultiTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale35}" />
-                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
+                        <!--<Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale35}" />-->
+                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale30}" />
                     </MultiTrigger>
 
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
                             <Condition Property="IsEnabled" Value="false" />
                         </MultiTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale35}" />
-                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale50}" />
+                        <!--<Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale35}" />-->
+                        <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
                     </MultiTrigger>
 
                     <MultiTrigger>
@@ -80,7 +80,7 @@
     </UserControl.Resources>
 
 
-    <Grid Background="{StaticResource Lui.Brush.Grayscale35}">
+    <Grid Background="Transparent">
         <Grid.Resources>
             <converter:CountToVisibilityConverter
                 x:Key="GreaterZeroVisible"
@@ -112,6 +112,7 @@
         <controls:LuiButton
             Grid.Column="0"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_selection_back"
+            Background="Transparent"
             Command="{Binding BackwardCommand}"
             Style="{StaticResource SelectionButtonStyle}"
             ToolTip="{l:Loc Tooltip_NavigateBack}" />
@@ -119,24 +120,28 @@
         <controls:LuiButton
             Grid.Column="1"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_selection_forward"
+            Background="Transparent"
             Command="{Binding ForwardCommand}"
             Style="{StaticResource SelectionButtonStyle}"
             ToolTip="{l:Loc Tooltip_NavigateForward}" />
         <controls:LuiButton
             Grid.Column="2"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_clear_selection"
+            Background="Transparent"
             Command="{Binding ClearCommand}"
             Style="{StaticResource SelectionButtonStyle}"
             ToolTip="{l:Loc Tooltip_ClearSelections}" />
         <controls:LuiButton
             Grid.Column="4"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_search"
+            Background="Transparent"
             Command="{Binding GlobalSearchCommand}"
             Style="{StaticResource SelectionButtonStyle}"
             ToolTip="{l:Loc Tooltip_GlobalSearch}" />
         <controls:LuiButton
             Grid.Column="5"
             LuiAttached:ThemeProperties.IconLeft="lui_icon_selectiontool"
+            Background="Transparent"
             Command="{Binding GlobalSelectCommand}"
             Style="{StaticResource SelectionButtonStyle}"
             ToolTip="{l:Loc Tooltip_GlobalSelector}" />
@@ -147,7 +152,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Cursor="IBeam"
-            Foreground="{StaticResource Lui.Brush.Grayscale70}"
+            Foreground="{StaticResource Lui.Brush.Grayscale30}"
             Text="{l:Loc CurrentSelections_NoSelections}"
             ToolTip="{l:Loc}"
             Visibility="{Binding CurrentSelection.Count, Converter={StaticResource ZeroVisible}}" />
@@ -199,7 +204,8 @@
                                 <Setter Property="Border.Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="Border.IsMouseOver" Value="True">
-                                        <Setter Property="Border.Background" Value="{StaticResource Lui.Brush.Grayscale28}" />
+                                        <Setter Property="Border.Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                        <Setter Property="Border.Opacity" Value="0.7" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -226,14 +232,14 @@
                                 FontFamily="{StaticResource QlikViewSans}"
                                 FontSize="12"
                                 FontWeight="Bold"
-                                Foreground="{StaticResource Lui.Brush.Grayscale80}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 Text="{Binding FieldName}"
                                 TextTrimming="CharacterEllipsis" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 FontSize="12"
-                                Foreground="{StaticResource Lui.Brush.Grayscale80}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                 Text="{Binding SelectionAsText}"
                                 TextTrimming="CharacterEllipsis" />
 
@@ -309,7 +315,7 @@
                                                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
 
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale100}" />
+                                                <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale0}" />
                                             </MultiDataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
