@@ -73,7 +73,7 @@
                                 Background="{StaticResource Lui.Brush.Grayscale30}"
                                 Orientation="Horizontal">
                                 <controls:LuiIcon
-                                    Margin="10,0,0,0"
+                                    Margin="90,0,0,0"
                                     VerticalAlignment="Center"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Icon="lui_icon_table"
