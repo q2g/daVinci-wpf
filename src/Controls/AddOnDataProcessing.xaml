@@ -32,9 +32,7 @@
             Margin="10,10,0,0"
             Content="{l:Loc properties_hyperCube_showZero}"
             IsChecked="{Binding AllowNULLValues}" />
-        <LuiControls:LuiSeparator
-            Height="0.4"
-            Margin="0,10,0,0" />
+        <LuiControls:LuiSeparator Height="0.4" Margin="0,10,0,0" />
         <LuiControls:LuiInputGroup
             Name="CalcCond"
             Margin="10,10,0,10"

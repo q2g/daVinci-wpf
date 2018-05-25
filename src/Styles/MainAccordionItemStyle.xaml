@@ -72,7 +72,6 @@
                                     StrokeThickness="5"
                                     Y1="0"
                                     Y2="{Binding Path=(LuiAttached:ThemeProperties.Itemheight)}">
-                                    <!--  , RelativeSource={RelativeSource AncestorType={x:Type controls:LuiAccordion}}  -->
                                     <Line.Style>
                                         <Style TargetType="Line">
                                             <Style.Triggers>
