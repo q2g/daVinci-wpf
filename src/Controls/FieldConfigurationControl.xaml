@@ -217,5 +217,36 @@
         </ItemsControl>
 
 
+        <!--<LuiControls:CollectionView
+            Name="fieldsCollectionView"
+            CollectionViewComparer="{StaticResource FieldComparer}"
+            CollectionViewFilter="{StaticResource IsFieldFilter}"
+            FilterText="{Binding SearchText, ElementName=search}"
+            ItemsSource="{Binding DimensionMeasures}"
+            Visibility="Collapsed" />
+        <ItemsControl
+            Name="fielditemsControl"
+            Grid.Row="1"
+            Grid.Column="1"
+            ItemTemplate="{StaticResource itemtemplate}"
+            ItemsSource="{Binding ProcessedCollection, ElementName=fieldsCollectionView}"
+            Visibility="{Binding IsExpanded, ElementName=fielditem, Converter={StaticResource trueIsVisible}}">
+        -->
+        <!--    -->
+        <!--
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer
+                        Padding="{TemplateBinding Control.Padding}"
+                        Focusable="False"
+                        Style="{StaticResource LuiSenseScrollViewerStyle}"
+                        VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+        </ItemsControl>-->
+
+
     </Grid>
 </UserControl>

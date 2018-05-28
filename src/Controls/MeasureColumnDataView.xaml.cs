@@ -4,7 +4,7 @@
     using daVinci.ConfigData;
     using leonardo.Resources;
     using System.Windows.Input;
-    using System.Windows.Controls; 
+    using System.Windows.Controls;
     #endregion
 
     /// <summary>
@@ -20,7 +20,7 @@
 
                        if (DataContext is MeasureColumnData measureconfig)
                        {
-                           measureconfig.FieldDef = $"Expression of {measureconfig.DimensionMeasure.LibID}";
+                           measureconfig.FieldDef = measureconfig.DimensionMeasure?.Formula ?? "";
                            measureconfig.FieldLabel = measureconfig.DimensionMeasure.Text;
                            measureconfig.IsExpression = true;
                        }
