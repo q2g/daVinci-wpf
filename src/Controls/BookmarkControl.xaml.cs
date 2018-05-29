@@ -112,7 +112,6 @@
 
         public static readonly DependencyProperty SelectedBookmarkProperty = DependencyProperty.Register(
          "SelectedBookmark", typeof(BookmarkData), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
         #endregion
 
         #region Properties

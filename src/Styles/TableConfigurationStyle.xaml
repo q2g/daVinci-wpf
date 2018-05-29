@@ -94,7 +94,7 @@
                                 IsItemsStretchEnabled="False"
                                 ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}">
+                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}" IsExpanded="True">
                                     <daVinciControls:ColumnChooser
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
@@ -128,12 +128,12 @@
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
+                                <!--<controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                                </controls:LuiAccordionItem>
+                                </controls:LuiAccordionItem>-->
                             </controls:LuiAccordion>
                         </StackPanel>
                     </ControlTemplate>

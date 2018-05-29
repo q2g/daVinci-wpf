@@ -7,7 +7,7 @@
     using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations; 
+    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
     public class DimensionColumnData : INotifyPropertyChanged, IHasSortCriteria
@@ -465,7 +465,8 @@
             try
             {
                 dynamic jsonConfig = new JObject();
-                jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
+                    jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qFieldDefs = new JArray();
                 jsonConfig.qDef.qFieldDefs.Add(FieldDef);
@@ -549,7 +550,8 @@
 
                 jsonConfig.qDef.textAlign = new JObject();
                 jsonConfig.qDef.textAlign.auto = TextAllignment;
-                jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
+                if (AllignmentIndex != 0)
+                    jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
 
                 jsonConfig.qDef.representation = new JObject();
                 jsonConfig.qDef.representation.type = RepresentationIndex == 0 ? "text" : "url";

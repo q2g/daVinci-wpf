@@ -9,7 +9,7 @@
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations; 
+    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
     public class MeasureColumnData : INotifyPropertyChanged, IHasSortCriteria
@@ -438,7 +438,7 @@
                 fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
                 SortCriterias.ReadFromJSON(jsonConfig?.qSortBy);
-                SortCriterias.AutoSort = jsonConfig?.autoSort ?? false;
+                SortCriterias.AutoSort = jsonConfig.qDef?.autoSort ?? false;
 
                 switch (jsonConfig?.qDef?.qNumFormat?.qType?.ToString() ?? "U")
                 {
@@ -559,7 +559,8 @@
                 jsonConfig.qDef.qDef = FieldDef;
 
                 jsonConfig.qSortBy = SortCriterias.SaveToJSON();
-                jsonConfig.autosort = SortCriterias.AutoSort;
+                if (SortCriterias.AutoSort)
+                    jsonConfig.qDef.autoSort = SortCriterias.AutoSort;
 
                 switch (TotalValueFunctionIndex)
                 {

@@ -28,7 +28,7 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider"/>
+            <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
             <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -76,8 +76,8 @@
 
                 <LuiControls:LuiAccordion
                     x:Name="acc"
-                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                     CollapseAllOnExpandSingle="false"
+                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                     IsDragDropChangesUnderlyingCollection="True"
                     IsDragDropEnabled="True"
                     ItemContainerStyleSelector="{StaticResource Columnstyleselector}"

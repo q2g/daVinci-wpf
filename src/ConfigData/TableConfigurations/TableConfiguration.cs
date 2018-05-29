@@ -10,6 +10,7 @@
     using System.Collections.ObjectModel;
     #endregion
     using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.TableConfigurations;
 
     public class TableConfiguration : INotifyPropertyChanged
     {
@@ -99,9 +100,11 @@
         {
             try
             {
+                columns.Clear();
+                AddOnData.Clear();
                 dynamic jsonConfig = JObject.Parse(JSONstring);
                 SettingsID = jsonConfig?.qInfo?.qId ?? "";
-                var columnOrderCount = (jsonConfig?.qHyperCubeDef?.columnOrder?.Count ?? 0);
+                var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
                 var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
                 int counter = 0;
 
@@ -114,7 +117,7 @@
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                     if (columnOrderCount > 0 && counter < columnOrderCount)
                     {
-                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.qColumnOrder[counter] ?? 0;
                     }
                     if (interColumnSort > 0 && counter < interColumnSort)
                     {
@@ -134,7 +137,7 @@
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                     if (columnOrderCount > 0 && counter < columnOrderCount)
                     {
-                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.columnOrder[counter] ?? 0;
+                        newone.SortCriterias.ColumnOrderIndex = jsonConfig?.qHyperCubeDef?.qColumnOrder[counter] ?? 0;
                     }
 
                     if (interColumnSort > 0 && counter < interColumnSort)
@@ -177,7 +180,7 @@
                 jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
 
                 jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
-                jsonData.qHyperCubeDef.columnOrder = new JArray();
+                jsonData.qHyperCubeDef.qColumnOrder = new JArray();
                 int counter = 0;
 
                 foreach (var item in Columns)
@@ -186,7 +189,7 @@
                     {
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
-                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
+                        jsonData.qHyperCubeDef.qColumnOrder.Add(counter);
                         counter++;
                     }
                 }
@@ -196,7 +199,7 @@
                     if (item is MeasureColumnData measureData)
                     {
                         jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
-                        jsonData.qHyperCubeDef.columnOrder.Add(counter);
+                        jsonData.qHyperCubeDef.qColumnOrder.Add(counter);
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
                         counter++;
                     }

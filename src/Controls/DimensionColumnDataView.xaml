@@ -80,7 +80,7 @@
             Content="{l:Loc properties_dimensions_showNull}"
             Foreground="{StaticResource Lui.Brush.Grayscale50}"
             IsChecked="{Binding AllowNULLValues}" />
-        <LuiControls:LuiCombobox
+        <!--<LuiControls:LuiCombobox
             Name="LimitCombo"
             Background="White"
             LabelText="{l:Loc properties_dimensionLimits_limit}"
@@ -203,7 +203,7 @@
             LabelText="{l:Loc MediaTool_Toolbar_InsertUrlLink_Title}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding UrlLabel}"
-            Visibility="{Binding SelectedIndex, ElementName=representationCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}" />
+            Visibility="{Binding SelectedIndex, ElementName=representationCombo, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter='1'}" />-->
 
 
     </StackPanel>

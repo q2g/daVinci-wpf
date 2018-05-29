@@ -23,9 +23,7 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <converter:FormatConverter
-                x:Key="FormatConverter"
-                NumberToFormat="1000.12" />
+            <converter:FormatConverter x:Key="FormatConverter" NumberToFormat="1000.12" />
             <LUIConverter:BooleanToVisibilityConverter
                 x:Key="BoolToVisibilityCollapsedConverter"
                 False="Collapsed"
@@ -119,18 +117,14 @@
                 </daViniciControls:ContentSwitch.Content>
                 <daViniciControls:ContentSwitch.UnCheckedContent>
                     <StackPanel>
-                        <LuiControls:LuiInput
-                            LabelText="{l:Loc properties_numberFormatting}"
-                            Text="{Binding NumberFormatText, UpdateSourceTrigger=PropertyChanged}" />
+                        <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting}" Text="{Binding NumberFormatText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </daViniciControls:ContentSwitch.UnCheckedContent>
             </daViniciControls:ContentSwitch>
         </StackPanel>
 
 
-        <StackPanel
-            x:Name="Format_Waehrung"
-            Margin="0,10,0,0">
+        <StackPanel x:Name="Format_Waehrung" Margin="0,10,0,0">
             <StackPanel.Visibility>
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
@@ -139,15 +133,11 @@
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
 
-            <LuiControls:LuiInput
-                LabelText="Zahlenformat"
-                Text="{Binding CurrencyFormatText}" />
+            <LuiControls:LuiInput LabelText="Zahlenformat" Text="{Binding CurrencyFormatText}" />
 
         </StackPanel>
 
-        <StackPanel
-            x:Name="Format_Datum"
-            Margin="0,10,0,0">
+        <StackPanel x:Name="Format_Datum" Margin="0,10,0,0">
             <StackPanel.Visibility>
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
@@ -178,9 +168,7 @@
                 </daViniciControls:ContentSwitch.Content>
                 <daViniciControls:ContentSwitch.UnCheckedContent>
                     <StackPanel>
-                        <LuiControls:LuiInput
-                            LabelText="Zahlenformat"
-                            Text="{Binding DateFormatText}" />
+                        <LuiControls:LuiInput LabelText="Zahlenformat" Text="{Binding DateFormatText}" />
 
                     </StackPanel>
                 </daViniciControls:ContentSwitch.UnCheckedContent>
@@ -188,9 +176,7 @@
         </StackPanel>
 
 
-        <StackPanel
-            x:Name="Format_Dauer"
-            Margin="0,10,0,0">
+        <StackPanel x:Name="Format_Dauer" Margin="0,10,0,0">
             <StackPanel.Visibility>
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
@@ -199,14 +185,10 @@
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
 
-            <LuiControls:LuiInput
-                LabelText="Zahlenformat"
-                Text="{Binding DurationFormatText}" />
+            <LuiControls:LuiInput LabelText="Zahlenformat" Text="{Binding DurationFormatText}" />
         </StackPanel>
 
-        <StackPanel
-            x:Name="Format_Benutzerdefiniert"
-            Margin="0,10,0,0">
+        <StackPanel x:Name="Format_Benutzerdefiniert" Margin="0,10,0,0">
             <StackPanel.Visibility>
                 <Binding
                     Converter="{StaticResource IntToVisibilityConverter}"
@@ -214,9 +196,7 @@
                     ElementName="NumberFormatCombo"
                     Path="SelectedIndex" />
             </StackPanel.Visibility>
-            <LuiControls:LuiInput
-                LabelText="{l:Loc properties_numberFormatting_dec}"
-                Text="{Binding Dec_SplitterSign}" />
+            <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting_dec}" Text="{Binding Dec_SplitterSign}" />
             <LuiControls:LuiInput
                 Margin="0,10,0,0"
                 LabelText="{l:Loc properties_numberFormatting_thousandSeparator}"
@@ -228,7 +208,7 @@
         </StackPanel>
 
 
-        <LuiControls:LuiInputGroup
+        <!--<LuiControls:LuiInputGroup
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
@@ -272,6 +252,6 @@
                     <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignRight}" />
                 </LuiControls:LuiCombobox>
             </daViniciControls:ContentSwitch.UnCheckedContent>
-        </daViniciControls:ContentSwitch>
+        </daViniciControls:ContentSwitch>-->
     </StackPanel>
 </UserControl>
