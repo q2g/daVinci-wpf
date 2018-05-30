@@ -113,6 +113,29 @@
                 if (numberFormatIndex != value)
                 {
                     numberFormatIndex = value;
+
+                    switch (numberFormatIndex)
+                    {
+                        case 1:
+                            NumberFormatText = "#,##0.00";
+                            break;
+                        case 2:
+                            CurrencyFormatText = "$#,##0.00;($#,##0.00)";
+                            break;
+                        case 3:
+                            DateFormatText = "M/D/YYYY";
+                            break;
+                        case 4:
+                            DurationFormatText = "h:mm:ss";
+                            break;
+                        case 5:
+                            Thou_SplitterSign = ",";
+                            Dec_SplitterSign = ".";
+                            break;
+                        default:
+                            break;
+                    }
+
                     RaisePropertyChanged();
                 }
             }
@@ -498,6 +521,8 @@
                     default:
                         break;
                 }
+                Dec_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qDec ?? ".";
+                Thou_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qThou ?? ",";
 
                 if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
                 {
@@ -553,7 +578,8 @@
 
             try
             {
-                jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
+                    jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qLabel = FieldLabel;
                 jsonConfig.qDef.qDef = FieldDef;
@@ -599,7 +625,6 @@
                         jsonConfig.qDef.qNumFormat.qType = "F";
                         if (IsStandardFormat)
                         {
-                            jsonConfig.qDef.qNumFormat = new JObject();
                             switch (StandardFormatIndex)
                             {
                                 case 0:
@@ -628,7 +653,8 @@
                         {
                             jsonConfig.qDef.qNumFormat.qFmt = NumberFormatText;
                         }
-                        jsonConfig.qDef.numFormatFromTemplate = IsStandardFormat;
+                        if (IsStandardFormat)
+                            jsonConfig.qDef.numFormatFromTemplate = IsStandardFormat;
                         break;
                     case 2:
                         jsonConfig.qDef.qNumFormat.qType = "M";
@@ -651,7 +677,8 @@
                         {
                             jsonConfig.qDef.qNumFormat.qFmt = DateFormatText;
                         }
-                        jsonConfig.qDef.numFormatFromTemplate = IsStandardDateFormat;
+                        if (IsStandardFormat)
+                            jsonConfig.qDef.numFormatFromTemplate = IsStandardDateFormat;
                         break;
                     case 4:
                         jsonConfig.qDef.qNumFormat.qType = "IV";
@@ -666,6 +693,8 @@
                     default:
                         break;
                 }
+                jsonConfig.qDef.qNumFormat.qDec = Dec_SplitterSign;
+                jsonConfig.qDef.qNumFormat.qThou = Thou_SplitterSign;
 
                 jsonConfig.qAttributeExpressions = new JArray();
                 if (!string.IsNullOrEmpty(BackgroundColorExpression))
@@ -684,8 +713,10 @@
 
 
                 jsonConfig.qDef.textAlign = new JObject();
-                jsonConfig.qDef.textAlign.auto = TextAllignment;
-                jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
+                if (TextAllignment)
+                    jsonConfig.qDef.textAlign.auto = TextAllignment;
+                if (AllignmentIndex != 0)
+                    jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
             }
             catch (Exception Ex)
             {

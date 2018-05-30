@@ -5,7 +5,7 @@
     using System;
     using Newtonsoft.Json.Linq;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class PresentationData : INotifyPropertyChanged
@@ -101,7 +101,6 @@
                 switch (TotalPositionIndex)
                 {
                     case 0:
-                        jsonConfig.position = "none";
                         break;
                     case 1:
                         jsonConfig.position = "top";

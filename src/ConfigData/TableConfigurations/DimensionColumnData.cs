@@ -381,12 +381,12 @@
                         break;
                     case "OTHER_COUNTED":
                         LimitModeIndex = 1;
-                        switch (jsonConfig?.qOtherTotalSpec?.qOtherSortMode?.ToString() ?? "OTHER_SORT_ASCENDING")
+                        switch (jsonConfig?.qOtherTotalSpec?.qOtherSortMode?.ToString() ?? "1")
                         {
-                            case "OTHER_SORT_ASCENDING":
+                            case "1":
                                 TopBottomIndex = 0;
                                 break;
-                            case "OTHER_SORT_DESCENDING":
+                            case "-1":
                                 TopBottomIndex = 1;
                                 break;
                             default:
@@ -435,8 +435,7 @@
 
 
                 ShowOthers = (jsonConfig?.qOtherTotalSpec?.qSuppressOther ?? false) == false;
-                //OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
-                //OthersLabel = jsonConfig?.qDef?.othersLabel ?? "";
+
                 OthersLabel = !string.IsNullOrEmpty(OthersLabel) ? jsonConfig?.qOtherLabel?.qv ?? "" : "";
 
                 if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
@@ -474,21 +473,23 @@
                 jsonConfig.qDef.qFieldLabels.Add(FieldLabel);
                 jsonConfig.qDef.qSortCriterias = new JArray();
                 jsonConfig.qDef.qSortCriterias.Add(SortCriterias.SaveToJSON());
-                jsonConfig.qDef.autoSort = SortCriterias.AutoSort;
-                jsonConfig.qNullSuppression = !AllowNULLValues;
+                if (SortCriterias.AutoSort)
+                    jsonConfig.qDef.autoSort = SortCriterias.AutoSort;
+                if (!AllowNULLValues)
+                    jsonConfig.qNullSuppression = !AllowNULLValues;
 
                 jsonConfig.qOtherTotalSpec = new JObject();
                 switch (LimitModeIndex)
                 {
                     case 0:
-                        jsonConfig.qOtherTotalSpec.qOtherMode = "OTHER_OFF";
+
                         switch (TopBottomIndex)
                         {
                             case 0:
-                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "OTHER_SORT_ASCENDING";
+                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "1";
                                 break;
                             case 1:
-                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "OTHER_SORT_DESCENDING";
+                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "-1";
                                 break;
                             default:
                                 break;
@@ -537,16 +538,24 @@
                 }
 
 
-
-                jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
-                jsonConfig.qDef.othersLabel = OthersLabel;
+                if (!ShowOthers)
+                    jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
+                jsonConfig.qDef.othersLabel = new JObject();
+                if (!string.IsNullOrEmpty(OthersLabel))
+                    jsonConfig.qDef.othersLabel.qv = OthersLabel;
                 jsonConfig.qAttributeExpressions = new JArray();
-                dynamic expr = new JObject();
-                expr.qExpression = BackgroundColorExpression;
-                jsonConfig.qAttributeExpressions.Add(expr);
-                expr = new JObject();
-                expr.qExpression = TextColorExpression;
-                jsonConfig.qAttributeExpressions.Add(expr);
+                if (!string.IsNullOrEmpty(BackgroundColorExpression))
+                {
+                    dynamic expr = new JObject();
+                    expr.qExpression = BackgroundColorExpression;
+                    jsonConfig.qAttributeExpressions.Add(expr);
+                }
+                if (!string.IsNullOrEmpty(TextColorExpression))
+                {
+                    dynamic expr = new JObject();
+                    expr.qExpression = TextColorExpression;
+                    jsonConfig.qAttributeExpressions.Add(expr);
+                }
 
                 jsonConfig.qDef.textAlign = new JObject();
                 jsonConfig.qDef.textAlign.auto = TextAllignment;
@@ -554,7 +563,8 @@
                     jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
 
                 jsonConfig.qDef.representation = new JObject();
-                jsonConfig.qDef.representation.type = RepresentationIndex == 0 ? "text" : "url";
+                if (RepresentationIndex != 0)
+                    jsonConfig.qDef.representation.type = RepresentationIndex == 0 ? "text" : "url";
                 jsonConfig.qDef.representation.urlLabel = UrlLabel;
 
                 return jsonConfig;

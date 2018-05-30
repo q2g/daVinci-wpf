@@ -5,7 +5,7 @@
     using System;
     using Newtonsoft.Json.Linq;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class AddOnDataProcessingConfiguration : INotifyPropertyChanged
@@ -90,16 +90,25 @@
         {
             try
             {
-                jsonConfig.qSuppressZero = !AllowNULLValues;
+                if (!AllowNULLValues)
+                    jsonConfig.qSuppressZero = !AllowNULLValues;
                 jsonConfig.qCalcCond = new JObject();
-                jsonConfig.qCalcCond.qv = CalcCondition;
+                if (!string.IsNullOrEmpty(CalcCondition))
+                    jsonConfig.qCalcCond.qv = CalcCondition;
                 jsonConfig.qCalcCondition = new JObject();
                 jsonConfig.qCalcCondition.qCond = new JObject();
-                jsonConfig.qCalcCondition.qCond.qv = CalcCondition;
-                jsonConfig.qCalcCond.qMsg = new JObject();
-                jsonConfig.qCalcCond.qMsg.qv = DisplayedMessage;
-                jsonConfig.customErrorMessage = new JObject();
-                jsonConfig.customErrorMessage.calcCond = DisplayedMessage;
+                if (!string.IsNullOrEmpty(CalcCondition))
+                    jsonConfig.qCalcCondition.qCond.qv = CalcCondition;
+                if (!string.IsNullOrEmpty(DisplayedMessage))
+                {
+                    jsonConfig.qCalcCond.qMsg = new JObject();
+                    jsonConfig.qCalcCond.qMsg.qv = DisplayedMessage;
+                }
+                if (!string.IsNullOrEmpty(DisplayedMessage))
+                {
+                    jsonConfig.cusmErrorMessage = new JObject();
+                    jsonConfig.customErrorMessage.calcCond = DisplayedMessage;
+                }
             }
             catch (Exception Ex)
             {

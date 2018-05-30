@@ -56,6 +56,7 @@
             Margin="0,10,0,5"
             IsInputEnabled="True"
             LabelText="{l:Loc Translate_common:Common_Field}"
+            RightCommand="{Binding EditFieldExpressionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:DimensionColumnDataView}}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -64,6 +65,7 @@
             Margin="0,10,0,5"
             IsInputEnabled="true"
             LabelText="{l:Loc Translate_common:Common_Label}"
+            RightCommand="{Binding EditLabelExpressionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:DimensionColumnDataView}}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToVisibleConverter}}" />

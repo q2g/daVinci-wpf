@@ -25,12 +25,37 @@
                         dimensionconfig.IsExpression = true;
                     }
                 }, (o) => true);
+
+            EditFieldExpressionCommand = new RelayCommand(
+                (o) =>
+                {
+                    if (DataContext is DimensionColumnData dimensionconfig)
+                    {
+                        dimensionconfig.FieldDef = ExpressionEditor.ShowModal(dimensionconfig.FieldDef);
+
+
+                    }
+                }, (o) => true);
+
+            EditLabelExpressionCommand = new RelayCommand(
+               (o) =>
+               {
+                   if (DataContext is DimensionColumnData dimensionconfig)
+                   {
+                       dimensionconfig.FieldLabel = ExpressionEditor.ShowModal(dimensionconfig.FieldLabel);
+
+
+                   }
+               }, (o) => true);
             InitializeComponent();
 
 
         }
 
         public ICommand UnlinkCommand { get; set; }
+        public ICommand EditFieldExpressionCommand { get; set; }
+        public ICommand EditLabelExpressionCommand { get; set; }
+
 
     }
 }

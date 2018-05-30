@@ -73,7 +73,7 @@
                                 Background="{StaticResource Lui.Brush.Grayscale30}"
                                 Orientation="Horizontal">
                                 <controls:LuiIcon
-                                    Margin="90,0,0,0"
+                                    Margin="100,0,0,0"
                                     VerticalAlignment="Center"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Icon="lui_icon_table"
@@ -84,7 +84,8 @@
                                     FontSize="16"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                    Text="{Binding TableName}" />
+                                    Text="{Binding TableName}"
+                                    TextTrimming="CharacterEllipsis" />
                             </StackPanel>
                             <controls:LuiAccordion
                                 Grid.Column="1"

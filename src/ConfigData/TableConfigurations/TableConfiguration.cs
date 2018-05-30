@@ -100,8 +100,6 @@
         {
             try
             {
-                columns.Clear();
-                AddOnData.Clear();
                 dynamic jsonConfig = JObject.Parse(JSONstring);
                 SettingsID = jsonConfig?.qInfo?.qId ?? "";
                 var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
@@ -153,15 +151,18 @@
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
                 addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
+                AddOnData.Clear();
                 AddOnData.Add(addonConfig);
 
                 var presentationConfig = new PresentationData();
+                PresentationData.Clear();
                 presentationConfig.ReadFromJSON(jsonConfig?.totals);
                 PresentationData.Add(presentationConfig);
             }
             catch (Exception Ex)
             {
                 logger.Error(Ex);
+                logger.Trace(JSONstring);
             }
         }
 
@@ -180,6 +181,7 @@
                 jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
 
                 jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
+                jsonData.qHyperCubeDef.columnWidths = new JArray();
                 jsonData.qHyperCubeDef.qColumnOrder = new JArray();
                 int counter = 0;
 
@@ -190,6 +192,7 @@
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
                         jsonData.qHyperCubeDef.qColumnOrder.Add(counter);
+                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
                         counter++;
                     }
                 }
@@ -201,6 +204,7 @@
                         jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
                         jsonData.qHyperCubeDef.qColumnOrder.Add(counter);
                         jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(counter);
+                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
                         counter++;
                     }
                 }

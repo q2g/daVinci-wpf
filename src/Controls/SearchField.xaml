@@ -130,17 +130,21 @@
             Height="10"
             Fill="LightGray"
             Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
-        <controls:LuiAbortButton
+        <StackPanel
             Grid.Column="3"
-            Command="{Binding CancelCommand}"
-            FontSize="20"
-            IsCancel="True"
-            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
-        <controls:LuiOKButton
-            Grid.Column="4"
-            Command="{Binding AcceptCommand}"
-            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
-
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}">
+            <controls:LuiAbortButton
+                Margin="5,0,10,0"
+                Command="{Binding CancelCommand}"
+                IsCancel="True"
+                Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+            <controls:LuiOKButton
+                Grid.Column="4"
+                Command="{Binding AcceptCommand}"
+                Visibility="{Binding GlobalSelectMode, Converter={StaticResource NotBool2Vis}}" />
+        </StackPanel>
         <controls:LuiButton
             Grid.Column="0"
             Grid.ColumnSpan="5"
@@ -308,12 +312,6 @@
                     FontFamily="{StaticResource QlikViewSans}"
                     Text="{l:Loc Tooltip_clearSelection}"
                     TextWrapping="Wrap" />
-                <!--<controls:LuiButton.Triggers>
-                    <Trigger Property="Button.IsMouseOver" Value="true">
-                        <Setter Property="Button.Background" Value="{StaticResource Lui.Brush.Grayscale30}" />
-                        <Setter Property="Button.Foreground" Value="{StaticResource Lui.Brush.Grayscale100}" />
-                    </Trigger>
-                </controls:LuiButton.Triggers>-->
             </controls:LuiButton>
 
             <controls:LuiButton
@@ -345,6 +343,7 @@
                 Command="{Binding FilterCommand}"
                 CommandParameter="SelectPossible"
                 FontSize="16"
+                IsDefault="True"
                 Tag="9">
                 <TextBlock
                     FontFamily="{StaticResource QlikViewSans}"

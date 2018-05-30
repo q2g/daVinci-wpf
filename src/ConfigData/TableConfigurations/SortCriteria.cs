@@ -5,7 +5,7 @@
     using System;
     using Newtonsoft.Json.Linq;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class SortCriteria : INotifyPropertyChanged
@@ -188,17 +188,14 @@
             {
                 var value = jsonConfig?.qSortByNumeric ?? 0;
                 SortByNumeric = (value != 0);
-                SortByNumericDirection = 0;
                 SortByNumericDirection = value == -1 ? 1 : 0;
 
                 value = jsonConfig?.qSortByAscii ?? 0;
                 SortByAscii = (value != 0);
-                SortByAsciiDirection = 0;
                 SortByAsciiDirection = value == -1 ? 1 : 0;
 
-                value = jsonConfig?.qSortByExpression;
+                value = jsonConfig?.qSortByExpression ?? 0;
                 SortByExpression = (value != 0);
-                SortByExpressionDirection = 0;
                 SortByExpressionDirection = value == -1 ? 1 : 0;
                 SortByExpressionText = jsonConfig?.qExpression?.qv ?? "";
             }
@@ -213,37 +210,26 @@
             dynamic jsonConfig = new JObject();
             try
             {
-                jsonConfig.qSortByNumeric = 0;
                 if (SortByNumericDirection == 1)
                 {
                     jsonConfig.qSortByNumeric = -1;
                 }
-                if (SortByNumericDirection == 0)
-                {
-                    jsonConfig.qSortByNumeric = 1;
-                }
 
-                jsonConfig.qSortByAscii = 0;
+
                 if (SortByAsciiDirection == 1)
                 {
                     jsonConfig.qSortByAscii = -1;
                 }
-                if (SortByAsciiDirection == 0)
-                {
-                    jsonConfig.qSortByAscii = 1;
-                }
 
-                jsonConfig.qSortByExpression = 0;
                 if (SortByExpressionDirection == 1)
                 {
                     jsonConfig.qSortByExpression = -1;
                 }
-                if (SortByExpressionDirection == 0)
-                {
-                    jsonConfig.qSortByExpression = 1;
-                }
+
                 jsonConfig.qExpression = new JObject();
-                jsonConfig.qExpression.qv = SortByExpressionText;
+                if (!string.IsNullOrEmpty(SortByExpressionText))
+                    jsonConfig.qExpression.qv = SortByExpressionText;
+
             }
             catch (Exception Ex)
             {
