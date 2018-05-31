@@ -33,6 +33,8 @@
     </UserControl.Resources>
     <DockPanel>
         <controls:LuiSearch
+            AcceptCommand="{Binding AcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daVincicontrols:ValueSelection}}"
+            CancelCommand="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daVincicontrols:ValueSelection}}"
             DockPanel.Dock="Top"
             HintText=" "
             SearchText="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
@@ -65,7 +67,7 @@
                         </DockPanel>
                     </Border>
                     <controls:CollectionView
-                        Name="collectionView"
+                        x:Name="collectionView"
                         CollectionViewFilter="{Binding ItemFilter}"
                         FilterText="{Binding SearchText}"
                         ItemsSource="{Binding AllValueItems}" />
@@ -97,7 +99,7 @@
                         </DockPanel>
                     </Border>
                     <controls:CollectionView
-                        Name="fieldCollectionView"
+                        x:Name="fieldCollectionView"
                         CollectionViewFilter="{Binding FieldItemFilter}"
                         FilterText="{Binding SearchText}"
                         ItemsSource="{Binding AllValueItems}" />

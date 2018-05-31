@@ -77,6 +77,10 @@
 
             valueSelection = new ValueSelection()
             {
+                CancelCommand = new RelayCommand((o) =>
+                  {
+                      togglebutton.IsChecked = false;
+                  }),
                 SelectedItemCommand = new RelayCommand(
                 (parameter) =>
                 {

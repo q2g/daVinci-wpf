@@ -359,6 +359,16 @@
         {
             try
             {
+                //jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
+                string libid = jsonConfig?.qLibraryId ?? "";
+                if (string.IsNullOrEmpty(libid))
+                {
+                    IsExpression = true;
+                }
+                else
+                {
+                    LibraryID = libid;
+                }
                 if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
                 {
                     FieldDef = jsonConfig.qDef.qFieldDefs[0];
@@ -464,7 +474,7 @@
             try
             {
                 dynamic jsonConfig = new JObject();
-                if (!string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
+                if (!IsExpression && !string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
                     jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qFieldDefs = new JArray();

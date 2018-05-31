@@ -12,6 +12,7 @@
     using System.Collections.Generic;
     using WPFLocalizeExtension.Engine;
     using System.Runtime.CompilerServices;
+    using System.Collections.ObjectModel;
     #endregion
 
     /// <summary>
@@ -40,6 +41,37 @@
             SetLabels();
             ItemFilter = new ValueItemFilter();
             FieldItemFilter = new ValueItemFilter() { OnlyFields = true };
+
+            AcceptCommand = new RelayCommand((o) =>
+            {
+                if (collectionView.ProcessedCollection.Count == 1 && fieldCollectionView.ProcessedCollection.Count == 0)
+                {
+                    if (selectedItemCommand != null)
+                    {
+                        selectedItemCommand.Execute(collectionView.ProcessedCollection[0]);
+                        SearchText = "";
+                        scrollviewer.ScrollToTop();
+                    }
+                }
+                if (collectionView.ProcessedCollection.Count == 0 && fieldCollectionView.ProcessedCollection.Count == 1)
+                {
+                    if (selectedItemCommand != null)
+                    {
+                        selectedItemCommand.Execute(fieldCollectionView.ProcessedCollection[0]);
+                        SearchText = "";
+                        scrollviewer.ScrollToTop();
+                    }
+                }
+                if (collectionView.ProcessedCollection.Count == 1 && fieldCollectionView.ProcessedCollection.Count == 1 && ValueType == ValueTypeEnum.Dimension)
+                {
+                    if (selectedItemCommand != null)
+                    {
+                        selectedItemCommand.Execute(collectionView.ProcessedCollection[0]);
+                        SearchText = "";
+                        scrollviewer.ScrollToTop();
+                    }
+                }
+            });
             InitializeComponent();
             DataContext = this;
         }
@@ -82,6 +114,21 @@
                 {
                     selectedItemCommand = value;
                     SetSelectedCommand();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public ICommand AcceptCommand { get; set; }
+
+        private ICommand cancelCommand;
+        public ICommand CancelCommand
+        {
+            get { return cancelCommand; }
+            set
+            {
+                if (cancelCommand != value)
+                {
+                    cancelCommand = value;
                     RaisePropertyChanged();
                 }
             }

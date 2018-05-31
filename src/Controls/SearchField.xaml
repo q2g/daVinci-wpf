@@ -164,6 +164,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="5"
             Margin="2"
+            AcceptCommand="{Binding ApplyFilterCommand}"
             HintText="{l:Loc MappingAction_Content_SearchInputPlaceHolder}"
             SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SnapsToDevicePixels="True" />

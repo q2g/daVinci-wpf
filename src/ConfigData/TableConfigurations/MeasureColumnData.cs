@@ -457,6 +457,16 @@
         {
             try
             {
+                string libid = jsonConfig?.qLibraryId ?? "";
+                if (string.IsNullOrEmpty(libid))
+                {
+                    IsExpression = true;
+                }
+                else
+                {
+                    LibraryID = libid;
+                }
+
                 fieldDef = jsonConfig?.qDef?.qDef ?? "";
                 fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
@@ -578,7 +588,7 @@
 
             try
             {
-                if (!string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
+                if (!IsExpression && !string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
                     jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qLabel = FieldLabel;

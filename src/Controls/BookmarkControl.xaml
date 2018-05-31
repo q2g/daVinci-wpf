@@ -34,236 +34,238 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <DockPanel LastChildFill="False">
-            <TextBlock
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                Text="{l:Loc qlik-resources:Translate_common:Common_Bookmarks}" />
-            <Luicontrols:LuiButton
-                Margin="10,0,0,0"
-                Click="NewBookmarkButton_Click"
-                Content="{l:Loc Bookmarks_Add}"
-                DockPanel.Dock="Right" />
-            <Luicontrols:LuiSearch
-                Name="search"
-                Width="150"
-                DockPanel.Dock="Right"
-                HintText="{l:Loc Translate_common:Common_Search}" />
-        </DockPanel>
-        <Luicontrols:CollectionView
-            Name="collectionview"
-            CollectionViewFilter="{StaticResource BookmarkDataFilter}"
-            FilterText="{Binding SearchText, ElementName=search}"
-            ItemsSource="{Binding Path=.}" />
-        <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListBox
-                Name="li"
-                Grid.Row="1"
-                ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
-                MouseDown="Listbox_MouseDown"
-                PreviewMouseWheel="li_PreviewMouseWheel"
-                ScrollViewer.CanContentScroll="False"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <Border
-                                        Name="border"
-                                        Height="35"
-                                        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                                        BorderThickness="0,0,0,0.5">
-                                        <DockPanel
-                                            Margin="0,0,0,3"
-                                            VerticalAlignment="Center"
-                                            Background="Transparent"
-                                            LastChildFill="False">
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                DockPanel.Dock="Left"
-                                                FontFamily="{StaticResource QlikViewSans}"
-                                                Foreground="{StaticResource Lui.Brush.Grayscale30}">
-                                                <Run Text="{Binding BookmarkName}" />
-                                            </TextBlock>
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                                                Background="Transparent"
-                                                Click="DeleteButton_Click"
-                                                DockPanel.Dock="Right" />
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
-                                                Background="Transparent"
-                                                Click="EditButton_Click"
-                                                DockPanel.Dock="Right" />
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
-                                                Background="Transparent"
-                                                Click="Info_Click"
-                                                DockPanel.Dock="Right" />
-                                            <TextBlock
-                                                Name="textbox"
-                                                VerticalAlignment="Center"
-                                                DockPanel.Dock="Right"
-                                                FontFamily="{StaticResource QlikViewSans}"
-                                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                                Text="{Binding BookmarkCreated, StringFormat=d, ConverterCulture=de-DE}" />
-                                        </DockPanel>
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                        <Border.InputBindings>
-                                            <MouseBinding
-                                                Command="{Binding BookmarkSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:BookmarkControl}}}"
-                                                CommandParameter="{Binding}"
-                                                Gesture="LeftClick" />
-                                        </Border.InputBindings>
-                                    </Border>
-
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-
-            </ListBox>
-            <ScrollViewer.Style>
-                <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" Value="false">
-                            <Setter Property="Grid.RowSpan" Value="2" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ScrollViewer.Style>
-        </ScrollViewer>
-        <Grid Grid.Row="2" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+    <Border BorderBrush="{StaticResource Lui.Brush.Grayscale30}" BorderThickness="2">
+        <Grid>
             <Grid.RowDefinitions>
-
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="70*" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <DockPanel LastChildFill="False">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                    Text="{l:Loc qlik-resources:Translate_common:Common_Bookmarks}" />
+                <Luicontrols:LuiButton
+                    Margin="10,0,0,0"
+                    Click="NewBookmarkButton_Click"
+                    Content="{l:Loc Bookmarks_Add}"
+                    DockPanel.Dock="Right" />
+                <Luicontrols:LuiSearch
+                    Name="search"
+                    Width="150"
+                    DockPanel.Dock="Right"
+                    HintText="{l:Loc Translate_common:Common_Search}" />
+            </DockPanel>
+            <Luicontrols:CollectionView
+                Name="collectionview"
+                CollectionViewFilter="{StaticResource BookmarkDataFilter}"
+                FilterText="{Binding SearchText, ElementName=search}"
+                ItemsSource="{Binding Path=.}" />
+            <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox
+                    Name="li"
+                    Grid.Row="1"
+                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
+                    MouseDown="Listbox_MouseDown"
+                    PreviewMouseWheel="li_PreviewMouseWheel"
+                    ScrollViewer.CanContentScroll="False"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            Name="border"
+                                            Height="35"
+                                            BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                            BorderThickness="0,0,0,0.5">
+                                            <DockPanel
+                                                Margin="0,0,0,3"
+                                                VerticalAlignment="Center"
+                                                Background="Transparent"
+                                                LastChildFill="False">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    DockPanel.Dock="Left"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Foreground="{StaticResource Lui.Brush.Grayscale30}">
+                                                    <Run Text="{Binding BookmarkName}" />
+                                                </TextBlock>
+                                                <Luicontrols:LuiButton
+                                                    LuiAttached:ThemeProperties.BorderThickness="0"
+                                                    LuiAttached:ThemeProperties.ButtonSize="Custom"
+                                                    LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                                    Background="Transparent"
+                                                    Click="DeleteButton_Click"
+                                                    DockPanel.Dock="Right" />
+                                                <Luicontrols:LuiButton
+                                                    LuiAttached:ThemeProperties.BorderThickness="0"
+                                                    LuiAttached:ThemeProperties.ButtonSize="Custom"
+                                                    LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                                                    Background="Transparent"
+                                                    Click="EditButton_Click"
+                                                    DockPanel.Dock="Right" />
+                                                <Luicontrols:LuiButton
+                                                    LuiAttached:ThemeProperties.BorderThickness="0"
+                                                    LuiAttached:ThemeProperties.ButtonSize="Custom"
+                                                    LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
+                                                    Background="Transparent"
+                                                    Click="Info_Click"
+                                                    DockPanel.Dock="Right" />
+                                                <TextBlock
+                                                    Name="textbox"
+                                                    VerticalAlignment="Center"
+                                                    DockPanel.Dock="Right"
+                                                    FontFamily="{StaticResource QlikViewSans}"
+                                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                                    Text="{Binding BookmarkCreated, StringFormat=d, ConverterCulture=de-DE}" />
+                                            </DockPanel>
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <Border.InputBindings>
+                                                <MouseBinding
+                                                    Command="{Binding BookmarkSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:BookmarkControl}}}"
+                                                    CommandParameter="{Binding}"
+                                                    Gesture="LeftClick" />
+                                            </Border.InputBindings>
+                                        </Border>
 
-            <Border
-                Grid.Row="0"
-                Background="{StaticResource Lui.Brush.Grayscale95}"
-                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                BorderThickness="1">
-                <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
-                    <Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
-                        Click="DetailEditButton_Click"
-                        FontSize="16"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    <Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                        Click="DetailDeleteButton_Click"
-                        FontSize="16"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    <Luicontrols:LuiAbortButton
-                        Margin="5,0,0,0"
-                        Click="CancelButton_Click"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    <Luicontrols:LuiOKButton
-                        Margin="10,0,0,0"
-                        Click="SaveButton_Click"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
 
-                    <Luicontrols:LuiButton
-                        LuiAttached:ThemeProperties.BorderThickness="0"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
-                        Background="{StaticResource Lui.Brush.Grayscale95}"
-                        Click="CloseButton_Click"
-                        DockPanel.Dock="Right" />
+                </ListBox>
+                <ScrollViewer.Style>
+                    <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" Value="false">
+                                <Setter Property="Grid.RowSpan" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Style>
+            </ScrollViewer>
+            <Grid Grid.Row="2" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+                <Grid.RowDefinitions>
 
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        FontWeight="Normal"
-                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                        Text="{Binding SelectedBookmark.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="70*" />
+                </Grid.RowDefinitions>
+
+                <Border
+                    Grid.Row="0"
+                    Background="{StaticResource Lui.Brush.Grayscale95}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    BorderThickness="1">
+                    <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
+                        <Luicontrols:LuiButton
+                            Margin="10,0,0,0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                            Click="DetailEditButton_Click"
+                            FontSize="16"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                        <Luicontrols:LuiButton
+                            Margin="10,0,0,0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                            Click="DetailDeleteButton_Click"
+                            FontSize="16"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                        <Luicontrols:LuiAbortButton
+                            Margin="5,0,0,0"
+                            Click="CancelButton_Click"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                        <Luicontrols:LuiOKButton
+                            Margin="10,0,0,0"
+                            Click="SaveButton_Click"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+
+                        <Luicontrols:LuiButton
+                            LuiAttached:ThemeProperties.BorderThickness="0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
+                            Background="{StaticResource Lui.Brush.Grayscale95}"
+                            Click="CloseButton_Click"
+                            DockPanel.Dock="Right" />
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Normal"
+                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                            Text="{Binding SelectedBookmark.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
 
 
-                </DockPanel>
-            </Border>
-            <Border
-                Grid.Row="2"
-                VerticalAlignment="Stretch"
-                Background="{StaticResource Lui.Brush.Grayscale35}"
-                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                BorderThickness="1"
-                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
-                <controls:BookmarkDataView
-                    x:Name="BookmarkView"
-                    Margin="20,20,0,0"
-                    VerticalAlignment="Top"
+                    </DockPanel>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    VerticalAlignment="Stretch"
                     Background="{StaticResource Lui.Brush.Grayscale35}"
-                    DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                    Foreground="{StaticResource Lui.Brush.Grayscale100}" />
-            </Border>
-            <Border
-                Grid.Row="2"
-                VerticalAlignment="Stretch"
-                Background="{StaticResource Lui.Brush.Grayscale35}"
-                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                BorderThickness="1"
-                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
-                <StackPanel
-                    Margin="10,10,0,0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <StackPanel>
-                        <TextBlock
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                            Text="{l:Loc Translate_common:Common_Title}" />
-                        <Luicontrols:LuiInput Margin="0,7,10,0" Text="{Binding BookmarkToEdit.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
-                    </StackPanel>
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    BorderThickness="1"
+                    Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+                    <controls:BookmarkDataView
+                        x:Name="BookmarkView"
+                        Margin="20,20,0,0"
+                        VerticalAlignment="Top"
+                        Background="{StaticResource Lui.Brush.Grayscale35}"
+                        DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    VerticalAlignment="Stretch"
+                    Background="{StaticResource Lui.Brush.Grayscale35}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    BorderThickness="1"
+                    Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
+                    <StackPanel
+                        Margin="10,10,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <StackPanel>
+                            <TextBlock
+                                FontFamily="{StaticResource QlikViewSans}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{l:Loc Translate_common:Common_Title}" />
+                            <Luicontrols:LuiInput Margin="0,7,10,0" Text="{Binding BookmarkToEdit.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
+                        </StackPanel>
 
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock
-                            FontFamily="{StaticResource QlikViewSans}"
-                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                            Text="{l:Loc Translate_common:Common_Description}" />
-                        <Luicontrols:LuiInput
-                            Margin="0,7,10,0"
-                            VerticalAlignment="Stretch"
-                            VerticalContentAlignment="Top"
-                            AcceptsReturn="True"
-                            LUIInputSize="Custom"
-                            MaxLines="5"
-                            MinLines="5"
-                            Text="{Binding BookmarkToEdit.BookmarkDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                            TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto" />
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock
+                                FontFamily="{StaticResource QlikViewSans}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{l:Loc Translate_common:Common_Description}" />
+                            <Luicontrols:LuiInput
+                                Margin="0,7,10,0"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Top"
+                                AcceptsReturn="True"
+                                LUIInputSize="Custom"
+                                MaxLines="5"
+                                MinLines="5"
+                                Text="{Binding BookmarkToEdit.BookmarkDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </UserControl>
