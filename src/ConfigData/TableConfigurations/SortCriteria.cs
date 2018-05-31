@@ -210,20 +210,40 @@
             dynamic jsonConfig = new JObject();
             try
             {
-                if (SortByNumericDirection == 1)
+                if (SortByNumeric)
                 {
-                    jsonConfig.qSortByNumeric = -1;
+                    if (SortByNumericDirection == 1)
+                    {
+                        jsonConfig.qSortByNumeric = -1;
+                    }
+                    else
+                    {
+                        jsonConfig.qSortByNumeric = 1;
+                    }
                 }
 
-
-                if (SortByAsciiDirection == 1)
+                if (sortByAscii)
                 {
-                    jsonConfig.qSortByAscii = -1;
+                    if (SortByAsciiDirection == 1)
+                    {
+                        jsonConfig.qSortByAscii = -1;
+                    }
+                    else
+                    {
+                        jsonConfig.qSortByAscii = 1;
+                    }
+
                 }
-
-                if (SortByExpressionDirection == 1)
+                if (SortByExpression)
                 {
-                    jsonConfig.qSortByExpression = -1;
+                    if (SortByExpressionDirection == 1)
+                    {
+                        jsonConfig.qSortByExpression = -1;
+                    }
+                    else
+                    {
+                        jsonConfig.qSortByExpression = 1;
+                    }
                 }
 
                 jsonConfig.qExpression = new JObject();

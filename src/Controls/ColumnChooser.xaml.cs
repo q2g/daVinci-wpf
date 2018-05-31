@@ -16,6 +16,8 @@
     #endregion
 
     using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.TableConfigurations;
+
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
     /// </summary>
@@ -46,7 +48,9 @@
                         }
                         if (param == "EQU")
                         {
-                            object newone = new MeasureColumnData() { IsExpression = true };
+                            MeasureColumnData newone = new MeasureColumnData() { IsExpression = true };
+                            newone.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
+                            newone.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
                             Columns.Add(newone);
                             togglebutton.IsChecked = false;
                         }
@@ -61,7 +65,9 @@
                 {
                     if (parameter is ValueItem item)
                     {
-                        var newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText, IsExpression = true };
+                        MeasureColumnData newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText, IsExpression = true };
+                        newone.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
+                        newone.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
                         Columns.Add(newone);
                         togglebutton.IsChecked = false;
                         valueSelection.SearchText = " ";
@@ -96,16 +102,25 @@
                             }
                             else
                             {
-                                object newone = null;
                                 switch (item.ItemType)
                                 {
                                     case ValueTypeEnum.Dimension:
-                                        newone = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
-                                        Columns.Add(newone);
+                                        DimensionColumnData newdim = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
+                                        if (string.IsNullOrEmpty(item.DimensionMeasure.LibID))
+                                        {
+                                            newdim.IsExpression = true;
+                                            newdim.FieldDef = item.DimensionMeasure.Text;
+                                            newdim.FieldLabel = item.DimensionMeasure.Text;
+                                        }
+                                        newdim.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
+                                        newdim.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
+                                        Columns.Add(newdim);
                                         break;
                                     case ValueTypeEnum.Measure:
-                                        newone = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
-                                        Columns.Add(newone);
+                                        MeasureColumnData newmea = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
+                                        newmea.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
+                                        newmea.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
+                                        Columns.Add(newmea);
                                         break;
                                     default:
                                         break;
@@ -126,6 +141,32 @@
             PopupContent = categorySelection;
             InitializeComponent();
             DataContext = this;
+        }
+
+        private int getMaxSortOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is IHasSortCriteria criteria)
+                {
+                    maxindex = Math.Max(maxindex, criteria.SortCriterias.SortOrderIndex);
+                }
+            }
+            return maxindex;
+        }
+
+        private int getMaxColumnsOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is IHasSortCriteria criteria)
+                {
+                    maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                }
+            }
+            return maxindex;
         }
 
         #region Columns - DP        
