@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daVincicontrols="clr-namespace:daVinci.Controls;assembly=daVinci-wpf"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="225"
@@ -18,7 +19,6 @@
     Background="White"
     BorderBrush="LightGray"
     BorderThickness="1"
-    DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -165,6 +165,7 @@
             Grid.ColumnSpan="5"
             Margin="2"
             AcceptCommand="{Binding ApplyFilterCommand}"
+            Autofocus="{Binding Autofocus, RelativeSource={RelativeSource FindAncestor, AncestorType=daVincicontrols:SearchField}}"
             HintText="{l:Loc MappingAction_Content_SearchInputPlaceHolder}"
             SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SnapsToDevicePixels="True" />

@@ -25,9 +25,15 @@ namespace daVinci.Controls
             InitializeComponent();
         }
 
-        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        #region Autofocus - DP        
+        public bool Autofocus
         {
-
+            get { return (bool)this.GetValue(AutofocusProperty); }
+            set { this.SetValue(AutofocusProperty, value); }
         }
+
+        public static readonly DependencyProperty AutofocusProperty = DependencyProperty.Register(
+         "Autofocus", typeof(bool), typeof(SearchField), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
     }
 }
