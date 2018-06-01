@@ -26,7 +26,8 @@
                 <ResourceDictionary Source="pack://application:,,,/davinci-wpf;component/Styles/ColumnOrderAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <daVinciconverter:DefaultImageConverter x:Key="DefaultImageConverter" DefaultImagePath="Images/QlikApp.png" />
+
+            <BitmapImage x:Key="DefaultImageResource" UriSource="pack://application:,,,/davinci-wpf;component/Images/QlikApp.png" />
 
             <converter:StringCompareConverter x:Key="StringCompareConverter" />
 
@@ -52,7 +53,7 @@
                                     Width="140"
                                     Height="90"
                                     MouseDown="Image_MouseDown"
-                                    Source="{Binding Image, Converter={StaticResource DefaultImageConverter}}"
+                                    Source="{Binding Image, TargetNullValue={StaticResource DefaultImageResource}}"
                                     Stretch="UniformToFill" />
                                 <Border
                                     Padding="5"

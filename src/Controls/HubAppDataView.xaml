@@ -24,7 +24,7 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <daVinciconverter:DefaultImageConverter x:Key="DefaultImageConverter" DefaultImagePath="Images/QlikApp.png" />
+            <BitmapImage x:Key="DefaultImageResource" UriSource="pack://application:,,,/davinci-wpf;component/Images/QlikApp.png" />
 
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
@@ -46,7 +46,7 @@
             Width="140"
             Height="90"
             VerticalAlignment="Top"
-            Source="{Binding Image, Converter={StaticResource DefaultImageConverter}, IsAsync=True}"
+            Source="{Binding Image, TargetNullValue={StaticResource DefaultImageResource}}"
             Stretch="UniformToFill" />
         <Border
             Padding="5"

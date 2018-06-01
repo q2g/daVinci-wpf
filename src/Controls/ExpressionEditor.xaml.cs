@@ -37,7 +37,7 @@
         }
 
         public static readonly DependencyProperty OKCommandProperty = DependencyProperty.Register(
-         "OKCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "OKCommand", typeof(ICommand), typeof(ExpressionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region CancelCommand - DP        
@@ -48,7 +48,7 @@
         }
 
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(
-         "CancelCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "CancelCommand", typeof(ICommand), typeof(ExpressionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region statics

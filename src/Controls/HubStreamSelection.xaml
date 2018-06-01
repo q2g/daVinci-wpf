@@ -87,7 +87,7 @@
         CollapseAllOnExpandSingle="False"
         IsDragDropEnabled="False"
         ItemContainerStyle="{StaticResource StreamCategoryAccordionItemStyle}">
-        <Luicontrols:LuiAccordionItem Header="{l:Loc Hub_NavigationPanel_MyWork}" IsExpanded="True">
+        <Luicontrols:LuiAccordionItem Header="Personal" IsExpanded="True">
             <ListBox
                 BorderThickness="0"
                 ItemContainerStyle="{StaticResource StreamSelectionStyle}"
@@ -95,7 +95,7 @@
                 SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
 
         </Luicontrols:LuiAccordionItem>
-        <Luicontrols:LuiAccordionItem Header="Streams" IsExpanded="True">
+        <Luicontrols:LuiAccordionItem Header="Streams">
             <ScrollViewer Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}" VerticalScrollBarVisibility="Auto">
                 <ListBox
                     BorderThickness="0"

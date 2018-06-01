@@ -83,6 +83,7 @@
             catch (Exception Ex)
             {
                 logger.Error(Ex);
+                logger.Trace($"JSON:{jsonConfig?.ToString() ?? ""}");
             }
         }
 

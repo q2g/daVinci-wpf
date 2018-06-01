@@ -106,7 +106,7 @@
                 var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
                 var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
 
-
+                List<object> cols = new List<object>();
                 foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
                 {
                     var newone = new DimensionColumnData();
@@ -114,7 +114,7 @@
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
                     newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    columns.Add(newone);
+                    cols.Add(newone);
                 }
 
 
@@ -125,7 +125,7 @@
                     newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
                     newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
                     newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    columns.Add(newone);
+                    cols.Add(newone);
                 }
 
                 int counter = 0;
@@ -133,7 +133,7 @@
                 {
                     foreach (int item in jsonConfig?.qHyperCubeDef?.qColumnOrder)
                     {
-                        (Columns[item] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = counter + 1;
+                        (cols[item] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = counter + 1;
                         counter++;
                     }
                 }
@@ -143,10 +143,12 @@
                 {
                     foreach (int item in jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder)
                     {
-                        (Columns[item] as IHasSortCriteria).SortCriterias.SortOrderIndex = counter + 1;
+                        (cols[item] as IHasSortCriteria).SortCriterias.SortOrderIndex = counter + 1;
                         counter++;
                     }
                 }
+
+                cols.ForEach(ele => Columns.Add(ele));
 
 
 
@@ -164,7 +166,7 @@
             catch (Exception Ex)
             {
                 logger.Error(Ex);
-                logger.Trace(JSONstring);
+                logger.Trace($"JSON:{JSONstring}");
             }
         }
 
