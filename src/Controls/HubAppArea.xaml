@@ -269,6 +269,7 @@
             <Luicontrols:LuiSearch
                 Name="search"
                 Width="150"
+                AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
                 DockPanel.Dock="Right"
                 HintText="{l:Loc Translate_common:Common_Search}" />
         </DockPanel>
@@ -277,6 +278,7 @@
             CollectionViewFilter="{StaticResource AppDataFilter}"
             FilterText="{Binding SearchText, ElementName=search}"
             ItemsSource="{Binding Apps}"
+            ProcessedCollection="{Binding SearchedItems, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}, Mode=OneWayToSource}"
             SortDescending="{Binding IsChecked, ElementName=sortdescendingtoggle}">
             <Luicontrols:CollectionView.Style>
                 <Style TargetType="Luicontrols:CollectionView">

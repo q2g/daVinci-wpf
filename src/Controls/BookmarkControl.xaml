@@ -58,6 +58,7 @@
                 <Luicontrols:LuiSearch
                     Name="search"
                     Width="150"
+                    AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
                     DockPanel.Dock="Right"
                     HintText="{l:Loc Translate_common:Common_Search}" />
             </DockPanel>
@@ -183,7 +184,8 @@
                 Name="collectionview"
                 CollectionViewFilter="{StaticResource BookmarkDataFilter}"
                 FilterText="{Binding SearchText, ElementName=search}"
-                ItemsSource="{Binding Path=.}" />
+                ItemsSource="{Binding Path=.}"
+                ProcessedCollection="{Binding SearchedItems, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
             <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox
                     Name="li"

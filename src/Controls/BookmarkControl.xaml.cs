@@ -23,9 +23,21 @@
 
         public BookmarkControl()
         {
+            SearchAcceptCommand = new RelayCommand((o) =>
+            {
+                if (SearchedItems.Count == 1)
+                {
+                    if (BookmarkSelectionCommand != null)
+                    {
+                        BookmarkSelectionCommand.Execute(SearchedItems[0]);
+                    }
+                }
+
+            });
             InitializeComponent();
         }
-
+        public ObservableCollection<object> SearchedItems { get; set; }
+        public ICommand SearchAcceptCommand { get; set; }
         #region BookmarkSelectionCommand - DP        
         public ICommand BookmarkSelectionCommand
         {
