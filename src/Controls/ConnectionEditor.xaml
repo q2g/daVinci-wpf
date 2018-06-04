@@ -70,70 +70,66 @@
                 Height="5"
                 HorizontalAlignment="Stretch"
                 Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-            <ScrollViewer
-                Grid.Row="3"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                Style="{StaticResource LuiSenseScrollViewerStyle}">
-                <Grid Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*" />
-                        <RowDefinition Height="70*" />
-                    </Grid.RowDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Background="{StaticResource Lui.Brush.Grayscale95}"
-                        BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                        BorderThickness="1">
-                        <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
-                            <Luicontrols:LuiButton
-                                Margin="10,0,0,0"
-                                LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
-                                Click="DetailEditButton_Click"
-                                FontSize="16"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-                            <Luicontrols:LuiButton
-                                Margin="10,0,0,0"
-                                LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                                Click="DetailDeleteButton_Click"
-                                FontSize="16"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-                            <Luicontrols:LuiAbortButton
-                                Margin="5,0,0,0"
-                                Click="CancelButton_Click"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-                            <Luicontrols:LuiOKButton
-                                x:Name="OKButton"
-                                Margin="10,0,0,0"
-                                Click="SaveButton_Click"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
 
-                            <Luicontrols:LuiButton
-                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
-                                Background="{StaticResource Lui.Brush.Grayscale95}"
-                                Click="CloseButton_Click"
-                                DockPanel.Dock="Right" />
+            <Grid Grid.Row="3" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border
+                    Grid.Row="0"
+                    Background="{StaticResource Lui.Brush.Grayscale95}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    BorderThickness="1">
+                    <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
+                        <Luicontrols:LuiButton
+                            Margin="10,0,0,0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                            Click="DetailEditButton_Click"
+                            FontSize="16"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                        <Luicontrols:LuiButton
+                            Margin="10,0,0,0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                            Click="DetailDeleteButton_Click"
+                            FontSize="16"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                        <Luicontrols:LuiAbortButton
+                            Margin="5,0,0,0"
+                            Click="CancelButton_Click"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                        <Luicontrols:LuiOKButton
+                            x:Name="OKButton"
+                            Margin="10,0,0,0"
+                            Click="SaveButton_Click"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
 
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource QlikViewSans}"
-                                FontWeight="Normal"
-                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                Text="{Binding SelectedConnection.IDName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                        <Luicontrols:LuiButton
+                            LuiAttached:ThemeProperties.BorderThickness="0"
+                            LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
+                            Background="{StaticResource Lui.Brush.Grayscale95}"
+                            Click="CloseButton_Click"
+                            DockPanel.Dock="Right" />
 
-
-                        </DockPanel>
-                    </Border>
-                    <Border
-                        Grid.Row="2"
-                        VerticalAlignment="Stretch"
-                        Background="{StaticResource Lui.Brush.Grayscale35}"
-                        BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
-                        BorderThickness="1"
-                        Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Normal"
+                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                            Text="{Binding SelectedConnection.IDName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                    </DockPanel>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    VerticalAlignment="Stretch"
+                    Background="{StaticResource Lui.Brush.Grayscale35}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    BorderThickness="1"
+                    Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource LuiSenseScrollViewerStyle}">
                         <StackPanel
                             Margin="10,10,0,0"
                             HorizontalAlignment="Stretch"
@@ -180,15 +176,16 @@
                                 Text="{Binding ConnectionToEdit.HeaderCookieKey, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
 
                             <Luicontrols:LuiInput
-                                Margin="0,10,10,0"
+                                Margin="0,10,10,20"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Headercookie Value (Default is Empty)"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                         </StackPanel>
-                    </Border>
-                </Grid>
-            </ScrollViewer>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+
             <Luicontrols:CollectionView
                 Name="collectionview"
                 CollectionViewFilter="{StaticResource ConnectionkDataFilter}"
@@ -213,8 +210,7 @@
                                             Height="35"
                                             Padding="1"
                                             BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                                            BorderThickness="0,0,0,0.5"
-                                            MouseDown="border_MouseDown">
+                                            BorderThickness="0,0,0,0.5">
                                             <StackPanel>
                                                 <DockPanel
                                                     Margin="0,0,0,3"

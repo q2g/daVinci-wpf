@@ -34,7 +34,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border BorderBrush="{StaticResource Lui.Brush.Grayscale30}" BorderThickness="2">
+    <Border
+        Padding="5"
+        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+        BorderThickness="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
@@ -70,8 +73,8 @@
             <Grid Grid.Row="3" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="10*" />
-                    <RowDefinition Height="70*" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <Border
@@ -128,13 +131,15 @@
                     BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                     BorderThickness="1"
                     Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}">
-                    <controls:BookmarkDataView
-                        x:Name="BookmarkView"
-                        Margin="20,20,0,0"
-                        VerticalAlignment="Top"
-                        Background="{StaticResource Lui.Brush.Grayscale35}"
-                        DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource LuiSenseScrollViewerStyle}">
+                        <controls:BookmarkDataView
+                            x:Name="BookmarkView"
+                            Margin="20,20,0,0"
+                            VerticalAlignment="Top"
+                            Background="{StaticResource Lui.Brush.Grayscale35}"
+                            DataContext="{Binding SelectedBookmark, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+                    </ScrollViewer>
                 </Border>
                 <Border
                     Grid.Row="2"
@@ -165,7 +170,7 @@
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Text="{l:Loc Translate_common:Common_Description}" />
                                 <Luicontrols:LuiInput
-                                    Margin="0,7,10,0"
+                                    Margin="0,7,10,20"
                                     VerticalAlignment="Stretch"
                                     VerticalContentAlignment="Top"
                                     AcceptsReturn="True"

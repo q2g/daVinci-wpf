@@ -308,19 +308,6 @@ namespace daVinci.Controls
             }
         }
 
-        private void border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (SetSelectedConnection(sender))
-            {
-                if (!ShowDetail)
-                {
-                    e.Handled = true;
-                }
-            }
-        }
-
-
-
         private void UriInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             OKButton.IsEnabled = !string.IsNullOrEmpty((sender as LuiInput).Text) && Uri.TryCreate((sender as LuiInput).Text, UriKind.Absolute, out var dummy);

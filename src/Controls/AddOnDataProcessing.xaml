@@ -39,12 +39,12 @@
             LabelText="{l:Loc properties_hyperCube_calcCond}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             RightCommandIcon="lui_icon_expression"
-            Text="{Binding CalcCondition}" />
+            Text="{Binding CalcCondition, UpdateSourceTrigger=PropertyChanged}" />
         <LuiControls:LuiInputGroup
             Margin="10,10,0,10"
             LabelText="{l:Loc properties_hyperCube_calcCondMessage}"
             RightCommandIcon="lui_icon_expression"
             Text="{Binding DisplayedMessage}"
-            Visibility="{Binding Text, ElementName=CalcCond, Converter={StaticResource StringLengthToVisibilityConverter}}" />
+            Visibility="{Binding CalcCondition, Converter={StaticResource StringLengthToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
     </StackPanel>
 </UserControl>
