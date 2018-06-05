@@ -1,32 +1,43 @@
-﻿using daVinci.ConfigData.Connection;
-using leonardo.Controls;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using System;
+    using System.Windows;
+    using System.Threading;
+    using leonardo.Controls;
+    using System.Windows.Input;
+    using System.Threading.Tasks;
+    using System.Windows.Controls;
+    using System.Windows.Threading;
+    using daVinci.ConfigData.Connection;
+    using System.Collections.ObjectModel;
+    using System.Net;
+    using leonardo.Resources;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Net.Security;
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für ConnectionEditor.xaml
     /// </summary>
-    public partial class ConnectionEditor : UserControl
+    public partial class ConnectionEditor : UserControl, INotifyPropertyChanged
     {
+        Dispatcher currentDispatcher;
         public ConnectionEditor()
         {
+            currentDispatcher = this.Dispatcher;
             InitializeComponent();
         }
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
+
         #region ConnectionSelectionCommand - DP        
         public ICommand ConnectionSelectionCommand
         {
@@ -116,6 +127,16 @@ namespace daVinci.Controls
         #endregion
 
         #region Properties
+        private LuiIconsEnum sslCheckStateIcon = LuiIconsEnum.lui_icon_none;
+        public LuiIconsEnum SslCheckStateIcon
+        {
+            get { return sslCheckStateIcon; }
+            set
+            {
+                sslCheckStateIcon = value;
+                RaisePropertyChanged();
+            }
+        }
         public IntPtr? Owner { get; set; }
         #endregion
 
@@ -168,6 +189,7 @@ namespace daVinci.Controls
                 toEdit.CopyFrom(SelectedConnection);
                 ConnectionToEdit = toEdit;
                 IsEditMode = true;
+                SslCheckStateIcon = LuiIconsEnum.lui_icon_none;
             }
         }
 
@@ -308,9 +330,55 @@ namespace daVinci.Controls
             }
         }
 
+        CancellationTokenSource source = new CancellationTokenSource();
         private void UriInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OKButton.IsEnabled = !string.IsNullOrEmpty((sender as LuiInput).Text) && Uri.TryCreate((sender as LuiInput).Text, UriKind.Absolute, out var dummy);
+            OKButton.IsEnabled = false;
+            if (!string.IsNullOrEmpty((sender as LuiInput).Text) && Uri.TryCreate((sender as LuiInput).Text, UriKind.Absolute, out var dummy))
+            {
+                string currenturi = (sender as LuiInput).Text;
+
+                if (currenturi.ToLower().StartsWith("http"))
+                {
+                    SslCheckStateIcon = LuiIconsEnum.lui_icon_more;
+                    source.Cancel();
+                    source = new CancellationTokenSource();
+
+                    Task.Run(() =>
+                    {
+                        var token = source.Token;
+                        Thread.Sleep(1000);
+                        if (!token.IsCancellationRequested)
+                        {
+                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(currenturi);
+                            request.Method = "GET";
+                            request.Accept = "application/json";
+                            request.ServerCertificateValidationCallback += (a, b, c, d) =>
+                            {
+                                if (d == SslPolicyErrors.None)
+                                {
+                                    SslCheckStateIcon = LuiIconsEnum.lui_icon_tick;
+                                }
+                                else
+                                {
+                                    SslCheckStateIcon = LuiIconsEnum.lui_icon_cross;
+                                }
+                                return false;
+                            };
+                            request.GetResponseAsync();
+                            currentDispatcher.Invoke(() =>
+                            {
+                                SslCheckStateIcon = LuiIconsEnum.lui_icon_tick;
+                            });
+                        }
+                    }, source.Token);
+                }
+
+                OKButton.IsEnabled = true;
+            }
+
+
+
         }
     }
 }
