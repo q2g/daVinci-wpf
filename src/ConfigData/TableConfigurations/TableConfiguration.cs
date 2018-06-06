@@ -190,34 +190,44 @@
 
                 var qColumnOrder = new SortedDictionary<int, int>();
                 var qInterColumnSortOrder = new SortedDictionary<int, int>();
-                var counter = 0;
+
 
                 foreach (var item in Columns)
                 {
                     var sortCrit = item as IHasSortCriteria;
-
-                    qColumnOrder.Add(sortCrit.SortCriterias.ColumnOrderIndex - 1, counter);
-                    qInterColumnSortOrder.Add(sortCrit.SortCriterias.SortOrderIndex - 1, counter);
 
                     jsonData.qHyperCubeDef.columnWidths.Add(-1);
 
                     if (item is DimensionColumnData dimensionData)
                     {
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                        jsonData.qHyperCubeDef.qColumnOrder.Add(dimensionData.SortCriterias.ColumnOrderIndex - 1);
+                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(dimensionData.SortCriterias.SortOrderIndex - 1);
+
                     }
+                }
+
+                foreach (var item in Columns)
+                {
+                    var sortCrit = item as IHasSortCriteria;
+
+
+                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
+
                     if (item is MeasureColumnData measureData)
                     {
                         jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                        jsonData.qHyperCubeDef.qColumnOrder.Add(measureData.SortCriterias.ColumnOrderIndex - 1);
+                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(measureData.SortCriterias.SortOrderIndex - 1);
 
                     }
-                    counter++;
                 }
 
-                foreach (var item in qColumnOrder)
-                    jsonData.qHyperCubeDef.qColumnOrder.Add(item.Value);
+                //foreach (var item in qColumnOrder)
+                //    jsonData.qHyperCubeDef.qColumnOrder.Add(item.Value);
 
-                foreach (var item in qInterColumnSortOrder)
-                    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Value);
+                //foreach (var item in qInterColumnSortOrder)
+                //    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Value);
 
 
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
