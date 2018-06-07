@@ -128,23 +128,22 @@
                     cols.Add(newone);
                 }
 
-                int counter = 0;
-                if ((jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0) != 0)
+                int count = jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0;
+                if (count != 0)
                 {
-                    foreach (int item in jsonConfig?.qHyperCubeDef?.qColumnOrder)
+                    for (int i = 0; i < count; i++)
                     {
-                        (cols[item] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = counter + 1;
-                        counter++;
+                        (cols[i] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = jsonConfig.qHyperCubeDef.qColumnOrder[i] + 1;
                     }
                 }
 
-                counter = 0;
-                if ((jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0) != 0)
+
+                count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
+                if (count != 0)
                 {
-                    foreach (int item in jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder)
+                    for (int i = 0; i < count; i++)
                     {
-                        (cols[item] as IHasSortCriteria).SortCriterias.SortOrderIndex = counter + 1;
-                        counter++;
+                        (cols[i] as IHasSortCriteria).SortCriterias.SortOrderIndex = jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i] + 1;
                     }
                 }
 
@@ -191,8 +190,8 @@
                 var qColumnOrder = new SortedDictionary<int, int>();
                 var qInterColumnSortOrder = new SortedDictionary<int, int>();
 
-
-                foreach (var item in Columns)
+                var cols = Columns.OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex).ToList();
+                foreach (var item in cols)
                 {
                     var sortCrit = item as IHasSortCriteria;
 
@@ -207,7 +206,7 @@
                     }
                 }
 
-                foreach (var item in Columns)
+                foreach (var item in cols)
                 {
                     var sortCrit = item as IHasSortCriteria;
 
@@ -222,13 +221,6 @@
 
                     }
                 }
-
-                //foreach (var item in qColumnOrder)
-                //    jsonData.qHyperCubeDef.qColumnOrder.Add(item.Value);
-
-                //foreach (var item in qInterColumnSortOrder)
-                //    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Value);
-
 
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
