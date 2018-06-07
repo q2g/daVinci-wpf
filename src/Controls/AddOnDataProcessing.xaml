@@ -33,17 +33,15 @@
             Content="{l:Loc properties_hyperCube_showZero}"
             IsChecked="{Binding AllowNULLValues}" />
         <LuiControls:LuiSeparator Height="0.4" Margin="0,10,0,0" />
-        <LuiControls:LuiInputGroup
-            Name="CalcCond"
+        <daViniciControls:DavInputbox
+            x:Name="CalcCond"
             Margin="10,10,0,10"
             LabelText="{l:Loc properties_hyperCube_calcCond}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
-            RightCommandIcon="lui_icon_expression"
             Text="{Binding CalcCondition, UpdateSourceTrigger=PropertyChanged}" />
-        <LuiControls:LuiInputGroup
+        <daViniciControls:DavInputbox
             Margin="10,10,0,10"
             LabelText="{l:Loc properties_hyperCube_calcCondMessage}"
-            RightCommandIcon="lui_icon_expression"
             Text="{Binding DisplayedMessage}"
             Visibility="{Binding CalcCondition, Converter={StaticResource StringLengthToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
     </StackPanel>

@@ -51,11 +51,10 @@
                     Margin="10,10,0,0"
                     Content="{l:Loc properties_sorting_sortByExpression}"
                     IsChecked="{Binding SortCriterias.SortByExpression}" />
-                <LuiControls:LuiInputGroup
+                <daViniciControls:DavInputbox
                     Margin="0,10,0,0"
                     LabelText="{l:Loc Translate_common:Common_Expression}"
                     RightCommandForeground="{StaticResource Lui.Brush.Orange}"
-                    RightCommandIcon="lui_icon_expression"
                     Text="{Binding SortCriterias.SortByExpressionText}"
                     Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />
                 <LuiControls:LuiCombobox
