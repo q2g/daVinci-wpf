@@ -133,7 +133,7 @@
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        (cols[i] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = jsonConfig.qHyperCubeDef.qColumnOrder[i] + 1;
+                        (cols[(int)jsonConfig.qHyperCubeDef.qColumnOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
                     }
                 }
 
@@ -143,7 +143,7 @@
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        (cols[i] as IHasSortCriteria).SortCriterias.SortOrderIndex = jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i] + 1;
+                        (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.SortOrderIndex = i + 1;
                     }
                 }
 
@@ -191,37 +191,40 @@
                 var qInterColumnSortOrder = new SortedDictionary<int, int>();
 
                 var cols = Columns.OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex).ToList();
-                foreach (var item in cols)
+
+                Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
+                Dictionary<int, int> IndexesSort = new Dictionary<int, int>();
+                for (int i = 0; i < columns.Count; i++)
                 {
-                    var sortCrit = item as IHasSortCriteria;
-
-                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
-
-                    if (item is DimensionColumnData dimensionData)
+                    if (columns[i] is DimensionColumnData dimensionData)
                     {
+                        IndexesColumn.Add(i, dimensionData.SortCriterias.ColumnOrderIndex);
+                        IndexesSort.Add(i, dimensionData.SortCriterias.SortOrderIndex);
+                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
+
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
-                        jsonData.qHyperCubeDef.qColumnOrder.Add(dimensionData.SortCriterias.ColumnOrderIndex - 1);
-                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(dimensionData.SortCriterias.SortOrderIndex - 1);
-
                     }
-                }
 
-                foreach (var item in cols)
-                {
-                    var sortCrit = item as IHasSortCriteria;
-
-
-                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
-
-                    if (item is MeasureColumnData measureData)
+                    if (columns[i] is MeasureColumnData measureData)
                     {
-                        jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
-                        jsonData.qHyperCubeDef.qColumnOrder.Add(measureData.SortCriterias.ColumnOrderIndex - 1);
-                        jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(measureData.SortCriterias.SortOrderIndex - 1);
+                        IndexesColumn.Add(i, measureData.SortCriterias.ColumnOrderIndex);
+                        IndexesSort.Add(i, measureData.SortCriterias.SortOrderIndex);
+                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
 
+                        jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
                     }
                 }
 
+                var orderedColumnindexes = IndexesColumn.OrderBy(ele => ele.Value).ToList();
+                foreach (var item in orderedColumnindexes)
+                {
+                    jsonData.qHyperCubeDef.qColumnOrder.Add(item.Key);
+                }
+                var orderedSortindexes = IndexesSort.OrderBy(ele => ele.Value).ToList();
+                foreach (var item in orderedSortindexes)
+                {
+                    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Key);
+                }
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
 
