@@ -31,6 +31,7 @@
                         SnapsToDevicePixels="True">
                         <ScrollViewer
                             Focusable="False"
+                            ScrollViewer.CanContentScroll="True"
                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             Style="{StaticResource LuiSenseScrollViewerStyle}">
@@ -43,7 +44,6 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <DataTemplate.Resources />
                     <daVinciControls:SearchField
                         Width="200"
                         Margin="10,0,10,20"

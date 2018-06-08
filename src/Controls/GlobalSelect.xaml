@@ -45,8 +45,9 @@
                 Grid.Row="1"
                 Margin="10,0,10,2"
                 ItemsSource="{Binding CurrentSelection}"
-                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}" />
-
+                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}"
+                VirtualizingStackPanel.IsVirtualizing="True"
+                VirtualizingStackPanel.VirtualizationMode="Recycling" />
             <Grid
                 Grid.Row="2"
                 Grid.Column="0"
@@ -88,7 +89,9 @@
                 Grid.Row="3"
                 Margin="10,0,10,2"
                 ItemsSource="{Binding AvailableFieldsAndDimensions}"
-                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}" />
+                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}"
+                VirtualizingStackPanel.IsVirtualizing="True"
+                VirtualizingStackPanel.VirtualizationMode="Recycling" />
         </Grid>
     </Grid>
 </UserControl>
