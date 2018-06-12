@@ -189,29 +189,32 @@
 
                 var qColumnOrder = new SortedDictionary<int, int>();
                 var qInterColumnSortOrder = new SortedDictionary<int, int>();
-
-                var cols = Columns.OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex).ToList();
-
+             
                 Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
                 Dictionary<int, int> IndexesSort = new Dictionary<int, int>();
-                for (int i = 0; i < columns.Count; i++)
+                var index = 0;
+                foreach(var item in Columns)
                 {
-                    if (columns[i] is DimensionColumnData dimensionData)
+                    if (item is DimensionColumnData dimensionData)
                     {
-                        IndexesColumn.Add(i, dimensionData.SortCriterias.ColumnOrderIndex);
-                        IndexesSort.Add(i, dimensionData.SortCriterias.SortOrderIndex);
+                        IndexesColumn.Add(index, dimensionData.SortCriterias.ColumnOrderIndex);
+                        IndexesSort.Add(index, dimensionData.SortCriterias.SortOrderIndex);
                         jsonData.qHyperCubeDef.columnWidths.Add(-1);
 
                         jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                        index++;
                     }
-
-                    if (columns[i] is MeasureColumnData measureData)
+                }
+                foreach (var item in Columns)
+                {
+                    if (item is MeasureColumnData measureData)
                     {
-                        IndexesColumn.Add(i, measureData.SortCriterias.ColumnOrderIndex);
-                        IndexesSort.Add(i, measureData.SortCriterias.SortOrderIndex);
+                        IndexesColumn.Add(index, measureData.SortCriterias.ColumnOrderIndex);
+                        IndexesSort.Add(index, measureData.SortCriterias.SortOrderIndex);
                         jsonData.qHyperCubeDef.columnWidths.Add(-1);
 
                         jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                        index++;
                     }
                 }
 
