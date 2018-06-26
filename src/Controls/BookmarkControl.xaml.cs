@@ -18,9 +18,15 @@
     /// <summary>
     /// Interaction logic for BookmarkControl.xaml
     /// </summary>
-    public partial class BookmarkControl : UserControl
+    public partial class BookmarkControl : UserControl, INotifyPropertyChanged
     {
-
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
         public BookmarkControl()
         {
             SearchAcceptCommand = new RelayCommand((o) =>
@@ -32,7 +38,6 @@
                         BookmarkSelectionCommand.Execute(SearchedItems[0]);
                     }
                 }
-
             });
             InitializeComponent();
         }
@@ -128,6 +133,21 @@
 
         #region Properties
         public IntPtr? Owner { get; set; }
+
+        private string searchtext;
+        public string SearchText
+        {
+            get { return searchtext; }
+            set
+            {
+                if (searchtext != value)
+                {
+                    searchtext = value;
+                    RaisePropertyChanged();
+                }
+            }
+
+        }
         #endregion
 
         private bool isNewMode;
@@ -289,27 +309,6 @@
                 toEdit.CopyFrom(SelectedBookmark);
                 BookmarkToEdit = toEdit;
                 IsEditMode = true;
-            }
-        }
-
-        // route event to parent
-        private void li_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (sender is ListBox && !e.Handled)
-            {
-                e.Handled = true;
-                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                {
-                    RoutedEvent = UIElement.MouseWheelEvent,
-                    Source = sender
-                };
-                if (sender is Control sendercontrol)
-                {
-                    if (sendercontrol.Parent is UIElement parent)
-                    {
-                        parent.RaiseEvent(eventArg);
-                    }
-                }
             }
         }
     }
