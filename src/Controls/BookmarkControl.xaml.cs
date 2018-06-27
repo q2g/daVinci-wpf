@@ -186,7 +186,7 @@
 
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_MouseDown(object sender, RoutedEventArgs e)
         {
             if (SetSelectedBookmark(sender))
             {
@@ -194,10 +194,11 @@
                 toEdit.CopyFrom(SelectedBookmark);
                 BookmarkToEdit = toEdit;
                 IsEditMode = true;
+                e.Handled = true;
             }
         }
 
-        private void Info_Click(object sender, RoutedEventArgs e)
+        private void Info_MouseDown(object sender, RoutedEventArgs e)
         {
             if (SetSelectedBookmark(sender))
             {
@@ -205,6 +206,7 @@
                 {
                     e.Handled = true;
                 }
+                e.Handled = true;
             }
         }
 
@@ -225,8 +227,6 @@
 
         private void Listbox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CancelButton_Click(sender, e);
-            ShowDetail = false;
             e.Handled = true;
         }
 
@@ -267,13 +267,14 @@
             CloseButton_Click(sender, new RoutedEventArgs());
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteButton_MouseDown(object sender, RoutedEventArgs e)
         {
             SetSelectedBookmark(sender);
             if (SelectedBookmark != null)
             {
                 RemoveBookmark(SelectedBookmark);
             }
+            e.Handled = true;
         }
 
         private void DetailDeleteButton_Click(object sender, RoutedEventArgs e)

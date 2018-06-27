@@ -193,6 +193,7 @@
                 ItemsSource="{Binding Path=.}"
                 ProcessedCollection="{Binding SearchedItems, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
 
+
             <ListBox
                 Name="li"
                 Grid.Row="1"
@@ -244,27 +245,27 @@
                                             VerticalAlignment="Center"
                                             Background="Transparent"
                                             LastChildFill="True">
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                            <Luicontrols:LuiIcon
+                                                Margin="5,0,10,0"
                                                 Background="Transparent"
-                                                Click="DeleteButton_Click"
-                                                DockPanel.Dock="Right" />
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                                                DockPanel.Dock="Right"
+                                                FontSize="16"
+                                                Icon="lui_icon_bin"
+                                                MouseDown="DeleteButton_MouseDown" />
+                                            <Luicontrols:LuiIcon
+                                                Margin="5,0,5,0"
                                                 Background="Transparent"
-                                                Click="EditButton_Click"
-                                                DockPanel.Dock="Right" />
-                                            <Luicontrols:LuiButton
-                                                LuiAttached:ThemeProperties.BorderThickness="0"
-                                                LuiAttached:ThemeProperties.ButtonSize="Custom"
-                                                LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
+                                                DockPanel.Dock="Right"
+                                                FontSize="16"
+                                                Icon="lui_icon_edit"
+                                                MouseDown="EditButton_MouseDown" />
+                                            <Luicontrols:LuiIcon
+                                                Margin="10,0,5,0"
                                                 Background="Transparent"
-                                                Click="Info_Click"
-                                                DockPanel.Dock="Right" />
+                                                DockPanel.Dock="Right"
+                                                FontSize="16"
+                                                Icon="lui_icon_info"
+                                                MouseDown="Info_MouseDown" />
                                             <TextBlock
                                                 Name="textbox"
                                                 Margin="10,0,0,0"
