@@ -38,15 +38,15 @@
         }
         #endregion
 
-        #region ConnectionSelectionCommand - DP        
-        public ICommand ConnectionSelectionCommand
+        #region ConnectionCheckCommand - DP        
+        public ICommand ConnectionCheckCommand
         {
-            get { return (ICommand)this.GetValue(ConnectionSelectionCommandProperty); }
-            set { this.SetValue(ConnectionSelectionCommandProperty, value); }
+            get { return (ICommand)this.GetValue(ConnectionCheckCommandProperty); }
+            set { this.SetValue(ConnectionCheckCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty ConnectionSelectionCommandProperty = DependencyProperty.Register(
-         "ConnectionSelectionCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty ConnectionCheckCommandProperty = DependencyProperty.Register(
+         "ConnectionCheckCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region ConnectionNewCommand - DP        
@@ -80,7 +80,7 @@
 
         public static readonly DependencyProperty ConnectionDeleteCommandProperty = DependencyProperty.Register(
          "ConnectionDeleteCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
+        #endregion              
 
         #region IsEditMode DP
         public bool IsEditMode

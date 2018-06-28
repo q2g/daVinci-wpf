@@ -4,11 +4,12 @@
     #region Usings
     using NLog;
     using System;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
 
-    public class ConnectionData
+    public class ConnectionData : INotifyPropertyChanged
     {
         #region LoggerInit
         private static Logger logger = LogManager.GetCurrentClassLogger();

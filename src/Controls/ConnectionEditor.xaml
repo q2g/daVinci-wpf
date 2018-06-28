@@ -8,10 +8,11 @@
     xmlns:controls="clr-namespace:daVinci.Controls"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="650"
+    d:DesignWidth="900"
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
@@ -20,9 +21,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/TestConnectionAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <connection:ConnectionDataFilter x:Key="ConnectionkDataFilter" />
+            <converter:NullOrEmptyToVisibilityConverter
+                x:Key="emptyIsCollapsed"
+                False="Visible"
+                True="Collapsed" />
+            <connection:ConnectionDataFilter x:Key="ConnectionDataFilter" />
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
                 False="Visible"
@@ -189,13 +195,17 @@
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Headercookie Key (Default is Empty)"
                                 Text="{Binding ConnectionToEdit.HeaderCookieKey, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-
                             <Luicontrols:LuiInput
-                                Margin="0,10,10,20"
+                                Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Headercookie Value (Default is Empty)"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                            <Luicontrols:LuiButton
+                                Margin="0,10,10,10"
+                                Command="{Binding ConnectionCheckCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
+                                CommandParameter="{Binding ConnectionToEdit, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
+                                Content="Check Connection" />
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
@@ -203,7 +213,7 @@
 
             <Luicontrols:CollectionView
                 Name="collectionview"
-                CollectionViewFilter="{StaticResource ConnectionkDataFilter}"
+                CollectionViewFilter="{StaticResource ConnectionDataFilter}"
                 FilterText="{Binding SearchText, ElementName=search}"
                 ItemsSource="{Binding Path=.}" />
             <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -275,12 +285,6 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Border.Style>
-                                            <!--<Border.InputBindings>
-                                                <MouseBinding
-                                                    Command="{Binding ConnectionSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:ConnectionEditor}}}"
-                                                    CommandParameter="{Binding}"
-                                                    Gesture="LeftClick" />
-                                            </Border.InputBindings>-->
                                         </Border>
 
                                     </ControlTemplate>
@@ -292,6 +296,7 @@
                 </ListBox>
                 <ScrollViewer.Style>
                     <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
+                        <Setter Property="Grid.RowSpan" Value="1" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" Value="false">
                                 <Setter Property="Grid.RowSpan" Value="3" />

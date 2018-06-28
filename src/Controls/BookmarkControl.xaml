@@ -43,7 +43,7 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="5" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <DockPanel LastChildFill="False">
                 <TextBlock
@@ -211,6 +211,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.Style>
                     <Style>
+                        <Setter Property="Grid.RowSpan" Value="1" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" Value="false">
                                 <Setter Property="Grid.RowSpan" Value="3" />

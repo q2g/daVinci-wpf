@@ -6,7 +6,7 @@
     using daVinci.Controls;
     using System.Windows.Data;
     using System.Globalization;
-    using System.Windows.Controls; 
+    using System.Windows.Controls;
     #endregion
 
     [ValueConversion(typeof(object), typeof(object))]
@@ -23,6 +23,9 @@
                 if (parameter is Type type)
                 {
                     controlHolder.TypeToCreate = type;
+                    controlHolder.DataContext = value;
+
+
                 }
                 return controlHolder;
             }

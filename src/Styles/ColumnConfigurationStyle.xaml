@@ -80,7 +80,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="LuiControls:LuiAccordionItem.Index" Value="{Binding SortCriterias.SortOrderIndex, Mode=TwoWay}" />
-        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=SortCriterias, Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
+        <Setter Property="LuiControls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:SortSetting}}" />
     </Style>
 
 
