@@ -39,11 +39,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <LuiControls:LuiToggleButton
-            x:Name="togglebutton"
-            Margin="5,10,5,0"
-            LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-            Content="{l:Loc properties_columns_add}" />
+        <DockPanel Margin="5,10,5,0">
+            <LuiControls:LuiButton
+                Margin="10,0,0,0"
+                Command="{Binding MultiColumnCommand}"
+                Content="Fast Add"
+                DockPanel.Dock="Right" />
+            <LuiControls:LuiToggleButton
+                x:Name="togglebutton"
+                LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
+                Content="{l:Loc properties_columns_add}" />
+        </DockPanel>
+
         <LuiControls:LuiDialog
             x:Name="dialog"
             IsOpen="{Binding IsChecked, ElementName=togglebutton}"

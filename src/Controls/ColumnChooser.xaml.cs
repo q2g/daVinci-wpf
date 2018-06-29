@@ -75,13 +75,7 @@
                     }
                 }, (o) => true);
 
-            valueSelection = new ValueSelection()
-            {
-                CancelCommand = new RelayCommand((o) =>
-                  {
-                      togglebutton.IsChecked = false;
-                  }),
-                SelectedItemCommand = new RelayCommand(
+            SelectedItemCommand = new RelayCommand(
                 (parameter) =>
                 {
                     try
@@ -95,13 +89,13 @@
                                     BackCommand = new RelayCommand((o) => { PopupContent = valueSelection; }, (o) => true),
                                     SelectedItemCommand = selectedAggregateCommand,
                                     AggregateItems = new ObservableCollection<ValueItem>
-                                {
-                                    new ValueItem() { Parent = item, DisplayText = $"SUM([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
-                                    new ValueItem() { Parent = item, DisplayText = $"Count([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
-                                    new ValueItem() { Parent = item, DisplayText = $"AVG([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
-                                    new ValueItem() { Parent = item, DisplayText = $"MIN([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
-                                    new ValueItem() { Parent = item, DisplayText = $"MAX([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand }
-                                }
+                                    {
+                                        new ValueItem() { Parent = item, DisplayText = $"SUM([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
+                                        new ValueItem() { Parent = item, DisplayText = $"Count([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
+                                        new ValueItem() { Parent = item, DisplayText = $"AVG([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
+                                        new ValueItem() { Parent = item, DisplayText = $"MIN([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
+                                        new ValueItem() { Parent = item, DisplayText = $"MAX([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand }
+                                    }
                                 };
                             }
                             else
@@ -137,9 +131,92 @@
                     {
                         logger.Error(Ex);
                     }
-                }, (o) => true)
+                }, (o) => true);
+
+            valueSelection = new ValueSelection()
+            {
+                CancelCommand = new RelayCommand((o) =>
+                  {
+                      togglebutton.IsChecked = false;
+                  }),
+                SelectedItemCommand = SelectedItemCommand
+
             };
 
+            MultiColumnCommand = new RelayCommand((o) =>
+              {
+                  var selectControl = new MultiValueSelection();
+                  var selectcommand = new RelayCommand((vitem) =>
+                    {
+                        if (vitem is ValueItem item)
+                        {
+                            item.Selected = !item.Selected;
+                        }
+                    });
+                  foreach (var item in dimensionMeasures)
+                  {
+                      if (item.LibID == null)
+                      {
+                          selectControl.Fields.Add(new ValueItem()
+                          {
+                              DisplayText = item.Text,
+                              IsAggregate = false,
+                              ItemType = ValueTypeEnum.Dimension,
+                              IsField = item.LibID == null,
+                              ItemSelectedCommand = selectcommand,
+                              DimensionMeasure = item,
+                              Selected = false
+                          });
+                      }
+                      else
+                      {
+                          if ((item.Dimension ?? false))
+                          {
+                              selectControl.Dimensions.Add(new ValueItem()
+                              {
+                                  DisplayText = item.Text,
+                                  IsAggregate = false,
+                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                  IsField = item.LibID == null,
+                                  ItemSelectedCommand = selectcommand,
+                                  DimensionMeasure = item,
+                                  Selected = false
+                              });
+                          }
+                          if ((item.Dimension ?? false) == false)
+                          {
+                              selectControl.Measures.Add(new ValueItem()
+                              {
+                                  DisplayText = item.Text,
+                                  IsAggregate = false,
+                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                  IsField = item.LibID == null,
+                                  ItemSelectedCommand = selectcommand,
+                                  DimensionMeasure = item,
+                                  Selected = false
+
+                              });
+                          }
+                      }
+                  }
+
+                  if (LuiDialogWindow.Show("Choose multiple Columns", OwnerHwnd, selectControl, 400, 900, modal: true))
+                  {
+                      List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
+                      selectedItems.AddRange(selectControl.Measures);
+                      selectedItems.AddRange(selectControl.Fields);
+                      foreach (var item in selectedItems)
+                      {
+                          if (item.Selected)
+                          {
+                              if (SelectedItemCommand != null)
+                              {
+                                  SelectedItemCommand.Execute(item);
+                              }
+                          }
+                      }
+                  }
+              });
 
 
             PopupContent = categorySelection;
@@ -241,6 +318,16 @@
         }
         #endregion
 
+        #region OwnerHwndHwnd DP
+        public int OwnerHwnd
+        {
+            get { return (int)this.GetValue(OwnerHwndProperty); }
+            set { this.SetValue(OwnerHwndProperty, value); }
+        }
+
+        public static readonly DependencyProperty OwnerHwndProperty = DependencyProperty.Register(
+         "OwnerHwnd", typeof(int), typeof(ColumnChooser), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
 
         #region Popup Content
         private object popupContent;
@@ -267,6 +354,33 @@
         private object categorySelection;
         private ValueSelection valueSelection;
         #endregion
+
+        private ICommand multiColumnCommand;
+        public ICommand MultiColumnCommand
+        {
+            get { return multiColumnCommand; }
+            set
+            {
+                if (multiColumnCommand != value)
+                {
+                    multiColumnCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private ICommand selectedItemCommand;
+        public ICommand SelectedItemCommand
+        {
+            get { return selectedItemCommand; }
+            set
+            {
+                if (selectedItemCommand != value)
+                {
+                    selectedItemCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

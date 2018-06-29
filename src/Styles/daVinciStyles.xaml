@@ -90,31 +90,6 @@
     </StackPanel>
 
     <DataTemplate x:Key="FieldDatatemplate">
-        <!--<StackPanel>
-            <Border Height="40">
-                <StackPanel
-                    Orientation="Horizontal"
-                    Style="{StaticResource StackanelMouseOverStyle}">
-                    <StackPanel.InputBindings>
-                        <MouseBinding
-                            Command="{Binding ItemSelectedCommand}"
-                            CommandParameter="{Binding}"
-                            MouseAction="LeftClick" />
-                    </StackPanel.InputBindings>
-                    <controls:LuiIcon
-                        VerticalAlignment="Center"
-                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                        Icon="{Binding Icon}" />
-                    <TextBlock
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontWeight="Normal"
-                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                        Text="{Binding DisplayText}" />
-                </StackPanel>
-            </Border>
-            <controls:LuiSeparator Height="0.2" />
-        </StackPanel>-->
         <StackPanel>
             <Border Height="40">
                 <StackPanel Orientation="Horizontal" Style="{StaticResource StackanelMouseOverStyle}">
@@ -137,7 +112,6 @@
                 </StackPanel>
             </Border>
             <Separator Foreground="{StaticResource Lui.Brush.Grayscale30}" />
-
         </StackPanel>
     </DataTemplate>
 
@@ -145,7 +119,5 @@
         <ContentPresenter Content="{StaticResource ExtendedFieldDatatemplateStackpanel}" />
     </DataTemplate>
 
-    <!--<DataTemplate x:Key="FieldDatatemplate">
-        <ContentPresenter Content="{StaticResource FieldDatatemplateStackpanel}" />
-    </DataTemplate>-->
+
 </ResourceDictionary>

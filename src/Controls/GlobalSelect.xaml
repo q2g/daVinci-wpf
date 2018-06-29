@@ -81,9 +81,13 @@
                     Margin="2"
                     HorizontalAlignment="Right"
                     LuiAttached:ThemeProperties.Inverted="True"
-                    HintText="{l:Loc GlobalSelections_FilterDimensions}"
+                    Autofocus="True"
+                    Background="Black"
+                    Foreground="White"
+                    HintText=" "
                     SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
             </Grid>
+            <!--  HintText="{l:Loc GlobalSelections_FilterDimensions}"  -->
 
             <ItemsControl
                 Grid.Row="3"

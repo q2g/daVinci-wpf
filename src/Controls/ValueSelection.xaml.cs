@@ -217,8 +217,19 @@
         #endregion
     }
 
-    public class ValueItem
+    public class ValueItem : INotifyPropertyChanged
     {
+        #region LoggerInit
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
         #region properties
         public string DisplayText { get; set; }
         public LuiIconsEnum Icon { get; set; } = LuiIconsEnum.lui_icon_none;
@@ -229,6 +240,19 @@
         public ICommand ItemSelectedCommand { get; set; }
         public DimensionMeasure DimensionMeasure { get; set; }
         public ValueTypeEnum ItemContext { get; set; }
+        private bool selected;
+        public bool Selected
+        {
+            get { return selected; }
+            set
+            {
+                if (selected != value)
+                {
+                    selected = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
     }
 

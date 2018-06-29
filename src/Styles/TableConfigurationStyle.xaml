@@ -99,7 +99,8 @@
                                     <daVinciControls:ColumnChooser
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                        DimensionMeasures="{Binding DataContext.DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                        DimensionMeasures="{Binding DataContext.DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        OwnerHwnd="{Binding OwnerHwnd, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
 
