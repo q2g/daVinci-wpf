@@ -5,6 +5,7 @@
     using leonardo.Resources;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using System.Collections;
     #endregion
 
     public class BookmarkData : INotifyPropertyChanged
@@ -145,6 +146,21 @@
 
             }
             return false;
+        }
+    }
+
+    public class BookmarkNameComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            if (x is BookmarkData xappdata)
+            {
+                if (y is BookmarkData yappdata)
+                {
+                    return xappdata.BookmarkName.CompareTo(yappdata.BookmarkName);
+                }
+            }
+            return 0;
         }
     }
 }

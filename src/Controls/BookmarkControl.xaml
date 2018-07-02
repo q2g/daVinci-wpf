@@ -15,6 +15,7 @@
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -22,6 +23,7 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <bookmark:BookmarkNameComparer x:Key="BookmarkNameComparer" />
             <bookmark:BookmarkDataFilter x:Key="BookmarkDataFilter" />
             <converter:BooleanToVisibilityConverter
                 x:Key="trueToVisibilityCollapsedConverter"
@@ -188,6 +190,7 @@
             </Grid>
             <Luicontrols:CollectionView
                 Name="collectionview"
+                CollectionViewComparer="{StaticResource BookmarkNameComparer}"
                 CollectionViewFilter="{StaticResource BookmarkDataFilter}"
                 FilterText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
                 ItemsSource="{Binding Path=.}"
