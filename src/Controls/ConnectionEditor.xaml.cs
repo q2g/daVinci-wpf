@@ -175,6 +175,8 @@
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            if (isNewMode)
+                ShowDetail = false;
             toEdit = null;
             isNewMode = false;
             IsEditMode = false;
