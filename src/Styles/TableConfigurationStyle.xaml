@@ -90,6 +90,8 @@
                             <controls:LuiAccordion
                                 Grid.Column="1"
                                 Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-39}"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
                                 CollapseAllOnExpandSingle="true"
                                 IsDragDropEnabled="False"
                                 IsItemsStretchEnabled="False"

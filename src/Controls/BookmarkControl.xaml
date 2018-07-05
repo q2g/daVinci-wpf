@@ -160,28 +160,22 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                             <StackPanel>
-                                <TextBlock
-                                    FontFamily="{StaticResource QlikViewSans}"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                    Text="{l:Loc Translate_common:Common_Title}" />
                                 <Luicontrols:LuiInput
                                     Margin="0,7,10,0"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                    LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
+                                    LabelText="{l:Loc Translate_common:Common_Title}"
                                     Text="{Binding BookmarkToEdit.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
                             </StackPanel>
 
                             <StackPanel Margin="0,10,0,0">
-                                <TextBlock
-                                    FontFamily="{StaticResource QlikViewSans}"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                    Text="{l:Loc Translate_common:Common_Description}" />
                                 <Luicontrols:LuiInput
                                     Margin="0,7,10,20"
                                     VerticalAlignment="Stretch"
                                     VerticalContentAlignment="Top"
+                                    LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                     AcceptsReturn="True"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     LUIInputSize="Custom"
+                                    LabelText="{l:Loc Translate_common:Common_Description}"
                                     MaxLines="5"
                                     MinLines="5"
                                     Text="{Binding BookmarkToEdit.BookmarkDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
@@ -311,19 +305,7 @@
                         </Setter>
                     </Style>
                 </ListBox.ItemContainerStyle>
-
             </ListBox>
-            <!--<ScrollViewer.Style>
-                    <Style BasedOn="{StaticResource LuiSenseScrollViewerStyle}" TargetType="ScrollViewer">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" Value="false">
-                                <Setter Property="Grid.RowSpan" Value="3" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ScrollViewer.Style>
-            </ScrollViewer>-->
-
         </Grid>
     </Border>
 </UserControl>

@@ -143,7 +143,6 @@
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Name"
                                 Text="{Binding ConnectionToEdit.IDName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
@@ -184,7 +183,6 @@
                                 <Luicontrols:LuiInput
                                     x:Name="UriInput"
                                     LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                     LabelText="Uri"
                                     Text="{Binding ConnectionToEdit.URI, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
@@ -194,14 +192,12 @@
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Headercookie Key (Default is Empty)"
                                 Text="{Binding ConnectionToEdit.HeaderCookieKey, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="Headercookie Value (Default is Empty)"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />

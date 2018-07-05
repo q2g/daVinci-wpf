@@ -71,7 +71,7 @@
                                 <Line
                                     StrokeThickness="5"
                                     Y1="0"
-                                    Y2="{Binding Path=(LuiAttached:ThemeProperties.Itemheight)}">
+                                    Y2="39">
                                     <Line.Style>
                                         <Style TargetType="Line">
                                             <Style.Triggers>
@@ -87,7 +87,7 @@
                                 </Line>
                                 <ToggleButton
                                     x:Name="HeaderSite"
-                                    Height="{Binding Path=(LuiAttached:ThemeProperties.Itemheight)}"
+                                    Height="39"
                                     MinWidth="0"
                                     MinHeight="0"
                                     Margin="0"
