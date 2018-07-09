@@ -48,6 +48,23 @@
             }
         }
 
+        private PivotType pivotType;
+        public PivotType PivotType
+        {
+            get
+            {
+                return pivotType;
+            }
+            set
+            {
+                if (pivotType != value)
+                {
+                    pivotType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private string libraryID;
         public string LibraryID
         {
@@ -592,5 +609,12 @@
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
+    }
+
+    public enum PivotType
+    {
+        None,
+        Row,
+        Column
     }
 }

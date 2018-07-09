@@ -14,26 +14,19 @@
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
-    <StackPanel>
-        <controls:LuiButton
-            Height="45"
-            LuiAttached:ThemeProperties.BorderThickness="0"
-            Command="{Binding SelectedCommand, ElementName=control}"
-            CommandParameter="DIM"
-            Content="{l:Loc Translate_common:Common_Dimension}" />
-        <controls:LuiSeparator Height="3" />
-        <controls:LuiButton
-            Height="45"
-            LuiAttached:ThemeProperties.BorderThickness="0"
-            Command="{Binding SelectedCommand, ElementName=control}"
-            CommandParameter="COEF"
-            Content="{l:Loc Translate_common:Common_Measure}" />
-        <controls:LuiSeparator Height="3" />
-        <controls:LuiButton
-            Height="45"
-            LuiAttached:ThemeProperties.BorderThickness="0"
-            Command="{Binding SelectedCommand, ElementName=control}"
-            CommandParameter="EQU"
-            Content="Formula" />
-    </StackPanel>
+    <ItemsControl ItemsSource="{Binding CategoryItems}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <controls:LuiButton
+                        Height="45"
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        Command="{Binding SelectedCommand, ElementName=control}"
+                        CommandParameter="{Binding CategoryParameter}"
+                        Content="{Binding CategoryName}" />
+                    <controls:LuiSeparator Height="3" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>

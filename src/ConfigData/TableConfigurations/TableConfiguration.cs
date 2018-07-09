@@ -189,11 +189,11 @@
 
                 var qColumnOrder = new SortedDictionary<int, int>();
                 var qInterColumnSortOrder = new SortedDictionary<int, int>();
-             
+
                 Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
                 Dictionary<int, int> IndexesSort = new Dictionary<int, int>();
                 var index = 0;
-                foreach(var item in Columns)
+                foreach (var item in Columns)
                 {
                     if (item is DimensionColumnData dimensionData)
                     {
@@ -250,5 +250,12 @@
         }
 
 
+    }
+
+    public enum ColumnChooserMode
+    {
+        Combined,
+        Pivot,
+        Separeted
     }
 }

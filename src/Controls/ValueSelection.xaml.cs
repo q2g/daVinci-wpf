@@ -13,6 +13,7 @@
     using WPFLocalizeExtension.Engine;
     using System.Runtime.CompilerServices;
     using System.Collections.ObjectModel;
+    using daVinci.ConfigData;
     #endregion
 
     /// <summary>
@@ -32,6 +33,7 @@
                     SetSelectedCommand();
                     SetValueTypeContextofFields();
                     RaisePropertyChanged();
+                    SetPivotType();
                 }
             }
         }
@@ -100,6 +102,21 @@
                     //Force an list-rebuild, which executes the reevaluation of the ItemContainerSelector of valueSelection 
                     SearchText = " ";
                     SearchText = "";
+                }
+            }
+        }
+
+        private PivotType pivotType = PivotType.None;
+        public PivotType PivotType
+        {
+            get { return pivotType; }
+            set
+            {
+                if (pivotType != value)
+                {
+                    pivotType = value;
+                    SetPivotType();
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -213,7 +230,16 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoryDisplayText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FieldDisplayText)));
         }
-
+        private void SetPivotType()
+        {
+            if (allValueItems != null)
+            {
+                foreach (var item in allValueItems)
+                {
+                    item.PivotType = pivotType;
+                }
+            }
+        }
         #endregion
     }
 
@@ -240,6 +266,7 @@
         public ICommand ItemSelectedCommand { get; set; }
         public DimensionMeasure DimensionMeasure { get; set; }
         public ValueTypeEnum ItemContext { get; set; }
+        public PivotType PivotType { get; set; }
         private bool selected;
         public bool Selected
         {

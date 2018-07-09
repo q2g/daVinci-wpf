@@ -19,7 +19,6 @@
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
-    SizeChanged="control_SizeChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -30,66 +29,218 @@
 
             <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
             <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
+
+            <Style x:Key="CombinedColumnChooserStyle" TargetType="UserControl">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Margin="5,10,5,0">
+                                    <LuiControls:LuiButton
+                                        Margin="10,0,0,0"
+                                        Command="{Binding MultiColumnCommand}"
+                                        Content="Fast Add"
+                                        DockPanel.Dock="Right" />
+                                    <LuiControls:LuiToggleButton
+                                        x:Name="togglebutton"
+                                        LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
+                                        Content="{l:Loc properties_columns_add}"
+                                        IsChecked="{Binding ShowPopup}" />
+                                </DockPanel>
+
+                                <LuiControls:LuiDialog
+                                    x:Name="dialog"
+                                    IsOpen="{Binding ShowPopup}"
+                                    PanelHeight="{Binding PanelHeight}"
+                                    PanelWidth="{Binding PanelWidth}"
+                                    Placement="Bottom"
+                                    PlacementTarget="{Binding ElementName=togglebutton}"
+                                    PopupClosed="dialog_PopupClosed">
+                                    <ContentControl Content="{Binding PopupContent}" />
+                                </LuiControls:LuiDialog>
+
+                                <LuiControls:CollectionView
+                                    Name="collectionview"
+                                    CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+                                    ItemsSource="{Binding Columns}" />
+                                <ScrollViewer
+                                    Grid.Row="1"
+                                    Margin="0,5,0,0"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                            Text="{l:Loc Translate_common:Common_Columns}" />
+                                        <LuiControls:LuiSeparator Height="3" />
+
+                                        <LuiControls:LuiAccordion
+                                            CollapseAllOnExpandSingle="false"
+                                            IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                            IsDragDropChangesUnderlyingCollection="True"
+                                            IsDragDropEnabled="True"
+                                            ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                            ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <daViniciControls:PivotRowTypeColumnFilter x:Key="PivotRowTypeColumnFilter" />
+            <daViniciControls:PivotColumnTypeColumnFilter x:Key="PivotColumnTypeColumnFilter" />
+            <daViniciControls:PivotMeasureColumnFilter x:Key="PivotMeasureColumnFilter" />
+            <Style x:Key="PivotColumnChooserStyle" TargetType="UserControl">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Margin="5,10,5,0">
+                                    <LuiControls:LuiToggleButton
+                                        x:Name="togglebutton"
+                                        LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
+                                        Content="{l:Loc Properties_AddData}"
+                                        IsChecked="{Binding ShowPopup}" />
+                                </DockPanel>
+
+                                <LuiControls:LuiDialog
+                                    x:Name="dialog"
+                                    IsOpen="{Binding ShowPopup}"
+                                    PanelHeight="{Binding PanelHeight}"
+                                    PanelWidth="{Binding PanelWidth}"
+                                    Placement="Bottom"
+                                    PlacementTarget="{Binding ElementName=togglebutton}"
+                                    PopupClosed="dialog_PopupClosed">
+                                    <ContentControl Content="{Binding PopupContent}" />
+                                </LuiControls:LuiDialog>
+
+                                <LuiControls:CollectionView
+                                    Name="collectionviewRow"
+                                    CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+                                    CollectionViewFilter="{StaticResource PivotRowTypeColumnFilter}"
+                                    ItemsSource="{Binding Columns}" />
+                                <ScrollViewer
+                                    Grid.Row="1"
+                                    Margin="0,5,0,0"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                            Text="{l:Loc Translate_common:Common_Rows}" />
+                                        <LuiControls:LuiSeparator Height="3" />
+
+                                        <LuiControls:LuiAccordion
+                                            CollapseAllOnExpandSingle="false"
+                                            IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                            IsDragDropChangesUnderlyingCollection="True"
+                                            IsDragDropEnabled="True"
+                                            ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                            ItemsSource="{Binding ProcessedCollection, ElementName=collectionviewRow}" />
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                                <LuiControls:CollectionView
+                                    Name="collectionviewColumn"
+                                    CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+                                    CollectionViewFilter="{StaticResource PivotColumnTypeColumnFilter}"
+                                    ItemsSource="{Binding Columns}" />
+                                <ScrollViewer
+                                    Grid.Row="2"
+                                    Margin="0,5,0,0"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                            Text="{l:Loc Translate_common:Common_Columns}" />
+                                        <LuiControls:LuiSeparator Height="3" />
+
+                                        <LuiControls:LuiAccordion
+                                            CollapseAllOnExpandSingle="false"
+                                            IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                            IsDragDropChangesUnderlyingCollection="True"
+                                            IsDragDropEnabled="True"
+                                            ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                            ItemsSource="{Binding ProcessedCollection, ElementName=collectionviewColumn}" />
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                                <LuiControls:CollectionView
+                                    Name="collectionviewMeasures"
+                                    CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+                                    CollectionViewFilter="{StaticResource PivotMeasureColumnFilter}"
+                                    ItemsSource="{Binding Columns}" />
+                                <ScrollViewer
+                                    Grid.Row="3"
+                                    Margin="0,5,0,0"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            FontFamily="{StaticResource QlikViewSans}"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                            Text="{l:Loc Translate_common:Common_Measures}" />
+                                        <LuiControls:LuiSeparator Height="3" />
+
+                                        <LuiControls:LuiAccordion
+                                            CollapseAllOnExpandSingle="false"
+                                            IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                            IsDragDropChangesUnderlyingCollection="True"
+                                            IsDragDropEnabled="True"
+                                            ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                            ItemsSource="{Binding ProcessedCollection, ElementName=collectionviewMeasures}" />
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.Style>
+        <Style BasedOn="{StaticResource PivotColumnChooserStyle}" TargetType="UserControl" />
+    </UserControl.Style>
+    <!--<Control Focusable="False">
+        <Control.Template>
+            <ControlTemplate>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            </ControlTemplate>
+        </Control.Template>
+    </Control>
 
-        <DockPanel Margin="5,10,5,0">
-            <LuiControls:LuiButton
-                Margin="10,0,0,0"
-                Command="{Binding MultiColumnCommand}"
-                Content="Fast Add"
-                DockPanel.Dock="Right" />
-            <LuiControls:LuiToggleButton
-                x:Name="togglebutton"
-                LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                Content="{l:Loc properties_columns_add}" />
-        </DockPanel>
-
-        <LuiControls:LuiDialog
-            x:Name="dialog"
-            IsOpen="{Binding IsChecked, ElementName=togglebutton}"
-            PanelHeight="170"
-            PanelWidth="120"
-            Placement="Bottom"
-            PlacementTarget="{Binding ElementName=togglebutton}"
-            PopupClosed="dialog_PopupClosed">
-            <ContentControl Content="{Binding PopupContent}" />
-        </LuiControls:LuiDialog>
-
-        <LuiControls:CollectionView
-            Name="collectionview"
-            CollectionViewComparer="{StaticResource ColumnOrderComparer}"
-            ItemsSource="{Binding Columns}" />
-        <ScrollViewer
-            x:Name="scrollviewer"
-            Grid.Row="1"
-            Margin="0,5,0,0"
-            VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <TextBlock
-                    Margin="10,0,0,0"
-                    FontFamily="{StaticResource QlikViewSans}"
-                    FontSize="12"
-                    FontWeight="Bold"
-                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                    Text="{l:Loc Translate_common:Common_Columns}" />
-                <LuiControls:LuiSeparator Height="3" />
-
-                <LuiControls:LuiAccordion
-                    x:Name="acc"
-                    CollapseAllOnExpandSingle="false"
-                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
-                    IsDragDropChangesUnderlyingCollection="True"
-                    IsDragDropEnabled="True"
-                    ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
-                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
+    <UserControl.Triggers>
+            <DataTrigger Binding="{Binding ColumnChooserMode}" Value="daViniciControls.ColumnChooserMode.Combined">
+                <Setter Property="Style" Value="{StaticResource CombinedColumnChooserStyle}" />
+            </DataTrigger>
+        </UserControl.Triggers>
+    </Control>-->
 </UserControl>
