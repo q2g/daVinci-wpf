@@ -7,6 +7,7 @@
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:davinciconfig="clr-namespace:daVinci_wpf.ConfigData"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
@@ -15,7 +16,35 @@
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStylePivot.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStyleCombined.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <LuiConverter:BindingDiagConverter x:Key="BindingDiagConverter" />
+    <LuiConverter:ListCountToVisibilityConverter
+        x:Key="NullOrEmptyListToVisible"
+        CountMatchesVisibility="Collapsed"
+        CountToMatch="0"
+        ElseVisibility="Visible"
+        IsExactMatch="False"
+        IsGreaterThanMatch="True" />
+
+    <LuiConverter:BooleanToObjectConverter
+        x:Key="BooleanToColumnChooserStyleConverter"
+        FalseValue="{StaticResource ColumnChooserStyleCombined}"
+        TrueValue="{StaticResource ColumnChooserStylePivot}" />
+
+    <daVinciConverter:BoolToColumnChooserModeConverter x:Key="BoolToColumnChooserModeConverter" />
+
+    <LuiConverter:BooleanToVisibilityConverter
+        x:Key="TrueIsVisible"
+        False="Collapsed"
+        True="Visible" />
+
+    <LuiConverter:BooleanToVisibilityConverter
+        x:Key="TrueIsCollapsed"
+        False="Visible"
+        True="Collapsed" />
+
 
     <Style
         x:Key="PresentationDataStyle"
@@ -68,28 +97,75 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
                         <StackPanel>
-                            <StackPanel
+                            <DockPanel
                                 Height="39"
-                                Background="{StaticResource Lui.Brush.Grayscale30}"
-                                Orientation="Horizontal">
+                                Margin="100,0,0,0"
+                                Background="{StaticResource Lui.Brush.Grayscale30}">
                                 <controls:LuiIcon
-                                    Margin="100,0,0,0"
                                     VerticalAlignment="Center"
+                                    DockPanel.Dock="Left"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Icon="lui_icon_table"
-                                    IconSize="Normal" />
+                                    IconSize="Normal"
+                                    Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsCollapsed}}" />
                                 <TextBlock
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Center"
+                                    DockPanel.Dock="Left"
                                     FontSize="16"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                     Text="{Binding TableName}"
-                                    TextTrimming="CharacterEllipsis" />
-                            </StackPanel>
+                                    TextTrimming="CharacterEllipsis"
+                                    Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsCollapsed}}" />
+                                <StackPanel
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                                    DockPanel.Dock="Right"
+                                    Visibility="{Binding DataContext.Columns.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource NullOrEmptyListToVisible}}">
+                                    <daVinciControls:ContentSwitch
+                                        x:Name="TableType"
+                                        Margin="0,-8,0,0"
+                                        VerticalAlignment="Center"
+                                        attachedP:ThemeProperties.Inverted="True"
+                                        CheckedText="Pivot-Table"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                        IsChecked="{Binding DataContext.TableModeBool, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        TitleText="Table Type"
+                                        UnCheckedText="Combined Table" />
+                                </StackPanel>
+                                <controls:LuiCombobox
+                                    Margin="10,9,10,0"
+                                    VerticalAlignment="Center"
+                                    DisplayMemberPath="TableName"
+                                    DockPanel.Dock="Left"
+                                    ItemsSource="{Binding DataContext.TableImportConfiguration.Tables, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                    SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                    Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
+                            </DockPanel>
+                            <!--<Border
+                                Height="39"
+                                BorderBrush="{StaticResource Lui.Brush.Grayscale60}"
+                                BorderThickness="1"
+                                Visibility="{Binding DataContext.Columns.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource NullOrEmptyListToVisible}}">
+                                <StackPanel Background="{StaticResource Lui.Brush.Grayscale30}">
+                                    <daVinciControls:ContentSwitch
+                                        x:Name="TableType"
+                                        Margin="0,-8,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        attachedP:ThemeProperties.Inverted="True"
+                                        CheckedText="Pivot-Table"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                        IsChecked="{Binding DataContext.TableModeBool, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        TitleText="Table Type"
+                                        UnCheckedText="Combined Table" />
+                                </StackPanel>
+                            </Border>-->
                             <controls:LuiAccordion
                                 Grid.Column="1"
-                                Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-39}"
+                                Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-78}"
                                 VerticalAlignment="Stretch"
                                 VerticalContentAlignment="Stretch"
                                 CollapseAllOnExpandSingle="true"
@@ -100,9 +176,13 @@
                                 <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}" IsExpanded="True">
                                     <daVinciControls:ColumnChooser
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
+                                        ColumnChooserMode="{Binding DataContext.TableModeBool, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource BoolToColumnChooserModeConverter}}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                         DimensionMeasures="{Binding DataContext.DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                        OwnerHwnd="{Binding OwnerHwnd, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                        OwnerHwnd="{Binding OwnerHwnd, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        Style="{Binding DataContext.TableModeBool, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource BooleanToColumnChooserStyleConverter}}" />
+                                    <!--
+                                    -->
                                 </controls:LuiAccordionItem>
 
 

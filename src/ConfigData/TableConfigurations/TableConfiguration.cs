@@ -95,7 +95,73 @@
             }
         }
 
-        public string TableName { get; set; }
+        private ColumnChooserMode tableMode;
+        public ColumnChooserMode TableMode
+        {
+            get
+            {
+                return tableMode;
+            }
+            set
+            {
+                if (tableMode != value)
+                {
+                    tableMode = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool tableModeBool;
+        public bool TableModeBool
+        {
+            get
+            {
+                return tableModeBool;
+            }
+            set
+            {
+                if (tableModeBool != value)
+                {
+                    tableModeBool = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private TableImportConfiguration tableImportConfiguration;
+        public TableImportConfiguration TableImportConfiguration
+        {
+            get
+            {
+                return tableImportConfiguration;
+            }
+            set
+            {
+                if (tableImportConfiguration != value)
+                {
+                    tableImportConfiguration = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string tableName;
+        public string TableName
+        {
+            get
+            {
+                return tableName;
+            }
+            set
+            {
+                if (tableName != value)
+                {
+                    tableName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public void ReadFromJSON(string JSONstring)
         {

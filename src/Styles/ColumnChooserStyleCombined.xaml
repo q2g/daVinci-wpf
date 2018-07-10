@@ -1,0 +1,91 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
+    xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/SortOrderAccordionItemStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
+    <daVinciConfig:ColumnOrderComparer x:Key="ColumnOrderComparer" />
+
+    <daVinciConverter:ColumnNameConverter x:Key="ColumnNameConverter" />
+
+    <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
+
+    <Style x:Key="ColumnChooserStyleCombined" TargetType="UserControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Margin="5,10,5,0">
+                            <LuiControls:LuiButton
+                                Margin="10,0,0,0"
+                                Command="{Binding MultiColumnCommand}"
+                                Content="Fast Add"
+                                DockPanel.Dock="Right" />
+                            <LuiControls:LuiToggleButton
+                                x:Name="togglebutton"
+                                LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
+                                Content="{l:Loc properties_columns_add}"
+                                IsChecked="{Binding ShowPopup}" />
+                        </DockPanel>
+
+                        <LuiControls:LuiDialog
+                            x:Name="dialog"
+                            IsOpen="{Binding ShowPopup}"
+                            PanelHeight="{Binding PanelHeight}"
+                            PanelWidth="{Binding PanelWidth}"
+                            Placement="Bottom"
+                            PlacementTarget="{Binding ElementName=togglebutton}">
+                            <ContentControl Content="{Binding PopupContent}" />
+                        </LuiControls:LuiDialog>
+
+                        <LuiControls:CollectionView
+                            Name="collectionview"
+                            CollectionViewComparer="{StaticResource ColumnOrderComparer}"
+                            ItemsSource="{Binding Columns}" />
+                        <ScrollViewer
+                            Grid.Row="1"
+                            Margin="0,5,0,0"
+                            VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    FontFamily="{StaticResource QlikViewSans}"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                    Text="{l:Loc Translate_common:Common_Columns}" />
+                                <LuiControls:LuiSeparator Height="3" />
+
+                                <LuiControls:LuiAccordion
+                                    CollapseAllOnExpandSingle="false"
+                                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                    IsDragDropChangesUnderlyingCollection="True"
+                                    IsDragDropEnabled="True"
+                                    ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

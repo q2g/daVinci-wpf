@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
@@ -20,17 +21,19 @@
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStylePivot.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStyleCombined.xaml" />
+            </ResourceDictionary.MergedDictionaries>-->
 
-            <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
-            <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
+    <!--<tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
+            <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />-->
 
-            <Style x:Key="CombinedColumnChooserStyle" TargetType="UserControl">
+    <!--<Style x:Key="ColumnChooserStyleCombined" TargetType="UserControl">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -95,12 +98,12 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
 
-            <daViniciControls:PivotRowTypeColumnFilter x:Key="PivotRowTypeColumnFilter" />
+    <!--<daViniciControls:PivotRowTypeColumnFilter x:Key="PivotRowTypeColumnFilter" />
             <daViniciControls:PivotColumnTypeColumnFilter x:Key="PivotColumnTypeColumnFilter" />
             <daViniciControls:PivotMeasureColumnFilter x:Key="PivotMeasureColumnFilter" />
-            <Style x:Key="PivotColumnChooserStyle" TargetType="UserControl">
+            <Style x:Key="ColumnChooserStylePivot" TargetType="UserControl">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -221,26 +224,12 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
 
 
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <UserControl.Style>
-        <Style BasedOn="{StaticResource PivotColumnChooserStyle}" TargetType="UserControl" />
-    </UserControl.Style>
-    <!--<Control Focusable="False">
-        <Control.Template>
-            <ControlTemplate>
-
-            </ControlTemplate>
-        </Control.Template>
-    </Control>
-
-    <UserControl.Triggers>
-            <DataTrigger Binding="{Binding ColumnChooserMode}" Value="daViniciControls.ColumnChooserMode.Combined">
-                <Setter Property="Style" Value="{StaticResource CombinedColumnChooserStyle}" />
-            </DataTrigger>
-        </UserControl.Triggers>
-    </Control>-->
+    <!--</ResourceDictionary>
+    </UserControl.Resources>-->
+    <!--<UserControl.Style>
+        <Style BasedOn="{StaticResource ColumnChooserStyleCombined, diag:PresentationTraceSources.TraceLevel=High}" TargetType="UserControl" />
+    </UserControl.Style>-->
 </UserControl>

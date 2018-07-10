@@ -29,7 +29,6 @@
 
         public ColumnChooser()
         {
-            ColumnChooserMode = ColumnChooserMode.Pivot;
             categorySelection = new CategorySelection()
             {
                 SelectedCommand = new RelayCommand(
@@ -338,7 +337,6 @@
             InitializeComponent();
             DataContext = this;
             PanelWidth = 120;
-
             PanelHeight = 170;
         }
 
@@ -501,7 +499,7 @@
         #endregion
 
         #region ColumnChooserMode DP
-        private ColumnChooserMode columnChooserMode;
+        private ColumnChooserMode columnChooserMode = ColumnChooserMode.Combined;
         internal ColumnChooserMode ColumnChooserMode_Internal
         {
             get { return columnChooserMode; }
@@ -567,6 +565,13 @@
                 {
                     showPopup = value;
                     RaisePropertyChanged();
+                    if (value == false)
+                    {
+                        PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
+
+                        PanelWidth = 120;
+                        PanelHeight = 170;
+                    }
                 }
             }
         }
@@ -595,14 +600,6 @@
                     RaisePropertyChanged();
                 }
             }
-        }
-
-        private void dialog_PopupClosed(object sender, EventArgs e)
-        {
-            PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
-
-            PanelWidth = 120;
-            PanelHeight = 170;
         }
 
         private object GetCategorySelectionByColumnChooserMode(ColumnChooserMode mode)
@@ -661,13 +658,6 @@
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
-    }
-
-    public enum ColumnChooserMode
-    {
-        Combined,
-        Pivot,
-        Separeted
     }
 
     public class PivotRowTypeColumnFilter : ICollectionViewFilter
