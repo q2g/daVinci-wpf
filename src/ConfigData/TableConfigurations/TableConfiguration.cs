@@ -112,23 +112,6 @@
             }
         }
 
-        private bool tableModeBool;
-        public bool TableModeBool
-        {
-            get
-            {
-                return tableModeBool;
-            }
-            set
-            {
-                if (tableModeBool != value)
-                {
-                    tableModeBool = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
         private TableImportConfiguration tableImportConfiguration;
         public TableImportConfiguration TableImportConfiguration
         {
@@ -168,6 +151,15 @@
             try
             {
                 dynamic jsonConfig = JObject.Parse(JSONstring);
+                string visualization = (jsonConfig?.visualization ?? "table");
+                if (visualization == "table")
+                {
+                    TableMode = ColumnChooserMode.Combined;
+                }
+                if (visualization == "table-pivot")
+                {
+                    TableMode = ColumnChooserMode.Pivot;
+                }
                 SettingsID = jsonConfig?.qInfo?.qId ?? "";
                 var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
                 var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
@@ -240,6 +232,19 @@
             dynamic jsonData = new JObject();
             try
             {
+                switch (TableMode)
+                {
+                    case ColumnChooserMode.Combined:
+                        jsonData.visualization = "table";
+                        break;
+                    case ColumnChooserMode.Pivot:
+                        jsonData.visualization = "table-pivot";
+                        break;
+                    case ColumnChooserMode.Separeted:
+                        break;
+                    default:
+                        break;
+                }
                 jsonData.qInfo = new JObject();
                 jsonData.qInfo.qId = SettingsID;
                 jsonData.qInfo.qType = "table";
@@ -283,6 +288,7 @@
                         index++;
                     }
                 }
+                jsonData.qNoOfLeftDims =
 
                 var orderedColumnindexes = IndexesColumn.OrderBy(ele => ele.Value).ToList();
                 foreach (var item in orderedColumnindexes)

@@ -19,6 +19,7 @@
     using System.Runtime.CompilerServices;
     using daVinci.ConfigData.TableConfigurations;
     using WPFLocalizeExtension.Engine;
+    using System.Collections.Specialized;
 
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
@@ -109,24 +110,7 @@
                     }
                 }, (o) => true
                 ),
-                CategoryItems = new List<CategoryItem>()
-                {
-                    new CategoryItem()
-                    {
-                        CategoryName =(string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
-                        CategoryParameter = "Row"
-                    },
-                    new CategoryItem()
-                    {
-                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Column", null, LocalizeDictionary.Instance.Culture)),
-                        CategoryParameter = "Col"
-                    },
-                                new CategoryItem()
-                    {
-                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
-                        CategoryParameter = "Mea"
-                    }
-                }
+                CategoryItems = GetPivotCategorys()
             };
 
             ICommand selectedAggregateCommand = new RelayCommand(
@@ -146,106 +130,106 @@
 
             SelectedItemCommand = new RelayCommand(
                 (parameter) =>
-                            {
-                                try
                                 {
-                                    if (parameter is ValueItem item)
+                                    try
                                     {
-                                        if (valueSelection.ValueType == ValueTypeEnum.Measure && item.IsField)
+                                        if (parameter is ValueItem item)
                                         {
-                                            PopupContent = new AggregateFuncSelection()
+                                            if (valueSelection.ValueType == ValueTypeEnum.Measure && item.IsField)
                                             {
-                                                BackCommand = new RelayCommand((o) => { PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode); }, (o) => true),
-                                                SelectedItemCommand = selectedAggregateCommand,
-                                                AggregateItems = new ObservableCollection<ValueItem>
+                                                PopupContent = new AggregateFuncSelection()
                                                 {
+                                                    BackCommand = new RelayCommand((o) => { PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode); }, (o) => true),
+                                                    SelectedItemCommand = selectedAggregateCommand,
+                                                    AggregateItems = new ObservableCollection<ValueItem>
+                                                    {
                                         new ValueItem() { Parent = item, DisplayText = $"SUM([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"Count([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"AVG([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"MIN([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"MAX([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand }
-                                                }
-                                            };
-                                        }
-                                        else
-                                        {
-                                            switch (item.ItemType)
-                                            {
-                                                case ValueTypeEnum.Dimension:
-
-                                                    DimensionColumnData newdim = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure, PivotType = item.PivotType };
-                                                    if (string.IsNullOrEmpty(item.DimensionMeasure.LibID))
-                                                    {
-                                                        newdim.IsExpression = true;
-                                                        newdim.FieldDef = item.DimensionMeasure.Text;
-                                                        newdim.FieldLabel = item.DimensionMeasure.Text;
                                                     }
-
-                                                    switch (ColumnChooserMode)
-                                                    {
-                                                        case ColumnChooserMode.Combined:
-                                                            newdim.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
-                                                            newdim.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
-                                                            break;
-                                                        case ColumnChooserMode.Pivot:
-                                                            switch (newdim.PivotType)
-                                                            {
-                                                                case PivotType.None:
-                                                                    break;
-                                                                case PivotType.Row:
-                                                                    newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxRowsOrder() + 1;
-                                                                    newdim.SortCriterias.SortOrderIndex = PivotGetMaxRowsOrder() + 1;
-                                                                    break;
-                                                                case PivotType.Column:
-                                                                    newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxColumnsOrder() + 1;
-                                                                    newdim.SortCriterias.SortOrderIndex = PivotGetMaxColumnsOrder() + 1;
-                                                                    break;
-                                                                default:
-                                                                    break;
-                                                            }
-                                                            break;
-                                                        case ColumnChooserMode.Separeted:
-                                                            break;
-                                                        default:
-                                                            break;
-                                                    }
-
-
-                                                    Columns.Add(newdim);
-                                                    break;
-                                                case ValueTypeEnum.Measure:
-                                                    MeasureColumnData newmea = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
-
-                                                    switch (ColumnChooserMode)
-                                                    {
-                                                        case ColumnChooserMode.Combined:
-                                                            newmea.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
-                                                            newmea.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
-                                                            break;
-                                                        case ColumnChooserMode.Pivot:
-                                                            newmea.SortCriterias.ColumnOrderIndex = PivotGetMaxMeasuresOrder() + 1;
-                                                            newmea.SortCriterias.SortOrderIndex = PivotGetMaxMeasuresOrder() + 1;
-                                                            break;
-                                                        case ColumnChooserMode.Separeted:
-                                                            break;
-                                                        default:
-                                                            break;
-                                                    }
-
-                                                    Columns.Add(newmea);
-                                                    break;
-                                                default:
-                                                    break;
+                                                };
                                             }
-                                            ShowPopup = false;
+                                            else
+                                            {
+                                                switch (item.ItemType)
+                                                {
+                                                    case ValueTypeEnum.Dimension:
+
+                                                        DimensionColumnData newdim = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure, PivotType = item.PivotType };
+                                                        if (string.IsNullOrEmpty(item.DimensionMeasure.LibID))
+                                                        {
+                                                            newdim.IsExpression = true;
+                                                            newdim.FieldDef = item.DimensionMeasure.Text;
+                                                            newdim.FieldLabel = item.DimensionMeasure.Text;
+                                                        }
+
+                                                        switch (ColumnChooserMode)
+                                                        {
+                                                            case ColumnChooserMode.Combined:
+                                                                newdim.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                                                                newdim.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Pivot:
+                                                                switch (newdim.PivotType)
+                                                                {
+                                                                    case PivotType.None:
+                                                                        break;
+                                                                    case PivotType.Row:
+                                                                        newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxRowsOrder() + 1;
+                                                                        newdim.SortCriterias.SortOrderIndex = PivotGetMaxRowsOrder() + 1;
+                                                                        break;
+                                                                    case PivotType.Column:
+                                                                        newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxColumnsOrder() + 1;
+                                                                        newdim.SortCriterias.SortOrderIndex = PivotGetMaxColumnsOrder() + 1;
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                                break;
+                                                            case ColumnChooserMode.Separeted:
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+
+
+                                                        Columns.Add(newdim);
+                                                        break;
+                                                    case ValueTypeEnum.Measure:
+                                                        MeasureColumnData newmea = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
+
+                                                        switch (ColumnChooserMode)
+                                                        {
+                                                            case ColumnChooserMode.Combined:
+                                                                newmea.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                                                                newmea.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Pivot:
+                                                                newmea.SortCriterias.ColumnOrderIndex = PivotGetMaxMeasuresOrder() + 1;
+                                                                newmea.SortCriterias.SortOrderIndex = PivotGetMaxMeasuresOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Separeted:
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+
+                                                        Columns.Add(newmea);
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                ShowPopup = false;
+                                            }
                                         }
                                     }
-                                }
-                                catch (Exception Ex)
-                                {
-                                    logger.Error(Ex);
-                                }
-                            }, (o) => true);
+                                    catch (Exception Ex)
+                                    {
+                                        logger.Error(Ex);
+                                    }
+                                }, (o) => true);
 
             valueSelection = new ValueSelection()
             {
@@ -258,79 +242,79 @@
             };
 
             MultiColumnCommand = new RelayCommand((o) =>
-                          {
-                              var selectControl = new MultiValueSelection();
-                              var selectcommand = new RelayCommand((vitem) =>
+                              {
+                                  var selectControl = new MultiValueSelection();
+                                  var selectcommand = new RelayCommand((vitem) =>
                     {
                         if (vitem is ValueItem item)
                         {
                             item.Selected = !item.Selected;
                         }
                     });
-                              foreach (var item in dimensionMeasures)
-                              {
-                                  if (item.LibID == null)
+                                  foreach (var item in dimensionMeasures)
                                   {
-                                      selectControl.Fields.Add(new ValueItem()
+                                      if (item.LibID == null)
                                       {
-                                          DisplayText = item.Text,
-                                          IsAggregate = false,
-                                          ItemType = ValueTypeEnum.Dimension,
-                                          IsField = item.LibID == null,
-                                          ItemSelectedCommand = selectcommand,
-                                          DimensionMeasure = item,
-                                          Selected = false
-                                      });
-                                  }
-                                  else
-                                  {
-                                      if ((item.Dimension ?? false))
-                                      {
-                                          selectControl.Dimensions.Add(new ValueItem()
+                                          selectControl.Fields.Add(new ValueItem()
                                           {
                                               DisplayText = item.Text,
                                               IsAggregate = false,
-                                              ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                              ItemType = ValueTypeEnum.Dimension,
                                               IsField = item.LibID == null,
                                               ItemSelectedCommand = selectcommand,
                                               DimensionMeasure = item,
                                               Selected = false
                                           });
                                       }
-                                      if ((item.Dimension ?? false) == false)
+                                      else
                                       {
-                                          selectControl.Measures.Add(new ValueItem()
+                                          if ((item.Dimension ?? false))
                                           {
-                                              DisplayText = item.Text,
-                                              IsAggregate = false,
-                                              ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
-                                              IsField = item.LibID == null,
-                                              ItemSelectedCommand = selectcommand,
-                                              DimensionMeasure = item,
-                                              Selected = false
-
-                                          });
-                                      }
-                                  }
-                              }
-
-                              if (LuiDialogWindow.Show("Choose multiple Columns", OwnerHwnd, selectControl, 400, 900, modal: true))
-                              {
-                                  List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
-                                  selectedItems.AddRange(selectControl.Measures);
-                                  selectedItems.AddRange(selectControl.Fields);
-                                  foreach (var item in selectedItems)
-                                  {
-                                      if (item.Selected)
-                                      {
-                                          if (SelectedItemCommand != null)
+                                              selectControl.Dimensions.Add(new ValueItem()
+                                              {
+                                                  DisplayText = item.Text,
+                                                  IsAggregate = false,
+                                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                                  IsField = item.LibID == null,
+                                                  ItemSelectedCommand = selectcommand,
+                                                  DimensionMeasure = item,
+                                                  Selected = false
+                                              });
+                                          }
+                                          if ((item.Dimension ?? false) == false)
                                           {
-                                              SelectedItemCommand.Execute(item);
+                                              selectControl.Measures.Add(new ValueItem()
+                                              {
+                                                  DisplayText = item.Text,
+                                                  IsAggregate = false,
+                                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                                  IsField = item.LibID == null,
+                                                  ItemSelectedCommand = selectcommand,
+                                                  DimensionMeasure = item,
+                                                  Selected = false
+
+                                              });
                                           }
                                       }
                                   }
-                              }
-                          });
+
+                                  if (LuiDialogWindow.Show("Choose multiple Columns", OwnerHwnd, selectControl, 400, 900, modal: true))
+                                  {
+                                      List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
+                                      selectedItems.AddRange(selectControl.Measures);
+                                      selectedItems.AddRange(selectControl.Fields);
+                                      foreach (var item in selectedItems)
+                                      {
+                                          if (item.Selected)
+                                          {
+                                              if (SelectedItemCommand != null)
+                                              {
+                                                  SelectedItemCommand.Execute(item);
+                                              }
+                                          }
+                                      }
+                                  }
+                              });
 
 
             PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
@@ -338,6 +322,32 @@
             DataContext = this;
             PanelWidth = 120;
             PanelHeight = 170;
+        }
+
+        private List<CategoryItem> GetPivotCategorys()
+        {
+            List<CategoryItem> retval = new List<CategoryItem>();
+
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Row"
+            });
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Column", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Col"
+            });
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Mea"
+            });
+
+            return retval;
         }
 
         private int GetMaxSortOrder()
@@ -419,7 +429,48 @@
             return maxindex;
         }
 
-        #region Columns - DP        
+        #region Columns - DP 
+        private INotifyCollectionChanged oldcolumns;
+        private ObservableCollection<object> columns;
+        public ObservableCollection<object> Columns_Internal
+        {
+            get { return columns; }
+            set
+            {
+                if (columns != value)
+                {
+                    columns = value;
+
+                    if (oldcolumns != null)
+                        oldcolumns.CollectionChanged -= Columns_CollectionChanged;
+
+                    if (columns is INotifyCollectionChanged collectionchaged)
+                    {
+                        collectionchaged.CollectionChanged += Columns_CollectionChanged;
+                        Columns_CollectionChanged(null, null);
+                        oldcolumns = collectionchaged;
+                    }
+
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private void Columns_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (columnChooserMode == ColumnChooserMode.Pivot)
+            {
+                var items = GetPivotCategorys();
+
+                if (PivotGetMaxColumnsOrder() > 0)
+                    items.RemoveAll(ele => ele.CategoryParameter == "Col");
+                if (PivotGetMaxMeasuresOrder() > 0)
+                    items.RemoveAll(ele => ele.CategoryParameter == "Mea");
+                (pivotCategorySelection as CategorySelection).CategoryItems = items;
+            }
+        }
+
         public ObservableCollection<object> Columns
         {
             get { return (ObservableCollection<object>)this.GetValue(ColumnsProperty); }
@@ -427,7 +478,24 @@
         }
 
         public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
+        private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (d is ColumnChooser obj)
+                {
+                    if (e.NewValue is ObservableCollection<object> newvalue)
+                    {
+                        obj.Columns_Internal = newvalue;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
         #endregion
 
         #region DimensionMeasures DP

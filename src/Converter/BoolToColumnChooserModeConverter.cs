@@ -8,12 +8,31 @@
     using daVinci.ConfigData;
     #endregion
 
-    [ValueConversion(typeof(double), typeof(double))]
     public class BoolToColumnChooserModeConverter : IValueConverter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public object Convert(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            try
+            {
+                if (value is ColumnChooserMode mode)
+                {
+                    if (mode == ColumnChooserMode.Pivot)
+                        return true;
+                    if (mode == ColumnChooserMode.Combined)
+                        return false;
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
             try
@@ -28,13 +47,6 @@
                 logger.Error(Ex);
             }
             return value;
-
-        }
-
-        public object ConvertBack(object value, Type targetType,
-            object parameter, CultureInfo culture)
-        {
-            return null;
         }
 
 
