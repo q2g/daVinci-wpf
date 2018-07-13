@@ -206,19 +206,17 @@
         </StackPanel>
 
 
-        <!--<LuiControls:LuiInputGroup
+        <daViniciControls:DavInputbox
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
-            RightCommandIcon="lui_icon_expression"
             Text="{Binding BackgroundColorExpression}" />
-        <LuiControls:LuiInputGroup
+        <daViniciControls:DavInputbox
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
-            RightCommandIcon="lui_icon_expression"
             Text="{Binding TextColorExpression}" />
-        <LuiControls:LuiCombobox
+        <!--<LuiControls:LuiCombobox
             Margin="0,10,0,0"
             LabelText="{l:Loc Object_Table_AggrFunc}"
             SelectedIndex="{Binding TotalValueFunctionIndex}">

@@ -1,8 +1,8 @@
-﻿namespace daVinci_wpf.ConfigData.TableConfigurations
+﻿namespace daVinci.ConfigData.TableConfigurations
 {
     #region Usings
     using leonardo.Resources;
-    using daVinci.ConfigData.TableConfigurations; 
+    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
     public class SortOrderIndexProvider : IIndexProvider

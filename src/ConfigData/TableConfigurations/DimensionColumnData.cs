@@ -496,9 +496,11 @@
                     jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
                 jsonConfig.qDef = new JObject();
                 jsonConfig.qDef.qFieldDefs = new JArray();
-                jsonConfig.qDef.qFieldDefs.Add(FieldDef);
+                if (!string.IsNullOrEmpty(FieldDef))
+                    jsonConfig.qDef.qFieldDefs.Add(FieldDef);
                 jsonConfig.qDef.qFieldLabels = new JArray();
-                jsonConfig.qDef.qFieldLabels.Add(FieldLabel);
+                if (!string.IsNullOrEmpty(FieldLabel))
+                    jsonConfig.qDef.qFieldLabels.Add(FieldLabel);
                 jsonConfig.qDef.qSortCriterias = new JArray();
                 jsonConfig.qDef.qSortCriterias.Add(SortCriterias.SaveToJSON());
                 if (SortCriterias.AutoSort)
@@ -514,10 +516,10 @@
                         switch (TopBottomIndex)
                         {
                             case 0:
-                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "1";
+                                jsonConfig.qOtherTotalSpec.qOtherSortMode = 1;
                                 break;
                             case 1:
-                                jsonConfig.qOtherTotalSpec.qOtherSortMode = "-1";
+                                jsonConfig.qOtherTotalSpec.qOtherSortMode = -1;
                                 break;
                             default:
                                 break;
@@ -593,7 +595,8 @@
                 jsonConfig.qDef.representation = new JObject();
                 if (RepresentationIndex != 0)
                     jsonConfig.qDef.representation.type = RepresentationIndex == 0 ? "text" : "url";
-                jsonConfig.qDef.representation.urlLabel = UrlLabel;
+                if (!string.IsNullOrEmpty(UrlLabel))
+                    jsonConfig.qDef.representation.urlLabel = UrlLabel;
 
                 return jsonConfig;
             }
@@ -613,8 +616,8 @@
 
     public enum PivotType
     {
-        None,
-        Row,
-        Column
+        None = 0,
+        Row = 1,
+        Column = 2
     }
 }

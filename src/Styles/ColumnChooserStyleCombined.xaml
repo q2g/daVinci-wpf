@@ -6,7 +6,7 @@
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
-    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
+    xmlns:tableconfigurations="clr-namespace:daVinci.ConfigData.TableConfigurations">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />

@@ -7,10 +7,8 @@
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
-    xmlns:davinciconfig="clr-namespace:daVinci_wpf.ConfigData"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
-    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
+    xmlns:tableconfigurations="clr-namespace:daVinci.ConfigData.TableConfigurations">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
@@ -19,6 +17,13 @@
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStylePivot.xaml" />
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnChooserStyleCombined.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <tableconfigurations:TableTypeFilter x:Key="CombinedTableTypeFilter" FilterFor="Combined" />
+    <tableconfigurations:TableTypeFilter x:Key="PivotTableTypeFilter" FilterFor="Pivot" />
+    <tableconfigurations:TableTypeFilter x:Key="SeparatedTableTypeFilter" FilterFor="Separated" />
+    <tableconfigurations:TableNameComparer x:Key="ImportTableNameComparer" FirstItemID="-1" />
+
+
     <LuiConverter:BindingDiagConverter x:Key="BindingDiagConverter" />
     <LuiConverter:ListCountToVisibilityConverter
         x:Key="NullOrEmptyListToVisible"
@@ -138,12 +143,32 @@
                                         TitleText="Table Type"
                                         UnCheckedText="Combined Table" />
                                 </StackPanel>
+                                <controls:CollectionView
+                                    Name="ImportTables"
+                                    CollectionViewComparer="{StaticResource ImportTableNameComparer}"
+                                    ItemsSource="{Binding DataContext.TableImportConfiguration.Tables, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+                                    <controls:CollectionView.Style>
+                                        <Style TargetType="controls:CollectionView">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
+                                                    <Setter Property="CollectionViewFilter" Value="{StaticResource CombinedTableTypeFilter}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Pivot">
+                                                    <Setter Property="CollectionViewFilter" Value="{StaticResource PivotTableTypeFilter}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Separated">
+                                                    <Setter Property="CollectionViewFilter" Value="{StaticResource SeparatedTableTypeFilter}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </controls:CollectionView.Style>
+                                </controls:CollectionView>
                                 <controls:LuiCombobox
-                                    Margin="10,9,10,0"
+                                    Margin="10,0,10,0"
                                     VerticalAlignment="Center"
                                     DisplayMemberPath="TableName"
                                     DockPanel.Dock="Left"
-                                    ItemsSource="{Binding DataContext.TableImportConfiguration.Tables, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                    ItemsSource="{Binding ProcessedCollection, ElementName=ImportTables}"
                                     SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                     Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
                             </DockPanel>

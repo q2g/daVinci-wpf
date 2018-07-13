@@ -7,7 +7,7 @@
     xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
-    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations">
+    xmlns:tableconfigurations="clr-namespace:daVinci.ConfigData.TableConfigurations">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
@@ -53,7 +53,6 @@
                             Placement="Bottom"
                             PlacementTarget="{Binding ElementName=togglebutton}">
                             <ContentControl Content="{Binding PopupContent}" />
-                            <!--  PopupClosed=&quot;dialog_PopupClosed&quot;  -->
                         </LuiControls:LuiDialog>
 
                         <LuiControls:CollectionView
@@ -76,7 +75,10 @@
                                 <LuiControls:LuiSeparator Height="3" />
 
                                 <LuiControls:LuiAccordion
+                                    MinHeight="39"
+                                    Background="{StaticResource Lui.Brush.Grayscale100}"
                                     CollapseAllOnExpandSingle="false"
+                                    DropCommand="{Binding ItemDropCommand}"
                                     IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                                     IsDragDropChangesUnderlyingCollection="True"
                                     IsDragDropEnabled="True"
@@ -105,7 +107,10 @@
                                 <LuiControls:LuiSeparator Height="3" />
 
                                 <LuiControls:LuiAccordion
+                                    MinHeight="39"
+                                    Background="{StaticResource Lui.Brush.Grayscale100}"
                                     CollapseAllOnExpandSingle="false"
+                                    DropCommand="{Binding ItemDropCommand}"
                                     IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                                     IsDragDropChangesUnderlyingCollection="True"
                                     IsDragDropEnabled="True"
@@ -134,7 +139,10 @@
                                 <LuiControls:LuiSeparator Height="3" />
 
                                 <LuiControls:LuiAccordion
+                                    MinHeight="39"
+                                    Background="{StaticResource Lui.Brush.Grayscale100}"
                                     CollapseAllOnExpandSingle="false"
+                                    DropCommand="{Binding ItemDropCommand}"
                                     IndexProvider="{StaticResource ColumnOrderIndexProvider}"
                                     IsDragDropChangesUnderlyingCollection="True"
                                     IsDragDropEnabled="True"

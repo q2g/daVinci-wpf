@@ -167,28 +167,14 @@
 
                                                         switch (ColumnChooserMode)
                                                         {
+                                                            case ColumnChooserMode.Separated:
                                                             case ColumnChooserMode.Combined:
                                                                 newdim.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
                                                                 newdim.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
                                                                 break;
                                                             case ColumnChooserMode.Pivot:
-                                                                switch (newdim.PivotType)
-                                                                {
-                                                                    case PivotType.None:
-                                                                        break;
-                                                                    case PivotType.Row:
-                                                                        newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxRowsOrder() + 1;
-                                                                        newdim.SortCriterias.SortOrderIndex = PivotGetMaxRowsOrder() + 1;
-                                                                        break;
-                                                                    case PivotType.Column:
-                                                                        newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxColumnsOrder() + 1;
-                                                                        newdim.SortCriterias.SortOrderIndex = PivotGetMaxColumnsOrder() + 1;
-                                                                        break;
-                                                                    default:
-                                                                        break;
-                                                                }
-                                                                break;
-                                                            case ColumnChooserMode.Separeted:
+                                                                newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxDimensionsOrder() + 1;
+                                                                newdim.SortCriterias.SortOrderIndex = PivotGetMaxDimensionsOrder() + 1;
                                                                 break;
                                                             default:
                                                                 break;
@@ -210,7 +196,7 @@
                                                                 newmea.SortCriterias.ColumnOrderIndex = PivotGetMaxMeasuresOrder() + 1;
                                                                 newmea.SortCriterias.SortOrderIndex = PivotGetMaxMeasuresOrder() + 1;
                                                                 break;
-                                                            case ColumnChooserMode.Separeted:
+                                                            case ColumnChooserMode.Separated:
                                                                 break;
                                                             default:
                                                                 break;
@@ -245,12 +231,12 @@
                               {
                                   var selectControl = new MultiValueSelection();
                                   var selectcommand = new RelayCommand((vitem) =>
-                    {
-                        if (vitem is ValueItem item)
-                        {
-                            item.Selected = !item.Selected;
-                        }
-                    });
+                                    {
+                                        if (vitem is ValueItem item)
+                                        {
+                                            item.Selected = !item.Selected;
+                                        }
+                                    });
                                   foreach (var item in dimensionMeasures)
                                   {
                                       if (item.LibID == null)
@@ -315,6 +301,43 @@
                                       }
                                   }
                               });
+
+            itemDropCommand = new RelayCommand((param) =>
+               {
+                   if (ColumnChooserMode == ColumnChooserMode.Pivot)
+                   {
+                       if (param is Tuple<object, object> items)
+                       {
+                           if (items.Item1 is DimensionColumnData source)
+                           {
+                               if (items.Item2 is DimensionColumnData target)
+                               {
+
+                                   if (source.PivotType != target.PivotType)
+                                   {
+                                       if ((source.PivotType == PivotType.Row && PivotGetMaxColumnsOrder() == 0)
+                                       || (source.PivotType == PivotType.Column))
+                                       {
+                                           source.PivotType = target.PivotType;
+                                           columns.Remove(source);
+                                           columns.Add(source);
+                                       }
+                                   }
+
+                               }
+                               if (items.Item2 == null)
+                               {
+                                   if (source.PivotType == PivotType.Column)
+                                       source.PivotType = PivotType.Row;
+                                   if (source.PivotType == PivotType.Row)
+                                       source.PivotType = PivotType.Column;
+                                   columns.Remove(source);
+                                   columns.Add(source);
+                               }
+                           }
+                       }
+                   }
+               });
 
 
             PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
@@ -429,6 +452,21 @@
             return maxindex;
         }
 
+        private int PivotGetMaxDimensionsOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData meadata)
+                {
+                    if (item is IHasSortCriteria criteria)
+                    {
+                        maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                    }
+                }
+            }
+            return maxindex;
+        }
         #region Columns - DP 
         private INotifyCollectionChanged oldcolumns;
         private ObservableCollection<object> columns;
@@ -681,7 +719,7 @@
                 case ColumnChooserMode.Pivot:
                     retval = pivotCategorySelection;
                     break;
-                case ColumnChooserMode.Separeted:
+                case ColumnChooserMode.Separated:
                     break;
                 default:
                     break;
@@ -694,6 +732,19 @@
         private ValueSelection valueSelection;
         #endregion
 
+        private ICommand itemDropCommand;
+        public ICommand ItemDropCommand
+        {
+            get { return itemDropCommand; }
+            set
+            {
+                if (itemDropCommand != value)
+                {
+                    itemDropCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         private ICommand multiColumnCommand;
         public ICommand MultiColumnCommand
         {

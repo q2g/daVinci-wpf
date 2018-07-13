@@ -1,7 +1,9 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
+    using leonardo.Resources;
     #region Usings
     using NLog;
+    using System.Collections;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
@@ -53,7 +55,42 @@
                 }
             }
         }
+        public ColumnChooserMode TableMode { get; set; }
         #endregion
+    }
 
+    public class TableTypeFilter : ICollectionViewFilter
+    {
+        public ColumnChooserMode FilterFor { get; set; }
+        public bool Filter(object data, string searchString)
+        {
+            if (data is TableImportData impdata)
+            {
+                return impdata.TableMode == FilterFor;
+            }
+            return false;
+        }
+    }
+
+    public class TableNameComparer : IComparer
+    {
+        public string FirstItemID { get; set; }
+        public int Compare(object x, object y)
+        {
+            if (x is TableImportData impdatax)
+            {
+                if (y is TableImportData impdatay)
+                {
+                    if (impdatax.TableID == FirstItemID)
+                        return -1;
+
+                    if (impdatay.TableID == FirstItemID)
+                        return 1;
+
+                    return impdatax.TableName.CompareTo(impdatay.TableName);
+                }
+            }
+            return 0;
+        }
     }
 }

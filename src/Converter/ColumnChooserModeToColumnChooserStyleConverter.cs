@@ -32,7 +32,7 @@
                         case ColumnChooserMode.Pivot:
                             return PivotStyle;
                             break;
-                        case ColumnChooserMode.Separeted:
+                        case ColumnChooserMode.Separated:
                             return SeperateStyle;
                             break;
                         default:
