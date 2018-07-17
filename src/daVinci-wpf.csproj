@@ -41,7 +41,7 @@
     <Page Include="**\*.xaml" SubType="Designer">      
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
-  
+    
 
 
     <Resource Include="Images\QlikApp.png" />

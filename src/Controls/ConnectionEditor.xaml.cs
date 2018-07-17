@@ -284,7 +284,7 @@
         }
         private void RemoveConnection(ConnectionData Connection)
         {
-            if (LuiMessageBox.ShowDialog(string.Format("Do you realy want to remove the Connection'{0}'?", SelectedConnection.IDName), ownerPtr: Owner ?? null))
+            if (LuiMessageBox.ShowDialog(string.Format("Do you realy want to remove the Connection '{0}'?", SelectedConnection.IDName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is ObservableCollection<ConnectionData> list)
                 {
