@@ -60,18 +60,7 @@ namespace daVinci.Controls
 
         public static readonly DependencyProperty SelectedDimensionProperty = DependencyProperty.Register(
          "SelectedDimension", typeof(DimensionMeasure), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
-
-        #region ExpressionText - DP        
-        public string ExpressionText
-        {
-            get { return (string)this.GetValue(ExpressionTextProperty); }
-            set { this.SetValue(ExpressionTextProperty, value); }
-        }
-
-        public static readonly DependencyProperty ExpressionTextProperty = DependencyProperty.Register(
-         "ExpressionText", typeof(string), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
+        #endregion       
 
         #region ExpressionText - DP        
         public ConfigData.Loop.LoopConfiguration LoopConfigurationSelected
@@ -112,13 +101,16 @@ namespace daVinci.Controls
 
             if (loopconfig == null)
             {
-                loopconfig = new ConfigData.Loop.LoopConfiguration();
+                loopconfig = new ConfigData.Loop.LoopConfiguration()
+                {
+                    ExpressionText = text
+                };
             }
 
             var wnd = new LoopConfiguration()
             {
                 WindowStyle = WindowStyle.None,
-                ExpressionText = text,
+
                 LoopConfigurationSelected = loopconfig,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -130,34 +122,7 @@ namespace daVinci.Controls
 
             var handler = new PropertyChangedEventHandler((s, e) =>
             {
-                dynamic data = null;
-                try
-                {
-                    if (string.IsNullOrEmpty(wnd.ExpressionText))
-                    {
-                        wnd.ExpressionText = $"selections:\n[\n  {{\n    type: dynamic\n  \n  }}\n]";
-                    }
-                    var value = HjsonValue.Parse(wnd.ExpressionText);
-                    data = JObject.Parse(value.ToString());
-                }
-                catch (Exception ex)
-                {
-                    logger.Trace(ex);
-                }
-                if (data != null)
-                {
-                    if ((data?.selections?.Count ?? 0) > 0)
-                    {
-                        if (e.PropertyName == nameof(ConfigData.Loop.LoopConfiguration.LoopOver))
-                            data.selections[0].name = loopconfig.LoopOver.Text;
-                        if (e.PropertyName == nameof(ConfigData.Loop.LoopConfiguration.ExportRootNode))
-                            data.selections[0].exportRootNode = loopconfig.ExportRootNode;
-                        if (e.PropertyName == nameof(ConfigData.Loop.LoopConfiguration.SheetNameExpression))
-                            data.selections[0].sheetName = loopconfig.SheetNameExpression;
-                    }
-                    wnd.ExpressionText = HjsonValue.Parse(data.ToString()).ToString(Stringify.Hjson);
-                    wnd.ExpressionText = wnd.ExpressionText.Substring(1, wnd.ExpressionText.Length - 2).Trim();
-                }
+
             });
             (loopconfig as INotifyPropertyChanged).PropertyChanged += handler;
             list.OrderBy(ele => ele.Text).ToList()
@@ -165,10 +130,10 @@ namespace daVinci.Controls
 
             string retval = text;
             wnd.OKCommand = new RelayCommand((o) =>
-                    {
-                        retval = wnd.ExpressionText;
-                        wnd.Close();
-                    });
+                            {
+                                retval = loopconfig.ExpressionText;
+                                wnd.Close();
+                            });
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 

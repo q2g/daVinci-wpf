@@ -68,7 +68,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             AcceptsReturn="True"
-            Text="{Binding ExpressionText, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, Mode=TwoWay}"
+            Text="{Binding LoopConfigurationSelected.ExpressionText, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             VerticalScrollBarVisibility="Auto" />
         <!--<StackPanel Grid.Row="1">
             <LuiControls:LuiInput
