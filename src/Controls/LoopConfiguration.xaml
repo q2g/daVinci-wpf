@@ -11,13 +11,15 @@
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="400"
-    Height="200"
+    Height="400"
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -35,14 +37,32 @@
 
             <LuiControls:LuiCombobox
                 Width="280"
-                Margin="10,0,0,0"
+                Margin="5,0,0,0"
                 DisplayMemberPath="Text"
                 ItemsSource="{Binding Dimensions, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
-                SelectedItem="{Binding SelectedDimension, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, Mode=TwoWay}" />
+                SelectedItem="{Binding LoopConfigurationSelected.LoopOver, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, Mode=TwoWay}" />
+        </DockPanel>
+        <DockPanel Grid.Row="1">
+            <LuiControls:LuiCheckbox
+                Margin="5,5,0,0"
+                Content="Export Root node"
+                IsChecked="{Binding LoopConfigurationSelected.ExportRootNode, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
+        </DockPanel>
+        <DockPanel Grid.Row="2">
+            <LuiControls:LuiCheckbox
+                Margin="5,5,0,0"
+                VerticalAlignment="Bottom"
+                Content=""
+                DockPanel.Dock="Left"
+                IsChecked="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
+            <LuiControls:LuiInput
+                IsEnabled="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
+                LabelText="Sheet Name"
+                Text="{Binding LoopConfigurationSelected.SheetNameExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
         <TextBox
             Name="outputTextBox"
-            Grid.Row="1"
+            Grid.Row="3"
             Grid.Column="0"
             Margin="5,5,5,5"
             HorizontalAlignment="Stretch"
