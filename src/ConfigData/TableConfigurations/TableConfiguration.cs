@@ -95,6 +95,8 @@
             }
         }
 
+
+
         private ColumnChooserMode tableMode;
         public ColumnChooserMode TableMode
         {

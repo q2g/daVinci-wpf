@@ -21,10 +21,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            LastChildFill="false">
+        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Center">
             <LuiControls:LuiAbortButton
                 Margin="5,0,10,0"
                 Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
@@ -37,7 +34,7 @@
                 IsDefault="True" />
 
             <LuiControls:LuiCombobox
-                Width="100"
+                Width="280"
                 Margin="10,0,0,0"
                 DisplayMemberPath="Text"
                 ItemsSource="{Binding Dimensions, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"

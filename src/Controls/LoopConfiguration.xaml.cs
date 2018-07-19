@@ -118,7 +118,8 @@ namespace daVinci.Controls
             {
                 new WindowInteropHelper(wnd).Owner = new IntPtr((int)mainHwnd);
             }
-            list.ForEach(ele => wnd.Dimensions.Add(ele));
+            list.OrderBy(ele => ele.Text).ToList()
+                .ForEach(ele => wnd.Dimensions.Add(ele));
 
             string retval = text;
             wnd.OKCommand = new RelayCommand((o) =>
