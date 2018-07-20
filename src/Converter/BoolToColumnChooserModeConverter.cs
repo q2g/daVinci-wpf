@@ -12,6 +12,10 @@
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        public ColumnChooserMode TrueValue { get; set; }
+        public ColumnChooserMode ValueWhenFalse { get; set; }
+
+
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
@@ -19,10 +23,9 @@
             {
                 if (value is ColumnChooserMode mode)
                 {
-                    if (mode == ColumnChooserMode.Pivot)
+                    if (mode == TrueValue)
                         return true;
-                    if (mode == ColumnChooserMode.Combined)
-                        return false;
+                    return false;
                 }
             }
             catch (Exception Ex)
@@ -39,14 +42,14 @@
             {
                 if (value is bool boolvalue)
                 {
-                    return boolvalue ? ColumnChooserMode.Pivot : ColumnChooserMode.Combined;
+                    return boolvalue ? TrueValue : ValueWhenFalse;
                 }
             }
             catch (Exception Ex)
             {
                 logger.Error(Ex);
             }
-            return value;
+            return ValueWhenFalse;
         }
 
 
