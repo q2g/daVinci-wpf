@@ -38,6 +38,8 @@
         FalseValue="{StaticResource ColumnChooserStyleCombined}"
         TrueValue="{StaticResource ColumnChooserStylePivot}" />
 
+    <daVinciControls:PivotDimensionColumnFilter x:Key="PivotDimensionColumnFilter" />
+
 
     <LuiConverter:BooleanToVisibilityConverter
         x:Key="TrueIsVisible"
@@ -117,9 +119,22 @@
                                     VerticalAlignment="Center"
                                     DockPanel.Dock="Left"
                                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                    Icon="lui_icon_table"
                                     IconSize="Normal"
-                                    Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsCollapsed}}" />
+                                    Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsCollapsed}}">
+                                    <controls:LuiIcon.Style>
+                                        <Style TargetType="controls:LuiIcon">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Pivot">
+                                                    <Setter Property="Icon" Value="lui_icon_pivot_table" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
+                                                    <Setter Property="Icon" Value="lui_icon_table" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </controls:LuiIcon.Style>
+                                </controls:LuiIcon>
+
                                 <TextBlock
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Center"
@@ -203,7 +218,23 @@
                                         Style="{StaticResource LuiSenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
                                         <Grid>
-                                            <controls:CollectionView CollectionViewComparer="{StaticResource SortOrderComparer}" ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                            <controls:CollectionView CollectionViewComparer="{StaticResource SortOrderComparer}" ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+                                                <controls:CollectionView.Style>
+                                                    <Style TargetType="controls:CollectionView">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
+                                                                <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Pivot">
+                                                                <Setter Property="CollectionViewFilter" Value="{StaticResource PivotDimensionColumnFilter}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Separated">
+                                                                <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </controls:CollectionView.Style>
+                                            </controls:CollectionView>
                                             <controls:LuiAccordion
                                                 Background="{StaticResource Lui.Brush.Grayscale100}"
                                                 CollapseAllOnExpandSingle="False"

@@ -812,4 +812,12 @@
             return data is MeasureColumnData;
         }
     }
+
+    public class PivotDimensionColumnFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            return data is DimensionColumnData;
+        }
+    }
 }
