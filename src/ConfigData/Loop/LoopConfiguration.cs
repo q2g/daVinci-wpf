@@ -78,6 +78,19 @@
                 }
             }
         }
+        private bool jsonValid;
+        public bool JsonValid
+        {
+            get => jsonValid;
+            set
+            {
+                if (jsonValid != value)
+                {
+                    jsonValid = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         private DimensionMeasure loopOver;
         public DimensionMeasure LoopOver
         {
@@ -100,23 +113,27 @@
         {
             if (dontProcessFill)
                 return;
+            if (propertyName == nameof(JsonValid))
+                return;
 
+
+            dynamic data = null;
+            try
+            {
+                if (string.IsNullOrEmpty(ExpressionText))
+                {
+                    ExpressionText = $"selections:\n[\n  {{\n    type: dynamic\n  \n  }}\n]";
+                }
+                var value = HjsonValue.Parse(ExpressionText);
+                data = JObject.Parse(value.ToString());
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                JsonValid = false;
+            }
             if (propertyName != nameof(ExpressionText))
             {
-                dynamic data = null;
-                try
-                {
-                    if (string.IsNullOrEmpty(ExpressionText))
-                    {
-                        ExpressionText = $"selections:\n[\n  {{\n    type: dynamic\n  \n  }}\n]";
-                    }
-                    var value = HjsonValue.Parse(ExpressionText);
-                    data = JObject.Parse(value.ToString());
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Error Parsing Json");
-                }
                 try
                 {
                     if (data != null)
@@ -134,28 +151,21 @@
                         dontProcessFill = true;
                         ExpressionText = text.Substring(1, text.Length - 2).Trim();
                         dontProcessFill = false;
+                        JsonValid = true;
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Error Setting Values");
+                    logger.Error(ex);
+                    JsonValid = false;
                     dontProcessFill = false;
                 }
 
             }
             else
             {
-                dynamic data = null;
                 try
                 {
-                    if (string.IsNullOrEmpty(ExpressionText))
-                    {
-                        dontProcessFill = true;
-                        ExpressionText = $"selections:\n[\n  {{\n    type: dynamic\n  \n  }}\n]";
-                        dontProcessFill = false;
-                    }
-                    var value = HjsonValue.Parse(ExpressionText);
-                    data = JObject.Parse(value.ToString());
                     if (data != null)
                     {
                         if ((data?.selections?.Count ?? 0) > 0)
@@ -164,13 +174,15 @@
                             ExportRootNode = (data.selections[0]?.exportRootNode?.ToString() ?? "true") != "False";
                             SheetNameExpression = data.selections[0]?.sheetName ?? "";
                             dontProcessFill = false;
+                            JsonValid = true;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, $"Error Processing Loopconfiguration.{nameof(ExpressionText)}");
+                    logger.Error(ex);
                     dontProcessFill = false;
+                    JsonValid = false;
                 }
                 if (data != null)
                 {

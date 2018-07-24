@@ -33,12 +33,14 @@
             <LuiControls:LuiOKButton
                 Command="{Binding OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 DockPanel.Dock="Left"
-                IsDefault="True" />
+                IsDefault="True"
+                IsEnabled="{Binding LoopConfigurationSelected.JsonValid, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
 
             <LuiControls:LuiCombobox
                 Width="280"
                 Margin="5,0,0,0"
                 DisplayMemberPath="Text"
+                IsEnabled="{Binding LoopConfigurationSelected.JsonValid, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 ItemsSource="{Binding Dimensions, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 SelectedItem="{Binding LoopConfigurationSelected.LoopOver, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, Mode=TwoWay}" />
         </DockPanel>
@@ -46,7 +48,8 @@
             <LuiControls:LuiCheckbox
                 Margin="5,5,0,0"
                 Content="Export Root node"
-                IsChecked="{Binding LoopConfigurationSelected.ExportRootNode, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
+                IsChecked="{Binding LoopConfigurationSelected.ExportRootNode, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
+                IsEnabled="{Binding LoopConfigurationSelected.JsonValid, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
         </DockPanel>
         <DockPanel Grid.Row="2">
             <LuiControls:LuiCheckbox
@@ -54,7 +57,9 @@
                 VerticalAlignment="Bottom"
                 Content=""
                 DockPanel.Dock="Left"
-                IsChecked="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
+                IsChecked="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
+                IsEnabled="{Binding LoopConfigurationSelected.JsonValid, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
+
             <LuiControls:LuiInput
                 IsEnabled="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 LabelText="Sheet Name"
