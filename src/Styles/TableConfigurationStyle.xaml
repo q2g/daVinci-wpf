@@ -218,18 +218,21 @@
                                         Style="{StaticResource LuiSenseScrollViewerStyle}"
                                         VerticalScrollBarVisibility="Auto">
                                         <Grid>
-                                            <controls:CollectionView CollectionViewComparer="{StaticResource SortOrderComparer}" ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+                                            <controls:CollectionView ItemsSource="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
                                                 <controls:CollectionView.Style>
                                                     <Style TargetType="controls:CollectionView">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
                                                                 <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                                <Setter Property="CollectionViewComparer" Value="{StaticResource SortOrderComparer}" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Pivot">
                                                                 <Setter Property="CollectionViewFilter" Value="{StaticResource PivotDimensionColumnFilter}" />
+                                                                <Setter Property="CollectionViewComparer" Value="{StaticResource ColumnOrderComparer}" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Separated">
                                                                 <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                                <Setter Property="CollectionViewComparer" Value="{StaticResource SortOrderComparer}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>

@@ -402,7 +402,6 @@
             {
                 if (item is DimensionColumnData dimensionData)
                 {
-                    IndexesColumn.Add(index, dimensionData.SortCriterias.ColumnOrderIndex);
                     jsonData.qHyperCubeDef.columnWidths.Add(-1);
                     jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
                     index++;
@@ -420,10 +419,10 @@
                 }
             }
 
-            var orderedColumnindexes = IndexesColumn.OrderBy(ele => ele.Value).ToList();
-            foreach (var item in orderedColumnindexes)
+
+            for (int i = 0; i < dimensions.Count; i++)
             {
-                jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Key);
+                jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(i);
             }
         }
 
