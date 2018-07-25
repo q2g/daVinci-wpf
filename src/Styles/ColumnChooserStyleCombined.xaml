@@ -35,7 +35,7 @@
                             <LuiControls:LuiButton
                                 Margin="10,0,0,0"
                                 Command="{Binding MultiColumnCommand}"
-                                Content="Fast Add"
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:FastAdd}"
                                 DockPanel.Dock="Right" />
                             <LuiControls:LuiToggleButton
                                 x:Name="togglebutton"

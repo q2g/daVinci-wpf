@@ -75,7 +75,7 @@
                                 },
                                 new CategoryItem()
                     {
-                        CategoryName = "Formula",
+                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_NewFomula", null, LocalizeDictionary.Instance.Culture)),
                         CategoryParameter = "EQU"
                     }
                 }

@@ -156,11 +156,11 @@
                                         Margin="0,-8,0,0"
                                         VerticalAlignment="Center"
                                         attachedP:ThemeProperties.Inverted="True"
-                                        CheckedText="Pivot-Table"
+                                        CheckedText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableConfigStyle_PivotTable}"
                                         Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                         IsChecked="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueToColumnChooserPivotModeConverter}}"
-                                        TitleText="Table Type"
-                                        UnCheckedText="Combined Table" />
+                                        TitleText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableConfigStyle_TableType}"
+                                        UnCheckedText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableConfigStyle_CombinedTable}" />
                                 </StackPanel>
                                 <controls:CollectionView
                                     Name="ImportTables"

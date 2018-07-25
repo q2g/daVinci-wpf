@@ -288,7 +288,8 @@
         }
         private void RemoveBookmark(BookmarkData bookmark)
         {
-            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Do you realy want to remove the Bookmark'{0}'?", SelectedBookmark.BookmarkName), ownerPtr: Owner ?? null))
+            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_DeleteBookmark", null, LocalizeDictionary.Instance.Culture))
+                , SelectedBookmark.BookmarkName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is ObservableCollection<BookmarkData> list)
                 {
