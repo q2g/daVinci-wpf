@@ -284,7 +284,7 @@
                                       }
                                   }
 
-                                  if (LuiDialogWindow.Show("Choose multiple Columns", OwnerHwnd, selectControl, 400, 900, modal: true))
+                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, 900, modal: true))
                                   {
                                       List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
                                       selectedItems.AddRange(selectControl.Measures);

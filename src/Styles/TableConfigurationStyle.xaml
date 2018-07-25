@@ -224,7 +224,7 @@
                                                 <controls:CollectionView.Style>
                                                     <Style TargetType="controls:CollectionView">
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource BindingDiagConverter}}" Value="Combined">
+                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
                                                                 <Setter Property="CollectionViewFilter" Value="{StaticResource FilterNothing}" />
                                                                 <Setter Property="CollectionViewComparer" Value="{StaticResource SortOrderComparer}" />
                                                             </DataTrigger>
