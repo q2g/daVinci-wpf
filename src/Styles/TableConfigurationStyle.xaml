@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LuiConverter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:LuiResources="clr-namespace:leonardo.Resources;assembly=leonardo-wpf"
     xmlns:attachedP="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:daVinciConfig="clr-namespace:daVinci.ConfigData"
@@ -39,6 +40,7 @@
         TrueValue="{StaticResource ColumnChooserStylePivot}" />
 
     <daVinciControls:PivotDimensionColumnFilter x:Key="PivotDimensionColumnFilter" />
+    <LuiResources:FilterNothing x:Key="FilterNothing" />
 
 
     <LuiConverter:BooleanToVisibilityConverter
@@ -222,8 +224,8 @@
                                                 <controls:CollectionView.Style>
                                                     <Style TargetType="controls:CollectionView">
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Combined">
-                                                                <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                            <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource BindingDiagConverter}}" Value="Combined">
+                                                                <Setter Property="CollectionViewFilter" Value="{StaticResource FilterNothing}" />
                                                                 <Setter Property="CollectionViewComparer" Value="{StaticResource SortOrderComparer}" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Pivot">
@@ -231,7 +233,7 @@
                                                                 <Setter Property="CollectionViewComparer" Value="{StaticResource ColumnOrderComparer}" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="Separated">
-                                                                <Setter Property="CollectionViewFilter" Value="{x:Null}" />
+                                                                <Setter Property="CollectionViewFilter" Value="{StaticResource FilterNothing}" />
                                                                 <Setter Property="CollectionViewComparer" Value="{StaticResource SortOrderComparer}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
