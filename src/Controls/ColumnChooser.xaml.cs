@@ -14,12 +14,14 @@
     using System.Windows.Controls;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    #endregion
-
     using System.Runtime.CompilerServices;
     using daVinci.ConfigData.TableConfigurations;
     using WPFLocalizeExtension.Engine;
     using System.Collections.Specialized;
+    #endregion
+
+
+
 
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
@@ -284,8 +286,17 @@
                                       }
                                   }
 
-                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, 900, modal: true))
+                                  int height = (int)ActualHeight + 200;
+                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr((int)OwnerHwnd));
+                                  if (screen != null && (screen.Bounds.Height - 200) > 0)
                                   {
+                                      height = screen.Bounds.Height - 200;
+                                  }
+
+
+                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, height, modal: true))
+                                  {
+
                                       List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
                                       selectedItems.AddRange(selectControl.Measures);
                                       selectedItems.AddRange(selectControl.Fields);
