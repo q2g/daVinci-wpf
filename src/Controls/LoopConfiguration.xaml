@@ -54,13 +54,13 @@
         <DockPanel Grid.Row="2">
             <LuiControls:LuiCheckbox
                 Margin="5,5,0,0"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 Content=""
                 DockPanel.Dock="Left"
                 IsChecked="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 IsEnabled="{Binding LoopConfigurationSelected.JsonValid, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}" />
 
-            <LuiControls:LuiInput
+            <daViniciControls:DavInputbox
                 IsEnabled="{Binding LoopConfigurationSelected.EnableExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}}"
                 LabelText="Sheet Name"
                 Text="{Binding LoopConfigurationSelected.SheetNameExpression, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:LoopConfiguration}, UpdateSourceTrigger=PropertyChanged}" />
