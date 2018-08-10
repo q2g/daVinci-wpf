@@ -1,4 +1,4 @@
-﻿namespace daVinci_wpf.ConfigData.TableConfigurations
+﻿namespace daVinci.ConfigData.TableConfigurations
 {
     #region Usings
     using leonardo.Resources;

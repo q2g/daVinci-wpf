@@ -1,8 +1,11 @@
-﻿using leonardo.Resources;
+﻿using Hjson;
+using leonardo.Resources;
+using Newtonsoft.Json.Linq;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +28,17 @@ namespace daVinci.Controls
     public partial class LoopConfiguration : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        #region ctor
         public LoopConfiguration()
         {
             Dimensions = new ObservableCollection<DimensionMeasure>();
             InitializeComponent();
         }
+        #endregion
+
+        #region Properties & Variables        
+        #endregion
 
         #region Dimensions - DP        
         public ObservableCollection<DimensionMeasure> Dimensions
@@ -50,35 +59,18 @@ namespace daVinci.Controls
         }
 
         public static readonly DependencyProperty SelectedDimensionProperty = DependencyProperty.Register(
-         "SelectedDimension", typeof(DimensionMeasure), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnSelectedDimensionChanged)));
-        private static void OnSelectedDimensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            try
-            {
-                if (d is LoopConfiguration obj)
-                {
-                    if (e.NewValue is DimensionMeasure newvalue)
-                    {
-                        obj.ExpressionText = $"selections:\n[\n  {{\n    type: dynamic\n    name:{newvalue.Text}\n  }}\n]";
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                logger.Error(Ex);
-            }
-        }
-        #endregion
+         "SelectedDimension", typeof(DimensionMeasure), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion       
 
         #region ExpressionText - DP        
-        public string ExpressionText
+        public ConfigData.Loop.LoopConfiguration LoopConfigurationSelected
         {
-            get { return (string)this.GetValue(ExpressionTextProperty); }
-            set { this.SetValue(ExpressionTextProperty, value); }
+            get { return (ConfigData.Loop.LoopConfiguration)this.GetValue(LoopConfigurationSelectedProperty); }
+            set { this.SetValue(LoopConfigurationSelectedProperty, value); }
         }
 
-        public static readonly DependencyProperty ExpressionTextProperty = DependencyProperty.Register(
-         "ExpressionText", typeof(string), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty LoopConfigurationSelectedProperty = DependencyProperty.Register(
+         "LoopConfigurationSelected", typeof(ConfigData.Loop.LoopConfiguration), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region OKCommand - DP        
@@ -104,28 +96,44 @@ namespace daVinci.Controls
         #endregion
 
         #region statics
-        public static string ShowModal(string text, List<DimensionMeasure> list)
+        public static string ShowModal(string text, List<DimensionMeasure> list, ConfigData.Loop.LoopConfiguration loopconfig = null)
         {
+
+            if (loopconfig == null)
+            {
+                loopconfig = new ConfigData.Loop.LoopConfiguration()
+                {
+                    ExpressionText = text
+                };
+            }
+
             var wnd = new LoopConfiguration()
             {
                 WindowStyle = WindowStyle.None,
-                ExpressionText = text,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
 
+                LoopConfigurationSelected = loopconfig,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
             var mainHwnd = GlobalAppData.Instance.DataHolder.Get<object>("MainHwnd");
             if (mainHwnd != null && mainHwnd is int)
             {
                 new WindowInteropHelper(wnd).Owner = new IntPtr((int)mainHwnd);
             }
-            list.ForEach(ele => wnd.Dimensions.Add(ele));
+
+            var handler = new PropertyChangedEventHandler((s, e) =>
+            {
+
+            });
+            (loopconfig as INotifyPropertyChanged).PropertyChanged += handler;
+            list.OrderBy(ele => ele.Text).ToList()
+                        .ForEach(ele => wnd.Dimensions.Add(ele));
 
             string retval = text;
             wnd.OKCommand = new RelayCommand((o) =>
-            {
-                retval = wnd.ExpressionText;
-                wnd.Close();
-            });
+                            {
+                                retval = loopconfig.ExpressionText;
+                                wnd.Close();
+                            });
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 

@@ -57,13 +57,13 @@
                     VerticalAlignment="Center"
                     DockPanel.Dock="Left"
                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                    Text="Connections" />
+                    Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_Connections}" />
                 <Luicontrols:LuiButton
                     Margin="10,0,0,0"
                     Padding="10,0,0,0"
                     LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
                     Click="NewConnectionButton_Click"
-                    Content="New Connection"
+                    Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_NewConnections}"
                     DockPanel.Dock="Right" />
                 <Luicontrols:LuiSearch
                     Name="search"
@@ -144,12 +144,12 @@
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                LabelText="Name"
+                                LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_ConnectionName}"
                                 Text="{Binding ConnectionToEdit.IDName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
 
                             <Luicontrols:LuiCheckbox
                                 Margin="0,10,10,0"
-                                Content="Ignore Certification Error"
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_IgnoreCertError}"
                                 Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                 IsChecked="{Binding ConnectionToEdit.IgnoreCertError, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
@@ -193,19 +193,19 @@
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                LabelText="Headercookie Key (Default is Empty)"
+                                LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_HeaderCookiekey}"
                                 Text="{Binding ConnectionToEdit.HeaderCookieKey, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                LabelText="Headercookie Value (Default is Empty)"
+                                LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_HeaderCookieValue}"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                             <Luicontrols:LuiButton
                                 Margin="0,10,10,10"
                                 Command="{Binding ConnectionCheckCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 CommandParameter="{Binding ConnectionToEdit, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                Content="Check Connection" />
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_CheckConnection}" />
                         </StackPanel>
                     </ScrollViewer>
                 </Border>

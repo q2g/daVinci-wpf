@@ -95,61 +95,79 @@
             }
         }
 
-        public string TableName { get; set; }
+
+
+        private ColumnChooserMode tableMode;
+        public ColumnChooserMode TableMode
+        {
+            get
+            {
+                return tableMode;
+            }
+            set
+            {
+                if (tableMode != value)
+                {
+                    tableMode = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private TableImportConfiguration tableImportConfiguration;
+        public TableImportConfiguration TableImportConfiguration
+        {
+            get
+            {
+                return tableImportConfiguration;
+            }
+            set
+            {
+                if (tableImportConfiguration != value)
+                {
+                    tableImportConfiguration = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string tableName;
+        public string TableName
+        {
+            get
+            {
+                return tableName;
+            }
+            set
+            {
+                if (tableName != value)
+                {
+                    tableName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public void ReadFromJSON(string JSONstring)
         {
             try
             {
                 dynamic jsonConfig = JObject.Parse(JSONstring);
-                SettingsID = jsonConfig?.qInfo?.qId ?? "";
-                var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
-                var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
-
-                List<object> cols = new List<object>();
-                foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+                string visualization = (jsonConfig?.visualization ?? "table");
+                if (visualization == "table")
                 {
-                    var newone = new DimensionColumnData();
-                    newone.ReadFromJSON(dimension);
-                    newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
-                    newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
-                    newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    cols.Add(newone);
+                    TableMode = ColumnChooserMode.Combined;
+                    LoadColumnsCombined(jsonConfig);
                 }
-
-
-                foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
+                if (visualization == "pivot-table")
                 {
-                    var newone = new MeasureColumnData();
-                    newone.ReadFromJSON(measure);
-                    newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
-                    newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
-                    newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
-                    cols.Add(newone);
+                    TableMode = ColumnChooserMode.Pivot;
+                    LoadColumnsPivot(jsonConfig);
                 }
-
-                int count = jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0;
-                if (count != 0)
+                if (visualization == "auto-chart")
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        (cols[(int)jsonConfig.qHyperCubeDef.qColumnOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
-                    }
+                    TableMode = ColumnChooserMode.Separated;
                 }
-
-
-                count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
-                if (count != 0)
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.SortOrderIndex = i + 1;
-                    }
-                }
-
-                cols.ForEach(ele => Columns.Add(ele));
-
-
 
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
@@ -169,6 +187,134 @@
             }
         }
 
+        private void LoadColumnsCombined(dynamic jsonConfig)
+        {
+            int numberofRows = 0;
+            if (TableMode == ColumnChooserMode.Pivot)
+                numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
+
+            SettingsID = jsonConfig?.qInfo?.qId ?? "";
+            var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
+            var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
+
+            List<object> cols = new List<object>();
+            int pivotrowCounter = 0;
+            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+            {
+                var newone = new DimensionColumnData();
+                newone.ReadFromJSON(dimension);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
+                newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                newone.PivotType = PivotType.None;
+                if (TableMode == ColumnChooserMode.Pivot)
+                {
+                    if (pivotrowCounter < numberofRows)
+                    {
+                        newone.PivotType = PivotType.Row;
+                        pivotrowCounter++;
+                    }
+                    else
+                    {
+                        newone.PivotType = PivotType.Column;
+                    }
+                }
+                cols.Add(newone);
+            }
+
+
+            foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
+            {
+                var newone = new MeasureColumnData();
+                newone.ReadFromJSON(measure);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
+                newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                cols.Add(newone);
+            }
+
+            int count = jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0;
+            if (count != 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    (cols[(int)jsonConfig.qHyperCubeDef.qColumnOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
+                }
+            }
+
+
+            count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
+            if (count != 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.SortOrderIndex = i + 1;
+                }
+            }
+
+            cols.ForEach(ele => Columns.Add(ele));
+        }
+
+        private void LoadColumnsPivot(dynamic jsonConfig)
+        {
+            int numberofRows = 0;
+            if (TableMode == ColumnChooserMode.Pivot)
+                numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
+
+            SettingsID = jsonConfig?.qInfo?.qId ?? "";
+            var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
+            var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
+
+            List<object> cols = new List<object>();
+            int pivotrowCounter = 0;
+            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+            {
+                var newone = new DimensionColumnData();
+                newone.ReadFromJSON(dimension);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
+                newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                newone.PivotType = PivotType.None;
+                if (TableMode == ColumnChooserMode.Pivot)
+                {
+                    if (pivotrowCounter < numberofRows)
+                    {
+                        newone.PivotType = PivotType.Row;
+                        pivotrowCounter++;
+                    }
+                    else
+                    {
+                        newone.PivotType = PivotType.Column;
+                    }
+                }
+                cols.Add(newone);
+            }
+
+            int index = 0;
+            foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
+            {
+                var newone = new MeasureColumnData();
+                newone.ReadFromJSON(measure);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
+                newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                newone.SortCriterias.ColumnOrderIndex = index + 1;
+                index++;
+                cols.Add(newone);
+            }
+
+            int count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
+            if (count != 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
+                }
+            }
+
+            cols.ForEach(ele => Columns.Add(ele));
+        }
+
         public string SaveToJSON()
         {
             dynamic jsonData = new JObject();
@@ -176,58 +322,48 @@
             {
                 jsonData.qInfo = new JObject();
                 jsonData.qInfo.qId = SettingsID;
-                jsonData.qInfo.qType = "table";
+
 
 
                 jsonData.qHyperCubeDef = new JObject();
-                jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
-                jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
 
-                jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
-                jsonData.qHyperCubeDef.columnWidths = new JArray();
-                jsonData.qHyperCubeDef.qColumnOrder = new JArray();
 
-                var qColumnOrder = new SortedDictionary<int, int>();
-                var qInterColumnSortOrder = new SortedDictionary<int, int>();
-             
-                Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
-                Dictionary<int, int> IndexesSort = new Dictionary<int, int>();
-                var index = 0;
-                foreach(var item in Columns)
+                switch (TableMode)
                 {
-                    if (item is DimensionColumnData dimensionData)
-                    {
-                        IndexesColumn.Add(index, dimensionData.SortCriterias.ColumnOrderIndex);
-                        IndexesSort.Add(index, dimensionData.SortCriterias.SortOrderIndex);
-                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
+                    case ColumnChooserMode.Separated:
+                        FillDimensionMeasureAndOrderCombined(jsonData);
+                        jsonData.visualization = "auto-chart";
+                        jsonData.qInfo.qType = "auto-chart";
+                        jsonData.qHyperCubeDef.qMode = "S";
+                        jsonData.qHyperCubeDef.qPseudoDimPos = -1;
+                        jsonData.qHyperCubeDef.qNoOfLeftDims = -1;
+                        break;
+                    case ColumnChooserMode.Combined:
+                        FillDimensionMeasureAndOrderCombined(jsonData);
+                        jsonData.visualization = "table";
+                        jsonData.qInfo.qType = "table";
+                        jsonData.qHyperCubeDef.qMode = "S";
+                        jsonData.qHyperCubeDef.qPseudoDimPos = -1;
+                        jsonData.qHyperCubeDef.qNoOfLeftDims = -1;
+                        break;
+                    case ColumnChooserMode.Pivot:
+                        FillDimensionMeasureAndOrderPivot(jsonData);
+                        jsonData.visualization = "pivot-table";
+                        jsonData.qInfo.qType = "pivot-table";
+                        jsonData.qHyperCubeDef.qMode = "P";
+                        jsonData.qHyperCubeDef.qPseudoDimPos = -1;
+                        jsonData.qHyperCubeDef.qAlwaysFullyExpanded = true;
+                        jsonData.qHyperCubeDef.qMaxStackedCells = 5000;
+                        jsonData.qHyperCubeDef.qNoOfLeftDims =
+                       columns
+                       .Where(ele => (ele as DimensionColumnData) != null && (ele as DimensionColumnData).PivotType == PivotType.Row)
+                       .Count();
+                        break;
 
-                        jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
-                        index++;
-                    }
-                }
-                foreach (var item in Columns)
-                {
-                    if (item is MeasureColumnData measureData)
-                    {
-                        IndexesColumn.Add(index, measureData.SortCriterias.ColumnOrderIndex);
-                        IndexesSort.Add(index, measureData.SortCriterias.SortOrderIndex);
-                        jsonData.qHyperCubeDef.columnWidths.Add(-1);
-
-                        jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
-                        index++;
-                    }
+                    default:
+                        break;
                 }
 
-                var orderedColumnindexes = IndexesColumn.OrderBy(ele => ele.Value).ToList();
-                foreach (var item in orderedColumnindexes)
-                {
-                    jsonData.qHyperCubeDef.qColumnOrder.Add(item.Key);
-                }
-                var orderedSortindexes = IndexesSort.OrderBy(ele => ele.Value).ToList();
-                foreach (var item in orderedSortindexes)
-                {
-                    jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Key);
-                }
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
 
@@ -243,12 +379,118 @@
 
         }
 
+        private void FillDimensionMeasureAndOrderPivot(dynamic jsonData)
+        {
+            jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
+            jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
+
+            jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
+            jsonData.qHyperCubeDef.columnWidths = new JArray();
+            jsonData.qHyperCubeDef.qColumnOrder = new JArray();
+
+            var qColumnOrder = new SortedDictionary<int, int>();
+            var qInterColumnSortOrder = new SortedDictionary<int, int>();
+
+            Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
+
+            var index = 0;
+            var dimensions = Columns.Where(ele => (ele as DimensionColumnData) != null)
+                .OrderBy(ele => (ele as DimensionColumnData).PivotType)
+                .ThenBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex)
+                .ToList();
+            foreach (var item in dimensions)
+            {
+                if (item is DimensionColumnData dimensionData)
+                {
+                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
+                    jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                    index++;
+                }
+            }
+            var measures = Columns.Where(ele => (ele as MeasureColumnData) != null)
+                .OrderBy(ele => (ele as IHasSortCriteria).SortCriterias.ColumnOrderIndex)
+                .ToList();
+
+            foreach (var item in measures)
+            {
+                if (item is MeasureColumnData measureData)
+                {
+                    jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                }
+            }
+
+
+            for (int i = 0; i < dimensions.Count; i++)
+            {
+                jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(i);
+            }
+        }
+
+        private void FillDimensionMeasureAndOrderCombined(dynamic jsonData)
+        {
+            jsonData.qHyperCubeDef.qDimensions = new JArray() as dynamic;
+            jsonData.qHyperCubeDef.qMeasures = new JArray() as dynamic;
+
+            jsonData.qHyperCubeDef.qInterColumnSortOrder = new JArray();
+            jsonData.qHyperCubeDef.columnWidths = new JArray();
+            jsonData.qHyperCubeDef.qColumnOrder = new JArray();
+
+            var qColumnOrder = new SortedDictionary<int, int>();
+            var qInterColumnSortOrder = new SortedDictionary<int, int>();
+
+            Dictionary<int, int> IndexesColumn = new Dictionary<int, int>();
+            Dictionary<int, int> IndexesSort = new Dictionary<int, int>();
+            var index = 0;
+
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData dimensionData)
+                {
+                    IndexesColumn.Add(index, dimensionData.SortCriterias.ColumnOrderIndex);
+                    IndexesSort.Add(index, dimensionData.SortCriterias.SortOrderIndex);
+                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
+                    jsonData.qHyperCubeDef.qDimensions.Add(dimensionData.SaveToJson());
+                    index++;
+                }
+            }
+            foreach (var item in Columns)
+            {
+                if (item is MeasureColumnData measureData)
+                {
+                    IndexesColumn.Add(index, measureData.SortCriterias.ColumnOrderIndex);
+                    IndexesSort.Add(index, measureData.SortCriterias.SortOrderIndex);
+                    jsonData.qHyperCubeDef.columnWidths.Add(-1);
+                    jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
+                    index++;
+                }
+            }
+
+            var orderedColumnindexes = IndexesColumn.OrderBy(ele => ele.Value).ToList();
+            foreach (var item in orderedColumnindexes)
+            {
+                jsonData.qHyperCubeDef.qColumnOrder.Add(item.Key);
+            }
+            var orderedSortindexes = IndexesSort.OrderBy(ele => ele.Value).ToList();
+            foreach (var item in orderedSortindexes)
+            {
+                jsonData.qHyperCubeDef.qInterColumnSortOrder.Add(item.Key);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
+
+    }
+
+    public enum ColumnChooserMode
+    {
+        Combined,
+        Pivot,
+        Separated
 
     }
 }

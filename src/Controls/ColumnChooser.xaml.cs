@@ -3,6 +3,7 @@
     #region Usings
     using NLog;
     using System;
+    using System.Linq;
     using System.Windows;
     using daVinci.Resources;
     using leonardo.Controls;
@@ -13,10 +14,14 @@
     using System.Windows.Controls;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    #endregion
-
     using System.Runtime.CompilerServices;
     using daVinci.ConfigData.TableConfigurations;
+    using WPFLocalizeExtension.Engine;
+    using System.Collections.Specialized;
+    #endregion
+
+
+
 
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
@@ -32,8 +37,8 @@
                 SelectedCommand = new RelayCommand(
                 (parameter) =>
                 {
-                    dialog.PanelWidth = 300;
-                    dialog.PanelHeight = 300;
+                    PanelWidth = 300;
+                    PanelHeight = 300;
                     if (parameter is string param)
                     {
                         if (param == "DIM")
@@ -41,7 +46,7 @@
                             valueSelection.ValueType = ValueTypeEnum.Dimension;
                             PopupContent = valueSelection;
                         }
-                        if (param == "COEF")
+                        if (param == "MEA")
                         {
                             valueSelection.ValueType = ValueTypeEnum.Measure;
                             PopupContent = valueSelection;
@@ -49,15 +54,65 @@
                         if (param == "EQU")
                         {
                             MeasureColumnData newone = new MeasureColumnData() { IsExpression = true };
-                            newone.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
-                            newone.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
+                            newone.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                            newone.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
                             Columns.Add(newone);
-                            togglebutton.IsChecked = false;
+                            ShowPopup = false;
                         }
 
                     }
                 }, (o) => true
-                )
+                ),
+                CategoryItems = new List<CategoryItem>()
+                {
+                    new CategoryItem()
+                    {
+                        CategoryName =(string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Dimension", null, LocalizeDictionary.Instance.Culture)),
+                        CategoryParameter = "DIM"
+                    },
+                    new CategoryItem()
+                    {
+                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
+                                    CategoryParameter = "MEA"
+                                },
+                                new CategoryItem()
+                    {
+                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_NewFomula", null, LocalizeDictionary.Instance.Culture)),
+                        CategoryParameter = "EQU"
+                    }
+                }
+            };
+
+            pivotCategorySelection = new CategorySelection()
+            {
+                SelectedCommand = new RelayCommand(
+                (parameter) =>
+                {
+                    PanelWidth = 300;
+                    PanelHeight = 300;
+                    if (parameter is string param)
+                    {
+                        if (param == "Row")
+                        {
+                            valueSelection.ValueType = ValueTypeEnum.Dimension;
+                            valueSelection.PivotType = PivotType.Row;
+                            PopupContent = valueSelection;
+                        }
+                        if (param == "Col")
+                        {
+                            valueSelection.ValueType = ValueTypeEnum.Dimension;
+                            valueSelection.PivotType = PivotType.Column;
+                            PopupContent = valueSelection;
+                        }
+                        if (param == "Mea")
+                        {
+                            valueSelection.ValueType = ValueTypeEnum.Measure;
+                            PopupContent = valueSelection;
+                        }
+                    }
+                }, (o) => true
+                ),
+                CategoryItems = GetPivotCategorys()
             };
 
             ICommand selectedAggregateCommand = new RelayCommand(
@@ -66,10 +121,10 @@
                     if (parameter is ValueItem item)
                     {
                         MeasureColumnData newone = new MeasureColumnData() { FieldDef = item.DisplayText, FieldLabel = item.DisplayText, IsExpression = true };
-                        newone.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
-                        newone.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
+                        newone.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                        newone.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
                         Columns.Add(newone);
-                        togglebutton.IsChecked = false;
+                        ShowPopup = false;
                         valueSelection.SearchText = " ";
                         valueSelection.SearchText = "";
                     }
@@ -77,154 +132,259 @@
 
             SelectedItemCommand = new RelayCommand(
                 (parameter) =>
-                {
-                    try
-                    {
-                        if (parameter is ValueItem item)
-                        {
-                            if (valueSelection.ValueType == ValueTypeEnum.Measure && item.IsField)
-                            {
-                                PopupContent = new AggregateFuncSelection()
                                 {
-                                    BackCommand = new RelayCommand((o) => { PopupContent = valueSelection; }, (o) => true),
-                                    SelectedItemCommand = selectedAggregateCommand,
-                                    AggregateItems = new ObservableCollection<ValueItem>
+                                    try
                                     {
+                                        if (parameter is ValueItem item)
+                                        {
+                                            if (valueSelection.ValueType == ValueTypeEnum.Measure && item.IsField)
+                                            {
+                                                PopupContent = new AggregateFuncSelection()
+                                                {
+                                                    BackCommand = new RelayCommand((o) => { PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode); }, (o) => true),
+                                                    SelectedItemCommand = selectedAggregateCommand,
+                                                    AggregateItems = new ObservableCollection<ValueItem>
+                                                    {
                                         new ValueItem() { Parent = item, DisplayText = $"SUM([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"Count([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"AVG([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"MIN([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand },
                                         new ValueItem() { Parent = item, DisplayText = $"MAX([{item.DisplayText}])", IsAggregate = true, ItemSelectedCommand = selectedAggregateCommand }
-                                    }
-                                };
-                            }
-                            else
-                            {
-                                switch (item.ItemType)
-                                {
-                                    case ValueTypeEnum.Dimension:
-                                        DimensionColumnData newdim = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
-                                        if (string.IsNullOrEmpty(item.DimensionMeasure.LibID))
-                                        {
-                                            newdim.IsExpression = true;
-                                            newdim.FieldDef = item.DimensionMeasure.Text;
-                                            newdim.FieldLabel = item.DimensionMeasure.Text;
+                                                    }
+                                                };
+                                            }
+                                            else
+                                            {
+                                                switch (item.ItemType)
+                                                {
+                                                    case ValueTypeEnum.Dimension:
+
+                                                        DimensionColumnData newdim = new DimensionColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure, PivotType = item.PivotType };
+                                                        if (string.IsNullOrEmpty(item.DimensionMeasure.LibID))
+                                                        {
+                                                            newdim.IsExpression = true;
+                                                            newdim.FieldDef = item.DimensionMeasure.Text;
+                                                            newdim.FieldLabel = item.DimensionMeasure.Text;
+                                                        }
+
+                                                        switch (ColumnChooserMode)
+                                                        {
+                                                            case ColumnChooserMode.Separated:
+                                                            case ColumnChooserMode.Combined:
+                                                                newdim.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                                                                newdim.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Pivot:
+                                                                newdim.SortCriterias.ColumnOrderIndex = PivotGetMaxDimensionsOrder() + 1;
+                                                                newdim.SortCriterias.SortOrderIndex = PivotGetMaxDimensionsOrder() + 1;
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+
+
+                                                        Columns.Add(newdim);
+                                                        break;
+                                                    case ValueTypeEnum.Measure:
+                                                        MeasureColumnData newmea = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
+
+                                                        switch (ColumnChooserMode)
+                                                        {
+                                                            case ColumnChooserMode.Combined:
+                                                                newmea.SortCriterias.ColumnOrderIndex = GetMaxColumnsOrder() + 1;
+                                                                newmea.SortCriterias.SortOrderIndex = GetMaxSortOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Pivot:
+                                                                newmea.SortCriterias.ColumnOrderIndex = PivotGetMaxMeasuresOrder() + 1;
+                                                                newmea.SortCriterias.SortOrderIndex = PivotGetMaxMeasuresOrder() + 1;
+                                                                break;
+                                                            case ColumnChooserMode.Separated:
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+
+                                                        Columns.Add(newmea);
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                ShowPopup = false;
+                                            }
                                         }
-                                        newdim.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
-                                        newdim.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
-                                        Columns.Add(newdim);
-                                        break;
-                                    case ValueTypeEnum.Measure:
-                                        MeasureColumnData newmea = new MeasureColumnData() { LibraryID = item.DimensionMeasure.LibID, DimensionMeasure = item.DimensionMeasure };
-                                        newmea.SortCriterias.ColumnOrderIndex = getMaxColumnsOrder() + 1;
-                                        newmea.SortCriterias.SortOrderIndex = getMaxSortOrder() + 1;
-                                        Columns.Add(newmea);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                togglebutton.IsChecked = false;
-                            }
-                        }
-                    }
-                    catch (Exception Ex)
-                    {
-                        logger.Error(Ex);
-                    }
-                }, (o) => true);
+                                    }
+                                    catch (Exception Ex)
+                                    {
+                                        logger.Error(Ex);
+                                    }
+                                }, (o) => true);
 
             valueSelection = new ValueSelection()
             {
                 CancelCommand = new RelayCommand((o) =>
                   {
-                      togglebutton.IsChecked = false;
+                      ShowPopup = false;
                   }),
                 SelectedItemCommand = SelectedItemCommand
 
             };
 
             MultiColumnCommand = new RelayCommand((o) =>
-              {
-                  var selectControl = new MultiValueSelection();
-                  var selectcommand = new RelayCommand((vitem) =>
-                    {
-                        if (vitem is ValueItem item)
-                        {
-                            item.Selected = !item.Selected;
-                        }
-                    });
-                  foreach (var item in dimensionMeasures)
-                  {
-                      if (item.LibID == null)
-                      {
-                          selectControl.Fields.Add(new ValueItem()
-                          {
-                              DisplayText = item.Text,
-                              IsAggregate = false,
-                              ItemType = ValueTypeEnum.Dimension,
-                              IsField = item.LibID == null,
-                              ItemSelectedCommand = selectcommand,
-                              DimensionMeasure = item,
-                              Selected = false
-                          });
-                      }
-                      else
-                      {
-                          if ((item.Dimension ?? false))
-                          {
-                              selectControl.Dimensions.Add(new ValueItem()
                               {
-                                  DisplayText = item.Text,
-                                  IsAggregate = false,
-                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
-                                  IsField = item.LibID == null,
-                                  ItemSelectedCommand = selectcommand,
-                                  DimensionMeasure = item,
-                                  Selected = false
+                                  var selectControl = new MultiValueSelection();
+                                  var selectcommand = new RelayCommand((vitem) =>
+                                    {
+                                        if (vitem is ValueItem item)
+                                        {
+                                            item.Selected = !item.Selected;
+                                        }
+                                    });
+                                  foreach (var item in dimensionMeasures)
+                                  {
+                                      if (item.LibID == null)
+                                      {
+                                          selectControl.Fields.Add(new ValueItem()
+                                          {
+                                              DisplayText = item.Text,
+                                              IsAggregate = false,
+                                              ItemType = ValueTypeEnum.Dimension,
+                                              IsField = item.LibID == null,
+                                              ItemSelectedCommand = selectcommand,
+                                              DimensionMeasure = item,
+                                              Selected = false
+                                          });
+                                      }
+                                      else
+                                      {
+                                          if ((item.Dimension ?? false))
+                                          {
+                                              selectControl.Dimensions.Add(new ValueItem()
+                                              {
+                                                  DisplayText = item.Text,
+                                                  IsAggregate = false,
+                                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                                  IsField = item.LibID == null,
+                                                  ItemSelectedCommand = selectcommand,
+                                                  DimensionMeasure = item,
+                                                  Selected = false
+                                              });
+                                          }
+                                          if ((item.Dimension ?? false) == false)
+                                          {
+                                              selectControl.Measures.Add(new ValueItem()
+                                              {
+                                                  DisplayText = item.Text,
+                                                  IsAggregate = false,
+                                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
+                                                  IsField = item.LibID == null,
+                                                  ItemSelectedCommand = selectcommand,
+                                                  DimensionMeasure = item,
+                                                  Selected = false
+
+                                              });
+                                          }
+                                      }
+                                  }
+
+                                  int height = (int)ActualHeight + 200;
+                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr((int)OwnerHwnd));
+                                  if (screen != null && (screen.Bounds.Height - 200) > 0)
+                                  {
+                                      height = screen.Bounds.Height - 200;
+                                  }
+
+
+                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, height, modal: true))
+                                  {
+
+                                      List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
+                                      selectedItems.AddRange(selectControl.Measures);
+                                      selectedItems.AddRange(selectControl.Fields);
+                                      foreach (var item in selectedItems)
+                                      {
+                                          if (item.Selected)
+                                          {
+                                              if (SelectedItemCommand != null)
+                                              {
+                                                  SelectedItemCommand.Execute(item);
+                                              }
+                                          }
+                                      }
+                                  }
                               });
-                          }
-                          if ((item.Dimension ?? false) == false)
-                          {
-                              selectControl.Measures.Add(new ValueItem()
-                              {
-                                  DisplayText = item.Text,
-                                  IsAggregate = false,
-                                  ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
-                                  IsField = item.LibID == null,
-                                  ItemSelectedCommand = selectcommand,
-                                  DimensionMeasure = item,
-                                  Selected = false
 
-                              });
-                          }
-                      }
-                  }
+            itemDropCommand = new RelayCommand((param) =>
+               {
+                   if (ColumnChooserMode == ColumnChooserMode.Pivot)
+                   {
+                       if (param is Tuple<object, object> items)
+                       {
+                           if (items.Item1 is DimensionColumnData source)
+                           {
+                               if (items.Item2 is DimensionColumnData target)
+                               {
 
-                  if (LuiDialogWindow.Show("Choose multiple Columns", OwnerHwnd, selectControl, 400, 900, modal: true))
-                  {
-                      List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
-                      selectedItems.AddRange(selectControl.Measures);
-                      selectedItems.AddRange(selectControl.Fields);
-                      foreach (var item in selectedItems)
-                      {
-                          if (item.Selected)
-                          {
-                              if (SelectedItemCommand != null)
-                              {
-                                  SelectedItemCommand.Execute(item);
-                              }
-                          }
-                      }
-                  }
-              });
+                                   if (source.PivotType != target.PivotType)
+                                   {
+                                       if ((source.PivotType == PivotType.Row && PivotGetMaxColumnsOrder() == 0)
+                                       || (source.PivotType == PivotType.Column))
+                                       {
+                                           source.PivotType = target.PivotType;
+                                           columns.Remove(source);
+                                           columns.Add(source);
+                                       }
+                                   }
+
+                               }
+                               if (items.Item2 == null)
+                               {
+                                   if (source.PivotType == PivotType.Column)
+                                       source.PivotType = PivotType.Row;
+                                   if (source.PivotType == PivotType.Row)
+                                       source.PivotType = PivotType.Column;
+                                   columns.Remove(source);
+                                   columns.Add(source);
+                               }
+                           }
+                       }
+                   }
+               });
 
 
-            PopupContent = categorySelection;
+            PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
             InitializeComponent();
             DataContext = this;
+            PanelWidth = 120;
+            PanelHeight = 170;
         }
 
-        private int getMaxSortOrder()
+        private List<CategoryItem> GetPivotCategorys()
+        {
+            List<CategoryItem> retval = new List<CategoryItem>();
+
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Row"
+            });
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Column", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Col"
+            });
+
+            retval.Add(new CategoryItem()
+            {
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
+                CategoryParameter = "Mea"
+            });
+
+            return retval;
+        }
+
+        private int GetMaxSortOrder()
         {
             int maxindex = 0;
             foreach (var item in Columns)
@@ -237,7 +397,7 @@
             return maxindex;
         }
 
-        private int getMaxColumnsOrder()
+        private int GetMaxColumnsOrder()
         {
             int maxindex = 0;
             foreach (var item in Columns)
@@ -250,7 +410,116 @@
             return maxindex;
         }
 
-        #region Columns - DP        
+        private int PivotGetMaxRowsOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData dimdata)
+                {
+                    if (dimdata.PivotType == PivotType.Row)
+                    {
+                        if (item is IHasSortCriteria criteria)
+                        {
+                            maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                        }
+                    }
+                }
+            }
+            return maxindex;
+        }
+        private int PivotGetMaxColumnsOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData dimdata)
+                {
+                    if (dimdata.PivotType == PivotType.Column)
+                    {
+                        if (item is IHasSortCriteria criteria)
+                        {
+                            maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                        }
+                    }
+                }
+            }
+            return maxindex;
+        }
+
+        private int PivotGetMaxMeasuresOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is MeasureColumnData meadata)
+                {
+                    if (item is IHasSortCriteria criteria)
+                    {
+                        maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                    }
+                }
+            }
+            return maxindex;
+        }
+
+        private int PivotGetMaxDimensionsOrder()
+        {
+            int maxindex = 0;
+            foreach (var item in Columns)
+            {
+                if (item is DimensionColumnData meadata)
+                {
+                    if (item is IHasSortCriteria criteria)
+                    {
+                        maxindex = Math.Max(maxindex, criteria.SortCriterias.ColumnOrderIndex);
+                    }
+                }
+            }
+            return maxindex;
+        }
+        #region Columns - DP 
+        private INotifyCollectionChanged oldcolumns;
+        private ObservableCollection<object> columns;
+        public ObservableCollection<object> Columns_Internal
+        {
+            get { return columns; }
+            set
+            {
+                if (columns != value)
+                {
+                    columns = value;
+
+                    if (oldcolumns != null)
+                        oldcolumns.CollectionChanged -= Columns_CollectionChanged;
+
+                    if (columns is INotifyCollectionChanged collectionchaged)
+                    {
+                        collectionchaged.CollectionChanged += Columns_CollectionChanged;
+                        Columns_CollectionChanged(null, null);
+                        oldcolumns = collectionchaged;
+                    }
+
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private void Columns_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (columnChooserMode == ColumnChooserMode.Pivot)
+            {
+                var items = GetPivotCategorys();
+
+                if (PivotGetMaxColumnsOrder() > 0)
+                    items.RemoveAll(ele => ele.CategoryParameter == "Col");
+                if (PivotGetMaxMeasuresOrder() > 0)
+                    items.RemoveAll(ele => ele.CategoryParameter == "Mea");
+                (pivotCategorySelection as CategorySelection).CategoryItems = items;
+            }
+        }
+
         public ObservableCollection<object> Columns
         {
             get { return (ObservableCollection<object>)this.GetValue(ColumnsProperty); }
@@ -258,7 +527,24 @@
         }
 
         public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+         "Columns", typeof(ObservableCollection<object>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnsChanged)));
+        private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (d is ColumnChooser obj)
+                {
+                    if (e.NewValue is ObservableCollection<object> newvalue)
+                    {
+                        obj.Columns_Internal = newvalue;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
         #endregion
 
         #region DimensionMeasures DP
@@ -318,7 +604,7 @@
         }
         #endregion
 
-        #region OwnerHwndHwnd DP
+        #region OwnerHwnd DP
         public int OwnerHwnd
         {
             get { return (int)this.GetValue(OwnerHwndProperty); }
@@ -329,7 +615,49 @@
          "OwnerHwnd", typeof(int), typeof(ColumnChooser), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region Popup Content
+        #region ColumnChooserMode DP
+        private ColumnChooserMode columnChooserMode = ColumnChooserMode.Combined;
+        internal ColumnChooserMode ColumnChooserMode_Internal
+        {
+            get { return columnChooserMode; }
+            set
+            {
+                if (columnChooserMode != value)
+                {
+                    columnChooserMode = value;
+                    PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public ColumnChooserMode ColumnChooserMode
+        {
+            get { return (ColumnChooserMode)this.GetValue(ColumnChooserModeProperty); }
+            set { this.SetValue(ColumnChooserModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ColumnChooserModeProperty = DependencyProperty.Register(
+         "ColumnChooserMode", typeof(ColumnChooserMode), typeof(ColumnChooser), new FrameworkPropertyMetadata(ColumnChooserMode.Combined, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnColumnChooserModeChanged)));
+        private static void OnColumnChooserModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (d is ColumnChooser obj)
+                {
+                    if (e.NewValue is ColumnChooserMode newvalue)
+                    {
+                        obj.ColumnChooserMode_Internal = newvalue;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                logger.Error(Ex);
+            }
+        }
+        #endregion
+
+        #region PopupContent
         private object popupContent;
         public object PopupContent
         {
@@ -344,17 +672,90 @@
             }
         }
 
-        private void dialog_PopupClosed(object sender, EventArgs e)
+        private bool showPopup;
+        public bool ShowPopup
         {
-            PopupContent = categorySelection;
-            dialog.PanelWidth = 120;
-            dialog.PanelHeight = 170;
+            get { return showPopup; }
+            set
+            {
+                if (showPopup != value)
+                {
+                    showPopup = value;
+                    RaisePropertyChanged();
+                    if (value == false)
+                    {
+                        PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
+
+                        PanelWidth = 120;
+                        PanelHeight = 170;
+                    }
+                }
+            }
+        }
+        private double panelHeight;
+        public double PanelHeight
+        {
+            get { return panelHeight; }
+            set
+            {
+                if (panelHeight != value)
+                {
+                    panelHeight = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private double panelWidth;
+        public double PanelWidth
+        {
+            get { return panelWidth; }
+            set
+            {
+                if (panelWidth != value)
+                {
+                    panelWidth = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private object GetCategorySelectionByColumnChooserMode(ColumnChooserMode mode)
+        {
+            object retval = null;
+            switch (mode)
+            {
+                case ColumnChooserMode.Combined:
+                    retval = categorySelection;
+                    break;
+                case ColumnChooserMode.Pivot:
+                    retval = pivotCategorySelection;
+                    break;
+                case ColumnChooserMode.Separated:
+                    break;
+                default:
+                    break;
+            }
+            return retval;
         }
 
         private object categorySelection;
+        private object pivotCategorySelection;
         private ValueSelection valueSelection;
         #endregion
 
+        private ICommand itemDropCommand;
+        public ICommand ItemDropCommand
+        {
+            get { return itemDropCommand; }
+            set
+            {
+                if (itemDropCommand != value)
+                {
+                    itemDropCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         private ICommand multiColumnCommand;
         public ICommand MultiColumnCommand
         {
@@ -387,13 +788,47 @@
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
+    }
 
-        private void control_SizeChanged(object sender, SizeChangedEventArgs e)
+    public class PivotRowTypeColumnFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
         {
-            if (e.NewSize.Height > (togglebutton.Height + 18))
+            if (data is DimensionColumnData dimdata)
             {
-                scrollviewer.Height = e.NewSize.Height - (togglebutton.Height + 18);
+                return dimdata.PivotType == PivotType.Row;
+
             }
+            return false;
+        }
+    }
+
+    public class PivotColumnTypeColumnFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            if (data is DimensionColumnData dimdata)
+            {
+                return dimdata.PivotType == PivotType.Column;
+
+            }
+            return false;
+        }
+    }
+
+    public class PivotMeasureColumnFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            return data is MeasureColumnData;
+        }
+    }
+
+    public class PivotDimensionColumnFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            return data is DimensionColumnData;
         }
     }
 }

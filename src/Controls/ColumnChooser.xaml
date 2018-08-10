@@ -9,87 +9,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:daViniciControls="clr-namespace:daVinci.Controls"
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-    xmlns:tableconfigurations="clr-namespace:daVinci_wpf.ConfigData.TableConfigurations"
+    xmlns:tableconfigurations="clr-namespace:daVinci.ConfigData.TableConfigurations"
     Name="control"
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
     l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
     l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
-    SizeChanged="control_SizeChanged"
-    mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/ColumnConfigurationStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
-            <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <DockPanel Margin="5,10,5,0">
-            <LuiControls:LuiButton
-                Margin="10,0,0,0"
-                Command="{Binding MultiColumnCommand}"
-                Content="Fast Add"
-                DockPanel.Dock="Right" />
-            <LuiControls:LuiToggleButton
-                x:Name="togglebutton"
-                LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                Content="{l:Loc properties_columns_add}" />
-        </DockPanel>
-
-        <LuiControls:LuiDialog
-            x:Name="dialog"
-            IsOpen="{Binding IsChecked, ElementName=togglebutton}"
-            PanelHeight="170"
-            PanelWidth="120"
-            Placement="Bottom"
-            PlacementTarget="{Binding ElementName=togglebutton}"
-            PopupClosed="dialog_PopupClosed">
-            <ContentControl Content="{Binding PopupContent}" />
-        </LuiControls:LuiDialog>
-
-        <LuiControls:CollectionView
-            Name="collectionview"
-            CollectionViewComparer="{StaticResource ColumnOrderComparer}"
-            ItemsSource="{Binding Columns}" />
-        <ScrollViewer
-            x:Name="scrollviewer"
-            Grid.Row="1"
-            Margin="0,5,0,0"
-            VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <TextBlock
-                    Margin="10,0,0,0"
-                    FontFamily="{StaticResource QlikViewSans}"
-                    FontSize="12"
-                    FontWeight="Bold"
-                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                    Text="{l:Loc Translate_common:Common_Columns}" />
-                <LuiControls:LuiSeparator Height="3" />
-
-                <LuiControls:LuiAccordion
-                    x:Name="acc"
-                    CollapseAllOnExpandSingle="false"
-                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
-                    IsDragDropChangesUnderlyingCollection="True"
-                    IsDragDropEnabled="True"
-                    ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
-                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
-</UserControl>
+    mc:Ignorable="d" />
