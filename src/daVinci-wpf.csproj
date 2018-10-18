@@ -41,14 +41,14 @@
     <Page Include="**\*.xaml" SubType="Designer">      
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
-    
+        
     <Resource Include="Images\QlikApp.png" />
         
     <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
 
     <!-- Resources -->
     <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
-    <Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />
+    <Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />    
     
 
     <!-- Settings -->
@@ -101,8 +101,5 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
  </ItemGroup>
-
- 
-
   
 </Project>
