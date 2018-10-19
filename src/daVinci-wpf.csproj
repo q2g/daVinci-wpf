@@ -70,7 +70,7 @@
     </PackageReference>
     <PackageReference Include="Hjson" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.2.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.3.0" />
     <PackageReference Include="XAMLMarkupExtensions" Version="1.4.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="1.1.0" />
     <PackageReference Include="NLog" Version="4.5.10" />
