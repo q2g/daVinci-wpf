@@ -190,7 +190,7 @@
                                     DisplayMemberPath="TableName"
                                     DockPanel.Dock="Left"
                                     ItemsSource="{Binding ProcessedCollection, ElementName=ImportTables}"
-                                    SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                    SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Mode=TwoWay}"
                                     Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
                             </DockPanel>
                             <controls:LuiAccordion

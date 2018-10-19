@@ -12,6 +12,7 @@
     using System.Runtime.CompilerServices;
     using daVinci.ConfigData.TableConfigurations;
     using System.Collections.Generic;
+    using WPFLocalizeExtension.Engine;
 
     public class TableConfiguration : INotifyPropertyChanged
     {
@@ -148,8 +149,9 @@
             }
         }
 
-        public void ReadFromJSON(string JSONstring)
+        public string ReadFromJSON(string JSONstring)
         {
+            string errors = null;
             try
             {
                 dynamic jsonConfig = JObject.Parse(JSONstring);
@@ -162,7 +164,12 @@
                 if (visualization == "pivot-table")
                 {
                     TableMode = ColumnChooserMode.Pivot;
-                    LoadColumnsPivot(jsonConfig);
+                    var err = LoadColumnsPivot(jsonConfig);
+                    if (!string.IsNullOrEmpty(err))
+                    {
+                        errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + err;
+                        return errors;
+                    }
                 }
                 if (visualization == "auto-chart")
                 {
@@ -184,7 +191,9 @@
             {
                 logger.Error(Ex);
                 logger.Trace($"JSON:{JSONstring}");
+                errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:UnexpectedErrorReadingTableJSON", null, LocalizeDictionary.Instance.Culture)); ;
             }
+            return errors;
         }
 
         private void LoadColumnsCombined(dynamic jsonConfig)
@@ -255,8 +264,9 @@
             cols.ForEach(ele => Columns.Add(ele));
         }
 
-        private void LoadColumnsPivot(dynamic jsonConfig)
+        private string LoadColumnsPivot(dynamic jsonConfig)
         {
+            string errors = "";
             int numberofRows = 0;
             if (TableMode == ColumnChooserMode.Pivot)
                 numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
@@ -308,11 +318,17 @@
             {
                 for (int i = 0; i < count; i++)
                 {
-                    (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
+                    if (((int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]) == -1)
+                    {
+                        return (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:OnlyOneColumnMeasureSupported", null, LocalizeDictionary.Instance.Culture));
+                    }
+                      (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
                 }
             }
 
             cols.ForEach(ele => Columns.Add(ele));
+
+            return errors;
         }
 
         public string SaveToJSON()

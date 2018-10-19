@@ -30,7 +30,19 @@
             <BitmapImage x:Key="DefaultImageResource" UriSource="pack://application:,,,/davinci-wpf;component/Images/QlikApp.png" />
 
             <converter:StringCompareConverter x:Key="StringCompareConverter" />
+            <converter:ListCountToVisibilityConverter
+                x:Key="VisibleOnCount0"
+                CountMatchesVisibility="Visible"
+                CountToMatch="0"
+                ElseVisibility="Collapsed"
+                IsExactMatch="True" />
 
+            <converter:ListCountToVisibilityConverter
+                x:Key="CollapsedOnCount0"
+                CountMatchesVisibility="Collapsed"
+                CountToMatch="0"
+                ElseVisibility="Visible"
+                IsExactMatch="True" />
             <ContextMenu x:Key="deleteMenu" Style="{StaticResource ContextmenuAccordion}">
                 <MenuItem
                     Height="40"
@@ -296,10 +308,18 @@
                 </Style>
             </Luicontrols:CollectionView.Style>
         </Luicontrols:CollectionView>
+        <controls:BusyCircle
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Width="100"
+            Height="100"
+            Margin="10,0,10,0"
+            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource VisibleOnCount0}}" />
         <ScrollViewer
             Name="itemscontrolcrollviewer"
             Grid.Row="1"
-            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource CollapsedOnCount0}}">
             <ItemsControl
                 Name="itemsControl"
                 Background="{StaticResource Lui.Brush.Grayscale90}"

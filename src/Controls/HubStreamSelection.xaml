@@ -25,6 +25,16 @@
                 <ResourceDictionary Source="pack://application:,,,/davinci-wpf;component/Styles/StreamCategoryAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:AddNumberConverter x:Key="AddNumberConverter" />
+            <LuiConverter:BooleanToVisibilityConverter
+                x:Key="TrueIsVisible"
+                False="Collapsed"
+                True="Visible" />
+            <LuiConverter:ListCountToVisibilityConverter
+                x:Key="VisibleOnCount0"
+                CountMatchesVisibility="Visible"
+                CountToMatch="0"
+                ElseVisibility="Collapsed"
+                IsExactMatch="True" />
 
             <Style x:Key="StreamSelectionStyle" TargetType="ListBoxItem">
                 <Setter Property="Template">
@@ -88,22 +98,36 @@
         IsDragDropEnabled="False"
         ItemContainerStyle="{StaticResource StreamCategoryAccordionItemStyle}">
         <Luicontrols:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:StreamCategory_Personal}" IsExpanded="True">
-            <ListBox
-                BorderThickness="0"
-                ItemContainerStyle="{StaticResource StreamSelectionStyle}"
-                ItemsSource="{Binding PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
-                SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
-
-        </Luicontrols:LuiAccordionItem>
-        <Luicontrols:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:StreamCategory_Streams}" IsExpanded="True">
-            <ScrollViewer Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <daVinciControls:BusyCircle
+                    Width="40"
+                    Height="40"
+                    Visibility="{Binding PersonalStreams.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource VisibleOnCount0}}" />
                 <ListBox
                     BorderThickness="0"
                     ItemContainerStyle="{StaticResource StreamSelectionStyle}"
-                    ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
-                    PreviewMouseWheel="ListBox_PreviewMouseWheel"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                    SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+                    ItemsSource="{Binding DataContext.PersonalStreams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                    SelectedItem="{Binding SelectedPersonalItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+            </StackPanel>
+        </Luicontrols:LuiAccordionItem>
+        <Luicontrols:LuiAccordionItem
+            Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:StreamCategory_Streams}"
+            IsExpanded="True"
+            Visibility="{Binding DataContext.PublishedStreamsVisible, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource TrueIsVisible}}">
+            <ScrollViewer Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-117}" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <daVinciControls:BusyCircle
+                        Width="40"
+                        Height="40"
+                        Visibility="{Binding Streams.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}, Converter={StaticResource VisibleOnCount0}}" />
+                    <ListBox
+                        BorderThickness="0"
+                        ItemContainerStyle="{StaticResource StreamSelectionStyle}"
+                        ItemsSource="{Binding Streams, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}"
+                        PreviewMouseWheel="ListBox_PreviewMouseWheel"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding SelectedStreamItem, RelativeSource={RelativeSource FindAncestor, AncestorType=daVinciControls:HubStreamSelection}}" />
+                </StackPanel>
             </ScrollViewer>
         </Luicontrols:LuiAccordionItem>
     </Luicontrols:LuiAccordion>
