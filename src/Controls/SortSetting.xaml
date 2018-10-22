@@ -53,6 +53,7 @@
                     IsChecked="{Binding SortCriterias.SortByExpression}" />
                 <daViniciControls:DavInputbox
                     Margin="0,10,0,0"
+                    Hwnd="{Binding DimensionMeasure.BelongsToHwnd}"
                     LabelText="{l:Loc Translate_common:Common_Expression}"
                     RightCommandForeground="{StaticResource Lui.Brush.Orange}"
                     Text="{Binding SortCriterias.SortByExpressionText}"

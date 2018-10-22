@@ -1,9 +1,9 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
+    using Newtonsoft.Json.Linq;
     using NLog;
     using System;
-    using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
@@ -59,6 +59,22 @@
                 if (displayedMessage != value)
                 {
                     displayedMessage = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private int belongsToHwnd;
+        public int BelongsToHwnd
+        {
+            get
+            {
+                return belongsToHwnd;
+            }
+            set
+            {
+                if (belongsToHwnd != value)
+                {
+                    belongsToHwnd = value;
                     RaisePropertyChanged();
                 }
             }

@@ -96,29 +96,27 @@ namespace daVinci.Controls
         #endregion
 
         #region statics
-        public static string ShowModal(string text, List<DimensionMeasure> list, ConfigData.Loop.LoopConfiguration loopconfig = null)
+        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd, ConfigData.Loop.LoopConfiguration loopconfig = null)
         {
 
             if (loopconfig == null)
             {
                 loopconfig = new ConfigData.Loop.LoopConfiguration()
                 {
-                    ExpressionText = text
+                    ExpressionText = text,
+                    BelongsToHwnd = hwnd
                 };
             }
 
             var wnd = new LoopConfiguration()
             {
                 WindowStyle = WindowStyle.None,
-
                 LoopConfigurationSelected = loopconfig,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            var mainHwnd = GlobalAppData.Instance.DataHolder.Get<object>("MainHwnd");
-            if (mainHwnd != null && mainHwnd is int)
-            {
-                new WindowInteropHelper(wnd).Owner = new IntPtr((int)mainHwnd);
-            }
+
+            new WindowInteropHelper(wnd).Owner = new IntPtr((int)hwnd);
+
 
             var handler = new PropertyChangedEventHandler((s, e) =>
             {

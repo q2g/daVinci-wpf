@@ -56,6 +56,7 @@
     <StackPanel Margin="5,0,5,0">
         <daViniciControls:DavInputbox
             Margin="0,10,0,5"
+            Hwnd="{Binding DimensionMeasure.BelongsToHwnd}"
             IsInputEnabled="True"
             LabelText="{l:Loc Translate_common:Common_Field}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
@@ -63,6 +64,7 @@
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToVisibleConverter}}" />
         <daViniciControls:DavInputbox
             Margin="0,10,0,5"
+            Hwnd="{Binding DimensionMeasure.BelongsToHwnd}"
             IsInputEnabled="true"
             LabelText="{l:Loc Translate_common:Common_Label}"
             Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -208,11 +210,13 @@
 
         <daViniciControls:DavInputbox
             Margin="0,10,0,0"
+            Hwnd="{Binding DimensionMeasure.BelongsToHwnd}"
             LabelText="{l:Loc Object_Table_Measure_BackgroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             Text="{Binding BackgroundColorExpression}" />
         <daViniciControls:DavInputbox
             Margin="0,10,0,0"
+            Hwnd="{Binding DimensionMeasure.BelongsToHwnd}"
             LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             Text="{Binding TextColorExpression}" />

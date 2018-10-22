@@ -149,7 +149,7 @@
             }
         }
 
-        public string ReadFromJSON(string JSONstring)
+        public string ReadFromJSON(string JSONstring, int hwnd)
         {
             string errors = null;
             try
@@ -178,6 +178,7 @@
 
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
+                addonConfig.BelongsToHwnd = hwnd;
                 addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
                 AddOnData.Clear();
                 AddOnData.Add(addonConfig);

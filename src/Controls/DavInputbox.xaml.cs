@@ -1,15 +1,15 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows;
+    using leonardo.Controls;
     using leonardo.Resources;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Controls;
     using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using leonardo.Controls;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
     #endregion
 
     /// <summary>
@@ -36,7 +36,7 @@
             {
                 if (o is LuiInputGroup inputGroup)
                 {
-                    Text = ExpressionEditor.ShowModal(Text);
+                    Text = ExpressionEditor.ShowModal(Text, Hwnd);
                 }
 
             });
@@ -53,7 +53,16 @@
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
          "Text", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+        #region Hwnd - DP        
+        public int Hwnd
+        {
+            get { return (int)this.GetValue(HwndProperty); }
+            set { this.SetValue(HwndProperty, value); }
+        }
 
+        public static readonly DependencyProperty HwndProperty = DependencyProperty.Register(
+         "Hwnd", typeof(int), typeof(DavInputbox), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
         #region IsInputEnabled - DP        
         public bool IsInputEnabled
         {
@@ -64,8 +73,6 @@
         public static readonly DependencyProperty IsInputEnabledProperty = DependencyProperty.Register(
          "IsInputEnabled", typeof(bool), typeof(DavInputbox), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
-
-
         #region LabelText - DP       
         public string LabelText
         {
@@ -76,7 +83,6 @@
         public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register(
          "LabelText", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
-
         #region RightCommandForeground - DP        
         public Brush RightCommandForeground
         {
@@ -101,5 +107,6 @@
                 }
             }
         }
+
     }
 }
