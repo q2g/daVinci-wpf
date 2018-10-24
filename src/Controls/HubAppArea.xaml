@@ -92,7 +92,7 @@
                             BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
                             BorderThickness="1"
                             MouseDown="Border_MouseDown">
-                            <Grid Height="40">
+                            <Grid Height="50">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
@@ -104,7 +104,7 @@
                                     FontFamily="{StaticResource QlikViewSans}"
                                     FontWeight="Normal"
                                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                    Text="{Binding AppName}"
+                                    Text="{Binding AppNameShort}"
                                     TextWrapping="Wrap" />
                                 <Luicontrols:LuiIcon
                                     Grid.Column="1"
@@ -265,10 +265,11 @@
                     Name="orderByCombo"
                     Width="150"
                     VerticalAlignment="Center"
-                    LuiAttached:ThemeProperties.CornerRadius="0,3,3,0">
+                    LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
+                    SelectedIndex="0">
                     <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByAlphabetical}" />
-                    <ComboBoxItem Content="Create Date" />
-                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByPublishedDate}" />
+                    <!--<ComboBoxItem Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:SortByCreateDate}" />
+                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByPublishedDate}" />-->
                 </Luicontrols:LuiCombobox>
             </StackPanel>
             <Luicontrols:LuiButton
@@ -308,13 +309,13 @@
                 </Style>
             </Luicontrols:CollectionView.Style>
         </Luicontrols:CollectionView>
-        <controls:BusyCircle
+        <!--<controls:BusyCircle
             Grid.Row="1"
             Grid.RowSpan="2"
             Width="100"
             Height="100"
             Margin="10,0,10,0"
-            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource VisibleOnCount0}}" />
+            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource VisibleOnCount0}}" />-->
         <ScrollViewer
             Name="itemscontrolcrollviewer"
             Grid.Row="1"
@@ -403,7 +404,8 @@
                         FontFamily="{StaticResource QlikViewSans}"
                         FontWeight="Normal"
                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                        Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
+                        Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
+                        TextTrimming="CharacterEllipsis" />
 
 
                 </DockPanel>

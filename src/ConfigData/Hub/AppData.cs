@@ -1,11 +1,12 @@
 ﻿namespace daVinci.ConfigData.Hub
 {
     #region Usings
-    using System;
     using leonardo.Resources;
+    using System;
     using System.Collections;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Linq;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class AppData : INotifyPropertyChanged
@@ -55,8 +56,22 @@
                 {
                     appName = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(AppNameShort));
                 }
             }
+        }
+
+        public string AppNameShort
+        {
+            get
+            {
+                if (appName != null)
+                {
+                    return new string(appName.Take(25).ToArray()) + (appName.Length > 25 ? " .." : "");
+                }
+                return null;
+            }
+
         }
 
         private string appID;
