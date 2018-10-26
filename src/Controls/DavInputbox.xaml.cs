@@ -1,5 +1,6 @@
 ﻿namespace daVinci.Controls
 {
+    using leonardo.AttachedProperties;
     #region Usings
     using leonardo.Controls;
     using leonardo.Resources;
@@ -36,7 +37,8 @@
             {
                 if (o is LuiInputGroup inputGroup)
                 {
-                    Text = ExpressionEditor.ShowModal(Text, Hwnd);
+                    var hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty) ?? 0);
+                    Text = ExpressionEditor.ShowModal(Text, hwnd);
                 }
 
             });
@@ -52,16 +54,6 @@
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
          "Text", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
-        #region Hwnd - DP        
-        public int Hwnd
-        {
-            get { return (int)this.GetValue(HwndProperty); }
-            set { this.SetValue(HwndProperty, value); }
-        }
-
-        public static readonly DependencyProperty HwndProperty = DependencyProperty.Register(
-         "Hwnd", typeof(int), typeof(DavInputbox), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
         #region IsInputEnabled - DP        
         public bool IsInputEnabled

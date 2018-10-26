@@ -4,6 +4,7 @@
     using daVinci.ConfigData;
     using daVinci.ConfigData.TableConfigurations;
     using daVinci.Resources;
+    using leonardo.AttachedProperties;
     using leonardo.Controls;
     using leonardo.Resources;
     using NLog;
@@ -288,16 +289,17 @@
                                   }
 
                                   int height = (int)ActualHeight;
-                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr((int)OwnerHwnd));
+                                  int hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty) ?? 0);
+                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr(hwnd));
                                   if (screen != null && (screen.Bounds.Height - 200) > 0)
                                   {
                                       //height = screen.Bounds.Height - 200;
                                       height = (int)(screen.Bounds.Height - 200);
                                   }
 
-                                  height = (int)(height / Win32Helper_dav.GetDpiYScale);
+                                  height = (int)(height / Win32Helper.GetDpiYScale);
 
-                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, height, modal: true))
+                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), selectControl, 400, height, modal: true, hwnd: hwnd))
                                   {
 
                                       List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
@@ -607,17 +609,6 @@
         }
         #endregion
 
-        #region OwnerHwnd DP
-        public int OwnerHwnd
-        {
-            get { return (int)this.GetValue(OwnerHwndProperty); }
-            set { this.SetValue(OwnerHwndProperty, value); }
-        }
-
-        public static readonly DependencyProperty OwnerHwndProperty = DependencyProperty.Register(
-         "OwnerHwnd", typeof(int), typeof(ColumnChooser), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
-
         #region ColumnChooserMode DP
         private ColumnChooserMode columnChooserMode = ColumnChooserMode.Combined;
         internal ColumnChooserMode ColumnChooserMode_Internal
@@ -835,116 +826,5 @@
         }
     }
 
-    public class Win32Helper_dav
-    {
-        #region GetWindowRect Helper
 
-        private static double? getDpiYScale = null;
-        private static double? getDpiXScale = null;
-
-        public static double GetDpiXScale
-        {
-            get
-            {
-                if (!getDpiXScale.HasValue)
-                {
-                    var g = System.Drawing.Graphics.FromHwnd(IntPtr.Zero);
-                    IntPtr desktop = g.GetHdc();
-                    //   LOGPIXELSY = 90   
-                    int Ydpi = Win32Helper_dav.GetDeviceCaps(desktop, 90);
-
-                    getDpiXScale = Ydpi / 96.0;
-                    getDpiYScale = Ydpi / 96.0;
-
-                    g.Dispose();
-                }
-
-                return getDpiXScale.Value;
-            }
-        }
-
-        public static double GetDpiYScale
-        {
-            get
-            {
-                return GetDpiXScale;
-            }
-        }
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        private static extern int GetDeviceCaps(IntPtr hDC, int nIndex);
-
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(HandleRef hWnd, out RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int Left;        // x position of upper-left corner
-            public int Top;         // y position of upper-left corner
-            public int Right;       // x position of lower-right corner
-            public int Bottom;      // y position of lower-right corner
-        }
-
-        public static System.Windows.Rect GetParentWindowSize(object wrapper, IntPtr parentHwnd)
-        {
-            RECT rct;
-
-            if (GetWindowRect(new HandleRef(wrapper, parentHwnd), out rct))
-            {
-                return new System.Windows.Rect(rct.Left, rct.Top, rct.Right - rct.Left, rct.Bottom - rct.Top);
-            }
-
-            return System.Windows.Rect.Empty;
-        }
-
-
-        private static WINDOWPLACEMENT GetPlacement(IntPtr hwnd)
-        {
-            WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
-            placement.length = Marshal.SizeOf(placement);
-            GetWindowPlacement(hwnd, ref placement);
-            return placement;
-        }
-
-        public static bool IsMaximized(IntPtr hwnd)
-        {
-            try
-            {
-                if (GetPlacement(hwnd).showCmd == ShowWindowCommands.Maximized)
-                    return true;
-            }
-            catch
-            {
-            }
-            return false;
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
-
-        [Serializable]
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WINDOWPLACEMENT
-        {
-            public int length;
-            public int flags;
-            public ShowWindowCommands showCmd;
-            public System.Drawing.Point ptMinPosition;
-            public System.Drawing.Point ptMaxPosition;
-            public System.Drawing.Rectangle rcNormalPosition;
-        }
-
-        private enum ShowWindowCommands : int
-        {
-            Hide = 0,
-            Normal = 1,
-            Minimized = 2,
-            Maximized = 3,
-        }
-        #endregion
-    }
 }

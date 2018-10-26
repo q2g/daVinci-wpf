@@ -67,7 +67,15 @@
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_presentation}" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}, IsAsync=True, FallbackValue=Loading...}" />
+        <!--<Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}, IsAsync=True, FallbackValue=Loading...}" />-->
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettings}">
+                    <Binding Path="." />
+                    <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style
@@ -75,7 +83,15 @@
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_general}" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}, IsAsync=True, FallbackValue=Loading...}" />
+        <!--<Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}, IsAsync=True, FallbackValue=Loading...}" />-->
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettingsGeneral}">
+                    <Binding Path="." />
+                    <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 
@@ -92,7 +108,14 @@
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_dataHandling}" />
-        <Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:AddOnDataProcessing}, IsAsync=True, FallbackValue=Loading...}" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:AddOnDataProcessing}">
+                    <Binding Path="." />
+                    <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
     </Style>
     <tableconfigurations:SortOrderIndexProvider x:Key="SortOrderIndexProvider" />
 
@@ -209,7 +232,6 @@
                                         ColumnChooserMode="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                         Columns="{Binding DataContext.Columns, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                         DimensionMeasures="{Binding DataContext.DimensionMeasures, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                        OwnerHwnd="{Binding OwnerHwnd, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                         Style="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource ModeToStyle}}" />
                                 </controls:LuiAccordionItem>
 

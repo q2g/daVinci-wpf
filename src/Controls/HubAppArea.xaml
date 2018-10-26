@@ -104,7 +104,8 @@
                                     FontFamily="{StaticResource QlikViewSans}"
                                     FontWeight="Normal"
                                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                    Text="{Binding AppNameShort}"
+                                    Text="{Binding AppName}"
+                                    TextTrimming="WordEllipsis"
                                     TextWrapping="Wrap" />
                                 <Luicontrols:LuiIcon
                                     Grid.Column="1"
@@ -268,8 +269,6 @@
                     LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
                     SelectedIndex="0">
                     <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByAlphabetical}" />
-                    <!--<ComboBoxItem Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:SortByCreateDate}" />
-                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByPublishedDate}" />-->
                 </Luicontrols:LuiCombobox>
             </StackPanel>
             <Luicontrols:LuiButton

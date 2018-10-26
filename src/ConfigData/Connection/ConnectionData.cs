@@ -153,7 +153,7 @@
                 }
             }
         }
-        private int selectedTypeIndex = 0;
+        private int selectedTypeIndex = 4;
         public int SelectedTypeIndex
         {
             get

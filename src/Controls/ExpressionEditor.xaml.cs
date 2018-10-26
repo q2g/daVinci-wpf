@@ -52,7 +52,7 @@
         #endregion
 
         #region statics
-        public static string ShowModal(string text, int hwnd)
+        public static string ShowModal(string text, int hwnd = 0)
         {
             var wnd = new ExpressionEditor()
             {

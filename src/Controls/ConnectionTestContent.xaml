@@ -78,7 +78,14 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Luicontrols:LuiAccordionItem.Content" Value="{Binding Path=HelpMessage, Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type controls:ConnectionStyleTextblock}}" />
+                <Setter Property="Luicontrols:LuiAccordionItem.Content">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblock}">
+                            <Binding Path="." />
+                            <Binding Path="(LuiAttached:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
 

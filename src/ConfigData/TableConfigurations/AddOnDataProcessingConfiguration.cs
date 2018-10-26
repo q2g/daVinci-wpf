@@ -12,7 +12,7 @@
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private bool allowNULLValues;
+        private bool allowNULLValues = true;
         public bool AllowNULLValues
         {
             get
@@ -63,23 +63,6 @@
                 }
             }
         }
-        private int belongsToHwnd;
-        public int BelongsToHwnd
-        {
-            get
-            {
-                return belongsToHwnd;
-            }
-            set
-            {
-                if (belongsToHwnd != value)
-                {
-                    belongsToHwnd = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
         public void ReadFromJSON(dynamic jsonConfig)
         {
             try

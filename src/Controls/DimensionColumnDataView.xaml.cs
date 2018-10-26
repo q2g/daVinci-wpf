@@ -2,7 +2,6 @@
 {
     #region Usings
     using daVinci.ConfigData;
-    using leonardo.Controls;
     using leonardo.Resources;
     using System.Windows.Controls;
     using System.Windows.Input;

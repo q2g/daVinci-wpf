@@ -36,13 +36,11 @@
         <daViniciControls:DavInputbox
             x:Name="CalcCond"
             Margin="10,10,0,10"
-            Hwnd="{Binding BelongsToHwnd}"
             LabelText="{l:Loc properties_hyperCube_calcCond}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             Text="{Binding CalcCondition, UpdateSourceTrigger=PropertyChanged}" />
         <daViniciControls:DavInputbox
             Margin="10,10,0,10"
-            Hwnd="{Binding BelongsToHwnd}"
             LabelText="{l:Loc properties_hyperCube_calcCondMessage}"
             Text="{Binding DisplayedMessage}"
             Visibility="{Binding CalcCondition, Converter={StaticResource StringLengthToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />

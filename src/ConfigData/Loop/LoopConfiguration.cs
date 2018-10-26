@@ -25,20 +25,7 @@
         }
         #endregion
 
-        #region Properties & Variables
-        private int belongsToHwnd;
-        public int BelongsToHwnd
-        {
-            get => belongsToHwnd;
-            set
-            {
-                if (belongsToHwnd != value)
-                {
-                    belongsToHwnd = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        #region Properties & Variables        
         private bool exportRootNode = true;
         public bool ExportRootNode
         {

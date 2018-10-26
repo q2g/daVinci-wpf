@@ -1,4 +1,5 @@
 ﻿using Hjson;
+using leonardo.AttachedProperties;
 using leonardo.Resources;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -96,15 +97,14 @@ namespace daVinci.Controls
         #endregion
 
         #region statics
-        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd, ConfigData.Loop.LoopConfiguration loopconfig = null)
+        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd = 0, ConfigData.Loop.LoopConfiguration loopconfig = null)
         {
 
             if (loopconfig == null)
             {
                 loopconfig = new ConfigData.Loop.LoopConfiguration()
                 {
-                    ExpressionText = text,
-                    BelongsToHwnd = hwnd
+                    ExpressionText = text
                 };
             }
 
@@ -114,7 +114,7 @@ namespace daVinci.Controls
                 LoopConfigurationSelected = loopconfig,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-
+            wnd.SetValue(ThemeProperties.HwndProperty, hwnd);
             new WindowInteropHelper(wnd).Owner = new IntPtr((int)hwnd);
 
 

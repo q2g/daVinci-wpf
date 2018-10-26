@@ -56,22 +56,8 @@
                 {
                     appName = value;
                     RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(AppNameShort));
                 }
             }
-        }
-
-        public string AppNameShort
-        {
-            get
-            {
-                if (appName != null)
-                {
-                    return new string(appName.Take(25).ToArray()) + (appName.Length > 25 ? " .." : "");
-                }
-                return null;
-            }
-
         }
 
         private string appID;
