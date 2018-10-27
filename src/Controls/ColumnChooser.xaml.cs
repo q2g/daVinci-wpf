@@ -58,7 +58,6 @@
                             Columns.Add(newone);
                             ShowPopup = false;
                         }
-
                     }
                 }, (o) => true
                 ),
@@ -181,7 +180,6 @@
                                                                 break;
                                                         }
 
-
                                                         Columns.Add(newdim);
                                                         break;
                                                     case ValueTypeEnum.Measure:
@@ -225,7 +223,6 @@
                       ShowPopup = false;
                   }),
                 SelectedItemCommand = SelectedItemCommand
-
             };
 
             MultiColumnCommand = new RelayCommand((o) =>
@@ -298,7 +295,6 @@
 
                                   if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), selectControl, 400, height, modal: true, hwnd: hwnd))
                                   {
-
                                       List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
                                       selectedItems.AddRange(selectControl.Measures);
                                       selectedItems.AddRange(selectControl.Fields);
@@ -325,7 +321,6 @@
                            {
                                if (items.Item2 is DimensionColumnData target)
                                {
-
                                    if (source.PivotType != target.PivotType)
                                    {
                                        if ((source.PivotType == PivotType.Row && PivotGetMaxColumnsOrder() == 0)
@@ -336,7 +331,6 @@
                                            columns.Add(source);
                                        }
                                    }
-
                                }
                                if (items.Item2 == null)
                                {
@@ -362,8 +356,7 @@
         private List<CategoryItem> GetPivotCategorys()
         {
             List<CategoryItem> retval = new List<CategoryItem>();
-
-
+        
             retval.Add(new CategoryItem()
             {
                 CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
@@ -503,7 +496,6 @@
                         oldcolumns = collectionchaged;
                     }
 
-
                     RaisePropertyChanged();
                 }
             }
@@ -574,7 +566,6 @@
                         });
                     }
                     valueSelection.AllValueItems = newlist;
-
                 }
             }
         }
@@ -586,7 +577,6 @@
 
         public static readonly DependencyProperty DimensionMeasuresProperty = DependencyProperty.Register(
          "DimensionMeasures", typeof(ObservableCollection<DimensionMeasure>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<DimensionMeasure>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnDimensionMeasuresChanged)));
-
 
         private static void OnDimensionMeasuresChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -789,7 +779,6 @@
             if (data is DimensionColumnData dimdata)
             {
                 return dimdata.PivotType == PivotType.Row;
-
             }
             return false;
         }
@@ -802,7 +791,6 @@
             if (data is DimensionColumnData dimdata)
             {
                 return dimdata.PivotType == PivotType.Column;
-
             }
             return false;
         }

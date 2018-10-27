@@ -188,7 +188,7 @@
             {
                 logger.Error(Ex);
                 logger.Trace($"JSON:{JSONstring}");
-                errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:UnexpectedErrorReadingTableJSON", null, LocalizeDictionary.Instance.Culture)); ;
+                errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:UnexpectedErrorReadingTableJSON", null, LocalizeDictionary.Instance.Culture));
             }
             return errors;
         }
@@ -246,7 +246,6 @@
                     (cols[(int)jsonConfig.qHyperCubeDef.qColumnOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
                 }
             }
-
 
             count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
             if (count != 0)
@@ -374,7 +373,6 @@
 
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
-
 
                 var presentationConfig = PresentationData.First() as PresentationData;
                 jsonData.totals = presentationConfig.SaveToJSON();
