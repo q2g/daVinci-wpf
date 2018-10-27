@@ -37,6 +37,7 @@
                 }
             }
         }
+
         public ValueSelection()
         {
             AllValueItems = new List<ValueItem>();
@@ -339,9 +340,6 @@
                             return DimensionTemplate; ;
                         }
                     }
-
-
-
                 }
             }
             catch (Exception Ex)

@@ -25,6 +25,7 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
         #endregion
+
         public PropertyPanel()
         {
             InitializeComponent();
@@ -33,7 +34,10 @@
         private bool showImport = false;
         public bool ShowImport
         {
-            get { return showImport; }
+            get
+            {
+                return showImport;
+            }
             set
             {
                 if (showImport != value)
@@ -42,7 +46,6 @@
                     RaisePropertyChanged();
                 }
             }
-
         }
     }
 }

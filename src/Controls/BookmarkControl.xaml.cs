@@ -168,7 +168,6 @@
                     }
                 }
                 SelectedBookmark = toEdit;
-
             }
             else
             {
@@ -185,7 +184,6 @@
             toEdit = null;
             isNewMode = false;
             IsEditMode = false;
-
         }
 
         private void EditButton_MouseDown(object sender, RoutedEventArgs e)

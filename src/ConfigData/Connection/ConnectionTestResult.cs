@@ -1,15 +1,17 @@
-﻿using leonardo.Resources;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.ConfigData.Connection
+﻿namespace daVinci.ConfigData.Connection
 {
+    #region Usings
+    using leonardo.Resources;
+    using NLog;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Threading.Tasks;
+    #endregion
+
     public class ConnectionTestResult : INotifyPropertyChanged
     {
         #region LoggerInit
@@ -67,6 +69,5 @@ namespace daVinci.ConfigData.Connection
             }
         }
         #endregion
-
     }
 }

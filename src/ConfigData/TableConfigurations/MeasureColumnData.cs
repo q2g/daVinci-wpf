@@ -315,7 +315,6 @@
             }
         }
 
-
         private string dec_SplitterSign;
         public string Dec_SplitterSign
         {
@@ -721,8 +720,6 @@
                     jsonConfig.qAttributeExpressions.Add(expr);
                 }
 
-
-
                 jsonConfig.qDef.textAlign = new JObject();
                 if (TextAllignment)
                     jsonConfig.qDef.textAlign.auto = TextAllignment;
@@ -752,15 +749,12 @@
             { 11,"h:mm:ss tt" }
         };
 
-
-
         public SortCriteria SortCriterias { get; set; }
 
         public MeasureColumnData()
         {
             SortCriterias = new SortCriteria();
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

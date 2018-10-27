@@ -1,6 +1,5 @@
 ﻿namespace daVinci.Controls
 {
-
     #region Usings
     using ICSharpCode.AvalonEdit;
     using ICSharpCode.AvalonEdit.CodeCompletion;

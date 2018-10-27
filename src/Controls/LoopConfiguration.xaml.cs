@@ -1,28 +1,19 @@
-﻿using Hjson;
-using leonardo.AttachedProperties;
-using leonardo.Resources;
-using Newtonsoft.Json.Linq;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using leonardo.AttachedProperties;
+    using leonardo.Resources;
+    using NLog;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für LoopConfiguration.xaml
     /// </summary>
@@ -117,7 +108,6 @@ namespace daVinci.Controls
             wnd.SetValue(ThemeProperties.HwndProperty, hwnd);
             new WindowInteropHelper(wnd).Owner = new IntPtr((int)hwnd);
 
-
             var handler = new PropertyChangedEventHandler((s, e) =>
             {
 
@@ -135,9 +125,7 @@ namespace daVinci.Controls
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 
-
             return retval;
-
         }
         #endregion
     }

@@ -25,16 +25,9 @@
                     }
                 }, (o) => true);
 
-
             InitializeComponent();
-
-
         }
 
         public ICommand UnlinkCommand { get; set; }
-
-
     }
 }
-
-

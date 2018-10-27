@@ -1,18 +1,18 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
+    using daVinci.ConfigData.TableConfigurations;
+    using leonardo.Resources;
     using NLog;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Linq;
-    using leonardo.Resources;
-    using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Collections.ObjectModel;
-    #endregion
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
     using System.Collections.Generic;
     using WPFLocalizeExtension.Engine;
+    #endregion
 
     public class TableConfiguration : INotifyPropertyChanged
     {
@@ -96,8 +96,6 @@
             }
         }
 
-
-
         private ColumnChooserMode tableMode;
         public ColumnChooserMode TableMode
         {
@@ -176,7 +174,6 @@
                     TableMode = ColumnChooserMode.Separated;
                 }
 
-
                 var addonConfig = new AddOnDataProcessingConfiguration();
                 addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
                 AddOnData.Clear();
@@ -230,7 +227,6 @@
                 }
                 cols.Add(newone);
             }
-
 
             foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
             {
@@ -338,11 +334,7 @@
             {
                 jsonData.qInfo = new JObject();
                 jsonData.qInfo.qId = SettingsID;
-
-
-
                 jsonData.qHyperCubeDef = new JObject();
-
 
                 switch (TableMode)
                 {
@@ -392,7 +384,6 @@
                 logger.Error(Ex);
             }
             return jsonData.ToString();
-
         }
 
         private void FillDimensionMeasureAndOrderPivot(dynamic jsonData)
@@ -434,7 +425,6 @@
                     jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
                 }
             }
-
 
             for (int i = 0; i < dimensions.Count; i++)
             {
@@ -498,8 +488,6 @@
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
-
-
     }
 
     public enum ColumnChooserMode
@@ -507,6 +495,5 @@
         Combined,
         Pivot,
         Separated
-
     }
 }

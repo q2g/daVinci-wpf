@@ -29,7 +29,6 @@
             }
         }
 
-
         private string calcCondition;
         public string CalcCondition
         {
@@ -63,6 +62,7 @@
                 }
             }
         }
+
         public void ReadFromJSON(dynamic jsonConfig)
         {
             try
@@ -115,7 +115,6 @@
                 logger.Error(Ex);
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

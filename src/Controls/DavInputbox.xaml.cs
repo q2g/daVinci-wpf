@@ -1,9 +1,9 @@
 ﻿namespace daVinci.Controls
-{
-    using leonardo.AttachedProperties;
+{   
     #region Usings
     using leonardo.Controls;
     using leonardo.Resources;
+    using leonardo.AttachedProperties;
     using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -18,7 +18,6 @@
     /// </summary>
     public partial class DavInputbox : UserControl
     {
-
         #region LoggerInit
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
@@ -55,6 +54,7 @@
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
          "Text", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
         #region IsInputEnabled - DP        
         public bool IsInputEnabled
         {
@@ -65,6 +65,7 @@
         public static readonly DependencyProperty IsInputEnabledProperty = DependencyProperty.Register(
          "IsInputEnabled", typeof(bool), typeof(DavInputbox), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
         #region LabelText - DP       
         public string LabelText
         {
@@ -75,6 +76,7 @@
         public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register(
          "LabelText", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
         #region RightCommandForeground - DP        
         public Brush RightCommandForeground
         {
@@ -85,11 +87,14 @@
         public static readonly DependencyProperty RightCommandForegroundProperty = DependencyProperty.Register(
          "RightCommandForeground", typeof(Brush), typeof(DavInputbox), new FrameworkPropertyMetadata(LuiPalette.Brushes.GRAYSCALE30, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
         private ICommand openEditorCommand;
         public ICommand OpenEditorCommand
         {
-            get { return openEditorCommand; }
-
+            get
+            {
+                return openEditorCommand;
+            }
             set
             {
                 if (openEditorCommand != value)
@@ -99,6 +104,5 @@
                 }
             }
         }
-
     }
 }

@@ -26,8 +26,6 @@
 
         }
 
-
-
         public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture)
         {
             return new object[2];

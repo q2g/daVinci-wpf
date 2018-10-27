@@ -15,7 +15,6 @@
         public ColumnChooserMode TrueValue { get; set; }
         public ColumnChooserMode ValueWhenFalse { get; set; }
 
-
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
@@ -51,7 +50,5 @@
             }
             return ValueWhenFalse;
         }
-
-
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace daVinci.Controls
 {
+    #region Usings
     using leonardo.Resources;
     using System;
-    #region Usings
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;

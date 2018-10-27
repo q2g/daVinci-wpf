@@ -17,7 +17,6 @@
         public ControlLoader()
         {
             InitializeComponent();
-
         }
 
         public Type TypeToCreate { get; set; }

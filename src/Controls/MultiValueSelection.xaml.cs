@@ -64,6 +64,7 @@ namespace daVinci.Controls
                 }
             }
         }
+
         private List<ValueItem> fields = new List<ValueItem>();
         public List<ValueItem> Fields
         {
@@ -77,7 +78,6 @@ namespace daVinci.Controls
                 }
             }
         }
-
 
         private ItemFilter valueItemfilter;
         public ItemFilter Filter
@@ -106,7 +106,6 @@ namespace daVinci.Controls
                 }
             }
         }
-
     }
 
     public class ItemFilter : ICollectionViewFilter

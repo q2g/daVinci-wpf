@@ -8,6 +8,7 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     #endregion
+
     /// <summary>
     /// Interaction logic for HubStreamSelection.xaml
     /// </summary>

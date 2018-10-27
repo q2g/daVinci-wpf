@@ -22,9 +22,6 @@
     using WPFLocalizeExtension.Engine;
     #endregion
 
-
-
-
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
     /// </summary>
@@ -355,7 +352,6 @@
                    }
                });
 
-
             PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
             InitializeComponent();
             DataContext = this;
@@ -433,6 +429,7 @@
             }
             return maxindex;
         }
+
         private int PivotGetMaxColumnsOrder()
         {
             int maxindex = 0;
@@ -483,6 +480,7 @@
             }
             return maxindex;
         }
+
         #region Columns - DP 
         private INotifyCollectionChanged oldcolumns;
         private ObservableCollection<object> columns;
@@ -825,6 +823,4 @@
             return data is DimensionColumnData;
         }
     }
-
-
 }

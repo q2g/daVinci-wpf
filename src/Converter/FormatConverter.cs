@@ -13,7 +13,6 @@
 
         public double NumberToFormat { get; set; }
 
-
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
@@ -45,8 +44,6 @@
                 logger.Error(Ex);
             }
             return "";
-
-
         }
 
         public object ConvertBack(object value, Type targetType,
@@ -54,7 +51,5 @@
         {
             return null;
         }
-
-
     }
 }

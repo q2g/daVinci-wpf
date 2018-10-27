@@ -380,9 +380,6 @@
 
                 OKButton.IsEnabled = true;
             }
-
-
-
         }
     }
 }

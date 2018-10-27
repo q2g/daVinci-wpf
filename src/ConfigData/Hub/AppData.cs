@@ -209,7 +209,6 @@
                 }
             }
         }
-
     }
 
     public class AppDataFilter : ICollectionViewFilter
@@ -245,6 +244,7 @@
             return 0;
         }
     }
+
     public class AppPublishedComparer : IComparer
     {
         public int Compare(object x, object y)
@@ -259,6 +259,7 @@
             return 0;
         }
     }
+
     public class AppCreatedComparer : IComparer
     {
         public int Compare(object x, object y)

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace daVinci.Resources
+﻿namespace daVinci.Resources
 {
+    #region Usings
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    #endregion
+
     public class Win32Helper
     {
         #region GetWindowRect Helper

@@ -1,7 +1,7 @@
 ﻿namespace daVinci.ConfigData.FieldConfigurations
 {
-    using leonardo.Resources;
     #region Usings
+    using leonardo.Resources;
     using NLog;
     using System.Collections;
     using System.Collections.ObjectModel;
@@ -49,8 +49,6 @@
             return false;
         }
     }
-
-
 
     public class FieldComparer : IComparer
     {

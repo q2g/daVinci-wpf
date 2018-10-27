@@ -1,7 +1,7 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
-    using leonardo.Resources;
     #region Usings
+    using leonardo.Resources;
     using NLog;
     using System;
     using System.Collections.ObjectModel;
@@ -185,6 +185,7 @@
         }
         #endregion
     }
+
     public class ConnectionDataFilter : ICollectionViewFilter
     {
         public bool Filter(object data, string searchString)

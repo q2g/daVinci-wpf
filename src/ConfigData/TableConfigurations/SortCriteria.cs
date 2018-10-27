@@ -148,8 +148,6 @@
             }
         }
 
-
-
         private int columnOrderIndex;
         public int ColumnOrderIndex
         {
@@ -177,8 +175,6 @@
             {
                 sortOrderIndex = value;
                 RaisePropertyChanged();
-
-
             }
         }
 

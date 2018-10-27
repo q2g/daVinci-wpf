@@ -15,6 +15,7 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
     #endregion
+
     /// <summary>
     /// Interaction logic for HubAppArea.xaml
     /// </summary>
@@ -106,8 +107,6 @@
          "AppSelectionCommand", typeof(ICommand), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-
-
         #region Owner DP
         public IntPtr? Owner
         {
@@ -147,7 +146,6 @@
             toEdit = null;
             isNewMode = false;
             IsEditMode = false;
-
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -203,7 +201,6 @@
                 IsEditMode = true;
                 ShowDetail = true;
             }
-
         }
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
