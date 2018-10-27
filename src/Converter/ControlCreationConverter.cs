@@ -36,7 +36,9 @@
                 return null;
             }
             catch (Exception Ex)
-            { }
+            {
+                logger.Error(Ex);
+            }
             return new UserControl();
         }
 

@@ -27,14 +27,11 @@
                     switch (mode)
                     {
                         case ColumnChooserMode.Combined:
-                            return CombinedStyle;
-                            break;
+                            return CombinedStyle;                            
                         case ColumnChooserMode.Pivot:
-                            return PivotStyle;
-                            break;
+                            return PivotStyle;                            
                         case ColumnChooserMode.Separated:
-                            return SeperateStyle;
-                            break;
+                            return SeperateStyle;                            
                         default:
                             break;
                     }

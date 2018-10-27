@@ -13,6 +13,10 @@
     <!--<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>-->
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <Choose>
@@ -21,7 +25,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="leonardo-wpf" Version="0.9.4"></PackageReference>
+        <PackageReference Include="leonardo-wpf" Version="0.9.2"></PackageReference>
       </ItemGroup>
     </When>
     <Otherwise>
@@ -41,15 +45,21 @@
     <Page Include="**\*.xaml" SubType="Designer">      
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
-        
-    <Resource Include="Images\QlikApp.png" />
-        
+
     <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
 
     <!-- Resources -->
     <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
-    <Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />    
-    
+    <Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />
+
+    <Resource Include="Images\QlikApp.png" />
+
+    <None Update="Controls\InputControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Controls\OkCancelControlHolder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
 
     <!-- Settings -->
     <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
@@ -64,17 +74,17 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="GitVersionTask" Version="4.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+
     <PackageReference Include="AvalonEdit" Version="5.0.4" />
-    <PackageReference Include="GitVersionTask" Version="4.0.0">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Hjson" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.0" />
     <PackageReference Include="XAMLMarkupExtensions" Version="1.5.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="1.1.0" />
     <PackageReference Include="NLog" Version="4.5.10" />
-    <PackageReference Include="qlik-resources" Version="4.86.9"></PackageReference>
+    <PackageReference Include="qlik-resources" Version="4.86.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,6 +110,5 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
- </ItemGroup>
-  
+ </ItemGroup> 
 </Project>
