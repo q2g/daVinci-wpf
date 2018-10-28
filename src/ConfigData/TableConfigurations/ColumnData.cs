@@ -1,7 +1,8 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
-    using leonardo.Resources;
+
     #region MyRegion
+    using leonardo.Resources;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
@@ -152,7 +153,19 @@
             }
         }
 
-        public SortCriteria SortCriterias { get; set; } = new SortCriteria();
+        private SortCriteria sortCriterias = new SortCriteria();
+        public SortCriteria SortCriterias
+        {
+            get { return sortCriterias; }
+            set
+            {
+                if (sortCriterias != value)
+                {
+                    sortCriterias = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         private bool textAllignment;
         public bool TextAllignment
