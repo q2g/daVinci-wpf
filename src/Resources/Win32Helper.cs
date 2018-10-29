@@ -46,7 +46,6 @@
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         private static extern int GetDeviceCaps(IntPtr hDC, int nIndex);
 
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowRect(HandleRef hWnd, out RECT lpRect);
@@ -71,7 +70,6 @@
 
             return System.Windows.Rect.Empty;
         }
-
 
         private static WINDOWPLACEMENT GetPlacement(IntPtr hwnd)
         {
