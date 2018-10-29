@@ -159,41 +159,6 @@
         }
         #endregion
 
-        private bool textAllignment;
-        public bool TextAllignment
-        {
-            get
-            {
-                return textAllignment;
-            }
-            set
-            {
-                if (textAllignment != value)
-                {
-                    textAllignment = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-
-        private int allignmentIndex;
-        public int AllignmentIndex
-        {
-            get
-            {
-                return allignmentIndex;
-            }
-            set
-            {
-                if (allignmentIndex != value)
-                {
-                    allignmentIndex = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
         private int representationIndex;
         public int RepresentationIndex
         {
@@ -325,10 +290,8 @@
         {
             try
             {
-                dynamic jsonConfig = new JObject();
-                if (!IsExpression && !string.IsNullOrEmpty(DimensionMeasure?.LibID?.ToString() ?? ""))
-                    jsonConfig.qLibraryId = DimensionMeasure?.LibID?.ToString() ?? "";
-                jsonConfig.qDef = new JObject();
+                dynamic jsonConfig = SaveBaseDataToJson();
+
                 jsonConfig.qDef.qFieldDefs = new JArray();
                 if (!string.IsNullOrEmpty(FieldDef))
                     jsonConfig.qDef.qFieldDefs.Add(FieldDef);
@@ -401,25 +364,11 @@
                         break;
                 }
 
-
                 if (!ShowOthers)
                     jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
                 jsonConfig.qDef.othersLabel = new JObject();
                 if (!string.IsNullOrEmpty(OthersLabel))
                     jsonConfig.qDef.othersLabel.qv = OthersLabel;
-                jsonConfig.qAttributeExpressions = new JArray();
-                if (!string.IsNullOrEmpty(BackgroundColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = BackgroundColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-                if (!string.IsNullOrEmpty(TextColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = TextColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
 
                 jsonConfig.qDef.textAlign = new JObject();
                 jsonConfig.qDef.textAlign.auto = TextAllignment;
@@ -442,10 +391,5 @@
         }
     }
 
-    public enum PivotType
-    {
-        None = 0,
-        Row = 1,
-        Column = 2
-    }
+
 }

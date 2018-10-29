@@ -18,6 +18,7 @@
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
+        #region Properties & Variables
         private int numberFormatIndex;
         public int NumberFormatIndex
         {
@@ -294,8 +295,7 @@
             }
         }
 
-
-
+        #endregion
         public void ReadFromJSON(dynamic jsonConfig)
         {
             try
@@ -407,13 +407,11 @@
 
         public dynamic SaveToJson()
         {
-            dynamic jsonConfig = new JObject();
+            dynamic jsonConfig = null;
 
             try
             {
-                if (!IsExpression && !string.IsNullOrEmpty(DimensionMeasure?.LibID?.ToString() ?? ""))
-                    jsonConfig.qLibraryId = DimensionMeasure?.LibID?.ToString() ?? "";
-                jsonConfig.qDef = new JObject();
+                jsonConfig = SaveBaseDataToJson();
                 jsonConfig.qDef.qLabel = FieldLabel;
                 jsonConfig.qDef.qDef = FieldDef;
 
@@ -528,26 +526,6 @@
                 }
                 jsonConfig.qDef.qNumFormat.qDec = Dec_SplitterSign;
                 jsonConfig.qDef.qNumFormat.qThou = Thou_SplitterSign;
-
-                jsonConfig.qAttributeExpressions = new JArray();
-                if (!string.IsNullOrEmpty(BackgroundColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = BackgroundColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-                if (!string.IsNullOrEmpty(TextColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = TextColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-
-                jsonConfig.qDef.textAlign = new JObject();
-                if (TextAllignment)
-                    jsonConfig.qDef.textAlign.auto = TextAllignment;
-                if (AllignmentIndex != 0)
-                    jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
             }
             catch (Exception Ex)
             {

@@ -3,20 +3,22 @@
 
     #region MyRegion
     using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
 
-    public class ColumnData : INotifyPropertyChanged
+    public class ColumnData : INotifyPropertyChanged, IHasSortCriteria
     {
-
-        #region Properties & Variables
+        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
+        #endregion
 
+        #region Properties & Variables
         private bool isExpression;
         public bool IsExpression
         {
@@ -226,6 +228,37 @@
 
             TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
             AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
+        }
+        public dynamic SaveBaseDataToJson()
+        {
+            dynamic jsonConfig = new JObject();
+
+            jsonConfig.qDef = new JObject();
+
+            if (!IsExpression && !string.IsNullOrEmpty(DimensionMeasure?.LibID?.ToString() ?? ""))
+                jsonConfig.qLibraryId = DimensionMeasure?.LibID?.ToString() ?? "";
+
+            jsonConfig.qAttributeExpressions = new JArray();
+            if (!string.IsNullOrEmpty(BackgroundColorExpression))
+            {
+                dynamic expr = new JObject();
+                expr.qExpression = BackgroundColorExpression;
+                jsonConfig.qAttributeExpressions.Add(expr);
+            }
+            if (!string.IsNullOrEmpty(TextColorExpression))
+            {
+                dynamic expr = new JObject();
+                expr.qExpression = TextColorExpression;
+                jsonConfig.qAttributeExpressions.Add(expr);
+            }
+
+            jsonConfig.qDef.textAlign = new JObject();
+            if (TextAllignment)
+                jsonConfig.qDef.textAlign.auto = TextAllignment;
+            if (AllignmentIndex != 0)
+                jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
+
+            return jsonConfig;
         }
         #endregion
     }
