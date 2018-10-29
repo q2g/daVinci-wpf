@@ -112,7 +112,6 @@
         }
         #endregion
 
-
         #region Currency
         private string currencyFormatText;
         public string CurrencyFormatText

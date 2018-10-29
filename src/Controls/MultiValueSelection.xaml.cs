@@ -110,7 +110,6 @@ namespace daVinci.Controls
 
     public class ItemFilter : ICollectionViewFilter
     {
-
         public bool Filter(object data, string searchString)
         {
             if (data is ValueItem item)

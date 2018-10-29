@@ -1,19 +1,19 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.Hub;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using NLog;
     using System;
-    using System.Windows;
-    using leonardo.Controls;
-    using daVinci.ConfigData;
-    using leonardo.Resources;
-    using System.Windows.Input;
-    using daVinci.ConfigData.Hub;
-    using System.Windows.Controls;
-    using WPFLocalizeExtension.Engine;
-    using System.Runtime.CompilerServices;
-    using System.ComponentModel;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using WPFLocalizeExtension.Engine;
     #endregion
 
     /// <summary>
@@ -34,7 +34,6 @@
                         AppSelectionCommand.Execute(SearchedItems[0]);
                     }
                 }
-
             });
             InitializeComponent();
         }
@@ -132,7 +131,6 @@
                     stream.Apps.Add(toEdit);
                 }
                 SelectedApp = toEdit;
-
             }
             else
             {
@@ -164,7 +162,6 @@
                 {
                     if (sendercontrol.DataContext is AppData appdata)
                     {
-
                         if (!ShowDetail)
                         {
                             SelectedApp = appdata;
@@ -205,7 +202,6 @@
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
         {
-
             if (sender is FrameworkElement source)
             {
                 if (source.DataContext is AppData data)
@@ -230,7 +226,6 @@
 
         private void DeleteApp(AppData appdata)
         {
-
             if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Delete App {0}?", SelectedApp.AppName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is StreamData stream)

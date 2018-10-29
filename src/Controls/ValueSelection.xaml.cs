@@ -171,7 +171,6 @@
                 {
                     searchText = value;
                     RaisePropertyChanged();
-
                 }
             }
         }
@@ -195,7 +194,6 @@
                     }
                 }, (o) => true);
                 AllValueItems.ForEach(item => item.ItemSelectedCommand = newselectedCommand);
-
             }
         }
 
@@ -296,7 +294,6 @@
                     return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == true;
                 else
                     return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == false && item.ItemType == ValType;
-
             }
             return false;
         }

@@ -90,7 +90,6 @@
         #region statics
         public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd = 0, ConfigData.Loop.LoopConfiguration loopconfig = null)
         {
-
             if (loopconfig == null)
             {
                 loopconfig = new ConfigData.Loop.LoopConfiguration()
@@ -110,7 +109,6 @@
 
             var handler = new PropertyChangedEventHandler((s, e) =>
             {
-
             });
             (loopconfig as INotifyPropertyChanged).PropertyChanged += handler;
             list.OrderBy(ele => ele.Text).ToList()

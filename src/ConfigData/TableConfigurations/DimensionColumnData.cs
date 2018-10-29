@@ -140,7 +140,6 @@
             }
         }
 
-
         private string othersLabel;
         public string OthersLabel
         {
@@ -390,6 +389,4 @@
             }
         }
     }
-
-
 }

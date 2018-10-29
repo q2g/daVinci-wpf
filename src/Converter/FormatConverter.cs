@@ -3,8 +3,8 @@
     #region Usings
     using NLog;
     using System;
+    using System.Globalization;
     using System.Windows.Data;
-    using System.Globalization; 
     #endregion
 
     public class FormatConverter : IValueConverter
@@ -21,7 +21,6 @@
                 object objectToFormat = null;
                 if (parameter is string stringparam)
                 {
-
                     switch (stringparam)
                     {
                         case "d":

@@ -1,13 +1,13 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows;
-    using System.Windows.Input;
-    using System.Windows.Controls;
+    using NLog;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using NLog;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
 
     /// <summary> 
     #endregion
@@ -46,7 +46,6 @@
                     RaisePropertyChanged();
                 }
             }
-
         }
         #endregion
 

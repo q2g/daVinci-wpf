@@ -44,15 +44,12 @@
         #region Variables & Properties
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-
-
         public RelayCommand UnComment { get; private set; }
         public RelayCommand Redo { get; private set; }
         public RelayCommand Undo { get; private set; }
 
         public RelayCommand<CodeTab> RemoveTabCommand { get; private set; }
         public RelayCommand AddTabCommand { get; private set; }
-
 
         public RelayCommand Indent { get; private set; }
         public RelayCommand Outdent { get; private set; }
@@ -194,9 +191,6 @@
                     foreach (var item in TextEditor.GetSelectedLineNumbers())
                     {
                         var line = TextEditor.Document.GetLineByNumber(item);
-                        // TODO: Outdent
-                        //  TextEditor.Document.Insert(line.Offset, "  ");
-
                     }
                 }
                 catch (Exception ex)
@@ -236,41 +230,7 @@
                 {
                     logger.Error(ex);
                 }
-
             });
-            #endregion
-
-            #region Syntac Highlight
-            try
-            {
-                //using (Stream s = typeof(qlik_sense_resources.languages).Assembly.GetManifestResourceStream("qlik_sense_resources.sense_script.xhsd"))
-                //{
-                //    TextEditor.SyntaxHighlighting = TextEditor.AddCustomHighlighting(s);
-                //}
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-            }
-
-
-
-            //            bool isInComment = documentHighlighter.GetSpanStack(1).Any(
-            //    s => s.SpanColor != null && s.SpanColor.Name == "Comment");
-            //// returns true if the end of line 1 (=start of line 2) is inside a multiline comment
-
-            //Spans can be identified using their color. For this purpose, named colors should be used in the syntax definition.
-
-            //For more detailed results inside lines, the highlighting algorithm must be executed for that line:
-            //C# 	Copy imageCopy
-
-            //int off = document.GetOffset(7, 22);
-            //HighlightedLine result = documentHighlighter.HighlightLine(document.GetLineByNumber(7));
-            //bool isInComment = result.Sections.Any(
-            //    s => s.Offset <= off && s.Offset+s.Length >= off
-            //         && s.Color.Name == "Comment");
-
-            //     TextEditor.SyntaxHighlighting  
             #endregion
 
             TextEditor.TextArea.TextEntering += TextEditor_TextArea_TextEntering;
@@ -404,7 +364,6 @@
 
                 yield return new CodeTab() { Name = itm.Groups["name"].Value, Code = FullCode.Substring(codeStart, codeEnde - codeStart) };
             }
-
         }
         #endregion
     }
@@ -457,102 +416,6 @@
 
             return customHighlighting;
         }
-
-
-        //private void textEditor_MouseHover(object sender, MouseEventArgs e)
-        //{
-        //    var pos = textEditor.GetPositionFromPoint(e.GetPosition(textEditor));
-        //    if (pos != null)
-        //    {
-        //        string wordHovered = textEditor.Document.GetWordUnderMouse(pos.Value);
-
-        //        e.Handled = true;
-        //    }
-        //}
-
-        //void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
-        //{
-        //    if (e.Text == ".")
-        //    {
-        //        var previousWord = textEditor.GetWordBeforeDot();
-        //    }
-        //}
-
-        //public static string GetWordUnderMouse(this TextDocument document, TextViewPosition position)
-        //{
-        //    string wordHovered = string.Empty;
-
-        //    var line = position.Line;
-        //    var column = position.Column;
-
-        //    var offset = document.GetOffset(line, column);
-        //    if (offset >= document.TextLength)
-        //        offset--;
-
-        //    var textAtOffset = document.GetText(offset, 1);
-
-        //    // Get text backward of the mouse position, until the first space
-        //    while (!string.IsNullOrWhiteSpace(textAtOffset))
-        //    {
-        //        wordHovered = textAtOffset + wordHovered;
-
-        //        offset--;
-
-        //        if (offset < 0)
-        //            break;
-
-        //        textAtOffset = document.GetText(offset, 1);
-        //    }
-
-        //    // Get text forward the mouse position, until the first space
-        //    offset = document.GetOffset(line, column);
-        //    if (offset < document.TextLength - 1)
-        //    {
-        //        offset++;
-
-        //        textAtOffset = document.GetText(offset, 1);
-
-        //        while (!string.IsNullOrWhiteSpace(textAtOffset))
-        //        {
-        //            wordHovered = wordHovered + textAtOffset;
-
-        //            offset++;
-
-        //            if (offset >= document.TextLength)
-        //                break;
-
-        //            textAtOffset = document.GetText(offset, 1);
-        //        }
-        //    }
-
-        //    return wordHovered;
-        //}
-
-        //public static string GetWordBeforeDot(this TextEditor textEditor)
-        //{
-        //    var wordBeforeDot = string.Empty;
-
-        //    var caretPosition = textEditor.CaretOffset - 2;
-
-        //    var lineOffset = textEditor.Document.GetOffset(textEditor.Document.GetLocation(caretPosition));
-
-        //    string text = textEditor.Document.GetText(lineOffset, 1);
-
-        //    // Get text backward of the mouse position, until the first space
-        //    while (!string.IsNullOrWhiteSpace(text) && text.CompareTo(".") > 0)
-        //    {
-        //        wordBeforeDot = text + wordBeforeDot;
-
-        //        if (caretPosition == 0)
-        //            break;
-
-        //        lineOffset = textEditor.Document.GetOffset(textEditor.Document.GetLocation(--caretPosition));
-
-        //        text = textEditor.Document.GetText(lineOffset, 1);
-        //    }
-
-        //    return wordBeforeDot;
-        //}
     }
     #endregion
 }
