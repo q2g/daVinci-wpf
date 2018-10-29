@@ -1,11 +1,11 @@
 ﻿namespace daVinci.ConfigData.Bookmark
 {
     #region Usings
-    using System;
     using leonardo.Resources;
+    using System;
+    using System.Collections;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using System.Collections;
     #endregion
 
     public class BookmarkData : INotifyPropertyChanged
@@ -143,7 +143,6 @@
                     || (bmdata.BookmarkSelection + "").ToLower().Contains(searchString.ToLower())
                     || (bmdata.BookmarkBelongsTo + "").ToLower().Contains(searchString.ToLower())
                     );
-
             }
             return false;
         }

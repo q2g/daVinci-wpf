@@ -1,11 +1,10 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.Controls;
     using daVinci.ConfigData;
     using leonardo.Resources;
-    using System.Windows.Input;
     using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>
@@ -26,38 +25,9 @@
                     }
                 }, (o) => true);
 
-            EditFieldExpressionCommand = new RelayCommand(
-                (o) =>
-                {
-                    if (DataContext is DimensionColumnData dimensionconfig)
-                    {
-                        dimensionconfig.FieldDef = ExpressionEditor.ShowModal(dimensionconfig.FieldDef);
-
-
-                    }
-                }, (o) => true);
-
-            EditLabelExpressionCommand = new RelayCommand(
-               (o) =>
-               {
-                   if (DataContext is DimensionColumnData dimensionconfig)
-                   {
-                       dimensionconfig.FieldLabel = ExpressionEditor.ShowModal(dimensionconfig.FieldLabel);
-
-
-                   }
-               }, (o) => true);
             InitializeComponent();
-
-
         }
 
         public ICommand UnlinkCommand { get; set; }
-        public ICommand EditFieldExpressionCommand { get; set; }
-        public ICommand EditLabelExpressionCommand { get; set; }
-
-
     }
 }
-
-

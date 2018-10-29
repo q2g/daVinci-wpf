@@ -1,54 +1,27 @@
-﻿using daVinci.ConfigData;
-using daVinci.Controls;
-using daVinci.Resources;
-using daVinci.ConfigData.Bookmark;
-using daVinci.ConfigData.Hub;
-using leonardo.Controls;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WPFLocalizeExtension.Engine;
-using leonardo.Resources;
-
-namespace daVinci_Demo
+﻿namespace daVinci_Demo
 {
+    #region Usings
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.Bookmark;
+    using daVinci.ConfigData.Hub;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Input;
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary> 
     public partial class MainWindow : Window
     {
-
-
         public MainWindow()
         {
             LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
 
-
-            //ColumnChooser cc = new ColumnChooser();
-            ////cc.Height = 300;
-            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestDimension", Content = new DimensionColumnDataView() { Text= "TestDimension" } }});
-            //cc.Columns.Add(new LuiAccordionItem() { Header = "TestKennzahl", Content = new MeasureColumnDataView() { Text = "TestKennzahl" } }});
-            //ItemList = new ObservableCollection<LuiAccordionItem>()
-            //{
-            //    new LuiAccordionItem(){Header="Daten", Content=cc, SortCriterias=new SortCriteria(){
-            //     new LuiAccordionItem(){Header="Darstellung", Content=new PresentationAccordion()}
-            //};
             Table = new TableConfiguration();
             Table.TableName = "The Table";
 
@@ -77,7 +50,6 @@ namespace daVinci_Demo
                     SortOrderIndex = 1,
                     AutoSort = true
                 }
-
             };
 
             var dimension2 = new DimensionColumnData()
@@ -112,7 +84,6 @@ namespace daVinci_Demo
                     SortByNumeric = true,
                     SortByNumericDirection = 1
                 }
-
             };
 
             var measure1 = new MeasureColumnData()
@@ -137,7 +108,6 @@ namespace daVinci_Demo
                 StandardFormatIndex = 1,
                 Thou_SplitterSign = ",",
                 TotalValueFunctionIndex = 2,
-
                 SortCriterias = new SortCriteria()
                 {
                     ColumnOrderIndex = 3,
@@ -175,8 +145,6 @@ namespace daVinci_Demo
                 }
             };
 
-
-
             //Table.Columns.Add(dimension1);
             //Table.Columns.Add(dimension2);
             //Table.Columns.Add(measure1);
@@ -187,7 +155,6 @@ namespace daVinci_Demo
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 8, SortOrderIndex = 8 } });
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 9, SortOrderIndex = 9 } });
 
-
             //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 10, SortOrderIndex = 10 } });
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 11, SortOrderIndex = 11 } });
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 12, SortOrderIndex = 12 } });
@@ -197,7 +164,6 @@ namespace daVinci_Demo
             //Table.Columns.Add(new MeasureColumnData() { LibraryID = "Kennzahl", SortCriterias = new SortCriteria() { ColumnOrderIndex = 16, SortOrderIndex = 16 } });
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension1", SortCriterias = new SortCriteria() { ColumnOrderIndex = 17, SortOrderIndex = 17 } });
             //Table.Columns.Add(new DimensionColumnData() { LibraryID = "Dimension2", SortCriterias = new SortCriteria() { ColumnOrderIndex = 18, SortOrderIndex = 18 } });
-
 
             //Table.AddOnData.Add(new AddOnDataProcessingConfiguration()
             //{
@@ -299,11 +265,10 @@ namespace daVinci_Demo
                         new AppData(){ AppName="App3",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
                      new AppData(){ AppName="App1",Created=new DateTime(2012,07,12),DataLastLoaded=new DateTime(2012,07,12), Published=new DateTime(2012,07,12), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf"},
                         new AppData(){ AppName="App2",Created=new DateTime(2010,01,01),DataLastLoaded=new DateTime(2010,01,01), Published=new DateTime(2010,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
-                        new AppData(){ AppID="THE_ID", AppName="App21",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true},
-
+                        new AppData(){ AppID="THE_ID", AppName="App21",Created=new DateTime(2018,01,01),DataLastLoaded=new DateTime(2018,01,01), Published=new DateTime(2018,01,01), AppImage="pack://application:,,,/daVinci-wpf;component/Images/QlikApp.png",AppDescription=apptext, Filename=@"c:\Folder\File.qvf", IsPublished=true}
                     }
                 }
-};
+            };
 
             Bookmarks = new ObservableCollection<BookmarkData>()
             {
@@ -458,10 +423,7 @@ namespace daVinci_Demo
                 }
             };
 
-
-
             InitializeComponent();
-
 
             AppSelectedCommand = new RelayCommand((o) =>
                             {
@@ -474,8 +436,6 @@ namespace daVinci_Demo
             DataContext = this;
             //Logger logger = LogManager.GetCurrentClassLogger();
             //logger.Error("Hallo Log!");
-
-
         }
         public TableConfiguration Table { get; set; }
         public HubData Hub { get; set; }
@@ -499,8 +459,6 @@ namespace daVinci_Demo
                 string result = r.ReadToEnd();
                 return result;
             }
-
         }
     }
-
 }

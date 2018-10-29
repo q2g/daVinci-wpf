@@ -1,33 +1,39 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
+    using daVinci.Controls;
     using NLog;
     using System;
-    using daVinci.Controls;
-    using System.Windows.Data;
     using System.Globalization;
     using System.Windows.Controls;
+    using System.Windows.Data;
     #endregion
 
     [ValueConversion(typeof(object), typeof(object))]
-    public class ControlCreationConverter : IValueConverter
+    public class ControlCreationConverter : IMultiValueConverter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public object Convert(object value, Type targetType,
+        public object Convert(object[] values, Type targetType,
             object parameter, CultureInfo culture)
         {
             try
             {
-                ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
-                if (parameter is Type type)
+                if (values[0] is object datacontext)
                 {
-                    controlHolder.TypeToCreate = type;
-                    controlHolder.DataContext = value;
-
-
+                    if (values[1] is int hwnd)
+                    {
+                        ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
+                        if (parameter is Type type)
+                        {
+                            controlHolder.TypeToCreate = type;
+                            controlHolder.DataContext = datacontext;
+                            controlHolder.Hwnd = hwnd;
+                        }
+                        return controlHolder;
+                    }
                 }
-                return controlHolder;
+                return null;
             }
             catch (Exception Ex)
             {
@@ -36,12 +42,9 @@
             return new UserControl();
         }
 
-        public object ConvertBack(object value, Type targetType,
-            object parameter, CultureInfo culture)
+        object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             return null;
         }
-
-
     }
 }

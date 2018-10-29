@@ -1,11 +1,12 @@
 ﻿namespace daVinci.ConfigData.Hub
 {
     #region Usings
-    using System;
     using leonardo.Resources;
+    using System;
     using System.Collections;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices; 
+    using System.Linq;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class AppData : INotifyPropertyChanged
@@ -20,8 +21,8 @@
 
         public AppData()
         {
-
         }
+
         public AppData(AppData other)
         {
             CopyFrom(other);
@@ -208,7 +209,6 @@
                 }
             }
         }
-
     }
 
     public class AppDataFilter : ICollectionViewFilter
@@ -224,7 +224,6 @@
                     || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower())
                     || (appdata?.Filename?.ToLower() ?? "").Contains(searchString.ToLower())
                     || (appdata?.AppID?.ToLower() ?? "").Contains(searchString.ToLower()));
-
             }
             return false;
         }
@@ -244,6 +243,7 @@
             return 0;
         }
     }
+
     public class AppPublishedComparer : IComparer
     {
         public int Compare(object x, object y)
@@ -258,6 +258,7 @@
             return 0;
         }
     }
+
     public class AppCreatedComparer : IComparer
     {
         public int Compare(object x, object y)

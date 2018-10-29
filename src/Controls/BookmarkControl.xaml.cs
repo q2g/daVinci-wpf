@@ -1,18 +1,18 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System;
-    using System.Windows;
-    using leonardo.Controls;
-    using System.Windows.Input;
-    using System.Windows.Controls;
     using daVinci.ConfigData.Bookmark;
-    using WPFLocalizeExtension.Engine;
-    using System.Collections.ObjectModel;
+    using leonardo.Controls;
     using leonardo.Resources;
-    using System.Runtime.CompilerServices;
+    using System;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Interop;
+    using WPFLocalizeExtension.Engine;
     #endregion
 
     /// <summary>
@@ -146,7 +146,6 @@
                     RaisePropertyChanged();
                 }
             }
-
         }
         #endregion
 
@@ -168,7 +167,6 @@
                     }
                 }
                 SelectedBookmark = toEdit;
-
             }
             else
             {
@@ -185,7 +183,6 @@
             toEdit = null;
             isNewMode = false;
             IsEditMode = false;
-
         }
 
         private void EditButton_MouseDown(object sender, RoutedEventArgs e)
@@ -218,7 +215,6 @@
             {
                 if (sendercontrol.DataContext is BookmarkData bmdata)
                 {
-
                     SelectedBookmark = bmdata;
                     ShowDetail = true;
                     return true;
@@ -254,7 +250,6 @@
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
         {
-
             if (sender is FrameworkElement source)
             {
                 if (source.DataContext is BookmarkData data)

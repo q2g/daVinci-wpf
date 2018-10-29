@@ -1,7 +1,7 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
-    using leonardo.Resources;
     #region Usings
+    using leonardo.Resources;
     using NLog;
     using System;
     using System.Collections.ObjectModel;
@@ -102,7 +102,6 @@
             }
         }
 
-
         private string headerCookieKey;
         public string HeaderCookieKey
         {
@@ -153,7 +152,7 @@
                 }
             }
         }
-        private int selectedTypeIndex = 0;
+        private int selectedTypeIndex = 4;
         public int SelectedTypeIndex
         {
             get
@@ -185,6 +184,7 @@
         }
         #endregion
     }
+
     public class ConnectionDataFilter : ICollectionViewFilter
     {
         public bool Filter(object data, string searchString)
@@ -195,10 +195,8 @@
                     (bmdata.IDName + "").ToLower().Contains(searchString.ToLower())
                     || (bmdata.URI + "").ToLower().Contains(searchString.ToLower())
                     );
-
             }
             return false;
         }
     }
-
 }

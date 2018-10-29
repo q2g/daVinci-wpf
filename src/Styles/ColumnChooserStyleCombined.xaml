@@ -16,10 +16,7 @@
 
     <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
     <daVinciConfig:ColumnOrderComparer x:Key="ColumnOrderComparer" />
-
     <daVinciConverter:ColumnNameConverter x:Key="ColumnNameConverter" />
-
-    <daVinciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
 
     <Style x:Key="ColumnChooserStyleCombined" TargetType="UserControl">
         <Setter Property="Template">

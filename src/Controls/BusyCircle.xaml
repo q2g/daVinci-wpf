@@ -17,7 +17,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             RenderTransformOrigin="0.5,0.5"
-            StrokeThickness="{Binding Circlethickness}">
+            StrokeThickness="{Binding Circlethickness, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:BusyCircle}}}">
             <Ellipse.Stroke>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5">
                     <GradientStop Offset="0" Color="White" />

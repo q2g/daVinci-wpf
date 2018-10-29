@@ -1,11 +1,11 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using leonardo.Resources;
-    using System.ComponentModel;
     using daVinci.ConfigData.Hub;
+    using leonardo.Resources;
     using System.Collections.ObjectModel;
-    using System.Runtime.CompilerServices; 
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class StreamData : INotifyPropertyChanged
@@ -44,6 +44,23 @@
             }
         }
 
+        private bool isPersonal;
+        public bool IsPersonal
+        {
+            get
+            {
+                return isPersonal;
+            }
+            set
+            {
+                if (isPersonal != value)
+                {
+                    isPersonal = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private ObservableCollection<AppData> apps = new ObservableCollection<AppData>();
         public ObservableCollection<AppData> Apps
         {
@@ -74,6 +91,7 @@
                 }
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {

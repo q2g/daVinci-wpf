@@ -3,8 +3,8 @@
     #region Usings
     using NLog;
     using System;
+    using System.Globalization;
     using System.Windows.Data;
-    using System.Globalization; 
     #endregion
 
     public class FormatConverter : IValueConverter
@@ -12,7 +12,6 @@
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public double NumberToFormat { get; set; }
-
 
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
@@ -22,7 +21,6 @@
                 object objectToFormat = null;
                 if (parameter is string stringparam)
                 {
-
                     switch (stringparam)
                     {
                         case "d":
@@ -45,8 +43,6 @@
                 logger.Error(Ex);
             }
             return "";
-
-
         }
 
         public object ConvertBack(object value, Type targetType,
@@ -54,7 +50,5 @@
         {
             return null;
         }
-
-
     }
 }

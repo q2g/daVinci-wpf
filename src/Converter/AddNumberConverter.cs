@@ -3,8 +3,8 @@
     #region Usings
     using NLog;
     using System;
+    using System.Globalization;
     using System.Windows.Data;
-    using System.Globalization; 
     #endregion
 
     [ValueConversion(typeof(double), typeof(double))]
@@ -33,7 +33,6 @@
                 logger.Error(Ex);
             }
             return value;
-
         }
 
         public object ConvertBack(object value, Type targetType,
@@ -41,7 +40,5 @@
         {
             return null;
         }
-
-
     }
 }

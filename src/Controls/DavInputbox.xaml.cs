@@ -1,15 +1,16 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows;
+    using leonardo.AttachedProperties;
+    using leonardo.Controls;
     using leonardo.Resources;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Controls;
     using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using leonardo.Controls;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
     #endregion
 
     /// <summary>
@@ -17,7 +18,6 @@
     /// </summary>
     public partial class DavInputbox : UserControl
     {
-
         #region LoggerInit
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
@@ -36,9 +36,9 @@
             {
                 if (o is LuiInputGroup inputGroup)
                 {
-                    Text = ExpressionEditor.ShowModal(Text);
+                    var hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty) ?? 0);
+                    Text = ExpressionEditor.ShowModal(Text, hwnd);
                 }
-
             });
             InitializeComponent();
         }
@@ -65,7 +65,6 @@
          "IsInputEnabled", typeof(bool), typeof(DavInputbox), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-
         #region LabelText - DP       
         public string LabelText
         {
@@ -87,11 +86,14 @@
         public static readonly DependencyProperty RightCommandForegroundProperty = DependencyProperty.Register(
          "RightCommandForeground", typeof(Brush), typeof(DavInputbox), new FrameworkPropertyMetadata(LuiPalette.Brushes.GRAYSCALE30, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
         private ICommand openEditorCommand;
         public ICommand OpenEditorCommand
         {
-            get { return openEditorCommand; }
-
+            get
+            {
+                return openEditorCommand;
+            }
             set
             {
                 if (openEditorCommand != value)

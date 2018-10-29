@@ -1,19 +1,19 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using NLog;
-    using System;
-    using System.Windows;
+    using daVinci.ConfigData;
     using daVinci.Resources;
     using leonardo.Resources;
-    using System.Windows.Input;
-    using System.ComponentModel;
-    using System.Windows.Controls;
+    using NLog;
+    using System;
     using System.Collections.Generic;
-    using WPFLocalizeExtension.Engine;
-    using System.Runtime.CompilerServices;
     using System.Collections.ObjectModel;
-    using daVinci.ConfigData;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using WPFLocalizeExtension.Engine;
     #endregion
 
     /// <summary>
@@ -37,6 +37,7 @@
                 }
             }
         }
+
         public ValueSelection()
         {
             AllValueItems = new List<ValueItem>();
@@ -170,7 +171,6 @@
                 {
                     searchText = value;
                     RaisePropertyChanged();
-
                 }
             }
         }
@@ -194,7 +194,6 @@
                     }
                 }, (o) => true);
                 AllValueItems.ForEach(item => item.ItemSelectedCommand = newselectedCommand);
-
             }
         }
 
@@ -295,7 +294,6 @@
                     return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == true;
                 else
                     return item.DisplayText.ToLower().Contains(searchString?.ToLower() ?? "") && item.IsField == false && item.ItemType == ValType;
-
             }
             return false;
         }
@@ -336,12 +334,9 @@
                         }
                         if (vitem.ItemType == ValueTypeEnum.Dimension)
                         {
-                            return DimensionTemplate; ;
+                            return DimensionTemplate;
                         }
                     }
-
-
-
                 }
             }
             catch (Exception Ex)

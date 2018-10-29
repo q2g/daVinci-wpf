@@ -1,7 +1,7 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
-    using leonardo.Resources;
     #region Usings
+    using leonardo.Resources;
     using NLog;
     using System.Collections;
     using System.ComponentModel;

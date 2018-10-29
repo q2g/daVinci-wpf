@@ -1,9 +1,9 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using System.ComponentModel;
     using System.Collections.ObjectModel;
-    using System.Runtime.CompilerServices; 
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class HubData : INotifyPropertyChanged
@@ -60,6 +60,20 @@
             set
             {
                 username = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool publishedStreamsVisible;
+        public bool PublishedStreamsVisible
+        {
+            get
+            {
+                return publishedStreamsVisible;
+            }
+            set
+            {
+                publishedStreamsVisible = value;
                 RaisePropertyChanged();
             }
         }

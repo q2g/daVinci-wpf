@@ -1,8 +1,8 @@
 ﻿namespace daVinci.Controls
 {
+    #region Usings
     using leonardo.Resources;
     using System;
-    #region Usings
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
@@ -52,7 +52,7 @@
         #endregion
 
         #region statics
-        public static string ShowModal(string text)
+        public static string ShowModal(string text, int hwnd = 0)
         {
             var wnd = new ExpressionEditor()
             {
@@ -60,11 +60,8 @@
                 ExpressionText = text,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            var mainHwnd = GlobalAppData.Instance.DataHolder.Get<object>("MainHwnd");
-            if (mainHwnd != null && mainHwnd is int)
-            {
-                new WindowInteropHelper(wnd).Owner = new IntPtr((int)mainHwnd);
-            }
+
+            new WindowInteropHelper(wnd).Owner = new IntPtr(hwnd);
 
             string retval = text;
             wnd.OKCommand = new RelayCommand((o) =>
@@ -75,9 +72,7 @@
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 
-
             return retval;
-
         }
         #endregion
 

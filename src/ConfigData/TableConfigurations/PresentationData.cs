@@ -121,8 +121,6 @@
             return jsonConfig;
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {

@@ -75,7 +75,7 @@
             RightCommandIcon="lui_icon_link"
             Text="{Binding DimensionMeasure.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToCollapsedConverter}}" />
-        <LuiControls:LuiCombobox
+        <!--<LuiControls:LuiCombobox
             Name="NumberFormatCombo"
             Margin="0,10,0,0"
             LabelText="{l:Loc properties_numberFormatting}"
@@ -203,7 +203,7 @@
                 Margin="0,10,0,0"
                 LabelText="{l:Loc properties_numberFormatting}"
                 Text="{Binding CustomNumberFormatText}" />
-        </StackPanel>
+        </StackPanel>-->
 
 
         <daViniciControls:DavInputbox

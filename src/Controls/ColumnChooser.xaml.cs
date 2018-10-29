@@ -1,27 +1,26 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.TableConfigurations;
+    using daVinci.Resources;
+    using leonardo.AttachedProperties;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using NLog;
     using System;
-    using System.Linq;
-    using System.Windows;
-    using daVinci.Resources;
-    using leonardo.Controls;
-    using daVinci.ConfigData;
-    using leonardo.Resources;
-    using System.Windows.Input;
-    using System.ComponentModel;
-    using System.Windows.Controls;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
-    using WPFLocalizeExtension.Engine;
     using System.Collections.Specialized;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using WPFLocalizeExtension.Engine;
     #endregion
-
-
-
 
     /// <summary>
     /// Interaktionslogik für ColumnChooser.xaml
@@ -59,7 +58,6 @@
                             Columns.Add(newone);
                             ShowPopup = false;
                         }
-
                     }
                 }, (o) => true
                 ),
@@ -182,7 +180,6 @@
                                                                 break;
                                                         }
 
-
                                                         Columns.Add(newdim);
                                                         break;
                                                     case ValueTypeEnum.Measure:
@@ -226,7 +223,6 @@
                       ShowPopup = false;
                   }),
                 SelectedItemCommand = SelectedItemCommand
-
             };
 
             MultiColumnCommand = new RelayCommand((o) =>
@@ -280,23 +276,24 @@
                                                   ItemSelectedCommand = selectcommand,
                                                   DimensionMeasure = item,
                                                   Selected = false
-
                                               });
                                           }
                                       }
                                   }
 
-                                  int height = (int)ActualHeight + 200;
-                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr((int)OwnerHwnd));
+                                  int height = (int)ActualHeight;
+                                  int hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty) ?? 0);
+                                  var screen = System.Windows.Forms.Screen.FromHandle(new IntPtr(hwnd));
                                   if (screen != null && (screen.Bounds.Height - 200) > 0)
                                   {
-                                      height = screen.Bounds.Height - 200;
+                                      //height = screen.Bounds.Height - 200;
+                                      height = (int)(screen.Bounds.Height - 200);
                                   }
 
+                                  height = (int)(height / Win32Helper.GetDpiYScale);
 
-                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), OwnerHwnd, selectControl, 400, height, modal: true))
+                                  if (LuiDialogWindow.Show((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ColunChooser_ChooseMultiple", null, LocalizeDictionary.Instance.Culture)), selectControl, 400, height, modal: true, hwnd: hwnd))
                                   {
-
                                       List<ValueItem> selectedItems = new List<ValueItem>(selectControl.Dimensions);
                                       selectedItems.AddRange(selectControl.Measures);
                                       selectedItems.AddRange(selectControl.Fields);
@@ -323,7 +320,6 @@
                            {
                                if (items.Item2 is DimensionColumnData target)
                                {
-
                                    if (source.PivotType != target.PivotType)
                                    {
                                        if ((source.PivotType == PivotType.Row && PivotGetMaxColumnsOrder() == 0)
@@ -334,7 +330,6 @@
                                            columns.Add(source);
                                        }
                                    }
-
                                }
                                if (items.Item2 == null)
                                {
@@ -350,7 +345,6 @@
                    }
                });
 
-
             PopupContent = GetCategorySelectionByColumnChooserMode(ColumnChooserMode);
             InitializeComponent();
             DataContext = this;
@@ -361,7 +355,6 @@
         private List<CategoryItem> GetPivotCategorys()
         {
             List<CategoryItem> retval = new List<CategoryItem>();
-
 
             retval.Add(new CategoryItem()
             {
@@ -428,6 +421,7 @@
             }
             return maxindex;
         }
+
         private int PivotGetMaxColumnsOrder()
         {
             int maxindex = 0;
@@ -478,6 +472,7 @@
             }
             return maxindex;
         }
+
         #region Columns - DP 
         private INotifyCollectionChanged oldcolumns;
         private ObservableCollection<object> columns;
@@ -499,7 +494,6 @@
                         Columns_CollectionChanged(null, null);
                         oldcolumns = collectionchaged;
                     }
-
 
                     RaisePropertyChanged();
                 }
@@ -567,11 +561,9 @@
                             ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
                             IsField = item.LibID == null,
                             DimensionMeasure = item
-
                         });
                     }
                     valueSelection.AllValueItems = newlist;
-
                 }
             }
         }
@@ -583,7 +575,6 @@
 
         public static readonly DependencyProperty DimensionMeasuresProperty = DependencyProperty.Register(
          "DimensionMeasures", typeof(ObservableCollection<DimensionMeasure>), typeof(ColumnChooser), new FrameworkPropertyMetadata(new ObservableCollection<DimensionMeasure>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnDimensionMeasuresChanged)));
-
 
         private static void OnDimensionMeasuresChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -602,17 +593,6 @@
                 logger.Error(Ex);
             }
         }
-        #endregion
-
-        #region OwnerHwnd DP
-        public int OwnerHwnd
-        {
-            get { return (int)this.GetValue(OwnerHwndProperty); }
-            set { this.SetValue(OwnerHwndProperty, value); }
-        }
-
-        public static readonly DependencyProperty OwnerHwndProperty = DependencyProperty.Register(
-         "OwnerHwnd", typeof(int), typeof(ColumnChooser), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region ColumnChooserMode DP
@@ -787,48 +767,6 @@
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-    }
-
-    public class PivotRowTypeColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            if (data is DimensionColumnData dimdata)
-            {
-                return dimdata.PivotType == PivotType.Row;
-
-            }
-            return false;
-        }
-    }
-
-    public class PivotColumnTypeColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            if (data is DimensionColumnData dimdata)
-            {
-                return dimdata.PivotType == PivotType.Column;
-
-            }
-            return false;
-        }
-    }
-
-    public class PivotMeasureColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            return data is MeasureColumnData;
-        }
-    }
-
-    public class PivotDimensionColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            return data is DimensionColumnData;
         }
     }
 }

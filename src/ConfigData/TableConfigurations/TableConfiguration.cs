@@ -1,22 +1,26 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using NLog;
-    using System;
-    using System.Linq;
+    using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
-    using System.ComponentModel;
-    using System.Collections.ObjectModel;
-    #endregion
-    using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
+    using NLog;
+    using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using WPFLocalizeExtension.Engine;
+    #endregion
 
     public class TableConfiguration : INotifyPropertyChanged
     {
+        #region Logger
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
 
+        #region Properties & Variables
         private ObservableCollection<object> columns = new ObservableCollection<object>();
         public ObservableCollection<object> Columns
         {
@@ -95,8 +99,6 @@
             }
         }
 
-
-
         private ColumnChooserMode tableMode;
         public ColumnChooserMode TableMode
         {
@@ -147,9 +149,11 @@
                 }
             }
         }
+        #endregion
 
-        public void ReadFromJSON(string JSONstring)
+        public string ReadFromJSON(string JSONstring)
         {
+            string errors = null;
             try
             {
                 dynamic jsonConfig = JObject.Parse(JSONstring);
@@ -162,13 +166,17 @@
                 if (visualization == "pivot-table")
                 {
                     TableMode = ColumnChooserMode.Pivot;
-                    LoadColumnsPivot(jsonConfig);
+                    var err = LoadColumnsPivot(jsonConfig);
+                    if (!string.IsNullOrEmpty(err))
+                    {
+                        errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + err;
+                        return errors;
+                    }
                 }
                 if (visualization == "auto-chart")
                 {
                     TableMode = ColumnChooserMode.Separated;
                 }
-
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
                 addonConfig.ReadFromJSON(jsonConfig?.qHyperCubeDef);
@@ -184,21 +192,18 @@
             {
                 logger.Error(Ex);
                 logger.Trace($"JSON:{JSONstring}");
+                errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:UnexpectedErrorReadingTableJSON", null, LocalizeDictionary.Instance.Culture));
             }
+            return errors;
         }
 
         private void LoadColumnsCombined(dynamic jsonConfig)
         {
-            int numberofRows = 0;
-            if (TableMode == ColumnChooserMode.Pivot)
-                numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
-
             SettingsID = jsonConfig?.qInfo?.qId ?? "";
             var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
             var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
 
             List<object> cols = new List<object>();
-            int pivotrowCounter = 0;
             foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
             {
                 var newone = new DimensionColumnData();
@@ -207,21 +212,8 @@
                 newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
                 newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                 newone.PivotType = PivotType.None;
-                if (TableMode == ColumnChooserMode.Pivot)
-                {
-                    if (pivotrowCounter < numberofRows)
-                    {
-                        newone.PivotType = PivotType.Row;
-                        pivotrowCounter++;
-                    }
-                    else
-                    {
-                        newone.PivotType = PivotType.Column;
-                    }
-                }
                 cols.Add(newone);
             }
-
 
             foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
             {
@@ -242,7 +234,6 @@
                 }
             }
 
-
             count = jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0;
             if (count != 0)
             {
@@ -255,8 +246,9 @@
             cols.ForEach(ele => Columns.Add(ele));
         }
 
-        private void LoadColumnsPivot(dynamic jsonConfig)
+        private string LoadColumnsPivot(dynamic jsonConfig)
         {
+            string errors = "";
             int numberofRows = 0;
             if (TableMode == ColumnChooserMode.Pivot)
                 numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
@@ -308,11 +300,17 @@
             {
                 for (int i = 0; i < count; i++)
                 {
-                    (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
+                    if (((int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]) == -1)
+                    {
+                        return (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:OnlyOneColumnMeasureSupported", null, LocalizeDictionary.Instance.Culture));
+                    }
+                      (cols[(int)jsonConfig.qHyperCubeDef.qInterColumnSortOrder[i]] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
                 }
             }
 
             cols.ForEach(ele => Columns.Add(ele));
+
+            return errors;
         }
 
         public string SaveToJSON()
@@ -322,11 +320,7 @@
             {
                 jsonData.qInfo = new JObject();
                 jsonData.qInfo.qId = SettingsID;
-
-
-
                 jsonData.qHyperCubeDef = new JObject();
-
 
                 switch (TableMode)
                 {
@@ -367,7 +361,6 @@
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
 
-
                 var presentationConfig = PresentationData.First() as PresentationData;
                 jsonData.totals = presentationConfig.SaveToJSON();
             }
@@ -376,7 +369,6 @@
                 logger.Error(Ex);
             }
             return jsonData.ToString();
-
         }
 
         private void FillDimensionMeasureAndOrderPivot(dynamic jsonData)
@@ -418,7 +410,6 @@
                     jsonData.qHyperCubeDef.qMeasures.Add(measureData.SaveToJson());
                 }
             }
-
 
             for (int i = 0; i < dimensions.Count; i++)
             {
@@ -482,8 +473,6 @@
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
-
-
     }
 
     public enum ColumnChooserMode
@@ -491,6 +480,5 @@
         Combined,
         Pivot,
         Separated
-
     }
 }

@@ -26,11 +26,22 @@
                 <ResourceDictionary Source="pack://application:,,,/davinci-wpf;component/Styles/ColumnOrderAccordionItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-
             <BitmapImage x:Key="DefaultImageResource" UriSource="pack://application:,,,/davinci-wpf;component/Images/QlikApp.png" />
 
             <converter:StringCompareConverter x:Key="StringCompareConverter" />
+            <converter:ListCountToVisibilityConverter
+                x:Key="VisibleOnCount0"
+                CountMatchesVisibility="Visible"
+                CountToMatch="0"
+                ElseVisibility="Collapsed"
+                IsExactMatch="True" />
 
+            <converter:ListCountToVisibilityConverter
+                x:Key="CollapsedOnCount0"
+                CountMatchesVisibility="Collapsed"
+                CountToMatch="0"
+                ElseVisibility="Visible"
+                IsExactMatch="True" />
             <ContextMenu x:Key="deleteMenu" Style="{StaticResource ContextmenuAccordion}">
                 <MenuItem
                     Height="40"
@@ -80,7 +91,7 @@
                             BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
                             BorderThickness="1"
                             MouseDown="Border_MouseDown">
-                            <Grid Height="40">
+                            <Grid Height="50">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
@@ -93,6 +104,7 @@
                                     FontWeight="Normal"
                                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Text="{Binding AppName}"
+                                    TextTrimming="WordEllipsis"
                                     TextWrapping="Wrap" />
                                 <Luicontrols:LuiIcon
                                     Grid.Column="1"
@@ -137,8 +149,6 @@
             <ItemsPanelTemplate x:Key="ItemsPanelTemplateWrapPanel">
                 <WrapPanel />
             </ItemsPanelTemplate>
-
-
 
             <DataTemplate x:Key="ItemTemplateStackPanel">
                 <Grid Margin="10">
@@ -204,8 +214,6 @@
                 x:Key="trueToVisibilityVisibleConverter"
                 False="Collapsed"
                 True="Visible" />
-
-
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="{StaticResource Lui.Brush.Grayscale100}">
@@ -253,10 +261,9 @@
                     Name="orderByCombo"
                     Width="150"
                     VerticalAlignment="Center"
-                    LuiAttached:ThemeProperties.CornerRadius="0,3,3,0">
+                    LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
+                    SelectedIndex="0">
                     <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByAlphabetical}" />
-                    <ComboBoxItem Content="Create Date" />
-                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByPublishedDate}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>
             <Luicontrols:LuiButton
@@ -296,10 +303,18 @@
                 </Style>
             </Luicontrols:CollectionView.Style>
         </Luicontrols:CollectionView>
+        <!--<controls:BusyCircle
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Width="100"
+            Height="100"
+            Margin="10,0,10,0"
+            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource VisibleOnCount0}}" />-->
         <ScrollViewer
             Name="itemscontrolcrollviewer"
             Grid.Row="1"
-            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            Visibility="{Binding ProcessedCollection, ElementName=appsCollectionview, Converter={StaticResource CollapsedOnCount0}}">
             <ItemsControl
                 Name="itemsControl"
                 Background="{StaticResource Lui.Brush.Grayscale90}"
@@ -383,9 +398,8 @@
                         FontFamily="{StaticResource QlikViewSans}"
                         FontWeight="Normal"
                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                        Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
-
-
+                        Text="{Binding SelectedApp.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
+                        TextTrimming="CharacterEllipsis" />
                 </DockPanel>
             </Border>
             <Border

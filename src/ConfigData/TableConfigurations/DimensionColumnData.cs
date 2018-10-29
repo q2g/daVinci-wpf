@@ -1,120 +1,20 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using NLog;
-    using System;
+    using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
+    using NLog;
+    using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
-    public class DimensionColumnData : INotifyPropertyChanged, IHasSortCriteria
+    public class DimensionColumnData : ColumnData, IHasSortCriteria
     {
+        #region Logger
         private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        private bool isExpression;
-        public bool IsExpression
-        {
-            get
-            {
-                return isExpression;
-            }
-            set
-            {
-                if (isExpression != value)
-                {
-                    isExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private DimensionMeasure dimensionMeasure;
-        public DimensionMeasure DimensionMeasure
-        {
-            get
-            {
-                return dimensionMeasure;
-            }
-            set
-            {
-                if (dimensionMeasure != value)
-                {
-                    dimensionMeasure = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private PivotType pivotType;
-        public PivotType PivotType
-        {
-            get
-            {
-                return pivotType;
-            }
-            set
-            {
-                if (pivotType != value)
-                {
-                    pivotType = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string libraryID;
-        public string LibraryID
-        {
-            get
-            {
-                return libraryID;
-            }
-            set
-            {
-                if (libraryID != value)
-                {
-                    libraryID = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string fieldDef;
-        public string FieldDef
-        {
-            get
-            {
-                return fieldDef;
-            }
-            set
-            {
-                if (fieldDef != value)
-                {
-                    fieldDef = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string fieldLabel;
-        public string FieldLabel
-        {
-            get
-            {
-                return fieldLabel;
-            }
-            set
-            {
-                if (fieldLabel != value)
-                {
-                    fieldLabel = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        #endregion
 
         private bool allowNULLValues;
         public bool AllowNULLValues
@@ -150,9 +50,7 @@
             }
         }
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// fixed ColumnCount
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region fixed ColumnCount
         private int topBottomIndex;
         public int TopBottomIndex
         {
@@ -186,10 +84,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// exact Value / relative Value
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region exact Value / relative Value
         private int greatherThanLessThanIndex;
         public int GreatherThanLessThanIndex
         {
@@ -223,10 +120,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Others
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region Others
         private bool showOthers;
         public bool ShowOthers
         {
@@ -244,7 +140,6 @@
             }
         }
 
-
         private string othersLabel;
         public string OthersLabel
         {
@@ -261,75 +156,7 @@
                 }
             }
         }
-
-        private string backgroundColorExpression;
-        public string BackgroundColorExpression
-        {
-            get
-            {
-                return backgroundColorExpression;
-            }
-            set
-            {
-                if (backgroundColorExpression != value)
-                {
-                    backgroundColorExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string textColorExpression;
-        public string TextColorExpression
-        {
-            get
-            {
-                return textColorExpression;
-            }
-            set
-            {
-                if (textColorExpression != value)
-                {
-                    textColorExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private bool textAllignment;
-        public bool TextAllignment
-        {
-            get
-            {
-                return textAllignment;
-            }
-            set
-            {
-                if (textAllignment != value)
-                {
-                    textAllignment = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-
-        private int allignmentIndex;
-        public int AllignmentIndex
-        {
-            get
-            {
-                return allignmentIndex;
-            }
-            set
-            {
-                if (allignmentIndex != value)
-                {
-                    allignmentIndex = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        #endregion
 
         private int representationIndex;
         public int RepresentationIndex
@@ -365,27 +192,12 @@
             }
         }
 
-        public SortCriteria SortCriterias { get; set; }
-
-        public DimensionColumnData()
-        {
-            SortCriterias = new SortCriteria();
-        }
-
         public void ReadFromJSON(dynamic jsonConfig)
         {
             try
             {
-                //jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
-                string libid = jsonConfig?.qLibraryId ?? "";
-                if (string.IsNullOrEmpty(libid))
-                {
-                    IsExpression = true;
-                }
-                else
-                {
-                    LibraryID = libid;
-                }
+                ReadBaseDataFromJSON(jsonConfig);
+
                 if ((jsonConfig?.qDef?.qFieldDefs?.Count ?? 0) > 0)
                 {
                     FieldDef = jsonConfig.qDef.qFieldDefs[0];
@@ -460,22 +272,8 @@
                         break;
                 }
 
-
                 ShowOthers = (jsonConfig?.qOtherTotalSpec?.qSuppressOther ?? false) == false;
-
                 OthersLabel = !string.IsNullOrEmpty(OthersLabel) ? jsonConfig?.qOtherLabel?.qv ?? "" : "";
-
-                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
-                {
-                    BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
-                }
-                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
-                {
-                    TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
-                }
-
-                TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
-                AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
 
                 RepresentationIndex = (jsonConfig?.qDef?.representation?.type ?? "text") == "text" ? 0 : 1;
                 UrlLabel = jsonConfig?.qDef?.representation?.urlLabel ?? "";
@@ -491,10 +289,8 @@
         {
             try
             {
-                dynamic jsonConfig = new JObject();
-                if (!IsExpression && !string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
-                    jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
-                jsonConfig.qDef = new JObject();
+                dynamic jsonConfig = SaveBaseDataToJson();
+
                 jsonConfig.qDef.qFieldDefs = new JArray();
                 if (!string.IsNullOrEmpty(FieldDef))
                     jsonConfig.qDef.qFieldDefs.Add(FieldDef);
@@ -567,25 +363,11 @@
                         break;
                 }
 
-
                 if (!ShowOthers)
                     jsonConfig.qOtherTotalSpec.qSuppressOther = !ShowOthers;
                 jsonConfig.qDef.othersLabel = new JObject();
                 if (!string.IsNullOrEmpty(OthersLabel))
                     jsonConfig.qDef.othersLabel.qv = OthersLabel;
-                jsonConfig.qAttributeExpressions = new JArray();
-                if (!string.IsNullOrEmpty(BackgroundColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = BackgroundColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-                if (!string.IsNullOrEmpty(TextColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = TextColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
 
                 jsonConfig.qDef.textAlign = new JObject();
                 jsonConfig.qDef.textAlign.auto = TextAllignment;
@@ -606,18 +388,5 @@
                 return new JObject();
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-    }
-
-    public enum PivotType
-    {
-        None = 0,
-        Row = 1,
-        Column = 2
     }
 }

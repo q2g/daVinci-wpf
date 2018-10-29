@@ -1,9 +1,9 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
+    using Newtonsoft.Json.Linq;
     using NLog;
     using System;
-    using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
@@ -12,7 +12,7 @@
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private bool allowNULLValues;
+        private bool allowNULLValues = true;
         public bool AllowNULLValues
         {
             get
@@ -28,7 +28,6 @@
                 }
             }
         }
-
 
         private string calcCondition;
         public string CalcCondition
@@ -116,7 +115,6 @@
                 logger.Error(Ex);
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

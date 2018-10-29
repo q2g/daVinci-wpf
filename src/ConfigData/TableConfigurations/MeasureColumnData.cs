@@ -1,106 +1,24 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using NLog;
-    using System;
-    using System.Linq;
+    using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
-    using System.ComponentModel;
+    using NLog;
+    using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
-    public class MeasureColumnData : INotifyPropertyChanged, IHasSortCriteria
+    public class MeasureColumnData : ColumnData, IHasSortCriteria
     {
+        #region Logger
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
 
-        private bool isExpression;
-        public bool IsExpression
-        {
-            get
-            {
-                return isExpression;
-            }
-            set
-            {
-                if (isExpression != value)
-                {
-                    isExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private DimensionMeasure dimensionMeasure;
-        public DimensionMeasure DimensionMeasure
-        {
-            get
-            {
-                return dimensionMeasure;
-            }
-            set
-            {
-                if (dimensionMeasure != value)
-                {
-                    dimensionMeasure = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string libraryID;
-        public string LibraryID
-        {
-            get
-            {
-                return libraryID;
-            }
-            set
-            {
-                if (libraryID != value)
-                {
-                    libraryID = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string fieldDef;
-        public string FieldDef
-        {
-            get
-            {
-                return fieldDef;
-            }
-            set
-            {
-                if (fieldDef != value)
-                {
-                    fieldDef = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string fieldLabel;
-        public string FieldLabel
-        {
-            get
-            {
-                return fieldLabel;
-            }
-            set
-            {
-                if (fieldLabel != value)
-                {
-                    fieldLabel = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
+        #region Properties & Variables
         private int numberFormatIndex;
         public int NumberFormatIndex
         {
@@ -141,10 +59,7 @@
             }
         }
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Number
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
-
+        #region Number
         private bool isStandardFormat;
         public bool IsStandardFormat
         {
@@ -195,10 +110,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Currency
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region Currency
         private string currencyFormatText;
         public string CurrencyFormatText
         {
@@ -215,10 +129,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Date
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region Date
         private bool isStandardDateFormat;
         public bool IsStandardDateFormat
         {
@@ -273,10 +186,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Duration
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        #region Duration
         private string durationFormatText;
         public string DurationFormatText
         {
@@ -293,11 +205,9 @@
                 }
             }
         }
+        #endregion
 
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///  
-        /// Custom
-        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
-
+        #region Custom
         private string customNumberFormatText;
         public string CustomNumberFormatText
         {
@@ -314,7 +224,6 @@
                 }
             }
         }
-
 
         private string dec_SplitterSign;
         public string Dec_SplitterSign
@@ -349,40 +258,7 @@
                 }
             }
         }
-
-        private string backgroundColorExpression;
-        public string BackgroundColorExpression
-        {
-            get
-            {
-                return backgroundColorExpression;
-            }
-            set
-            {
-                if (backgroundColorExpression != value)
-                {
-                    backgroundColorExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private string textColorExpression;
-        public string TextColorExpression
-        {
-            get
-            {
-                return textColorExpression;
-            }
-            set
-            {
-                if (textColorExpression != value)
-                {
-                    textColorExpression = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        #endregion
 
         private int totalValueFunctionIndex;
         public int TotalValueFunctionIndex
@@ -418,57 +294,15 @@
             }
         }
 
-        private bool textAllignment;
-        public bool TextAllignment
-        {
-            get
-            {
-                return textAllignment;
-            }
-            set
-            {
-                if (textAllignment != value)
-                {
-                    textAllignment = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-
-        private int allignmentIndex;
-        public int AllignmentIndex
-        {
-            get
-            {
-                return allignmentIndex;
-            }
-            set
-            {
-                if (allignmentIndex != value)
-                {
-                    allignmentIndex = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
+        #endregion
         public void ReadFromJSON(dynamic jsonConfig)
         {
             try
             {
-                string libid = jsonConfig?.qLibraryId ?? "";
-                if (string.IsNullOrEmpty(libid))
-                {
-                    IsExpression = true;
-                }
-                else
-                {
-                    LibraryID = libid;
-                }
+                ReadBaseDataFromJSON(jsonConfig);
 
-                fieldDef = jsonConfig?.qDef?.qDef ?? "";
-                fieldLabel = jsonConfig?.qDef?.qLabel ?? "";
+                FieldDef = jsonConfig?.qDef?.qDef ?? "";
+                FieldLabel = jsonConfig?.qDef?.qLabel ?? "";
 
                 SortCriterias.ReadFromJSON(jsonConfig?.qSortBy);
                 SortCriterias.AutoSort = jsonConfig.qDef?.autoSort ?? false;
@@ -534,15 +368,6 @@
                 Dec_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qDec ?? ".";
                 Thou_SplitterSign = jsonConfig?.qDef?.qNumFormat?.qThou ?? ",";
 
-                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
-                {
-                    BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
-                }
-                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
-                {
-                    TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
-                }
-
                 switch (jsonConfig?.qDef?.qAggrFunc?.ToString() ?? "Expr")
                 {
                     case "Expr":
@@ -570,11 +395,7 @@
                         break;
                 }
 
-
                 IsTotalValueSettingsTextVisible = true;
-
-                TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
-                AllignmentIndex = (jsonConfig?.qDef?.textAlign?.align ?? "left") == "left" ? 0 : 1;
             }
             catch (Exception Ex)
             {
@@ -585,13 +406,11 @@
 
         public dynamic SaveToJson()
         {
-            dynamic jsonConfig = new JObject();
+            dynamic jsonConfig = null;
 
             try
             {
-                if (!IsExpression && !string.IsNullOrEmpty(dimensionMeasure?.LibID?.ToString() ?? ""))
-                    jsonConfig.qLibraryId = dimensionMeasure?.LibID?.ToString() ?? "";
-                jsonConfig.qDef = new JObject();
+                jsonConfig = SaveBaseDataToJson();
                 jsonConfig.qDef.qLabel = FieldLabel;
                 jsonConfig.qDef.qDef = FieldDef;
 
@@ -706,28 +525,6 @@
                 }
                 jsonConfig.qDef.qNumFormat.qDec = Dec_SplitterSign;
                 jsonConfig.qDef.qNumFormat.qThou = Thou_SplitterSign;
-
-                jsonConfig.qAttributeExpressions = new JArray();
-                if (!string.IsNullOrEmpty(BackgroundColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = BackgroundColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-                if (!string.IsNullOrEmpty(TextColorExpression))
-                {
-                    dynamic expr = new JObject();
-                    expr.qExpression = TextColorExpression;
-                    jsonConfig.qAttributeExpressions.Add(expr);
-                }
-
-
-
-                jsonConfig.qDef.textAlign = new JObject();
-                if (TextAllignment)
-                    jsonConfig.qDef.textAlign.auto = TextAllignment;
-                if (AllignmentIndex != 0)
-                    jsonConfig.qDef.textAlign.align = AllignmentIndex == 0 ? "left" : "right";
             }
             catch (Exception Ex)
             {
@@ -751,21 +548,5 @@
             { 10,"hh:mm:ss" },
             { 11,"h:mm:ss tt" }
         };
-
-
-
-        public SortCriteria SortCriterias { get; set; }
-
-        public MeasureColumnData()
-        {
-            SortCriterias = new SortCriteria();
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
     }
 }

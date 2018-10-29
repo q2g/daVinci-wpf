@@ -1,27 +1,19 @@
-﻿using Hjson;
-using leonardo.Resources;
-using Newtonsoft.Json.Linq;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using leonardo.AttachedProperties;
+    using leonardo.Resources;
+    using NLog;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für LoopConfiguration.xaml
     /// </summary>
@@ -96,9 +88,8 @@ namespace daVinci.Controls
         #endregion
 
         #region statics
-        public static string ShowModal(string text, List<DimensionMeasure> list, ConfigData.Loop.LoopConfiguration loopconfig = null)
+        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd = 0, ConfigData.Loop.LoopConfiguration loopconfig = null)
         {
-
             if (loopconfig == null)
             {
                 loopconfig = new ConfigData.Loop.LoopConfiguration()
@@ -110,19 +101,14 @@ namespace daVinci.Controls
             var wnd = new LoopConfiguration()
             {
                 WindowStyle = WindowStyle.None,
-
                 LoopConfigurationSelected = loopconfig,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            var mainHwnd = GlobalAppData.Instance.DataHolder.Get<object>("MainHwnd");
-            if (mainHwnd != null && mainHwnd is int)
-            {
-                new WindowInteropHelper(wnd).Owner = new IntPtr((int)mainHwnd);
-            }
+            wnd.SetValue(ThemeProperties.HwndProperty, hwnd);
+            new WindowInteropHelper(wnd).Owner = new IntPtr((int)hwnd);
 
             var handler = new PropertyChangedEventHandler((s, e) =>
             {
-
             });
             (loopconfig as INotifyPropertyChanged).PropertyChanged += handler;
             list.OrderBy(ele => ele.Text).ToList()
@@ -137,9 +123,7 @@ namespace daVinci.Controls
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 
-
             return retval;
-
         }
         #endregion
     }

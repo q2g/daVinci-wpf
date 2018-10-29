@@ -1,21 +1,21 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System;
-    using System.Windows;
-    using System.Threading;
-    using leonardo.Controls;
-    using System.Windows.Input;
-    using System.Threading.Tasks;
-    using System.Windows.Controls;
-    using System.Windows.Threading;
     using daVinci.ConfigData.Connection;
-    using System.Collections.ObjectModel;
-    using System.Net;
+    using leonardo.Controls;
     using leonardo.Resources;
+    using System;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices;
+    using System.Net;
     using System.Net.Security;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Threading;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -164,7 +164,6 @@
                     }
                 }
                 SelectedConnection = toEdit;
-
             }
             else
             {
@@ -181,7 +180,6 @@
             toEdit = null;
             isNewMode = false;
             IsEditMode = false;
-
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -252,7 +250,6 @@
 
         private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
         {
-
             if (sender is FrameworkElement source)
             {
                 if (source.DataContext is ConnectionData data)
@@ -380,9 +377,6 @@
 
                 OKButton.IsEnabled = true;
             }
-
-
-
         }
     }
 }

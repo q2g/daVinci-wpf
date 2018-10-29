@@ -25,26 +25,19 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
         #endregion
+
         public PropertyPanel()
         {
             InitializeComponent();
         }
 
-        #region OwnerHwndHwnd DP
-        public int OwnerHwnd
-        {
-            get { return (int)this.GetValue(OwnerHwndProperty); }
-            set { this.SetValue(OwnerHwndProperty, value); }
-        }
-
-        public static readonly DependencyProperty OwnerHwndProperty = DependencyProperty.Register(
-         "OwnerHwnd", typeof(int), typeof(PropertyPanel), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
-
         private bool showImport = false;
         public bool ShowImport
         {
-            get { return showImport; }
+            get
+            {
+                return showImport;
+            }
             set
             {
                 if (showImport != value)
@@ -53,7 +46,6 @@
                     RaisePropertyChanged();
                 }
             }
-
         }
     }
 }
