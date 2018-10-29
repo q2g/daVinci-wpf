@@ -102,7 +102,6 @@
             }
         }
 
-
         private string headerCookieKey;
         public string HeaderCookieKey
         {
@@ -196,10 +195,8 @@
                     (bmdata.IDName + "").ToLower().Contains(searchString.ToLower())
                     || (bmdata.URI + "").ToLower().Contains(searchString.ToLower())
                     );
-
             }
             return false;
         }
     }
-
 }

@@ -1,9 +1,9 @@
 ﻿namespace daVinci.Controls
-{   
+{
     #region Usings
+    using leonardo.AttachedProperties;
     using leonardo.Controls;
     using leonardo.Resources;
-    using leonardo.AttachedProperties;
     using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -39,7 +39,6 @@
                     var hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty) ?? 0);
                     Text = ExpressionEditor.ShowModal(Text, hwnd);
                 }
-
             });
             InitializeComponent();
         }

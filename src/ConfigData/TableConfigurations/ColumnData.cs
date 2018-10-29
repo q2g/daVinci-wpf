@@ -1,6 +1,5 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
-
     #region MyRegion
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;

@@ -3,9 +3,9 @@
     #region Usings
     using NLog;
     using System;
-    using System.Windows.Data;
     using System.Globalization;
     using System.Windows;
+    using System.Windows.Data;
     #endregion
 
     public class DefaultDataTemplateConverter : IValueConverter
@@ -16,14 +16,12 @@
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
             if (value == null)
             {
                 return DefaultdataTemplate;
             }
 
             return value;
-
         }
 
         public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture)

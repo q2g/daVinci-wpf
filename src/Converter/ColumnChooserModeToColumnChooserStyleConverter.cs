@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
+    using daVinci.ConfigData;
     using NLog;
     using System;
-    using System.Windows.Data;
     using System.Globalization;
     using System.Windows;
-    using daVinci.ConfigData;
+    using System.Windows.Data;
     #endregion
 
     public class ColumnChooserModeToColumnChooserStyleConverter : IValueConverter
@@ -27,15 +27,14 @@
                     switch (mode)
                     {
                         case ColumnChooserMode.Combined:
-                            return CombinedStyle;                            
+                            return CombinedStyle;
                         case ColumnChooserMode.Pivot:
-                            return PivotStyle;                            
+                            return PivotStyle;
                         case ColumnChooserMode.Separated:
-                            return SeperateStyle;                            
+                            return SeperateStyle;
                         default:
                             break;
                     }
-
                 }
             }
             catch (Exception Ex)
@@ -43,7 +42,6 @@
                 logger.Error(Ex);
             }
             return value;
-
         }
 
         public object ConvertBack(object value, Type targetType,

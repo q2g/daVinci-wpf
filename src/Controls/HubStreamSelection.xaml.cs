@@ -42,7 +42,6 @@
                         obj.SelectedStreamItem = null;
                         obj.SelectedStream = e.NewValue;
                     }
-
                 }
             }
             catch (Exception Ex)
@@ -73,7 +72,6 @@
                         obj.SelectedPersonalItem = null;
                         obj.SelectedStream = e.NewValue;
                     }
-
                 }
             }
             catch (Exception Ex)
@@ -91,26 +89,9 @@
         }
 
         public static readonly DependencyProperty SelectedStreamProperty = DependencyProperty.Register(
-         "SelectedStream", typeof(object), typeof(HubStreamSelection), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(SelectedStreamChanged)));
+         "SelectedStream", typeof(object), typeof(HubStreamSelection), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        private static void SelectedStreamChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            try
-            {
-                if (d is HubStreamSelection obj)
-                {
-                    if (e.NewValue != null)
-                    {
 
-                    }
-
-                }
-            }
-            catch (Exception Ex)
-            {
-                logger.Error(Ex);
-            }
-        }
         #endregion
 
         #region Streams - DP  
@@ -136,9 +117,7 @@
                 {
                     if (personalStreams != value)
                     {
-
                         personalStreams = value;
-
                     }
                 }
                 catch (Exception ex)
@@ -164,10 +143,8 @@
                 {
                     if (e.NewValue is ObservableCollection<object> list)
                     {
-
                         obj.PersonalStreams_Internal = list;
                     }
-
                 }
             }
             catch (Exception Ex)

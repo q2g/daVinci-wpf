@@ -116,7 +116,6 @@
             if (propertyName == nameof(JsonValid))
                 return;
 
-
             dynamic data = null;
             try
             {
@@ -160,7 +159,6 @@
                     JsonValid = false;
                     dontProcessFill = false;
                 }
-
             }
             else
             {
@@ -183,10 +181,6 @@
                     logger.Error(ex);
                     dontProcessFill = false;
                     JsonValid = false;
-                }
-                if (data != null)
-                {
-
                 }
             }
         }

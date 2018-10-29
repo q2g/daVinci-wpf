@@ -63,7 +63,6 @@
 
             new WindowInteropHelper(wnd).Owner = new IntPtr(hwnd);
 
-
             string retval = text;
             wnd.OKCommand = new RelayCommand((o) =>
             {
@@ -73,9 +72,7 @@
             wnd.CancelCommand = new RelayCommand((o) => { wnd.Close(); });
             wnd.ShowDialog();
 
-
             return retval;
-
         }
         #endregion
 
