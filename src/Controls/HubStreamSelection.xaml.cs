@@ -91,7 +91,6 @@
         public static readonly DependencyProperty SelectedStreamProperty = DependencyProperty.Register(
          "SelectedStream", typeof(object), typeof(HubStreamSelection), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-
         #endregion
 
         #region Streams - DP  
