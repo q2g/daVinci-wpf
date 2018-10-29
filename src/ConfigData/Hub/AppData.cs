@@ -21,8 +21,8 @@
 
         public AppData()
         {
-
         }
+
         public AppData(AppData other)
         {
             CopyFrom(other);
@@ -224,7 +224,6 @@
                     || (appdata.DataLastLoaded + "").ToLower().Contains(searchString.ToLower())
                     || (appdata?.Filename?.ToLower() ?? "").Contains(searchString.ToLower())
                     || (appdata?.AppID?.ToLower() ?? "").Contains(searchString.ToLower()));
-
             }
             return false;
         }

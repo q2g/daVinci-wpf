@@ -1,9 +1,9 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
+    using Newtonsoft.Json.Linq;
     using NLog;
     using System;
-    using Newtonsoft.Json.Linq;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     #endregion
@@ -159,10 +159,8 @@
             {
                 columnOrderIndex = value;
                 RaisePropertyChanged();
-
             }
         }
-
 
         private int sortOrderIndex;
         public int SortOrderIndex
@@ -229,7 +227,6 @@
                     {
                         jsonConfig.qSortByAscii = 1;
                     }
-
                 }
                 if (SortByExpression)
                 {
@@ -246,7 +243,6 @@
                 jsonConfig.qExpression = new JObject();
                 if (!string.IsNullOrEmpty(SortByExpressionText))
                     jsonConfig.qExpression.qv = SortByExpressionText;
-
             }
             catch (Exception Ex)
             {

@@ -18,8 +18,6 @@
     /// </summary> 
     public partial class MainWindow : Window
     {
-
-
         public MainWindow()
         {
             LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
@@ -52,7 +50,6 @@
                     SortOrderIndex = 1,
                     AutoSort = true
                 }
-
             };
 
             var dimension2 = new DimensionColumnData()
