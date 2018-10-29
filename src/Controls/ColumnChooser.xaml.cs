@@ -276,7 +276,6 @@
                                                   ItemSelectedCommand = selectcommand,
                                                   DimensionMeasure = item,
                                                   Selected = false
-
                                               });
                                           }
                                       }
@@ -356,7 +355,7 @@
         private List<CategoryItem> GetPivotCategorys()
         {
             List<CategoryItem> retval = new List<CategoryItem>();
-        
+
             retval.Add(new CategoryItem()
             {
                 CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
@@ -562,7 +561,6 @@
                             ItemType = item.Dimension ?? false ? ValueTypeEnum.Dimension : ValueTypeEnum.Measure,
                             IsField = item.LibID == null,
                             DimensionMeasure = item
-
                         });
                     }
                     valueSelection.AllValueItems = newlist;
@@ -769,46 +767,6 @@
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-    }
-
-    public class PivotRowTypeColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            if (data is DimensionColumnData dimdata)
-            {
-                return dimdata.PivotType == PivotType.Row;
-            }
-            return false;
-        }
-    }
-
-    public class PivotColumnTypeColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            if (data is DimensionColumnData dimdata)
-            {
-                return dimdata.PivotType == PivotType.Column;
-            }
-            return false;
-        }
-    }
-
-    public class PivotMeasureColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            return data is MeasureColumnData;
-        }
-    }
-
-    public class PivotDimensionColumnFilter : ICollectionViewFilter
-    {
-        public bool Filter(object data, string searchString)
-        {
-            return data is DimensionColumnData;
         }
     }
 }

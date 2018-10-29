@@ -22,6 +22,7 @@
     <daVinciControls:PivotRowTypeColumnFilter x:Key="PivotRowTypeColumnFilter" />
     <daVinciControls:PivotColumnTypeColumnFilter x:Key="PivotColumnTypeColumnFilter" />
     <daVinciControls:PivotMeasureColumnFilter x:Key="PivotMeasureColumnFilter" />
+
     <Style x:Key="ColumnChooserStylePivot" TargetType="UserControl">
         <Setter Property="Template">
             <Setter.Value>

@@ -3,21 +3,24 @@
     #region Usings
     using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
-    using NLog;
     using Newtonsoft.Json.Linq;
+    using NLog;
     using System;
-    using System.Linq;
-    using System.ComponentModel;
-    using System.Collections.ObjectModel;
-    using System.Runtime.CompilerServices;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
     using WPFLocalizeExtension.Engine;
     #endregion
 
     public class TableConfiguration : INotifyPropertyChanged
     {
+        #region Logger
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
 
+        #region Properties & Variables
         private ObservableCollection<object> columns = new ObservableCollection<object>();
         public ObservableCollection<object> Columns
         {
@@ -146,6 +149,7 @@
                 }
             }
         }
+        #endregion
 
         public string ReadFromJSON(string JSONstring)
         {
@@ -195,16 +199,11 @@
 
         private void LoadColumnsCombined(dynamic jsonConfig)
         {
-            int numberofRows = 0;
-            if (TableMode == ColumnChooserMode.Pivot)
-                numberofRows = jsonConfig?.qHyperCubeDef?.qNoOfLeftDims ?? 0;
-
             SettingsID = jsonConfig?.qInfo?.qId ?? "";
             var columnOrderCount = (jsonConfig?.qHyperCubeDef?.qColumnOrder?.Count ?? 0);
             var interColumnSort = (jsonConfig?.qHyperCubeDef?.qInterColumnSortOrder?.Count ?? 0);
 
             List<object> cols = new List<object>();
-            int pivotrowCounter = 0;
             foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
             {
                 var newone = new DimensionColumnData();
@@ -213,18 +212,6 @@
                 newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
                 newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
                 newone.PivotType = PivotType.None;
-                if (TableMode == ColumnChooserMode.Pivot)
-                {
-                    if (pivotrowCounter < numberofRows)
-                    {
-                        newone.PivotType = PivotType.Row;
-                        pivotrowCounter++;
-                    }
-                    else
-                    {
-                        newone.PivotType = PivotType.Column;
-                    }
-                }
                 cols.Add(newone);
             }
 
