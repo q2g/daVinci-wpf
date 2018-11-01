@@ -15,7 +15,7 @@
             True="Collapsed" />
     </UserControl.Resources>
     <TextBlock
-        Text="{Binding}"
+        Text="{Binding HelpMessage}"
         TextWrapping="Wrap"
         Visibility="{Binding Path=., Converter={StaticResource EmptyIsCollapsed}}" />
 </UserControl>
