@@ -3,8 +3,8 @@
     #region Usings
     using NLog;
     using System;
+    using System.Globalization;
     using System.Windows.Data;
-    using System.Globalization; 
     #endregion
 
     public class ColumnNameConverter : IMultiValueConverter
@@ -21,7 +21,21 @@
                 }
                 else
                 {
-                    return values[2];
+                    string label = values[2] as string;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        return values[2];
+                    }
+                    else
+                    {
+                        if (values[3] is string def)
+                        {
+                            if (def.StartsWith("="))
+                                def = def.Substring(1);
+                            return def;
+                        }
+                    }
+
                 }
             }
             catch (Exception Ex)
