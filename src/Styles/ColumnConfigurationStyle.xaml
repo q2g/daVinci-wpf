@@ -28,6 +28,7 @@
                     <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
+                    <Binding Path="FieldDef" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
@@ -54,6 +55,7 @@
                     <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
+                    <Binding Path="FieldDef" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
@@ -91,6 +93,7 @@
                     <Binding Path="IsExpression" />
                     <Binding Path="DimensionMeasure.Text" />
                     <Binding Path="FieldLabel" />
+                    <Binding Path="FieldDef" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
