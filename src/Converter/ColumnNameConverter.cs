@@ -15,24 +15,27 @@
         {
             try
             {
-                if (values[0] != null && values[0] is bool && !((bool)values[0]))
+                if (values != null && values.Length == 4)
                 {
-                    return values[1];
-                }
-                else
-                {
-                    string label = values[2] as string;
-                    if (!string.IsNullOrEmpty(label))
+                    if (values[0] != null && values[0] is bool && !((bool)values[0]))
                     {
-                        return values[2];
+                        return values[1];
                     }
                     else
                     {
-                        if (values[3] is string def)
+                        string label = values[2] as string;
+                        if (!string.IsNullOrEmpty(label))
                         {
-                            if (def.StartsWith("="))
-                                def = def.Substring(1);
-                            return def;
+                            return values[2];
+                        }
+                        else
+                        {
+                            if (values[3] is string def)
+                            {
+                                if (def.StartsWith("="))
+                                    def = def.Substring(1);
+                                return def;
+                            }
                         }
                     }
                 }
@@ -46,7 +49,7 @@
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return new object[2];
+            return new object[4];
         }
     }
 }
