@@ -24,13 +24,6 @@
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <bookmark:BookmarkDataFilter x:Key="BookmarkDataFilter" />
-            <ContextMenu x:Key="deleteMenu" Style="{StaticResource ContextmenuAccordion}">
-                <MenuItem
-                    Height="40"
-                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                    BorderThickness="1"
-                    Header="{l:Loc qlik-resources:Translate_common:Common_Clear}" />
-            </ContextMenu>
 
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
 
