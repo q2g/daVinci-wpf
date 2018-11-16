@@ -215,14 +215,19 @@
             {
                 LibraryID = libid;
             }
-
-            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 0)
+            if (jsonConfig?.qAttributeExpressions != null)
             {
-                BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
-            }
-            if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) > 1)
-            {
-                TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
+                foreach (dynamic attrExpression in jsonConfig?.qAttributeExpressions)
+                {
+                    if ((attrExpression?.id ?? "") == "cellForegroundColor")
+                    {
+                        TextColorExpression = attrExpression?.qExpression ?? "";
+                    }
+                    else
+                    {
+                        BackgroundColorExpression = attrExpression?.qExpression ?? "";
+                    }
+                }
             }
 
             TextAllignment = jsonConfig?.qDef?.textAlign?.auto ?? false;
@@ -248,6 +253,7 @@
             {
                 dynamic expr = new JObject();
                 expr.qExpression = TextColorExpression;
+                expr.id = "cellForegroundColor";
                 jsonConfig.qAttributeExpressions.Add(expr);
             }
 
