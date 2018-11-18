@@ -219,13 +219,15 @@
             {
                 foreach (dynamic attrExpression in jsonConfig?.qAttributeExpressions)
                 {
-                    if ((attrExpression?.id ?? "") == "cellForegroundColor")
+                    switch ((attrExpression?.id?.ToString() ?? "").ToLowerInvariant())
                     {
-                        TextColorExpression = attrExpression?.qExpression ?? "";
-                    }
-                    else
-                    {
-                        BackgroundColorExpression = attrExpression?.qExpression ?? "";
+                        case "cellbackgroundcolor":
+                        case "":
+                            BackgroundColorExpression = attrExpression?.qExpression ?? "";
+                            break;
+                        case "cellforegroundcolor":
+                            TextColorExpression = attrExpression?.qExpression ?? "";
+                            break;
                     }
                 }
             }
