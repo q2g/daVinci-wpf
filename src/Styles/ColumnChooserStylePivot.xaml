@@ -17,7 +17,6 @@
 
     <tableconfigurations:ColumnOrderIndexProvider x:Key="ColumnOrderIndexProvider" />
     <configdata:ColumnOrderComparer x:Key="ColumnOrderComparer" />
-    <daVinciConverter:ColumnNameConverter x:Key="ColumnNameConverter" />
 
     <daVinciControls:PivotRowTypeColumnFilter x:Key="PivotRowTypeColumnFilter" />
     <daVinciControls:PivotColumnTypeColumnFilter x:Key="PivotColumnTypeColumnFilter" />

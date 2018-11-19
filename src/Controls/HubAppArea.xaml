@@ -42,21 +42,12 @@
                 CountToMatch="0"
                 ElseVisibility="Visible"
                 IsExactMatch="True" />
-            <ContextMenu x:Key="deleteMenu" Style="{StaticResource ContextmenuAccordion}">
-                <MenuItem
-                    Height="40"
-                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                    BorderThickness="1"
-                    Click="MenuDeleteItem_Click"
-                    Header="{l:Loc qlik-resources:Translate_common:Common_Clear}" />
-            </ContextMenu>
 
             <DataTemplate x:Key="ItemTemplateWrapPanel">
                 <Border BorderThickness="20">
                     <StackPanel
                         Width="140"
                         dd:DragDrop.IsDragSource="True"
-                        ContextMenu="{StaticResource deleteMenu}"
                         Cursor="Hand">
                         <Border BorderBrush="{StaticResource Lui.Brush.Grayscale50}" BorderThickness="1">
                             <Grid>
@@ -181,7 +172,6 @@
                     <Border Grid.Column="1" Grid.ColumnSpan="2">
                         <controls:HubAppDataView
                             Margin="10,10,0,0"
-                            ContextMenu="{StaticResource deleteMenu}"
                             DataContext="{Binding}"
                             Foreground="{StaticResource Lui.Brush.Grayscale30}"
                             MouseDown="HubAppDataView_MouseDown" />
