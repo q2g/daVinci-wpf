@@ -1,0 +1,233 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.SelectionItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:daVinci.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converter:ListCountToVisibilityConverter
+                x:Key="count1IsVisisble"
+                CountMatchesVisibility="Visible"
+                CountToMatch="1"
+                ElseVisibility="Collapsed"
+                IsExactMatch="True" />
+
+            <converter:ListCountToVisibilityConverter
+                x:Key="countgreater1IsVisisble"
+                CountMatchesVisibility="Visible"
+                CountToMatch="1"
+                ElseVisibility="Collapsed"
+                IsExactMatch="False"
+                IsGreaterThanMatch="True" />
+
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+            <converter:MultiBindingToObjectArrayConverter x:Key="MultiBindingToObjectArrayConverter" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="TrueIsVisible"
+                False="Collapsed"
+                True="Visible" />
+            <converter:CountToVisibilityConverter
+                x:Key="GreaterZeroVisible"
+                Empty="Hidden"
+                Full="Visible" />
+            <converter:CountToVisibilityConverter
+                x:Key="ZeroVisible"
+                Empty="Visible"
+                Full="Hidden" />
+            <converter:Null2BooleanConverter x:Key="NullDisabled" NullIs="False" />
+            <converter:ToStringAndAddStarConverter x:Key="AddStar" />
+            <converter:BooleanToBrushConverter
+                x:Key="Pin2Color"
+                False="{StaticResource Lui.Brush.Grayscale80}"
+                True="Transparent" />
+            <FontFamily x:Key="QlikViewSans">
+                pack://application:,,,/qlik-resources;component/#QlikView Sans
+            </FontFamily>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border
+        Name="FilterFieldBorder"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom"
+        BorderBrush="#EEEEEE">
+        <Border.InputBindings>
+            <MouseBinding Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}" MouseAction="LeftClick">
+                <MouseBinding.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiBindingToObjectArrayConverter}">
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}" />
+                        <Binding Path="." />
+                    </MultiBinding>
+                </MouseBinding.CommandParameter>
+            </MouseBinding>
+
+        </Border.InputBindings>
+        <Border.Style>
+            <Style>
+                <Setter Property="Border.Background" Value="Transparent" />
+                <Style.Triggers>
+                    <Trigger Property="Border.IsMouseOver" Value="True">
+                        <Setter Property="Border.Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                        <Setter Property="Border.Opacity" Value="0.7" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid Width="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2" />
+            </Grid.RowDefinitions>
+            <controls:LuiIcon
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="2"
+                FontSize="20"
+                Icon="lui_icon_lock"
+                Visibility="{Binding IsPinned, Converter={StaticResource TrueIsVisible}}" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontSize="12"
+                FontWeight="Bold"
+                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                Text="{Binding FieldName}"
+                TextTrimming="CharacterEllipsis" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontSize="12"
+                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                Text="{Binding SelectionAsText}"
+                TextTrimming="CharacterEllipsis" />
+
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding Selected, Converter={StaticResource AddStar}}" />
+                    <ColumnDefinition Width="{Binding Locked, Converter={StaticResource AddStar}}" />
+                    <ColumnDefinition Width="{Binding Optional, Converter={StaticResource AddStar}}" />
+                    <ColumnDefinition Width="{Binding Alternative, Converter={StaticResource AddStar}}" />
+                    <ColumnDefinition Width="{Binding Excluded, Converter={StaticResource AddStar}}" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Rectangle
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Height="30"
+                    Fill="#42C24E"
+                    SnapsToDevicePixels="True" />
+                <Rectangle
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Height="30"
+                    Fill="#42C24E"
+                    SnapsToDevicePixels="True" />
+                <Rectangle
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Height="30"
+                    Fill="#DDDDDD"
+                    SnapsToDevicePixels="True" />
+                <Rectangle
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Height="30"
+                    Fill="#DDDDDD"
+                    SnapsToDevicePixels="True" />
+                <Rectangle
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Height="30"
+                    Fill="#9A9A9A"
+                    SnapsToDevicePixels="True" />
+            </Grid>
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Width="12"
+                Height="12"
+                VerticalAlignment="Center"
+                Background="{StaticResource Lui.Brush.Green_special}"
+                BorderThickness="1"
+                CornerRadius="12">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AlternateStateName}" Value="$">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Border.Style>
+            </Border>
+            <controls:LuiIcon
+                Name="closeIcon"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Icon="lui_icon_remove">
+                <controls:LuiIcon.InputBindings>
+                    <MouseBinding
+                        Command="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                        CommandParameter="{Binding}"
+                        Gesture="LeftClick" />
+                    <MouseBinding
+                        Command="{Binding DataContext.FilterFieldPinCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                        CommandParameter="{Binding}"
+                        Gesture="Ctrl+LeftClick" />
+                </controls:LuiIcon.InputBindings>
+                <controls:LuiIcon.Style>
+                    <Style TargetType="controls:LuiIcon">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale0}" />
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="False" />
+
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Foreground" Value="{StaticResource Lui.Brush.Grayscale70}" />
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding IsPinned}" Value="true">
+                                <Setter Property="Foreground" Value="Transparent" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:LuiIcon.Style>
+            </controls:LuiIcon>
+        </Grid>
+    </Border>
+</UserControl>
