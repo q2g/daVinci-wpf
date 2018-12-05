@@ -202,7 +202,10 @@
                         <ItemsControl ItemsSource="{Binding Selections}" Visibility="{Binding Selections, Converter={StaticResource count1IsVisisble}}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <local:SelectionItem DataContext="{Binding Path=.}" />
+                                    <local:SelectionItem
+                                        ClearCommand="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
+                                        DataContext="{Binding Path=.}"
+                                        MultiSelect="False" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -214,7 +217,7 @@
                             BorderThickness="0.5"
                             Visibility="{Binding Selections, Converter={StaticResource countgreater1IsVisisble}}">
                             <Border.InputBindings>
-                                <MouseBinding Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" MouseAction="LeftClick">
+                                <MouseBinding Command="{Binding DataContext.MultiSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" MouseAction="LeftClick">
                                     <MouseBinding.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiBindingToObjectArrayConverter}">
                                             <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}" />

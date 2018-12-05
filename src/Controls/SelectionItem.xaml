@@ -17,6 +17,15 @@
                 <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <converter:BooleanToVisibilityConverter
+                x:Key="TrueIsVisible"
+                False="Collapsed"
+                True="Visible" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="FalseIsVisible"
+                False="Visible"
+                True="Collapsed" />
+
             <converter:ListCountToVisibilityConverter
                 x:Key="count1IsVisisble"
                 CountMatchesVisibility="Visible"
@@ -34,10 +43,6 @@
 
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
             <converter:MultiBindingToObjectArrayConverter x:Key="MultiBindingToObjectArrayConverter" />
-            <converter:BooleanToVisibilityConverter
-                x:Key="TrueIsVisible"
-                False="Collapsed"
-                True="Visible" />
             <converter:CountToVisibilityConverter
                 x:Key="GreaterZeroVisible"
                 Empty="Hidden"
@@ -71,7 +76,6 @@
                     </MultiBinding>
                 </MouseBinding.CommandParameter>
             </MouseBinding>
-
         </Border.InputBindings>
         <Border.Style>
             <Style>
@@ -108,8 +112,30 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                Text="{Binding FieldName}"
-                TextTrimming="CharacterEllipsis" />
+                TextTrimming="CharacterEllipsis">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="{Binding FieldName}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="True">
+                                <Setter Property="Text" Value="{Binding AlternateStateName}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontSize="12"
+                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                TextTrimming="CharacterEllipsis"
+                Visibility="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource FalseIsVisible}}">
+                <Run Text="{Binding AlternateStateName}" />
+                <Run Text=":" />
+                <Run Text="{Binding SelectionAsText}" />
+            </TextBlock>
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="0"
@@ -117,7 +143,8 @@
                 FontSize="12"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
                 Text="{Binding SelectionAsText}"
-                TextTrimming="CharacterEllipsis" />
+                TextTrimming="CharacterEllipsis"
+                Visibility="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
 
             <Grid
                 Grid.Row="2"
@@ -196,11 +223,11 @@
                 Icon="lui_icon_remove">
                 <controls:LuiIcon.InputBindings>
                     <MouseBinding
-                        Command="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                        Command="{Binding ClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionItem}}}"
                         CommandParameter="{Binding}"
                         Gesture="LeftClick" />
                     <MouseBinding
-                        Command="{Binding DataContext.FilterFieldPinCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                        Command="{Binding DataContext.FilterFieldPinCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
                         CommandParameter="{Binding}"
                         Gesture="Ctrl+LeftClick" />
                 </controls:LuiIcon.InputBindings>
