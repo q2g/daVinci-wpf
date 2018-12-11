@@ -1,0 +1,62 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.BookmarkDataView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:bookmark="clr-namespace:daVinci.ConfigData.Bookmark"
+    xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+    xmlns:hub="clr-namespace:daVinci.ConfigData.Hub"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="650"
+    d:DesignWidth="1200"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <bookmark:BookmarkDataFilter x:Key="BookmarkDataFilter" />
+
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+
+            <hub:AppDataFilter x:Key="AppDataFilter" />
+            <hub:AppNameComparer x:Key="AppNameComparer" />
+            <hub:AppPublishedComparer x:Key="AppPublishedComparer" />
+            <hub:AppCreatedComparer x:Key="AppCreatedComparer" />
+
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityCollapsedConverter"
+                False="Visible"
+                True="Collapsed" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityVisibleConverter"
+                False="Collapsed"
+                True="Visible" />
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource Lui.Brush.Grayscale35}">
+
+        <StackPanel>
+            <TextBlock
+                Width="500"
+                Margin="10,20,0,20"
+                HorizontalAlignment="Left"
+                FontFamily="{StaticResource QlikViewSans}"
+                FontWeight="Normal"
+                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                Text="{Binding BookmarkDescription}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>
