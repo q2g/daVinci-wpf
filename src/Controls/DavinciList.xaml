@@ -1,0 +1,264 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.DavinciList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:davConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:local="clr-namespace:daVinci.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <davConverter:ObjectsEqualsConverter x:Key="ObjectsEqualsConverter" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityCollapsedConverter"
+                False="Visible"
+                True="Collapsed" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityVisibleConverter"
+                False="Collapsed"
+                True="Visible" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="False">
+            <TextBlock
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                Text="{Binding ListHeader, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+            <Luicontrols:LuiButton
+                Margin="10,0,0,0"
+                Padding="7,0,0,0"
+                LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
+                Command="{Binding NewItemClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                Content="{Binding AddItemText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                DockPanel.Dock="Right" />
+            <Luicontrols:LuiSearch
+                Name="search"
+                Width="150"
+                AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                DockPanel.Dock="Right"
+                HintText="{l:Loc Translate_common:Common_Search}"
+                SearchText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}, Delay=300}" />
+        </DockPanel>
+        <GridSplitter
+            Grid.Row="2"
+            Height="5"
+            HorizontalAlignment="Stretch"
+            Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+        <Grid Grid.Row="3" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Background="{StaticResource Lui.Brush.Grayscale95}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                BorderThickness="1">
+                <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
+                    <!--<Luicontrols:LuiButton
+                        Margin="10,0,0,0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                        CommandParameter="{Binding}"
+                        FontSize="16"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}}" />
+                    <Luicontrols:LuiButton
+                        Margin="10,0,0,0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                        FontSize="16"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}}" />-->
+                    <Luicontrols:LuiAbortButton
+                        Margin="5,0,0,0"
+                        Command="{Binding DataContext.AbortEditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
+                    <Luicontrols:LuiOKButton
+                        Margin="10,0,0,0"
+                        Command="{Binding DataContext.OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
+                    <Luicontrols:LuiButton
+                        LuiAttached:ThemeProperties.BorderThickness="0"
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
+                        Background="{StaticResource Lui.Brush.Grayscale95}"
+                        Command="{Binding DataContext.CloseDetailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                        DockPanel.Dock="Right" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource QlikViewSans}"
+                        FontWeight="Normal"
+                        Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                        Text="{Binding SelectedItemName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+                </DockPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                VerticalAlignment="Stretch"
+                Background="{StaticResource Lui.Brush.Grayscale35}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                BorderThickness="1"
+                Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}}">
+                <ScrollViewer
+                    Grid.Row="1"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Style="{StaticResource LuiSenseScrollViewerStyle}">
+                    <ContentControl Content="{Binding EditContent, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <Luicontrols:CollectionView
+            Name="collectionview"
+            CollectionViewComparer="{Binding ListComparer, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+            CollectionViewFilter="{Binding ListFilter, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+            FilterText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+            ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+        <ListBox
+            Grid.Row="1"
+            ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.Style>
+                <Style>
+                    <Setter Property="Grid.RowSpan" Value="1" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowDetail, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" Value="false">
+                            <Setter Property="Grid.RowSpan" Value="3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Style>
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ScrollViewer
+                        CanContentScroll="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Style="{StaticResource LuiSenseScrollViewerStyle}">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border
+                                    Name="border"
+                                    Height="35"
+                                    Padding="5"
+                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                    BorderThickness="0,0,0,0.5">
+                                    <DockPanel
+                                        Margin="0,0,0,3"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        LastChildFill="True">
+                                        <Luicontrols:LuiIcon
+                                            Margin="5,0,10,0"
+                                            Background="Transparent"
+                                            DockPanel.Dock="Right"
+                                            FontSize="16"
+                                            Icon="lui_icon_bin"
+                                            Visibility="{Binding ShowDeleteIcon, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}">
+                                            <Luicontrols:LuiIcon.InputBindings>
+                                                <MouseBinding
+                                                    Command="{Binding DeleteItemClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                                                    CommandParameter="{Binding}"
+                                                    Gesture="LeftClick" />
+                                            </Luicontrols:LuiIcon.InputBindings>
+                                        </Luicontrols:LuiIcon>
+                                        <Luicontrols:LuiIcon
+                                            Margin="5,0,5,0"
+                                            Background="Transparent"
+                                            DockPanel.Dock="Right"
+                                            FontSize="16"
+                                            Icon="lui_icon_edit"
+                                            Visibility="{Binding ShowEditIcon, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}">
+                                            <Luicontrols:LuiIcon.InputBindings>
+                                                <MouseBinding
+                                                    Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                                                    CommandParameter="{Binding}"
+                                                    Gesture="LeftClick" />
+                                            </Luicontrols:LuiIcon.InputBindings>
+                                        </Luicontrols:LuiIcon>
+                                        <Luicontrols:LuiIcon
+                                            Margin="10,0,5,0"
+                                            Background="Transparent"
+                                            DockPanel.Dock="Right"
+                                            FontSize="16"
+                                            Icon="lui_icon_info"
+                                            Visibility="{Binding ShowInfoIcon, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}">
+                                            <Luicontrols:LuiIcon.InputBindings>
+                                                <MouseBinding
+                                                    Command="{Binding DataContext.ShowDetailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                                                    CommandParameter="{Binding}"
+                                                    Gesture="LeftClick" />
+                                            </Luicontrols:LuiIcon.InputBindings>
+                                        </Luicontrols:LuiIcon>
+                                        <ContentControl Template="{Binding ListItemControlTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
+                                    </DockPanel>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                                </Trigger>
+                                                <!--  <DataTrigger Binding="{Binding DataContext.SelectedItem, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"  -->
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <MultiBinding Converter="{StaticResource ObjectsEqualsConverter}">
+                                                            <Binding Path="." />
+                                                            <Binding Path="DataContext.SelectedItem" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:DavinciList}" />
+                                                        </MultiBinding>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale70}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Border.InputBindings>
+                                        <MouseBinding
+                                            Command="{Binding DataContext.ItemClickedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Gesture="LeftClick" />
+                                    </Border.InputBindings>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
+</UserControl>
