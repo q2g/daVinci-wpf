@@ -21,13 +21,22 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="{StaticResource Lui.Brush.Grayscale30}" BorderThickness="1">
+    <Border
+        Width="180"
+        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+        BorderThickness="1">
         <StackPanel Background="{StaticResource Lui.Brush.Grayscale100}">
             <LuiControls:LuiButton
                 Margin="10"
                 LuiAttached:ThemeProperties.ButtonScheme="Default"
+                Command="{Binding ClearSelectionsCommand}"
+                CommandParameter="{Binding Selection}"
                 Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:MultiSelectionClearStates}" />
-            <ItemsControl ItemsSource="{Binding Selection.Selections}">
+            <LuiControls:CollectionView
+                Name="selectioninfos"
+                CollectionViewComparer="{Binding DataContext.SelectionStateNameComparer, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                ItemsSource="{Binding Selection.Selections}" />
+            <ItemsControl ItemsSource="{Binding ProcessedCollection, ElementName=selectioninfos}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="{StaticResource Lui.Brush.Grayscale60}" BorderThickness="0,1,0,0">

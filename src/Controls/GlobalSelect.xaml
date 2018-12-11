@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:davControls="clr-namespace:daVinci.Controls"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
@@ -37,6 +38,10 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Row="0"
                 Foreground="White"
@@ -88,8 +93,6 @@
                     InputBoxStyle="{StaticResource LuiTextboxStyle_Cursor}"
                     SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
             </Grid>
-            <!--  HintText="{l:Loc GlobalSelections_FilterDimensions}"  -->
-
             <ItemsControl
                 Grid.Row="3"
                 Margin="10,0,10,2"
@@ -97,6 +100,53 @@
                 Style="{StaticResource SenseGlobalSelectionItemsControlStyle}"
                 VirtualizingStackPanel.IsVirtualizing="True"
                 VirtualizingStackPanel.VirtualizationMode="Recycling" />
+
+            <Border
+                Grid.RowSpan="4"
+                Grid.Column="1"
+                Padding="5"
+                Background="{StaticResource Lui.Brush.Grayscale100}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                BorderThickness="2">
+                <davControls:DavinciList
+                    AddItemText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:NewAlternateStates}"
+                    ChangedItemCommand="{Binding DataContext.ChangedStateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    CopyItemFunc="{Binding DataContext.CopyStateFunc, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    CreateItemFactory="{Binding DataContext.CreateStateFunc, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    DeleteItemCommand="{Binding DataContext.StateDeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    ItemSelectionCommand="{Binding DataContext.StateSelectionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    ItemsSource="{Binding DataContext.AlternateStates, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    ListComparer="{Binding DataContext.AlternateStateComparer, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    ListFilter="{Binding DataContext.AlternateStateFilter, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    ListHeader="Alternate States"
+                    NewItemCommand="{Binding DataContext.StateNewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                    SelectedItemName="{Binding SelectedItem.Name, RelativeSource={RelativeSource Self}}"
+                    ShowEditIcon="False">
+                    <davControls:DavinciList.ListItemControlTemplate>
+                        <ControlTemplate TargetType="ContentControl">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                Text="{Binding Name}" />
+                        </ControlTemplate>
+                    </davControls:DavinciList.ListItemControlTemplate>
+
+                    <davControls:DavinciList.EditContent>
+                        <StackPanel
+                            Margin="10,10,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <controls:LuiInput
+                                Margin="0,7,10,0"
+                                LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
+                                IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:DavinciList}}"
+                                LabelText="{l:Loc Translate_common:Common_Title}"
+                                Text="{Binding SelectedItem.Name, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:DavinciList}}" />
+                        </StackPanel>
+                    </davControls:DavinciList.EditContent>
+                </davControls:DavinciList>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>
