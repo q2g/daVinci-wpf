@@ -110,6 +110,7 @@
                 BorderThickness="2">
                 <davControls:DavinciList
                     AddItemText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:NewAlternateStates}"
+                    AutoFocus="False"
                     ChangedItemCommand="{Binding DataContext.ChangedStateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     CopyItemFunc="{Binding DataContext.CopyStateFunc, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     CreateItemFactory="{Binding DataContext.CreateStateFunc, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
@@ -118,7 +119,7 @@
                     ItemsSource="{Binding DataContext.AlternateStates, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     ListComparer="{Binding DataContext.AlternateStateComparer, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     ListFilter="{Binding DataContext.AlternateStateFilter, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
-                    ListHeader="Alternate States"
+                    ListHeader="{l:Loc akquinet-sense-excel:SenseExcelRibbon:AlternateStates}"
                     NewItemCommand="{Binding DataContext.StateNewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     SelectedItemName="{Binding SelectedItem.Name, RelativeSource={RelativeSource Self}}"
                     ShowEditIcon="False">

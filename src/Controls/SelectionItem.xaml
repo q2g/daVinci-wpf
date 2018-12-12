@@ -67,16 +67,6 @@
         HorizontalAlignment="Left"
         VerticalAlignment="Bottom"
         BorderBrush="#EEEEEE">
-        <Border.InputBindings>
-            <MouseBinding Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}" MouseAction="LeftClick">
-                <MouseBinding.CommandParameter>
-                    <MultiBinding Converter="{StaticResource MultiBindingToObjectArrayConverter}">
-                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}" />
-                        <Binding Path="." />
-                    </MultiBinding>
-                </MouseBinding.CommandParameter>
-            </MouseBinding>
-        </Border.InputBindings>
         <Border.Style>
             <Style>
                 <Setter Property="Border.Background" Value="Transparent" />

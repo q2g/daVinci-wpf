@@ -202,10 +202,22 @@
                         <ItemsControl ItemsSource="{Binding Selections}" Visibility="{Binding Selections, Converter={StaticResource count1IsVisisble}}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <local:SelectionItem
-                                        ClearCommand="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
-                                        DataContext="{Binding Path=.}"
-                                        MultiSelect="False" />
+                                    <Border>
+                                        <local:SelectionItem
+                                            ClearCommand="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
+                                            DataContext="{Binding Path=.}"
+                                            MultiSelect="False" />
+                                        <Border.InputBindings>
+                                            <MouseBinding Command="{Binding DataContext.FilterFieldClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}" MouseAction="LeftClick">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource MultiBindingToObjectArrayConverter}">
+                                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}" />
+                                                        <Binding Path="." />
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Border.InputBindings>
+                                    </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

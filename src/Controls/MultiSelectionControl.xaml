@@ -59,7 +59,7 @@
                             </Border.Style>
                             <local:SelectionItem
                                 Margin="5"
-                                ClearCommand="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
+                                ClearCommand="{Binding DataContext.FilterFieldClearCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                                 DataContext="{Binding Path=.}"
                                 MultiSelect="True" />
                         </Border>
