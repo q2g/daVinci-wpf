@@ -57,6 +57,7 @@
                 Name="search"
                 Width="150"
                 AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
+                Autofocus="{Binding AutoFocus, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
                 DockPanel.Dock="Right"
                 HintText="{l:Loc Translate_common:Common_Search}"
                 SearchText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}, Delay=300}" />

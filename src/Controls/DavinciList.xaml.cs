@@ -195,6 +195,17 @@
          "ShowDeleteIcon", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
+        #region AutoFocus DP
+        public bool AutoFocus
+        {
+            get { return (bool)this.GetValue(AutoFocusProperty); }
+            set { this.SetValue(AutoFocusProperty, value); }
+        }
+
+        public static readonly DependencyProperty AutoFocusProperty = DependencyProperty.Register(
+         "AutoFocus", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region ItemSelectionCommand - DP        
         public ICommand ItemSelectionCommand
         {
