@@ -48,7 +48,7 @@
         {
             try
             {
-                selectedstate = jsonConfig?.qStateName ?? "";
+                selectedstate = jsonConfig?.qHyperCubeDef?.qStateName ?? jsonConfig?.qStateName ?? "";
             }
             catch (Exception Ex)
             {
@@ -61,7 +61,7 @@
         {
             try
             {
-                jsonConfig.qStateName = selectedstate;
+                jsonConfig.qHyperCubeDef.qStateName = selectedstate;
             }
             catch (Exception Ex)
             {
