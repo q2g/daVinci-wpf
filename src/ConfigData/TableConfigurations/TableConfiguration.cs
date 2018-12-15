@@ -183,10 +183,14 @@
                 AddOnData.Clear();
                 AddOnData.Add(addonConfig);
 
-                var presentationConfig = new PresentationData();
-                PresentationData.Clear();
-                presentationConfig.ReadFromJSON(jsonConfig?.totals);
-                PresentationData.Add(presentationConfig);
+
+                //PresentationData.Clear();
+                //var presentationConfig = new PresentationData();
+                //presentationConfig.ReadFromJSON(jsonConfig?.totals);
+                //PresentationData.Add(presentationConfig);
+                var presentationASConfig = PresentationData.First() as PresentationAlternateStateData;
+                presentationASConfig.ReadFromJSON(jsonConfig);
+                //PresentationData.Add(presentationASConfig);
             }
             catch (Exception Ex)
             {
@@ -361,8 +365,8 @@
                 var addonConfig = AddOnData.First() as AddOnDataProcessingConfiguration;
                 addonConfig.SaveToJSON(jsonData.qHyperCubeDef);
 
-                var presentationConfig = PresentationData.First() as PresentationData;
-                jsonData.totals = presentationConfig.SaveToJSON();
+                var presentationConfig = PresentationData.First() as PresentationAlternateStateData;
+                presentationConfig.SaveToJSON(jsonData);
             }
             catch (Exception Ex)
             {

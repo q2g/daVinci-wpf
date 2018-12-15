@@ -67,7 +67,6 @@
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_presentation}" />
-        <!--<Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettings}, IsAsync=True, FallbackValue=Loading...}" />-->
         <Setter Property="controls:LuiAccordionItem.Content">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettings}">
@@ -83,10 +82,24 @@
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
         <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_general}" />
-        <!--<Setter Property="controls:LuiAccordionItem.Content" Value="{Binding Path=., Converter={StaticResource ControlCreationConverter}, ConverterParameter={x:Type daVinciControls:PresentationSettingsGeneral}, IsAsync=True, FallbackValue=Loading...}" />-->
         <Setter Property="controls:LuiAccordionItem.Content">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettingsGeneral}">
+                    <Binding Path="." />
+                    <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="PresentationAlternateStateDataStyle"
+        BasedOn="{StaticResource PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc akquinet-sense-excel:SenseExcelRibbon:AlternateStates}" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationAlternateStatesSetting}">
                     <Binding Path="." />
                     <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
                 </MultiBinding>
@@ -99,8 +112,10 @@
         x:Key="PresentationStyleselector"
         ItemStyle1="{StaticResource PresentationDataStyle}"
         ItemStyle2="{StaticResource PresentationGeneralDataStyle}"
+        ItemStyle3="{StaticResource PresentationAlternateStateDataStyle}"
         ItemType1="{x:Type daVinciConfig:PresentationData}"
-        ItemType2="{x:Type daVinciConfig:PresentationGeneralData}" />
+        ItemType2="{x:Type daVinciConfig:PresentationGeneralData}"
+        ItemType3="{x:Type daVinciConfig:PresentationAlternateStateData}" />
 
 
     <Style
@@ -281,12 +296,12 @@
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <!--<controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
+                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                                </controls:LuiAccordionItem>-->
+                                </controls:LuiAccordionItem>
                             </controls:LuiAccordion>
                         </StackPanel>
                     </ControlTemplate>
