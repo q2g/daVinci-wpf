@@ -22,7 +22,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border
-        Width="180"
+        Width="160"
         BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
         BorderThickness="1">
         <StackPanel Background="{StaticResource Lui.Brush.Grayscale100}">

@@ -1,20 +1,47 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using leonardo.Resources;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     #endregion
     /// <summary>
     /// Interaktionslogik für GlobalSelect.xaml
     /// </summary>
-    public partial class GlobalSelect : UserControl
+    public partial class GlobalSelect : UserControl, INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
+
         public GlobalSelect()
         {
+            ToggleShortStatelistCommand = new RelayCommand(() =>
+            {
+                ShortStateList = !ShortStateList;
+            });
             InitializeComponent();
         }
+
+        #region Properties & Variables
+        private bool shortStateList = true;
+        public bool ShortStateList
+        {
+            get { return shortStateList; }
+            set
+            {
+                shortStateList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ICommand ToggleShortStatelistCommand { get; set; }
+        #endregion
     }
 }
