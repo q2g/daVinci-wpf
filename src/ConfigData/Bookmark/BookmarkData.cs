@@ -120,6 +120,23 @@
             }
         }
 
+        private bool isDefault;
+        public bool IsDefault
+        {
+            get
+            {
+                return isDefault;
+            }
+            set
+            {
+                if (isDefault != value)
+                {
+                    isDefault = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public void CopyFrom(BookmarkData other)
         {
             BookmarkID = other.BookmarkID;
@@ -128,6 +145,7 @@
             BookmarkCreated = other.BookmarkCreated;
             BookmarkDescription = other.BookmarkDescription;
             BookmarkSelection = other.BookmarkSelection;
+            isDefault = other.isDefault;
         }
     }
 
