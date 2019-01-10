@@ -25,10 +25,14 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Resources>
-            <converter:NullOrEmptyToVisibilityConverter
-                x:Key="NullEmpty2Vis"
+            <converter:BooleanToVisibilityConverter
+                x:Key="TrueCollapsed_FalseVisible"
                 False="Visible"
-                True="Hidden" />
+                True="Collapsed" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="TrueVisible_FalseCollapsed"
+                False="Collapsed"
+                True="Visible" />
         </Grid.Resources>
         <Rectangle Fill="#404040" Opacity="0.8" />
         <Grid Margin="10,10,10,30">
@@ -39,7 +43,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="8*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock
@@ -50,16 +54,28 @@
                 Grid.Row="1"
                 Margin="10,0,10,2"
                 ItemsSource="{Binding CurrentSelection}"
-                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}"
                 VirtualizingStackPanel.IsVirtualizing="True"
-                VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <ItemsControl.Style>
+                    <Style BasedOn="{StaticResource SenseGlobalSelectionItemsControlStyle}" TargetType="ItemsControl">
+                        <Setter Property="Grid.ColumnSpan" Value="1" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShortStateList, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}" Value="True">
+                                <Setter Property="Grid.ColumnSpan" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+            </ItemsControl>
             <Grid
                 Grid.Row="2"
                 Grid.Column="0"
+                Grid.ColumnSpan="2"
                 Margin="0,0,10,0"
                 VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -78,37 +94,60 @@
                         Foreground="White"
                         IsChecked="{Binding ShowFields, Mode=TwoWay}" />
                 </StackPanel>
-
-                <controls:LuiSearch
-                    Grid.Column="1"
-                    Width="300"
-                    Height="30"
-                    Margin="2"
-                    HorizontalAlignment="Right"
-                    LuiAttached:ThemeProperties.Inverted="True"
-                    Autofocus="True"
-                    Background="Black"
-                    Foreground="White"
-                    HintText=" "
-                    InputBoxStyle="{StaticResource LuiTextboxStyle_Cursor}"
-                    SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
+                <Border>
+                    <controls:LuiSearch
+                        Width="300"
+                        Height="30"
+                        Margin="2"
+                        HorizontalAlignment="Right"
+                        LuiAttached:ThemeProperties.Inverted="True"
+                        Autofocus="True"
+                        Background="Black"
+                        Foreground="White"
+                        HintText=" "
+                        InputBoxStyle="{StaticResource LuiTextboxStyle_Cursor}"
+                        SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Grid.Column" Value="1" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShortStateList, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}" Value="True">
+                                    <Setter Property="Grid.Column" Value="2" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
             </Grid>
             <ItemsControl
                 Grid.Row="3"
                 Margin="10,0,10,2"
                 ItemsSource="{Binding AvailableFieldsAndDimensions}"
-                Style="{StaticResource SenseGlobalSelectionItemsControlStyle}"
                 VirtualizingStackPanel.IsVirtualizing="True"
-                VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <ItemsControl.Style>
+                    <Style BasedOn="{StaticResource SenseGlobalSelectionItemsControlStyle}" TargetType="ItemsControl">
+                        <Setter Property="Grid.ColumnSpan" Value="1" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShortStateList, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}" Value="True">
+                                <Setter Property="Grid.ColumnSpan" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+            </ItemsControl>
 
             <Border
                 Grid.RowSpan="4"
                 Grid.Column="1"
                 Padding="5"
+                VerticalAlignment="Stretch"
                 Background="{StaticResource Lui.Brush.Grayscale100}"
                 BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                BorderThickness="2">
+                BorderThickness="2"
+                Visibility="{Binding ShortStateList, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}, Converter={StaticResource TrueCollapsed_FalseVisible}}">
                 <davControls:DavinciList
+                    VerticalAlignment="Stretch"
                     AddItemText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:NewAlternateStates}"
                     AutoFocus="False"
                     ChangedItemCommand="{Binding DataContext.ChangedStateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
@@ -123,6 +162,7 @@
                     NewItemCommand="{Binding DataContext.StateNewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                     SelectedItemName="{Binding SelectedItem.Name, RelativeSource={RelativeSource Self}}"
                     ShowEditIcon="False">
+
                     <davControls:DavinciList.ListItemControlTemplate>
                         <ControlTemplate TargetType="ContentControl">
                             <TextBlock
@@ -148,6 +188,27 @@
                     </davControls:DavinciList.EditContent>
                 </davControls:DavinciList>
             </Border>
+            <StackPanel
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Visibility="{Binding ShortStateList, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}, Converter={StaticResource TrueVisible_FalseCollapsed}}">
+                <DockPanel>
+                    <controls:LuiButton
+                        LuiAttached:ThemeProperties.IconLeft="lui_icon_more"
+                        Command="{Binding ToggleShortStatelistCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                        DockPanel.Dock="Right" />
+                    <TextBlock
+                        DockPanel.Dock="left"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:AlternateStates}" />
+                    <controls:LuiCombobox
+                        Margin="5,0,5,0"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding DataContext.AlternateStates, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
+                        SelectedItem="{Binding DataContext.CurrentState, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}" />
+                </DockPanel>
+
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
