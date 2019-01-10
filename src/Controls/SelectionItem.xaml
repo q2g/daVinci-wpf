@@ -120,11 +120,27 @@
                 FontFamily="{StaticResource QlikViewSans}"
                 FontSize="12"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                TextTrimming="CharacterEllipsis"
-                Visibility="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource FalseIsVisible}}">
+                TextTrimming="CharacterEllipsis">
                 <Run Text="{Binding AlternateStateName}" />
                 <Run Text=":" />
                 <Run Text="{Binding SelectionAsText}" />
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="False" />
+                                    <Condition Binding="{Binding AlternateStateName}" Value="$" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
             </TextBlock>
             <TextBlock
                 Grid.Row="1"
@@ -133,9 +149,25 @@
                 FontSize="12"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
                 Text="{Binding SelectionAsText}"
-                TextTrimming="CharacterEllipsis"
-                Visibility="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
-
+                TextTrimming="CharacterEllipsis">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="False" />
+                                    <Condition Binding="{Binding AlternateStateName}" Value="$" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <Grid
                 Grid.Row="2"
                 Grid.Column="0"
@@ -192,14 +224,12 @@
                 CornerRadius="12">
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AlternateStateName}" Value="$">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-
                 </Border.Style>
             </Border>
             <controls:LuiIcon
@@ -216,10 +246,6 @@
                         Command="{Binding ClearCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionItem}}}"
                         CommandParameter="{Binding}"
                         Gesture="LeftClick" />
-                    <MouseBinding
-                        Command="{Binding DataContext.FilterFieldPinCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SelectionControl}}}"
-                        CommandParameter="{Binding}"
-                        Gesture="Ctrl+LeftClick" />
                 </controls:LuiIcon.InputBindings>
                 <controls:LuiIcon.Style>
                     <Style TargetType="controls:LuiIcon">
