@@ -1,9 +1,11 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows;
     using daVinci.ConfigData.Hub;
-    using System.Windows.Controls; 
+    using leonardo.Resources;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>
@@ -13,6 +15,13 @@
     {
         public HubAppDataView()
         {
+            CopyToClipboardCommand = new RelayCommand<AppData>((data) =>
+              {
+                  if (data is AppData appdata)
+                  {
+                      Clipboard.SetText(appdata.AppID);
+                  }
+              });
             InitializeComponent();
         }
 
@@ -37,5 +46,7 @@
         public static readonly DependencyProperty AppToEditProperty = DependencyProperty.Register(
          "AppToEdit", typeof(AppData), typeof(HubAppDataView), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
+        public ICommand CopyToClipboardCommand { get; set; }
     }
 }

@@ -93,6 +93,11 @@
                         FontStyle="Italic"
                         FontWeight="Normal"
                         Text="{Binding Filename}" />
+                    <Luicontrols:LuiButton
+                        Margin="10,0,0,0"
+                        Command="{Binding CopyToClipboardCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
+                        CommandParameter="{Binding .}"
+                        Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:HubAppdata_CopyAppIdToClipboard}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
