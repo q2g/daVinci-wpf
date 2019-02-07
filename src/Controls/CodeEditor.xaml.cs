@@ -14,7 +14,9 @@
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Xml;
@@ -102,6 +104,7 @@
             {
                 if (value != selected)
                 {
+                    SelectedCodeTab = value;
                     if (selected != null)
                     {
                         selected.Code = TextEditor.Text;
@@ -118,6 +121,76 @@
                 }
             }
         }
+        #endregion
+
+        #region SelectedCodeTab - DP        
+        public CodeTab SelectedCodeTab
+        {
+            get { return (CodeTab)this.GetValue(SelectedCodeTabProperty); }
+            set { this.SetValue(SelectedCodeTabProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedCodeTabProperty = DependencyProperty.Register(
+         "SelectedCodeTab", typeof(CodeTab), typeof(CodeEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region HighlightingLanguage - DP        
+        public string HighlightingLanguage
+        {
+            get { return (string)this.GetValue(HighlightingLanguageProperty); }
+            set { this.SetValue(HighlightingLanguageProperty, value); }
+        }
+
+        public static readonly DependencyProperty HighlightingLanguageProperty = DependencyProperty.Register(
+         "HighlightingLanguage", typeof(string), typeof(CodeEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback((d, e) =>
+         {
+             try
+             {
+                 if (d is CodeEditor obj)
+                 {
+                     if (e.NewValue is string highlightingLanguage)
+                     {
+                         if (!string.IsNullOrEmpty(highlightingLanguage))
+                         {
+                             var typeConverter = new HighlightingDefinitionTypeConverter();
+                             obj.TextEditor.SyntaxHighlighting = (IHighlightingDefinition)typeConverter.ConvertFrom(highlightingLanguage);
+                         }
+                     }
+                 }
+             }
+             catch (Exception ex)
+             {
+                 logger.Error(ex);
+             }
+         })));
+        #endregion
+
+        #region CodeTabsItemsSource - DP        
+        public ObservableCollection<CodeTab> CodeTabsItemsSource
+        {
+            get { return (ObservableCollection<CodeTab>)this.GetValue(CodeTabsItemsSourceProperty); }
+            set { this.SetValue(CodeTabsItemsSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty CodeTabsItemsSourceProperty = DependencyProperty.Register(
+         "CodeTabsItemsSource", typeof(ObservableCollection<CodeTab>), typeof(CodeEditor), new FrameworkPropertyMetadata(new ObservableCollection<CodeTab>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback((d, e) =>
+           {
+               try
+               {
+                   if (d is CodeEditor obj)
+                   {
+                       if (e.NewValue is ObservableCollection<CodeTab> newvalue)
+                       {
+                           obj.codeTabs = newvalue;
+                           obj.RaisePropertyChanged("CodeTabs");
+                       }
+                   }
+               }
+               catch (Exception ex)
+               {
+                   logger.Error(ex);
+               }
+           })));
         #endregion
 
         #region Constructor
@@ -246,6 +319,10 @@
 
         void TextEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
+            if (selected != null)
+            {
+                selected.Code = TextEditor.Text;
+            }
             //if (e.Text == ".")
             //{
             //    // Open code completion after the user has pressed dot  :
@@ -306,7 +383,7 @@
         /// Raises a new <see cref="E:INotifyPropertyChanged.PropertyChanged"/> event.
         /// </summary>
         /// <param name="propertyName">The name of the property that changed.</param>
-        private void RaisePropertyChanged(string propertyName)
+        private void RaisePropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -322,7 +399,21 @@
                 if (value != name)
                 {
                     name = value;
-                    RaisePropertyChanged(nameof(Name));
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string id;
+        public string ID
+        {
+            get { return id; }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -336,7 +427,7 @@
                 if (value != code)
                 {
                     code = value;
-                    RaisePropertyChanged(nameof(Code));
+                    RaisePropertyChanged();
                 }
             }
         }
