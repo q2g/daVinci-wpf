@@ -2,6 +2,7 @@
     x:Class="daVinci.Components.ReportScriptEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:DavComponents="clr-namespace:daVinci.Components"
     xmlns:DavControls="clr-namespace:daVinci.Controls"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:LuiControls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
@@ -94,31 +95,11 @@
                 <LuiControls:LuiButtonGroup
                     Width="300"
                     HorizontalAlignment="Left"
-                    DockPanel.Dock="Top">
-                    <LuiControls:LuiToggleButton Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPreScripts}" />
-                    <LuiControls:LuiToggleButton Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPostScripts}" />
-                </LuiControls:LuiButtonGroup>
-                <!--<TextBlock
-                    Margin="0,0,0,5"
-                    VerticalAlignment="Center"
                     DockPanel.Dock="Top"
-                    FontSize="14"
-                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                    Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowScripts}" />
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <LuiControls:LuiRadioButton
-                        Margin="3,0,0,0"
-                        VerticalAlignment="Center"
-                        Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPreScripts}"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        IsChecked="{Binding IsPreScript, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                    <LuiControls:LuiRadioButton
-                        Margin="3,0,3,0"
-                        VerticalAlignment="Center"
-                        Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPostScripts}"
-                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        IsChecked="{Binding IsPostScript, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                </StackPanel>-->
+                    SelectedIndex="0">
+                    <LuiControls:LuiToggleButton Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPreScripts}" IsChecked="{Binding PreSelected, RelativeSource={RelativeSource FindAncestor, AncestorType=DavComponents:ReportScriptEditor}}" />
+                    <LuiControls:LuiToggleButton Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_ShowPostScripts}" IsChecked="{Binding PostSelected, RelativeSource={RelativeSource FindAncestor, AncestorType=DavComponents:ReportScriptEditor}}" />
+                </LuiControls:LuiButtonGroup>
                 <DavControls:CodeEditor
                     CodeTabsItemsSource="{Binding CodeTabs, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                     HighlightingLanguage="C#"

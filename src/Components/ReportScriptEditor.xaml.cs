@@ -70,59 +70,12 @@
             });
 
             CodeTabs = new ObservableCollection<CodeTab>();
-            (CodeTabs as INotifyCollectionChanged).CollectionChanged += (s, e) =>
-            {
-                switch (e.Action)
-                {
-                    case NotifyCollectionChangedAction.Add:
-                        break;
-                    case NotifyCollectionChangedAction.Remove:
-                        break;
-                    case NotifyCollectionChangedAction.Replace:
-                        break;
-                    case NotifyCollectionChangedAction.Move:
-                        break;
-                    case NotifyCollectionChangedAction.Reset:
-                        break;
-                    default:
-                        break;
-                }
-                if (e.NewItems != null)
-                {
-                    foreach (CodeTab codeTab in e.NewItems)
-                    {
-                        if (string.IsNullOrEmpty(codeTab.ID))
-                        {
-                            var guid = Guid.NewGuid();
-                            var newone = new ReportScript()
-                            {
-                                ScriptID = guid.ToString(),
-                                ScriptName = "Unnamed",
-
-                            };
-                            ReportScripts.Add(newone);
-                            codeTab.ID = newone.ScriptID;
-                            codeTab.Name = newone.ScriptName;
-                        }
-                        codeTab.PropertyChanged += CodeTab_PropertyChanged;
-                    }
-                }
-                if (e.OldItems != null)
-                {
-                    foreach (CodeTab codeTab in e.OldItems)
-                    {
-                        codeTab.PropertyChanged -= CodeTab_PropertyChanged;
-                        var toRemove = ReportScripts.First(ele => ele.ScriptID == codeTab.ID);
-                        if (toRemove != null)
-                        {
-                            reportScripts.Remove(toRemove);
-                        }
-                    }
-                }
-            };
+            (CodeTabs as INotifyCollectionChanged).CollectionChanged += CodeTabs_CollectionChanged;
 
             InitializeComponent();
         }
+
+
 
         #region Properties & Variales
         private List<ReportScript> reportScripts;
@@ -134,15 +87,7 @@
                 if (value != null)
                 {
                     reportScripts = value;
-                    foreach (var item in value)
-                    {
-                        CodeTabs.Add(new CodeTab()
-                        {
-                            Code = item.ScriptText,
-                            ID = item.ScriptID,
-                            Name = item.ScriptName
-                        });
-                    }
+                    RefreshCodetabs();
                 }
                 else
                 {
@@ -199,12 +144,37 @@
                 }
             }
         }
-        private bool isPublicKeyChoosen;
         public bool IsPublicKeyChoosen
         {
             get { return pemSigner != null; }
         }
         private PemSigner pemSigner;
+        private bool preSelected;
+        public bool PreSelected
+        {
+            get { return preSelected; }
+            set
+            {
+                if (preSelected != value)
+                {
+                    preSelected = value;
+                    RefreshCodetabs();
+                }
+            }
+        }
+        private bool postSelected = true;
+        public bool PostSelected
+        {
+            get { return postSelected; }
+            set
+            {
+                if (postSelected != value)
+                {
+                    postSelected = value;
+                    RefreshCodetabs();
+                }
+            }
+        }
         #endregion
 
         #region private Functions
@@ -237,6 +207,83 @@
                             break;
                         default:
                             break;
+                    }
+                }
+            }
+        }
+        private void RefreshCodetabs()
+        {
+            var tmptabs = CodeTabs.ToList();
+            (CodeTabs as INotifyCollectionChanged).CollectionChanged -= CodeTabs_CollectionChanged;
+            foreach (var item in tmptabs)
+            {
+                item.PropertyChanged -= CodeTab_PropertyChanged;
+                CodeTabs.Remove(item);
+            }
+            (CodeTabs as INotifyCollectionChanged).CollectionChanged += CodeTabs_CollectionChanged;
+
+            foreach (var item in reportScripts)
+            {
+                if (preSelected && item.ScriptType == ReportScriptType.PreScript
+                    || PostSelected && item.ScriptType == ReportScriptType.PostScript)
+                {
+                    CodeTabs.Add(new CodeTab()
+                    {
+                        Code = item.ScriptText,
+                        ID = item.ScriptID,
+                        Name = item.ScriptName
+                    });
+                }
+            }
+        }
+        private void CodeTabs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+            if (e.NewItems != null)
+            {
+                foreach (CodeTab codeTab in e.NewItems)
+                {
+                    if (string.IsNullOrEmpty(codeTab.ID))
+                    {
+                        var guid = Guid.NewGuid();
+                        var newone = new ReportScript()
+                        {
+                            ScriptID = guid.ToString(),
+                            ScriptName = "Unnamed",
+                            ScriptType = preSelected ? ReportScriptType.PreScript : ReportScriptType.PostScript
+
+                        };
+
+                        ReportScripts.Add(newone);
+                        codeTab.ID = newone.ScriptID;
+                        codeTab.Name = newone.ScriptName;
+                    }
+                    codeTab.PropertyChanged += CodeTab_PropertyChanged;
+                }
+            }
+            if (e.OldItems != null)
+            {
+                foreach (CodeTab codeTab in e.OldItems)
+                {
+                    codeTab.PropertyChanged -= CodeTab_PropertyChanged;
+                    var toRemove = ReportScripts.First(ele => ele.ScriptID == codeTab.ID);
+                    if (toRemove != null)
+                    {
+                        reportScripts.Remove(toRemove);
                     }
                 }
             }
