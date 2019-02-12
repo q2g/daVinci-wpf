@@ -200,9 +200,24 @@
             this.DataContext = this;
 
             #region Redo & Undo
-            Redo = new RelayCommand(() => { TextEditor.Redo(); }, () => { return TextEditor.CanRedo; });
+            Redo = new RelayCommand(() =>
+            {
+                TextEditor.Redo();
+                if (selected != null)
+                {
+                    selected.Code = TextEditor.Text;
+                }
+            }, () => { return TextEditor.CanRedo; });
 
-            Undo = new RelayCommand(() => { TextEditor.Undo(); }, () => { return TextEditor.CanUndo; });
+            Undo = new RelayCommand(() =>
+            {
+                TextEditor.Undo();
+                if (selected != null)
+                {
+                    selected.Code = TextEditor.Text;
+                }
+
+            }, () => { return TextEditor.CanUndo; });
             #endregion
 
             #region Add / Remove Tab Command
@@ -250,6 +265,10 @@
                         var line = TextEditor.Document.GetLineByNumber(item);
                         TextEditor.Document.Insert(line.Offset, "  ");
                     }
+                    if (selected != null)
+                    {
+                        selected.Code = TextEditor.Text;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -264,6 +283,10 @@
                     foreach (var item in TextEditor.GetSelectedLineNumbers())
                     {
                         var line = TextEditor.Document.GetLineByNumber(item);
+                    }
+                    if (selected != null)
+                    {
+                        selected.Code = TextEditor.Text;
                     }
                 }
                 catch (Exception ex)
@@ -296,6 +319,10 @@
 
                             if (idx >= 0)
                                 TextEditor.Document.Remove(idx + line.Offset, 2);
+                        }
+                        if (selected != null)
+                        {
+                            selected.Code = TextEditor.Text;
                         }
                     }
                 }
