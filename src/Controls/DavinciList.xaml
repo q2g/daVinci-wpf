@@ -2,6 +2,7 @@
     x:Class="daVinci.Controls.DavinciList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:DavAttached="clr-namespace:daVinci.Attached"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:daVinci.Controls"
@@ -78,18 +79,6 @@
                 BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
                 BorderThickness="1">
                 <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
-                    <!--<Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
-                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
-                        CommandParameter="{Binding}"
-                        FontSize="16"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}}" />
-                    <Luicontrols:LuiButton
-                        Margin="10,0,0,0"
-                        LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
-                        FontSize="16"
-                        Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityCollapsedConverter}}" />-->
                     <Luicontrols:LuiAbortButton
                         Margin="5,0,0,0"
                         Command="{Binding DataContext.AbortEditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
@@ -235,16 +224,21 @@
                                                 <Trigger Property="IsMouseOver" Value="True">
                                                     <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
                                                 </Trigger>
-                                                <!--  <DataTrigger Binding="{Binding DataContext.SelectedItem, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"  -->
-                                                <DataTrigger Value="True">
-                                                    <DataTrigger.Binding>
-                                                        <MultiBinding Converter="{StaticResource ObjectsEqualsConverter}">
-                                                            <Binding Path="." />
-                                                            <Binding Path="DataContext.SelectedItem" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:DavinciList}" />
-                                                        </MultiBinding>
-                                                    </DataTrigger.Binding>
+
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Value="True">
+                                                            <Condition.Binding>
+                                                                <MultiBinding Converter="{StaticResource ObjectsEqualsConverter}">
+                                                                    <Binding Path="." />
+                                                                    <Binding Path="DataContext.SelectedItem" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:DavinciList}" />
+                                                                </MultiBinding>
+                                                            </Condition.Binding>
+                                                        </Condition>
+                                                        <Condition Binding="{Binding Path=(DavAttached:AttachedProperties.HighlightSelected), RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
                                                     <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale70}" />
-                                                </DataTrigger>
+                                                </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Border.Style>

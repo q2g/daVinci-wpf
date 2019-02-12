@@ -92,13 +92,23 @@
                 if (CreateItemFactory != null)
                 {
                     newone = CreateItemFactory();
+                    newmode = true;
+                    SelectedItem = newone;
                 }
                 if (newone != null)
                 {
-                    ShowDetail = true;
-                    IsEditMode = true;
+                    if (EditContent != null)
+                    {
+                        ShowDetail = true;
+                        IsEditMode = true;
+                    }
+                    else
+                    {
+                        OKCommand?.Execute(newone);
+                    }
+
                     SelectedItem = newone;
-                    newmode = true;
+
                 }
                 else
                 {
@@ -149,7 +159,7 @@
 
         public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(
          "IsEditMode", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion
+        #endregion        
 
         #region ShowDetail DP
         public bool ShowDetail

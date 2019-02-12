@@ -38,6 +38,58 @@
         }
         #endregion
 
+        #region ExampleScript
+        private readonly string exampleScript = @"namespace ScriptDemo
+{
+    #region Usings
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Aspose.Cells;
+    using Ser.Engine.Scripting;
+    #endregion
+
+    public class ScriptDemo : ISenseExcelScript
+    {
+        #region Properties
+        public Workbook CurrentWorkbook { get; set; }
+        public ScriptLogger Logger { get; set; }
+        #endregion
+
+        public void Main(IDictionary&lt;string, ScriptValue&gt; args)
+        {
+            try
+            {
+                var firstSheet = CurrentWorkbook.Worksheets.ElementAtOrDefault(0) ?? null;
+                if (firstSheet == null)
+                {
+                    Logger.Error(""The workbook has no sheet."");
+                    return;
+                }
+                //If there is a Variable defined with Name='msg'
+                //var msg = args[""msg""].ConvertValueTo<string>();
+                //WriteToCell(firstSheet, msg,""A1"");
+
+                //If there is a Variable defined with Name='data'
+                //var dd = args[""data""].ConvertValueTo<string>();                    
+                //WriteToCell(firstSheet, dd,""A2"");
+                //Logger.Info(""Script run successfully"");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, ""C# Script failed."");
+            }
+        }
+
+        private void WriteToCell(Worksheet sheet, string msg, string cellAdress)
+        {
+            sheet.Cells[cellAdress].Value = msg;
+        }
+    }
+}";
+        #endregion
+
+
         public ReportScriptEditor()
         {
             BrowseForKeyCommand = new RelayCommand((o) =>
@@ -69,13 +121,36 @@
                 }
             });
 
+            NewVariableCommand = new RelayCommand<KeyValuePair>((newone) =>
+            {
+                if (newone != null)
+                {
+                    newone.PropertyChanged += ScriptArg_PropertyChanged;
+                    ScriptArgs.Add(newone);
+                    WriteBackScriptArgs();
+                }
+            });
+            DeleteVariableCommand = new RelayCommand<KeyValuePair>((newone) =>
+             {
+                 if (newone != null)
+                 {
+                     WriteBackScriptArgs();
+                 }
+             });
+            ChangeVariableCommand = new RelayCommand<KeyValuePair>((newone) =>
+            {
+                if (newone != null)
+                {
+                    newone.PropertyChanged -= ScriptArg_PropertyChanged;
+                    WriteBackScriptArgs();
+                }
+            });
+
             CodeTabs = new ObservableCollection<CodeTab>();
             (CodeTabs as INotifyCollectionChanged).CollectionChanged += CodeTabs_CollectionChanged;
 
             InitializeComponent();
         }
-
-
 
         #region Properties & Variales
         private List<ReportScript> reportScripts;
@@ -96,11 +171,43 @@
                     {
                         CodeTabs.Remove(item);
                     }
-
+                }
+            }
+        }
+        private ScriptOption scriptoption;
+        public ScriptOption Scriptoption
+        {
+            get { return scriptoption; }
+            set
+            {
+                if (scriptoption != value)
+                {
+                    scriptoption = value;
+                    if (scriptoption != null)
+                    {
+                        ScriptArgs.Clear();
+                        foreach (var item in scriptoption.ScriptArgs)
+                        {
+                            int equalsIndex = item.IndexOf("=");
+                            if (equalsIndex > 0)
+                            {
+                                var newone = new KeyValuePair()
+                                {
+                                    Key = item.Substring(0, equalsIndex),
+                                    Value = item.Substring(equalsIndex + 1)
+                                };
+                                newone.PropertyChanged += ScriptArg_PropertyChanged;
+                                ScriptArgs.Add(newone);
+                            }
+                        }
+                        RaisePropertyChanged();
+                        RaisePropertyChanged(nameof(ScriptArgs));
+                    }
                 }
             }
         }
         public ObservableCollection<CodeTab> CodeTabs { get; set; }
+        public ObservableCollection<KeyValuePair> ScriptArgs { get; set; } = new ObservableCollection<KeyValuePair>();
         private ReportScript selectedReportScript;
         public ReportScript SelectedReportScript
         {
@@ -118,7 +225,52 @@
                 }
             }
         }
+        private bool parameterListVisible;
+        public bool ParameterListVisible
+        {
+            get { return parameterListVisible; }
+            set
+            {
+                if (parameterListVisible != value)
+                {
+                    parameterListVisible = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public ICommand BrowseForKeyCommand { get; set; }
+        public ICommand NewVariableCommand { get; set; }
+        public ICommand ChangeVariableCommand { get; set; }
+        public ICommand DeleteVariableCommand { get; set; }
+        public Func<object, object> CopyVariable
+        {
+            get
+            {
+                return new Func<object, object>((copyfrom) =>
+                {
+                    if (copyfrom is KeyValuePair kvpair)
+                    {
+                        return new KeyValuePair()
+                        {
+                            Key = kvpair.Key,
+                            Value = kvpair.Value
+                        };
+                    }
+                    return null;
+                });
+            }
+        }
+        public Func<object> CreateVariable
+        {
+            get
+            {
+                return new Func<object>(() =>
+                {
+                    return new KeyValuePair();
+                });
+            }
+        }
+        public KeyValuePairFilter KeyValuePairFilter { get; set; } = new KeyValuePairFilter();
         private CodeTab selectedCodeTab;
         public CodeTab SelectedCodeTab
         {
@@ -264,6 +416,7 @@
                         {
                             ScriptID = guid.ToString(),
                             ScriptName = "Unnamed",
+                            ScriptText = exampleScript,
                             ScriptType = preSelected ? ReportScriptType.PreScript : ReportScriptType.PostScript
 
                         };
@@ -271,6 +424,7 @@
                         ReportScripts.Add(newone);
                         codeTab.ID = newone.ScriptID;
                         codeTab.Name = newone.ScriptName;
+                        codeTab.Code = exampleScript;
                     }
                     codeTab.PropertyChanged += CodeTab_PropertyChanged;
                 }
@@ -287,6 +441,27 @@
                     }
                 }
             }
+        }
+        private void WriteBackScriptArgs()
+        {
+            if (scriptoption != null)
+            {
+                List<string> args = new List<string>();
+                foreach (var item in ScriptArgs)
+                {
+                    var key = item.Key?.Trim();
+                    var value = item.Value?.Trim();
+                    if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+                    {
+                        args.Add($"{key}={value}");
+                    }
+                    scriptoption.ScriptArgs = args;
+                }
+            }
+        }
+        private void ScriptArg_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            WriteBackScriptArgs();
         }
         #endregion
     }

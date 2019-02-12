@@ -309,10 +309,17 @@
             TextEditor.TextArea.TextEntering += TextEditor_TextArea_TextEntering;
             TextEditor.TextArea.TextEntered += TextEditor_TextArea_TextEntered;
 
-            var foldingManager = FoldingManager.Install(TextEditor.TextArea);
-            var foldingStrategy = new XmlFoldingStrategy();
+            try
+            {
+                var foldingManager = FoldingManager.Install(TextEditor.TextArea);
+                var foldingStrategy = new XmlFoldingStrategy();
 
-            foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
+                foldingStrategy.UpdateFoldings(foldingManager, TextEditor.Document);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
         }
 
         CompletionWindow completionWindow = null;
