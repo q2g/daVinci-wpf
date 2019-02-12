@@ -151,6 +151,8 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Background="{StaticResource Lui.Brush.Grayscale100}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale40}"
+                    BorderThickness="1"
                     Visibility="{Binding ParameterListVisible, RelativeSource={RelativeSource FindAncestor, AncestorType=DavComponents:ReportScriptEditor}, Converter={StaticResource falseIsCollapsed}}">
 
                     <DavControls:DavinciList
@@ -173,29 +175,34 @@
                             <ControlTemplate TargetType="ContentControl">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Name:" />
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_VariableNameValue}" />
                                     <LuiControls:LuiInput
                                         Grid.Column="1"
-                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        VerticalContentAlignment="Center"
                                         Text="{Binding Key}" />
                                     <TextBlock
-                                        Grid.Column="2"
-                                        Margin="15,0,0,0"
-                                        Text="Value:" />
-                                    <LuiControls:LuiInput
                                         Grid.Column="3"
-                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_VariableValueLabel}" />
+                                    <LuiControls:LuiInput
+                                        Grid.Column="4"
+                                        VerticalAlignment="Center"
+                                        VerticalContentAlignment="Center"
                                         Text="{Binding Value}" />
                                 </Grid>
                             </ControlTemplate>
                         </DavControls:DavinciList.ListItemControlTemplate>
                     </DavControls:DavinciList>
-
                 </Border>
             </Grid>
             <Border.Style>

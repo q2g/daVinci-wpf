@@ -56,7 +56,7 @@
         public ScriptLogger Logger { get; set; }
         #endregion
 
-        public void Main(IDictionary&lt;string, ScriptValue&gt; args)
+        public void Main(IDictionary<string, ScriptValue> args)
         {
             try
             {
@@ -130,10 +130,11 @@
                     WriteBackScriptArgs();
                 }
             });
-            DeleteVariableCommand = new RelayCommand<KeyValuePair>((newone) =>
+            DeleteVariableCommand = new RelayCommand<KeyValuePair>((toDelete) =>
              {
-                 if (newone != null)
+                 if (toDelete != null)
                  {
+                     ScriptArgs.Remove(toDelete);
                      WriteBackScriptArgs();
                  }
              });
@@ -444,19 +445,26 @@
         }
         private void WriteBackScriptArgs()
         {
-            if (scriptoption != null)
+            try
             {
-                List<string> args = new List<string>();
-                foreach (var item in ScriptArgs)
+                if (scriptoption != null)
                 {
-                    var key = item.Key?.Trim();
-                    var value = item.Value?.Trim();
-                    if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+                    List<string> args = new List<string>();
+                    foreach (var item in ScriptArgs)
                     {
-                        args.Add($"{key}={value}");
+                        var key = item.Key?.Trim();
+                        var value = item.Value?.Trim();
+                        if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+                        {
+                            args.Add($"{key}={value}");
+                        }
                     }
                     scriptoption.ScriptArgs = args;
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
             }
         }
         private void ScriptArg_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -43,6 +43,7 @@
         </Grid.RowDefinitions>
         <DockPanel LastChildFill="False">
             <TextBlock
+                Margin="5,0,0,0"
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
