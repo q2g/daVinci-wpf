@@ -15,6 +15,7 @@
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Runtime.CompilerServices;
     using System.Security;
     using System.Windows.Controls;
@@ -89,7 +90,7 @@
 }";
         #endregion
 
-
+        #region CTOR
         public ReportScriptEditor()
         {
             BrowseForKeyCommand = new RelayCommand((o) =>
@@ -102,16 +103,7 @@
                         var file = dlg.FileName;
                         if (File.Exists(file))
                         {
-                            pemSigner = new PemSigner(file);
-                            RaisePropertyChanged(nameof(IsPublicKeyChoosen));
-                            foreach (var script in reportScripts)
-                            {
-                                var content = script.ScriptText;
-                                //importent for xml content!!!
-                                content = content.Replace("\r\n", "\n").Trim();
-                                string signedCode = pemSigner.SignWithPrivateKey(content);
-                                script.SignatedCode = signedCode;
-                            }
+                            SignScripts(file);
                         }
                     }
                 }
@@ -120,6 +112,32 @@
                     logger.Error(ex);
                 }
             });
+
+            ApplyKey = new RelayCommand<KeyValuePair>((o) =>
+              {
+                  try
+                  {
+                      if (SelectedKey != null)
+                      {
+                          var localPath = Environment.ExpandEnvironmentVariables(@"%appdata%\akquinet\senseexcel\Preview");
+                          Directory.CreateDirectory(localPath);
+                          localPath += @"\" + DateTime.Now.Ticks.ToString() + ".key";
+                          if (File.Exists(localPath))
+                          {
+                              File.Delete(localPath);
+                          }
+                          WebClient wb = new WebClient();
+                          wb.Headers.Add(HttpRequestHeader.Cookie, SessionCookie);
+                          wb.DownloadFile(SelectedKey.Value, localPath);
+                          SignScripts(localPath);
+                          File.Delete(localPath);
+                      }
+                  }
+                  catch (Exception ex)
+                  {
+                      logger.Error(ex);
+                  }
+              });
 
             NewVariableCommand = new RelayCommand<KeyValuePair>((newone) =>
             {
@@ -152,8 +170,10 @@
 
             InitializeComponent();
         }
+        #endregion
 
         #region Properties & Variales
+        #region Scripts
         private List<ReportScript> reportScripts;
         public List<ReportScript> ReportScripts
         {
@@ -171,38 +191,6 @@
                     foreach (var item in iterateover)
                     {
                         CodeTabs.Remove(item);
-                    }
-                }
-            }
-        }
-        private ScriptOption scriptoption;
-        public ScriptOption Scriptoption
-        {
-            get { return scriptoption; }
-            set
-            {
-                if (scriptoption != value)
-                {
-                    scriptoption = value;
-                    if (scriptoption != null)
-                    {
-                        ScriptArgs.Clear();
-                        foreach (var item in scriptoption.ScriptArgs)
-                        {
-                            int equalsIndex = item.IndexOf("=");
-                            if (equalsIndex > 0)
-                            {
-                                var newone = new KeyValuePair()
-                                {
-                                    Key = item.Substring(0, equalsIndex),
-                                    Value = item.Substring(equalsIndex + 1)
-                                };
-                                newone.PropertyChanged += ScriptArg_PropertyChanged;
-                                ScriptArgs.Add(newone);
-                            }
-                        }
-                        RaisePropertyChanged();
-                        RaisePropertyChanged(nameof(ScriptArgs));
                     }
                 }
             }
@@ -226,6 +214,91 @@
                 }
             }
         }
+        private CodeTab selectedCodeTab;
+        public CodeTab SelectedCodeTab
+        {
+            get
+            {
+                return selectedCodeTab;
+            }
+            set
+            {
+                if (selectedCodeTab != value)
+                {
+                    selectedCodeTab = value;
+                    if (selectedCodeTab != null)
+                    {
+                        ReportScript script = ReportScripts.FirstOrDefault(ele => ele.ScriptID == selectedCodeTab.ID);
+                        SelectedReportScript = script;
+                    }
+                    else
+                    {
+                        SelectedReportScript = null;
+                    }
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private bool preSelected;
+        public bool PreSelected
+        {
+            get { return preSelected; }
+            set
+            {
+                if (preSelected != value)
+                {
+                    preSelected = value;
+                    RefreshCodetabs();
+                }
+            }
+        }
+        private bool postSelected = true;
+        public bool PostSelected
+        {
+            get { return postSelected; }
+            set
+            {
+                if (postSelected != value)
+                {
+                    postSelected = value;
+                    RefreshCodetabs();
+                }
+            }
+        }
+        #endregion
+        #region ScriptOption
+        private ScriptOption scriptoption;
+        public ScriptOption Scriptoption
+        {
+            get { return scriptoption; }
+            set
+            {
+                if (scriptoption != value)
+                {
+                    scriptoption = value;
+                    if (scriptoption != null)
+                    {
+                        ScriptArgs.Clear();
+                        foreach (var item in scriptoption.ScriptArgs)
+                        {
+                            int equalsIndex = item.IndexOf(" = ");
+                            if (equalsIndex > 0)
+                            {
+                                var newone = new KeyValuePair()
+                                {
+                                    Key = item.Substring(0, equalsIndex),
+                                    Value = item.Substring(equalsIndex + 1)
+                                };
+                                newone.PropertyChanged += ScriptArg_PropertyChanged;
+                                ScriptArgs.Add(newone);
+                            }
+                        }
+                        RaisePropertyChanged();
+                        RaisePropertyChanged(nameof(ScriptArgs));
+                    }
+                }
+            }
+        }
         private bool parameterListVisible;
         public bool ParameterListVisible
         {
@@ -239,7 +312,6 @@
                 }
             }
         }
-        public ICommand BrowseForKeyCommand { get; set; }
         public ICommand NewVariableCommand { get; set; }
         public ICommand ChangeVariableCommand { get; set; }
         public ICommand DeleteVariableCommand { get; set; }
@@ -272,62 +344,51 @@
             }
         }
         public KeyValuePairFilter KeyValuePairFilter { get; set; } = new KeyValuePairFilter();
-        private CodeTab selectedCodeTab;
-        public CodeTab SelectedCodeTab
-        {
-            get
-            {
-                return selectedCodeTab;
-            }
-            set
-            {
-                if (selectedCodeTab != value)
-                {
-                    selectedCodeTab = value;
-                    if (selectedCodeTab != null)
-                    {
-                        ReportScript script = ReportScripts.FirstOrDefault(ele => ele.ScriptID == selectedCodeTab.ID);
-                        SelectedReportScript = script;
-                    }
-                    else
-                    {
-                        SelectedReportScript = null;
-                    }
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        #endregion
+        #region Signing
         public bool IsPublicKeyChoosen
         {
             get { return pemSigner != null; }
         }
+        public string SessionCookie { get; set; } = "";
         private PemSigner pemSigner;
-        private bool preSelected;
-        public bool PreSelected
+        public ICommand BrowseForKeyCommand { get; set; }
+        public ObservableCollection<KeyValuePair> KeyFiles { get; set; } = new ObservableCollection<KeyValuePair>();
+        public List<string> KeysFromContentLib
         {
-            get { return preSelected; }
             set
             {
-                if (preSelected != value)
+                if (value != null)
                 {
-                    preSelected = value;
-                    RefreshCodetabs();
+                    KeyFiles.Clear();
+                    foreach (var item in value)
+                    {
+                        KeyFiles.Add(new KeyValuePair()
+                        {
+                            Key = Path.GetFileName(item),
+                            Value = item
+                        });
+                    }
+                    if (KeyFiles.Count > 0)
+                        SelectedKey = KeyFiles[0];
                 }
             }
         }
-        private bool postSelected = true;
-        public bool PostSelected
+        private KeyValuePair selectedKey;
+        public KeyValuePair SelectedKey
         {
-            get { return postSelected; }
+            get { return selectedKey; }
             set
             {
-                if (postSelected != value)
+                if (value != selectedKey)
                 {
-                    postSelected = value;
-                    RefreshCodetabs();
+                    selectedKey = value;
+                    RaisePropertyChanged();
                 }
             }
         }
+        public ICommand ApplyKey { get; set; }
+        #endregion
         #endregion
 
         #region private Functions
@@ -470,6 +531,19 @@
         private void ScriptArg_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             WriteBackScriptArgs();
+        }
+        private void SignScripts(string file)
+        {
+            pemSigner = new PemSigner(file);
+            RaisePropertyChanged(nameof(IsPublicKeyChoosen));
+            foreach (var script in reportScripts)
+            {
+                var content = script.ScriptText;
+                //importent for xml content!!!
+                content = content.Replace("\r\n", "\n").Trim();
+                string signedCode = pemSigner.SignWithPrivateKey(content);
+                script.SignatedCode = signedCode;
+            }
         }
         #endregion
     }

@@ -53,15 +53,33 @@
                     Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     Icon="lui_icon_warning"
                     IconSize="Large" />
-                <LuiControls:LuiButton
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="2"
+                <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Command="{Binding BrowseForKeyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                    Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_OpenFile}"
-                    DockPanel.Dock="Right" />
+                    DockPanel.Dock="Right">
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <LuiControls:LuiCombobox
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            DisplayMemberPath="Key"
+                            ItemsSource="{Binding KeyFiles, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                            SelectedIndex="0"
+                            SelectedItem="{Binding SelectedKey, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                        <LuiControls:LuiButton
+                            Margin="5,0,0,0"
+                            Command="{Binding ApplyKey, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                            Content="OK" />
+                    </StackPanel>
+                    <LuiControls:LuiButton
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Command="{Binding BrowseForKeyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                        Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportingScript_OpenFile}"
+                        DockPanel.Dock="Right" />
+                </StackPanel>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock
                         Grid.Row="0"
