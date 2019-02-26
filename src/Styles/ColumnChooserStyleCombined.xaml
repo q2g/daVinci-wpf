@@ -24,6 +24,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
@@ -54,28 +55,27 @@
                             Name="collectionview"
                             CollectionViewComparer="{StaticResource ColumnOrderComparer}"
                             ItemsSource="{Binding Columns}" />
+                        <StackPanel Grid.Row="1">
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                Text="{l:Loc Translate_common:Common_Columns}" />
+                            <LuiControls:LuiSeparator Height="3" />
+                        </StackPanel>
                         <ScrollViewer
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Margin="0,5,0,0"
                             VerticalScrollBarVisibility="Auto">
-                            <StackPanel>
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    FontFamily="{StaticResource QlikViewSans}"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                    Text="{l:Loc Translate_common:Common_Columns}" />
-                                <LuiControls:LuiSeparator Height="3" />
-
-                                <LuiControls:LuiAccordion
-                                    CollapseAllOnExpandSingle="false"
-                                    IndexProvider="{StaticResource ColumnOrderIndexProvider}"
-                                    IsDragDropChangesUnderlyingCollection="True"
-                                    IsDragDropEnabled="True"
-                                    ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
-                                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
-                            </StackPanel>
+                            <LuiControls:LuiAccordion
+                                CollapseAllOnExpandSingle="false"
+                                IndexProvider="{StaticResource ColumnOrderIndexProvider}"
+                                IsDragDropChangesUnderlyingCollection="True"
+                                IsDragDropEnabled="True"
+                                ItemContainerStyleSelector="{StaticResource Columnstyleselector}"
+                                ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
                         </ScrollViewer>
                     </Grid>
                 </ControlTemplate>
