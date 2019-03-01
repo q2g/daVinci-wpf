@@ -63,7 +63,7 @@
                 Circlethickness="3">
                 <local:BusyCircle.Style>
                     <Style TargetType="local:BusyCircle">
-                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Setter Property="Visibility" Value="Hidden" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ReportStatus}" Value="1">
                                 <Setter Property="Visibility" Value="Visible" />
