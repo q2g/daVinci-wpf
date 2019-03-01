@@ -108,7 +108,7 @@
                         <Setter Property="Text" Value="{Binding FieldName}" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding MultiSelect, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Value="True">
-                                <Setter Property="Text" Value="{Binding AlternateStateName}" />
+                                <Setter Property="Text" Value="{Binding AlternateStateDisplayName}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -121,7 +121,7 @@
                 FontSize="12"
                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
                 TextTrimming="CharacterEllipsis">
-                <Run Text="{Binding AlternateStateName}" />
+                <Run Text="{Binding AlternateStateDisplayName}" />
                 <Run Text=":" />
                 <Run Text="{Binding SelectionAsText}" />
                 <TextBlock.Style>
