@@ -13,8 +13,8 @@
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private ObservableCollection<string> states = new ObservableCollection<string>();
-        public ObservableCollection<string> States
+        private ObservableCollection<AlternateStateInfo> states = new ObservableCollection<AlternateStateInfo>();
+        public ObservableCollection<AlternateStateInfo> States
         {
             get
             {
