@@ -169,7 +169,7 @@
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource QlikViewSans}"
                                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                Text="{Binding Name}" />
+                                Text="{Binding DisplayName}" />
                         </ControlTemplate>
                     </davControls:DavinciList.ListItemControlTemplate>
 
@@ -203,7 +203,7 @@
                         Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:AlternateStates}" />
                     <controls:LuiCombobox
                         Margin="5,0,5,0"
-                        DisplayMemberPath="Name"
+                        DisplayMemberPath="DisplayName"
                         ItemsSource="{Binding DataContext.AlternateStates, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}"
                         SelectedItem="{Binding DataContext.CurrentState, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:GlobalSelect}}" />
                 </DockPanel>
