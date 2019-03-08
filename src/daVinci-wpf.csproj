@@ -56,6 +56,9 @@
     <None Update="Controls\OkCancelControlHolder.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Controls\ReportProgressControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
 
     <!-- Settings -->
     <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
