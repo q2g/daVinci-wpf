@@ -1,16 +1,16 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using daVinci.ConfigData.TableConfigurations;
-    using leonardo.Resources;
-    using Newtonsoft.Json.Linq;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.TableConfigurations;
+    using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
+    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 

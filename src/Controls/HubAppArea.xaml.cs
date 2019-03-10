@@ -1,11 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData;
-    using daVinci.ConfigData.Hub;
-    using leonardo.Controls;
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -13,6 +8,11 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.Hub;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -95,7 +95,7 @@
          "LastSelectedAppID", typeof(string), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region AppSelectionCommand - DP        
+        #region AppSelectionCommand - DP
         public ICommand AppSelectionCommand
         {
             get { return (ICommand)this.GetValue(AppSelectionCommandProperty); }

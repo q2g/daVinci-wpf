@@ -1,10 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData;
-    using daVinci.Resources;
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -13,6 +9,10 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using daVinci.ConfigData;
+    using daVinci.Resources;
+    using leonardo.Resources;
+    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -79,7 +79,7 @@
             DataContext = this;
         }
 
-        #region Properties      
+        #region Properties
         public string CategoryDisplayText { get; set; }
         public string FieldDisplayText { get; set; }
         public ValueItemFilter ItemFilter { get; set; }
@@ -100,7 +100,7 @@
                     SearchText = "";
                     scrollviewer.ScrollToTop();
                     RaisePropertyChanged(nameof(AllValueItems));
-                    //Force an list-rebuild, which executes the reevaluation of the ItemContainerSelector of valueSelection 
+                    //Force an list-rebuild, which executes the reevaluation of the ItemContainerSelector of valueSelection
                     SearchText = " ";
                     SearchText = "";
                 }

@@ -15,7 +15,7 @@
             InitializeComponent();
         }
 
-        #region Circlethickness - DP          
+        #region Circlethickness - DP
         public double Circlethickness
         {
             get { return (double)this.GetValue(CirclethicknessProperty); }

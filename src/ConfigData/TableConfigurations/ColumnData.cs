@@ -1,10 +1,10 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
-    #region MyRegion
-    using leonardo.Resources;
-    using Newtonsoft.Json.Linq;
+    #region Usings
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
     #endregion
 
     public class ColumnData : INotifyPropertyChanged, IHasSortCriteria

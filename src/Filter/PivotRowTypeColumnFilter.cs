@@ -4,6 +4,7 @@
     using daVinci.ConfigData;
     using leonardo.Resources;
     #endregion
+
     public class PivotRowTypeColumnFilter : ICollectionViewFilter
     {
         public bool Filter(object data, string searchString)

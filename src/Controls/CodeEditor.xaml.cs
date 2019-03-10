@@ -1,13 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using ICSharpCode.AvalonEdit;
-    using ICSharpCode.AvalonEdit.CodeCompletion;
-    using ICSharpCode.AvalonEdit.Folding;
-    using ICSharpCode.AvalonEdit.Highlighting;
-    using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -18,6 +11,13 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Xml;
+    using ICSharpCode.AvalonEdit;
+    using ICSharpCode.AvalonEdit.CodeCompletion;
+    using ICSharpCode.AvalonEdit.Folding;
+    using ICSharpCode.AvalonEdit.Highlighting;
+    using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     /// <summary>

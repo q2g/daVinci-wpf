@@ -1,13 +1,13 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using NLog;
-    using System.ComponentModel;
-    using System.Windows.Controls;
-    using System.Runtime.CompilerServices;
     using System.Collections.ObjectModel;
-    using daVinci.ConfigData.Connection;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows.Controls;
     using System.Windows.Input;
+    using daVinci.ConfigData.Connection;
+    using NLog;
     #endregion
 
     /// <summary>
@@ -61,6 +61,6 @@
                 }
             }
         }
-        #endregion       
+        #endregion
     }
 }

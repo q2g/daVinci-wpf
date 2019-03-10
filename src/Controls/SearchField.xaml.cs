@@ -18,7 +18,7 @@
             InitializeComponent();
         }
 
-        #region Autofocus - DP        
+        #region Autofocus - DP
         public bool Autofocus
         {
             get { return (bool)this.GetValue(AutofocusProperty); }

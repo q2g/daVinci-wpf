@@ -1,7 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.Resources;
     using System;
     using System.Collections;
     using System.ComponentModel;
@@ -9,6 +8,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using leonardo.Resources;
     #endregion
 
     /// <summary>
@@ -206,7 +206,7 @@
          "AutoFocus", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ItemSelectionCommand - DP        
+        #region ItemSelectionCommand - DP
         public ICommand ItemSelectionCommand
         {
             get { return (ICommand)this.GetValue(ItemSelectionCommandProperty); }
@@ -226,9 +226,9 @@
 
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
          "SelectedItem", typeof(object), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion        
+        #endregion
 
-        #region ListComparer - DP        
+        #region ListComparer - DP
         public IComparer ListComparer
         {
             get { return (IComparer)this.GetValue(ListComparerProperty); }
@@ -239,7 +239,7 @@
          "ListComparer", typeof(IComparer), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ListFilter - DP        
+        #region ListFilter - DP
         public ICollectionViewFilter ListFilter
         {
             get { return (ICollectionViewFilter)this.GetValue(ListFilterProperty); }
@@ -250,7 +250,7 @@
          "ListFilter", typeof(ICollectionViewFilter), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region SelectedItemName - DP        
+        #region SelectedItemName - DP
         public string SelectedItemName
         {
             get { return (string)this.GetValue(SelectedItemNameProperty); }
@@ -261,7 +261,7 @@
          "SelectedItemName", typeof(string), typeof(DavinciList), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ListHeader - DP        
+        #region ListHeader - DP
         public string ListHeader
         {
             get { return (string)this.GetValue(ListHeaderProperty); }
@@ -272,7 +272,7 @@
          "ListHeader", typeof(string), typeof(DavinciList), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region AddItemText - DP        
+        #region AddItemText - DP
         public string AddItemText
         {
             get { return (string)this.GetValue(AddItemTextProperty); }
@@ -283,7 +283,7 @@
          "AddItemText", typeof(string), typeof(DavinciList), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ItemsSource - DP        
+        #region ItemsSource - DP
         public object ItemsSource
         {
             get { return (object)this.GetValue(ItemsSourceProperty); }
@@ -294,7 +294,7 @@
          "ItemsSource", typeof(object), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region EditContent - DP        
+        #region EditContent - DP
         public FrameworkElement EditContent
         {
             get { return (FrameworkElement)this.GetValue(EditContentProperty); }
@@ -305,7 +305,7 @@
          "EditContent", typeof(FrameworkElement), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ListItemControlTemplate - DP        
+        #region ListItemControlTemplate - DP
         public object ListItemControlTemplate
         {
             get { return (object)this.GetValue(ListItemControlTemplateProperty); }
@@ -316,7 +316,7 @@
          "ListItemControlTemplate", typeof(object), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ItemToEdit - DP        
+        #region ItemToEdit - DP
         public object ItemToEdit
         {
             get { return (object)this.GetValue(ItemToEditProperty); }
@@ -327,7 +327,7 @@
          "ItemToEdit", typeof(object), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region NewItemCommand - DP        
+        #region NewItemCommand - DP
         public ICommand NewItemCommand
         {
             get { return (ICommand)this.GetValue(NewItemCommandProperty); }
@@ -338,7 +338,7 @@
          "NewItemCommand", typeof(ICommand), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ChangedItemCommand - DP        
+        #region ChangedItemCommand - DP
         public ICommand ChangedItemCommand
         {
             get { return (ICommand)this.GetValue(ChangedItemCommandProperty); }
@@ -349,7 +349,7 @@
          "ChangedItemCommand", typeof(ICommand), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region DeleteItemCommand - DP        
+        #region DeleteItemCommand - DP
         public ICommand DeleteItemCommand
         {
             get { return (ICommand)this.GetValue(DeleteItemCommandProperty); }
@@ -360,7 +360,7 @@
          "DeleteItemCommand", typeof(ICommand), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region CreateItemFactory - DP        
+        #region CreateItemFactory - DP
         public Func<object> CreateItemFactory
         {
             get { return (Func<object>)this.GetValue(CreateItemFactoryProperty); }
@@ -371,7 +371,7 @@
          "CreateItemFactory", typeof(Func<object>), typeof(DavinciList), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region CopyItemFunc - DP        
+        #region CopyItemFunc - DP
         public Func<object, object> CopyItemFunc
         {
             get { return (Func<object, object>)this.GetValue(CopyItemFuncProperty); }

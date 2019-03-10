@@ -1,13 +1,13 @@
 ﻿namespace daVinci.ConfigData.Loop
 {
     #region Usings
+    using System;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using Hjson;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
     using NLog;
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
     #endregion
 
     public class LoopConfiguration : INotifyPropertyChanged
@@ -25,7 +25,7 @@
         }
         #endregion
 
-        #region Properties & Variables        
+        #region Properties & Variables
         private bool exportRootNode = true;
         public bool ExportRootNode
         {

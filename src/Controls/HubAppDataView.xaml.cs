@@ -2,8 +2,8 @@
 {
     #region Usings
     using System.Windows;
+    using System.Windows.Controls;
     using daVinci.ConfigData.Hub;
-    using System.Windows.Controls; 
     #endregion
 
     /// <summary>

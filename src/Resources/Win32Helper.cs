@@ -22,7 +22,7 @@
                 {
                     var g = System.Drawing.Graphics.FromHwnd(IntPtr.Zero);
                     IntPtr desktop = g.GetHdc();
-                    //   LOGPIXELSY = 90   
+                    //   LOGPIXELSY = 90
                     int Ydpi = Win32Helper.GetDeviceCaps(desktop, 90);
 
                     getDpiXScale = Ydpi / 96.0;

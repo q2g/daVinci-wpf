@@ -1,11 +1,11 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using daVinci.ConfigData.Hub;
-    using leonardo.Resources;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.Hub;
+    using leonardo.Resources;
     #endregion
 
     public class StreamData : INotifyPropertyChanged

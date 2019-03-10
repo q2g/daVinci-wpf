@@ -70,18 +70,12 @@
         </Setter>
     </Style>
 
-
-
     <LuiConverter:TypeToStyleSelector
         x:Key="Columnstyleselector"
         ItemStyle1="{StaticResource DimensionColumnDataStyle}"
         ItemStyle2="{StaticResource MeasureColumnDataStyle}"
         ItemType1="{x:Type daVinciConfig:DimensionColumnData}"
         ItemType2="{x:Type daVinciConfig:MeasureColumnData}" />
-
-
-
-
 
     <Style
         x:Key="SortOrderColumnDataStyle"
@@ -108,8 +102,6 @@
         </Setter>
     </Style>
 
-
     <LuiConverter:TypeToStyleSelector x:Key="Sortstyleselector" DefaultStyle="{StaticResource SortOrderColumnDataStyle}" />
-
 
 </ResourceDictionary>

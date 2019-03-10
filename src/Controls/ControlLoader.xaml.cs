@@ -1,12 +1,13 @@
 ﻿namespace daVinci.Controls
 {
-    using leonardo.AttachedProperties;
     #region Usings
-    using NLog;
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using leonardo.AttachedProperties;
+    using NLog;
     #endregion
+
     /// <summary>
     /// Interaction logic for ControlLoader.xaml
     /// </summary>
