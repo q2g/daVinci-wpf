@@ -21,7 +21,7 @@
 				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="leonardo-wpf" Version="0.9.10"></PackageReference>
+				<PackageReference Include="leonardo-wpf" Version="0.10.0"></PackageReference>
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -80,7 +80,6 @@
 		<PackageReference Include="Hjson" Version="3.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
-		<PackageReference Include="XAMLMarkupExtensions" Version="1.5.1" />
 		<PackageReference Include="gong-wpf-dragdrop" Version="1.1.0" />
 		<PackageReference Include="NLog" Version="4.5.11" />
 		<PackageReference Include="qlik-resources" Version="4.86.9" />
