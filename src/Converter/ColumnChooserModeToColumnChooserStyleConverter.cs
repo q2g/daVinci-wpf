@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
-    using daVinci.ConfigData;
-    using NLog;
     using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
+    using daVinci.ConfigData;
+    using NLog;
     #endregion
 
     public class ColumnChooserModeToColumnChooserStyleConverter : IValueConverter

@@ -1,11 +1,11 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
     #region Usings
-    using leonardo.Resources;
-    using NLog;
     using System.Collections;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     public class TableImportData : INotifyPropertyChanged

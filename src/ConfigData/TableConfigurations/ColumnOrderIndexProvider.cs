@@ -1,8 +1,8 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
     #region Usings
+    using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
-    using daVinci.ConfigData.TableConfigurations; 
     #endregion
 
     public class ColumnOrderIndexProvider : IIndexProvider

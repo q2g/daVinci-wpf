@@ -8,7 +8,6 @@
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
     <Style x:Key="ExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -165,6 +164,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
     </Style>
 </ResourceDictionary>

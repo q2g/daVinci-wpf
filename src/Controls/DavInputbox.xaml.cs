@@ -1,16 +1,16 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.AttachedProperties;
-    using leonardo.Controls;
-    using leonardo.Resources;
-    using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
+    using leonardo.AttachedProperties;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     /// <summary>
@@ -43,7 +43,7 @@
             InitializeComponent();
         }
 
-        #region Text - DP        
+        #region Text - DP
         public string Text
         {
             get { return (string)this.GetValue(TextProperty); }
@@ -54,7 +54,7 @@
          "Text", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region IsInputEnabled - DP        
+        #region IsInputEnabled - DP
         public bool IsInputEnabled
         {
             get { return (bool)this.GetValue(IsInputEnabledProperty); }
@@ -65,7 +65,7 @@
          "IsInputEnabled", typeof(bool), typeof(DavInputbox), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region LabelText - DP       
+        #region LabelText - DP
         public string LabelText
         {
             get { return (string)this.GetValue(LabelTextProperty); }
@@ -76,7 +76,7 @@
          "LabelText", typeof(string), typeof(DavInputbox), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region RightCommandForeground - DP        
+        #region RightCommandForeground - DP
         public Brush RightCommandForeground
         {
             get { return (Brush)this.GetValue(RightCommandForegroundProperty); }

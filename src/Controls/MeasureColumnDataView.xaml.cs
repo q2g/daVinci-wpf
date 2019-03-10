@@ -1,10 +1,10 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData;
-    using leonardo.Resources;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using daVinci.ConfigData;
+    using leonardo.Resources;
     #endregion
 
     /// <summary>

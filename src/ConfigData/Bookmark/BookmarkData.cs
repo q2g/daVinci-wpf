@@ -1,11 +1,11 @@
 ﻿namespace daVinci.ConfigData.Bookmark
 {
     #region Usings
-    using leonardo.Resources;
     using System;
     using System.Collections;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using leonardo.Resources;
     #endregion
 
     public class BookmarkData : INotifyPropertyChanged

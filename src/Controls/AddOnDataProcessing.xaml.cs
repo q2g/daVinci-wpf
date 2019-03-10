@@ -1,7 +1,7 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows.Controls; 
+    using System.Windows.Controls;
     #endregion
 
     /// <summary>

@@ -1,20 +1,20 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using Newtonsoft.Json.Linq;
-    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Newtonsoft.Json.Linq;
+    using NLog;
     #endregion
 
     public class PresentationAlternateStateData : INotifyPropertyChanged
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private ObservableCollection<string> states = new ObservableCollection<string>();
-        public ObservableCollection<string> States
+        private ObservableCollection<AlternateStateInfo> states = new ObservableCollection<AlternateStateInfo>();
+        public ObservableCollection<AlternateStateInfo> States
         {
             get
             {

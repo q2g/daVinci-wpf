@@ -2,7 +2,7 @@
 {
     #region Usings
     using System.Collections;
-    using daVinci.ConfigData.TableConfigurations; 
+    using daVinci.ConfigData.TableConfigurations;
     #endregion
 
     class SortOrderComparer : IComparer

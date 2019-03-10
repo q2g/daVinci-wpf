@@ -1,11 +1,11 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.Resources;
     using System;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using leonardo.Resources;
     #endregion
 
     /// <summary>
@@ -18,7 +18,7 @@
             InitializeComponent();
         }
 
-        #region ExpressionText - DP        
+        #region ExpressionText - DP
         public string ExpressionText
         {
             get { return (string)this.GetValue(ExpressionTextProperty); }
@@ -29,7 +29,7 @@
          "ExpressionText", typeof(string), typeof(ExpressionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region OKCommand - DP        
+        #region OKCommand - DP
         public ICommand OKCommand
         {
             get { return (ICommand)this.GetValue(OKCommandProperty); }
@@ -40,7 +40,7 @@
          "OKCommand", typeof(ICommand), typeof(ExpressionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region CancelCommand - DP        
+        #region CancelCommand - DP
         public ICommand CancelCommand
         {
             get { return (ICommand)this.GetValue(CancelCommandProperty); }

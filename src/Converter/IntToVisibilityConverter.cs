@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
-    using NLog;
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Data;
-    using System.Globalization; 
+    using NLog;
     #endregion
 
     [ValueConversion(typeof(int), typeof(Visibility))]

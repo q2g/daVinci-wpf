@@ -1,12 +1,12 @@
 ﻿namespace daVinci.ConfigData.FieldConfigurations
 {
     #region Usings
-    using leonardo.Resources;
-    using NLog;
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     public class FieldsConfiguration : INotifyPropertyChanged

@@ -1,21 +1,23 @@
-﻿using leonardo.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace daVinci.Controls
+﻿namespace daVinci.Controls
 {
+    #region Usings
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
+    using System.Windows.Shapes;
+    using leonardo.Resources;
+    #endregion
+
     /// <summary>
     /// Interaktionslogik für SelectionItem.xaml
     /// </summary>
@@ -26,7 +28,7 @@ namespace daVinci.Controls
             InitializeComponent();
         }
 
-        #region ClearCommand - DP        
+        #region ClearCommand - DP
         public ICommand ClearCommand
         {
             get { return (ICommand)this.GetValue(ClearCommandProperty); }
@@ -37,7 +39,7 @@ namespace daVinci.Controls
          "ClearCommand", typeof(ICommand), typeof(SelectionItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region MultiSelect - DP        
+        #region MultiSelect - DP
         public bool MultiSelect
         {
             get { return (bool)this.GetValue(MultiSelectProperty); }

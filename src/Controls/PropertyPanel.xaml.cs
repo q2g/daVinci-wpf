@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.Resources;
-    using NLog;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     /// <summary>

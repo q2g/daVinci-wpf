@@ -1,12 +1,12 @@
 ﻿namespace daVinci.ConfigData.Hub
 {
     #region Usings
-    using leonardo.Resources;
     using System;
     using System.Collections;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using leonardo.Resources;
     #endregion
 
     public class AppData : INotifyPropertyChanged

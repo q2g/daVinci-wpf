@@ -24,7 +24,6 @@
     <tableconfigurations:TableTypeFilter x:Key="SeparatedTableTypeFilter" FilterFor="Separated" />
     <tableconfigurations:TableNameComparer x:Key="ImportTableNameComparer" FirstItemID="-1" />
 
-
     <LuiConverter:BindingDiagConverter x:Key="BindingDiagConverter" />
     <LuiConverter:ListCountToVisibilityConverter
         x:Key="NullOrEmptyListToVisible"
@@ -107,7 +106,6 @@
         </Setter>
     </Style>
 
-
     <LuiConverter:TypeToStyleSelector
         x:Key="PresentationStyleselector"
         ItemStyle1="{StaticResource PresentationDataStyle}"
@@ -116,7 +114,6 @@
         ItemType1="{x:Type daVinciConfig:PresentationData}"
         ItemType2="{x:Type daVinciConfig:PresentationGeneralData}"
         ItemType3="{x:Type daVinciConfig:PresentationAlternateStateData}" />
-
 
     <Style
         x:Key="AddOnDataStyle"
@@ -139,7 +136,6 @@
 
     <daVinciConverter:AddNumberConverter x:Key="AddNumberConverter" />
     <daVinciConfig:SortOrderComparer x:Key="SortOrderComparer" />
-
 
     <Style
         x:Key="TableConfigurationStyle"
@@ -309,8 +305,4 @@
             </Setter>
         </Style.Setters>
     </Style>
-
-
-
-
 </ResourceDictionary>
