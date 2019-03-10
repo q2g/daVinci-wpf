@@ -1,8 +1,8 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using leonardo.Resources;
     using System.Collections;
+    using leonardo.Resources;
     #endregion
 
     public class AlternateStateInfo

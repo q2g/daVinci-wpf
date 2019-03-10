@@ -1,12 +1,12 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using Newtonsoft.Json.Linq;
-    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Newtonsoft.Json.Linq;
+    using NLog;
     #endregion
 
     public class PresentationAlternateStateData : INotifyPropertyChanged

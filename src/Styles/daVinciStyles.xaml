@@ -12,7 +12,6 @@
         <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/StreamCategoryAccordionItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
     <Style x:Key="StackanelMouseOverStyle" TargetType="{x:Type StackPanel}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -23,7 +22,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 
     <StackPanel x:Key="FieldDatatemplateStackpanel" x:Shared="False">
         <Border Height="40">
@@ -118,6 +116,4 @@
     <DataTemplate x:Key="EFieldDatatemplate">
         <ContentPresenter Content="{StaticResource ExtendedFieldDatatemplateStackpanel}" />
     </DataTemplate>
-
-
 </ResourceDictionary>

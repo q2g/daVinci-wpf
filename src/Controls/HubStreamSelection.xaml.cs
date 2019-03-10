@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using NLog;
     #endregion
 
     /// <summary>
@@ -21,7 +21,7 @@
             InitializeComponent();
         }
 
-        #region SelectedPersonalItem - DP        
+        #region SelectedPersonalItem - DP
         internal object SelectedPersonalItem
         {
             get { return (object)this.GetValue(SelectedPersonalItemProperty); }
@@ -51,7 +51,7 @@
         }
         #endregion
 
-        #region SelectedStreamItem - DP        
+        #region SelectedStreamItem - DP
         internal object SelectedStreamItem
         {
             get { return (object)this.GetValue(SelectedStreamItemProperty); }
@@ -81,7 +81,7 @@
         }
         #endregion
 
-        #region SelectedStream - DP        
+        #region SelectedStream - DP
         public object SelectedStream
         {
             get { return (object)this.GetValue(SelectedStreamProperty); }
@@ -93,7 +93,7 @@
 
         #endregion
 
-        #region Streams - DP  
+        #region Streams - DP
 
         public ObservableCollection<object> Streams
         {
@@ -105,7 +105,7 @@
          "Streams", typeof(ObservableCollection<object>), typeof(HubStreamSelection), new FrameworkPropertyMetadata(new ObservableCollection<object>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region PersonalStreams - DP    
+        #region PersonalStreams - DP
         private ObservableCollection<object> personalStreams;
         private ObservableCollection<object> PersonalStreams_Internal
         {

@@ -1,10 +1,10 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows;
-    using System.Windows.Input;
-    using System.Windows.Controls;
     using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>
@@ -17,7 +17,7 @@
             InitializeComponent();
         }
 
-        #region AppSelectionCommand - DP        
+        #region AppSelectionCommand - DP
         public ICommand AppSelectionCommand
         {
             get { return (ICommand)this.GetValue(AppSelectionCommandProperty); }

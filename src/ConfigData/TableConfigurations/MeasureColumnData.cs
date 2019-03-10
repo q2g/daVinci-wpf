@@ -1,15 +1,15 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using daVinci.ConfigData.TableConfigurations;
-    using leonardo.Resources;
-    using Newtonsoft.Json.Linq;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using daVinci.ConfigData.TableConfigurations;
+    using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
+    using NLog;
     #endregion
 
     public class MeasureColumnData : ColumnData, IHasSortCriteria

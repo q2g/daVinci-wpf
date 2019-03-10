@@ -1,9 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData.Connection;
-    using leonardo.Controls;
-    using leonardo.Resources;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -16,6 +13,9 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using daVinci.ConfigData.Connection;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -39,7 +39,7 @@
         }
         #endregion
 
-        #region ConnectionCheckCommand - DP        
+        #region ConnectionCheckCommand - DP
         public ICommand ConnectionCheckCommand
         {
             get { return (ICommand)this.GetValue(ConnectionCheckCommandProperty); }
@@ -50,7 +50,7 @@
          "ConnectionCheckCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ConnectionNewCommand - DP        
+        #region ConnectionNewCommand - DP
         public ICommand ConnectionNewCommand
         {
             get { return (ICommand)this.GetValue(ConnectionNewCommandProperty); }
@@ -61,7 +61,7 @@
          "ConnectionNewCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ConnectionChangedCommand - DP        
+        #region ConnectionChangedCommand - DP
         public ICommand ConnectionChangedCommand
         {
             get { return (ICommand)this.GetValue(ConnectionChangedCommandProperty); }
@@ -72,7 +72,7 @@
          "ConnectionChangedCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ConnectionDeleteCommand - DP        
+        #region ConnectionDeleteCommand - DP
         public ICommand ConnectionDeleteCommand
         {
             get { return (ICommand)this.GetValue(ConnectionDeleteCommandProperty); }
@@ -81,7 +81,7 @@
 
         public static readonly DependencyProperty ConnectionDeleteCommandProperty = DependencyProperty.Register(
          "ConnectionDeleteCommand", typeof(ICommand), typeof(ConnectionEditor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion              
+        #endregion
 
         #region IsEditMode DP
         public bool IsEditMode

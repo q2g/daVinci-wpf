@@ -1,11 +1,11 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
-    using NLog;
     using System;
-    using System.Windows.Data;
     using System.Globalization;
+    using System.Windows.Data;
     using daVinci.ConfigData;
+    using NLog;
     #endregion
 
     public class BoolToColumnChooserModeConverter : IValueConverter

@@ -12,7 +12,6 @@
         pack://application:,,,/leonardo-wpf;component/#QlikView Sans
     </FontFamily>
 
-
     <Style x:Key="ExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -162,5 +161,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

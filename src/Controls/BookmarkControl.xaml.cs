@@ -1,9 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData.Bookmark;
-    using leonardo.Controls;
-    using leonardo.Resources;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -12,6 +9,9 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using daVinci.ConfigData.Bookmark;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -27,6 +27,7 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
         #endregion
+
         public BookmarkControl()
         {
             SearchAcceptCommand = new RelayCommand((o) =>
@@ -43,7 +44,8 @@
         }
         public ObservableCollection<object> SearchedItems { get; set; }
         public ICommand SearchAcceptCommand { get; set; }
-        #region BookmarkSelectionCommand - DP        
+
+        #region BookmarkSelectionCommand - DP
         public ICommand BookmarkSelectionCommand
         {
             get { return (ICommand)this.GetValue(BookmarkSelectionCommandProperty); }
@@ -54,7 +56,7 @@
          "BookmarkSelectionCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region BookmarkNewCommand - DP        
+        #region BookmarkNewCommand - DP
         public ICommand BookmarkNewCommand
         {
             get { return (ICommand)this.GetValue(BookmarkNewCommandProperty); }
@@ -65,7 +67,7 @@
          "BookmarkNewCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region BookmarkChangedCommand - DP        
+        #region BookmarkChangedCommand - DP
         public ICommand BookmarkChangedCommand
         {
             get { return (ICommand)this.GetValue(BookmarkChangedCommandProperty); }
@@ -76,7 +78,7 @@
          "BookmarkChangedCommand", typeof(ICommand), typeof(BookmarkControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region BookmarkDeleteCommand - DP        
+        #region BookmarkDeleteCommand - DP
         public ICommand BookmarkDeleteCommand
         {
             get { return (ICommand)this.GetValue(BookmarkDeleteCommandProperty); }

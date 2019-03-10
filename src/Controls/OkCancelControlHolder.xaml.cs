@@ -16,7 +16,7 @@
             InitializeComponent();
         }
 
-        #region ShowOKCancel - DP        
+        #region ShowOKCancel - DP
         public bool ShowOKCancel
         {
             get { return (bool)this.GetValue(ShowOKCancelProperty); }
@@ -27,7 +27,7 @@
         "ShowOKCancel", typeof(bool), typeof(OkCancelControlHolder), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region ShowImport - DP        
+        #region ShowImport - DP
         public bool ShowImport
         {
             get { return (bool)this.GetValue(ShowImportProperty); }
@@ -38,7 +38,7 @@
         "ShowImport", typeof(bool), typeof(OkCancelControlHolder), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region OKCommand - DP        
+        #region OKCommand - DP
         public ICommand OKCommand
         {
             get { return (ICommand)this.GetValue(OKCommandProperty); }
@@ -49,7 +49,7 @@
         "OKCommand", typeof(ICommand), typeof(OkCancelControlHolder), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region CancelCommand - DP        
+        #region CancelCommand - DP
         public ICommand CancelCommand
         {
             get { return (ICommand)this.GetValue(CancelCommandProperty); }

@@ -1,15 +1,15 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using NLog;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using NLog;
 
-    /// <summary> 
+    /// <summary>
     #endregion
     /// Interaktionslogik für CategorySelection.xaml
     /// </summary>
@@ -49,7 +49,7 @@
         }
         #endregion
 
-        #region SelectedCommand - DP        
+        #region SelectedCommand - DP
         public ICommand SelectedCommand
         {
             get { return (ICommand)this.GetValue(SelectedCommandProperty); }

@@ -2,7 +2,7 @@
 {
     #region Usings
     using System.Windows;
-    using System.Windows.Controls; 
+    using System.Windows.Controls;
     #endregion
     /// <summary>
     /// Interaktionslogik für ContentSwitch.xaml

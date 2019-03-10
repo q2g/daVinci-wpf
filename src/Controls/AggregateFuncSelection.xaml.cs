@@ -1,11 +1,11 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using System.Windows.Input;
-    using System.ComponentModel;
-    using System.Windows.Controls;
     using System.Collections.ObjectModel;
-    using System.Runtime.CompilerServices; 
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>

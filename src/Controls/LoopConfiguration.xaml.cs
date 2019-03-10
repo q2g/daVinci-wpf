@@ -1,9 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using leonardo.AttachedProperties;
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -12,6 +9,9 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using leonardo.AttachedProperties;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     /// <summary>
@@ -29,10 +29,10 @@
         }
         #endregion
 
-        #region Properties & Variables        
+        #region Properties & Variables
         #endregion
 
-        #region Dimensions - DP        
+        #region Dimensions - DP
         public ObservableCollection<DimensionMeasure> Dimensions
         {
             get { return (ObservableCollection<DimensionMeasure>)this.GetValue(DimensionsProperty); }
@@ -43,7 +43,7 @@
          "Dimensions", typeof(ObservableCollection<DimensionMeasure>), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region SelectedDimension - DP        
+        #region SelectedDimension - DP
         public DimensionMeasure SelectedDimension
         {
             get { return (DimensionMeasure)this.GetValue(SelectedDimensionProperty); }
@@ -52,9 +52,9 @@
 
         public static readonly DependencyProperty SelectedDimensionProperty = DependencyProperty.Register(
          "SelectedDimension", typeof(DimensionMeasure), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        #endregion       
+        #endregion
 
-        #region ExpressionText - DP        
+        #region ExpressionText - DP
         public ConfigData.Loop.LoopConfiguration LoopConfigurationSelected
         {
             get { return (ConfigData.Loop.LoopConfiguration)this.GetValue(LoopConfigurationSelectedProperty); }
@@ -65,7 +65,7 @@
          "LoopConfigurationSelected", typeof(ConfigData.Loop.LoopConfiguration), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region OKCommand - DP        
+        #region OKCommand - DP
         public ICommand OKCommand
         {
             get { return (ICommand)this.GetValue(OKCommandProperty); }
@@ -76,7 +76,7 @@
          "OKCommand", typeof(ICommand), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region CancelCommand - DP        
+        #region CancelCommand - DP
         public ICommand CancelCommand
         {
             get { return (ICommand)this.GetValue(CancelCommandProperty); }

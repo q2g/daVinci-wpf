@@ -1,13 +1,6 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
-    using daVinci.ConfigData;
-    using daVinci.ConfigData.TableConfigurations;
-    using daVinci.Resources;
-    using leonardo.AttachedProperties;
-    using leonardo.Controls;
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -19,6 +12,13 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.TableConfigurations;
+    using daVinci.Resources;
+    using leonardo.AttachedProperties;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -473,7 +473,7 @@
             return maxindex;
         }
 
-        #region Columns - DP 
+        #region Columns - DP
         private INotifyCollectionChanged oldcolumns;
         private ObservableCollection<object> columns;
         public ObservableCollection<object> Columns_Internal

@@ -1,8 +1,6 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
     #region Usings
-    using leonardo.Resources;
-    using NLog;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -10,6 +8,8 @@
     using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading.Tasks;
+    using leonardo.Resources;
+    using NLog;
     #endregion
 
     public class ConnectionTestResult : INotifyPropertyChanged
