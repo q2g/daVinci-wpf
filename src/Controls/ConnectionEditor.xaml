@@ -158,11 +158,10 @@
                                 Margin="0,10,10,0"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 SelectedIndex="{Binding ConnectionToEdit.SelectedTypeIndex, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}, Mode=TwoWay}">
-                                <ComboBoxItem Content="Local" />
-                                <ComboBoxItem Content="Browser" />
-                                <ComboBoxItem Content="Cookie" />
-                                <ComboBoxItem Content="Header" />
-                                <ComboBoxItem Content="NTLM" />
+                                <ComboBoxItem Content="Sense Desktop" />
+                                <ComboBoxItem Content="Sense Server - Current Windows-User" />
+                                <ComboBoxItem Content="Sense Server - Enter username/password" />
+                                <ComboBoxItem Content="Sense Server - Browser" />
                             </Luicontrols:LuiCombobox>
 
                             <Grid Margin="0,10,10,0">
@@ -170,16 +169,6 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
-                                <Luicontrols:LuiIcon
-                                    Grid.Column="1"
-                                    Width="30"
-                                    Height="30"
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Bottom"
-                                    VerticalContentAlignment="Center"
-                                    FontSize="16"
-                                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                    Icon="{Binding SslCheckStateIcon, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                                 <Luicontrols:LuiInput
                                     x:Name="UriInput"
                                     LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
