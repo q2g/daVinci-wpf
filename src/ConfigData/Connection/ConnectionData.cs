@@ -31,7 +31,6 @@
             Header,
             NTLM,
             EnteredCredentials,
-
         }
 
         #region Varibales & Properties
