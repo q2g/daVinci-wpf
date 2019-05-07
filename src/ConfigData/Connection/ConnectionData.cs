@@ -1,12 +1,12 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
     #region Usings
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using leonardo.Resources;
-    using NLog;
     #endregion
 
     public class ConnectionData : INotifyPropertyChanged
@@ -29,7 +29,8 @@
             Browser,
             Cookie,
             Header,
-            NTLM
+            NTLM,
+            EnteredCredentials,
         }
 
         #region Varibales & Properties
@@ -181,6 +182,51 @@
             this.Type = other.Type;
             this.URI = other.URI;
             this.selectedTypeIndex = other.selectedTypeIndex;
+        }
+        public static ConnectionType ConvertFromIndex(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return ConnectionType.Local;
+                case 1:
+                    return ConnectionType.NTLM;
+                case 2:
+                    return ConnectionType.EnteredCredentials;
+                case 3:
+                    return ConnectionType.Browser;
+                default:
+                    return ConnectionType.NTLM;
+            }
+        }
+        public static int ConvertToIndex(ConnectionType conntype)
+        {
+            int retvalue = 1;
+            switch (conntype)
+            {
+                case ConnectionType.Local:
+                    retvalue = 0;
+                    break;
+                case ConnectionType.Browser:
+                    retvalue = 3;
+                    break;
+                case ConnectionType.Cookie:
+                    retvalue = 3;
+                    break;
+                case ConnectionType.Header:
+                    retvalue = 3;
+                    break;
+                case ConnectionType.NTLM:
+                    retvalue = 1;
+                    break;
+                case ConnectionType.EnteredCredentials:
+                    retvalue = 2;
+                    break;
+                default:
+                    retvalue = 1;
+                    break;
+            }
+            return retvalue;
         }
         #endregion
     }
