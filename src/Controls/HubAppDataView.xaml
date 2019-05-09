@@ -117,6 +117,24 @@
                     FontWeight="Normal"
                     Text="{Binding AppDescription}"
                     TextWrapping="Wrap" />
+                <ItemsControl ItemsSource="{Binding ButtonExtentions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Luicontrols:LuiButton
+                                Height="30"
+                                LuiAttached:ThemeProperties.IconLeft="{Binding Icon}"
+                                Command="{Binding Command}"
+                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
+                                Content="{Binding Text}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
             </StackPanel>
 
         </Grid>

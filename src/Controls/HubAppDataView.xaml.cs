@@ -1,9 +1,14 @@
 ﻿namespace daVinci.Controls
 {
+
     #region Usings
+    using daVinci.ConfigData.Extenting;
+    using daVinci.ConfigData.Hub;
+    using daVinci.IOC;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
-    using daVinci.ConfigData.Hub;
     #endregion
 
     /// <summary>
@@ -13,8 +18,12 @@
     {
         public HubAppDataView()
         {
+            IocContainer.Instance.ResolveAll<CommandGUIExtention>().ToList().ForEach(ele => ButtonExtentions.Add(ele));
             InitializeComponent();
         }
+
+
+        public ObservableCollection<CommandGUIExtention> ButtonExtentions { get; set; } = new ObservableCollection<CommandGUIExtention>();
 
         #region IsEditMode DP
         public bool IsEditMode
