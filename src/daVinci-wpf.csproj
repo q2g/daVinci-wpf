@@ -21,7 +21,7 @@
 				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="leonardo-wpf" Version="0.10.0"></PackageReference>
+				<PackageReference Include="leonardo-wpf" Version="0.10.1"></PackageReference>
 			</ItemGroup>
 		</When>
 		<Otherwise>
