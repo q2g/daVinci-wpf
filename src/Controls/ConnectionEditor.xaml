@@ -161,7 +161,7 @@
                                 <ComboBoxItem Content="Sense Desktop" />
                                 <ComboBoxItem Content="Sense Server - Current Windows-User" />
                                 <ComboBoxItem Content="Sense Server - Enter username/password" />
-                                <ComboBoxItem Content="Sense Server - Browser" />
+                                <ComboBoxItem Content="Sense Server - Custom authentication (via embedded Browser)" />
                             </Luicontrols:LuiCombobox>
 
                             <Grid Margin="0,10,10,0">
