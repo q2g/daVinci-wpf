@@ -1,6 +1,9 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using leonardo.AttachedProperties;
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -9,9 +12,6 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using leonardo.AttachedProperties;
-    using leonardo.Resources;
-    using NLog;
     #endregion
 
     /// <summary>
@@ -87,23 +87,22 @@
          "CancelCommand", typeof(ICommand), typeof(LoopConfiguration), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
-        #region statics
-        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd = 0, ConfigData.Loop.LoopConfiguration loopconfig = null)
+        #region static
+        public static string ShowModal(string text, List<DimensionMeasure> list, int hwnd = 0)
         {
-            if (loopconfig == null)
-            {
-                loopconfig = new ConfigData.Loop.LoopConfiguration()
-                {
-                    ExpressionText = text
-                };
-            }
 
-            var wnd = new LoopConfiguration()
+            var loopconfig = new ConfigData.Loop.LoopConfiguration()
             {
-                WindowStyle = WindowStyle.None,
-                LoopConfigurationSelected = loopconfig,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
+                ExpressionText = text
             };
+
+
+            var wnd = new LoopConfiguration();
+            wnd.WindowStyle = WindowStyle.None;
+            wnd.LoopConfigurationSelected = loopconfig;
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+
             wnd.SetValue(ThemeProperties.HwndProperty, hwnd);
             new WindowInteropHelper(wnd).Owner = new IntPtr((int)hwnd);
 
