@@ -1,13 +1,14 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData.Connection;
+    using NLog;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using daVinci.ConfigData.Connection;
-    using NLog;
     #endregion
 
     /// <summary>
@@ -34,33 +35,26 @@
         }
         #endregion
 
-        #region Poperties
-        private ObservableCollection<ConnectionTestResult> results;
-        public ObservableCollection<ConnectionTestResult> Results
-        {
-            get { return results; }
-            set
-            {
-                if (results != value)
-                {
-                    results = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        private ICommand createSupportEmailCommand;
+        #region CreateSupportEmailCommand DP
         public ICommand CreateSupportEmailCommand
         {
-            get { return createSupportEmailCommand; }
-            set
-            {
-                if (createSupportEmailCommand != value)
-                {
-                    createSupportEmailCommand = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return (ICommand)this.GetValue(CreateSupportEmailCommandProperty); }
+            set { this.SetValue(CreateSupportEmailCommandProperty, value); }
         }
+
+        public static readonly DependencyProperty CreateSupportEmailCommandProperty = DependencyProperty.Register(
+         "CreateSupportEmailCommand", typeof(ICommand), typeof(ConnectionTestContent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region Results DP
+        public ObservableCollection<ConnectionTestResult> Results
+        {
+            get { return (ObservableCollection<ConnectionTestResult>)this.GetValue(ResultsProperty); }
+            set { this.SetValue(ResultsProperty, value); }
+        }
+
+        public static readonly DependencyProperty ResultsProperty = DependencyProperty.Register(
+         "Results", typeof(ObservableCollection<ConnectionTestResult>), typeof(ConnectionTestContent), new FrameworkPropertyMetadata(new ObservableCollection<ConnectionTestResult>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
     }
 }

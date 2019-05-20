@@ -156,7 +156,9 @@
 
                             <Luicontrols:LuiCombobox
                                 Margin="0,10,10,0"
+                                LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
+                                LabelText="Type"
                                 SelectedIndex="{Binding ConnectionToEdit.SelectedTypeIndex, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}, Mode=TwoWay}">
                                 <ComboBoxItem Content="Sense Desktop" />
                                 <ComboBoxItem Content="Sense Server - Current Windows-User" />
@@ -173,7 +175,7 @@
                                     x:Name="UriInput"
                                     LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                     IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                    LabelText="Uri"
+                                    LabelText="Url"
                                     Text="{Binding ConnectionToEdit.URI, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                     TextChanged="UriInput_TextChanged" />
 
@@ -190,11 +192,6 @@
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_HeaderCookieValue}"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-                            <Luicontrols:LuiButton
-                                Margin="0,10,10,10"
-                                Command="{Binding ConnectionCheckCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                CommandParameter="{Binding ConnectionToEdit, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_CheckConnection}" />
                         </StackPanel>
                     </ScrollViewer>
                 </Border>

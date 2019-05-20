@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="daVinci.Controls.ConnectionTestContent"
+    x:Class="daVinci.Controls.ConnectionStyleTextblockExt"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
@@ -12,11 +12,8 @@
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="650"
-    d:DesignWidth="900"
-    l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -80,7 +77,7 @@
                 </Setter>
                 <Setter Property="Luicontrols:LuiAccordionItem.Content">
                     <Setter.Value>
-                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblockExt}">
+                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblock}">
                             <Binding Path="." />
                             <Binding Path="(LuiAttached:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
                         </MultiBinding>
@@ -106,30 +103,17 @@
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="45" />
-        </Grid.RowDefinitions>
-        <ScrollViewer
-            Grid.Row="0"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            Style="{StaticResource LuiSenseScrollViewerStyle}">
-            <Luicontrols:LuiAccordion
-                Margin="0,10,10,20"
-                LuiAttached:ThemeProperties.Itemheight="30"
-                Background="{StaticResource Lui.Brush.Grayscale100}"
-                CollapseAllOnExpandSingle="false"
-                ItemContainerStyle="{StaticResource TestConnectionStyle}"
-                ItemsSource="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}" />
-        </ScrollViewer>
-        <Luicontrols:LuiButton
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Command="{Binding CreateSupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"
-            CommandParameter="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"
-            Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionTest_Create_Email}" />
-    </Grid>
+    <StackPanel>
+        <TextBlock
+            Text="{Binding HelpMessage}"
+            TextWrapping="Wrap"
+            Visibility="{Binding Path=., Converter={StaticResource emptyIsCollapsed}}" />
+        <Luicontrols:LuiAccordion
+            Margin="10,10,10,20"
+            LuiAttached:ThemeProperties.Itemheight="30"
+            Background="{StaticResource Lui.Brush.Grayscale100}"
+            CollapseAllOnExpandSingle="false"
+            ItemContainerStyle="{StaticResource TestConnectionStyle}"
+            ItemsSource="{Binding SubResults}" />
+    </StackPanel>
 </UserControl>
-

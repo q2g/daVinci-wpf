@@ -10,12 +10,12 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converter:NullOrEmptyToVisibilityConverter
-            x:Key="EmptyIsCollapsed"
+            x:Key="emptyIsCollapsed"
             False="Visible"
             True="Collapsed" />
     </UserControl.Resources>
     <TextBlock
         Text="{Binding HelpMessage}"
         TextWrapping="Wrap"
-        Visibility="{Binding Path=., Converter={StaticResource EmptyIsCollapsed}}" />
+        Visibility="{Binding Path=., Converter={StaticResource emptyIsCollapsed}}" />
 </UserControl>

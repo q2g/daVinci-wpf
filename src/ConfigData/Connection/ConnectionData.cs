@@ -31,6 +31,7 @@
             Header,
             NTLM,
             EnteredCredentials,
+            NTLMOnly,
         }
 
         #region Varibales & Properties
@@ -166,6 +167,7 @@
                 {
                     selectedTypeIndex = value;
                     RaisePropertyChanged();
+                    Type = ConnectionData.ConvertFromIndex(value);
                 }
             }
         }
