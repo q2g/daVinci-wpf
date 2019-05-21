@@ -59,7 +59,9 @@
                 Foreground="{StaticResource Lui.Brush.Grayscale100}"
                 Text="{Binding CurrentStep.Header, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
         </Border>
-        <ContentControl Grid.Row="1" Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+        <ScrollViewer Grid.Row="1" Style="{StaticResource LuiSenseScrollViewerStyle}">
+            <ContentControl Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+        </ScrollViewer>
         <StackPanel Grid.Row="2">
             <Luicontrols:LuiSeparator
                 Height="2"
