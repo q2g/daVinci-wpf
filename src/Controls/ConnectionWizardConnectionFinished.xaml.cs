@@ -1,5 +1,6 @@
 ﻿namespace daVinci.Controls
 {
+    using daVinci.ConfigData.Connection;
     #region Usings
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -8,9 +9,9 @@
     #endregion
 
     /// <summary>
-    /// Interaktionslogik für ConnectionWizardConnectionName.xaml
+    /// Interaktionslogik für ConnectionWizardConnectionFinished.xaml
     /// </summary>
-    public partial class ConnectionWizardConnectionNavigateToHub : UserControl, INotifyPropertyChanged
+    public partial class ConnectionWizardConnectionFinished : UserControl, INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,28 +21,13 @@
         }
         #endregion
 
-        public ConnectionWizardConnectionNavigateToHub()
+        public ConnectionWizardConnectionFinished()
         {
             InitializeComponent();
         }
 
         #region Properties & Variables
-        private ICommand navigateToHubCommand;
-        public ICommand NavigateToHubCommand
-        {
-            get
-            {
-                return navigateToHubCommand;
-            }
-            set
-            {
-                if (navigateToHubCommand != value)
-                {
-                    navigateToHubCommand = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+
         #endregion
     }
 }

@@ -42,42 +42,39 @@
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Background="{StaticResource Lui.Brush.Grayscale30}">
-        <ScrollViewer Style="{StaticResource LuiSenseScrollViewerStyle}">
-            <ItemsControl ItemsSource="{Binding WizardItems, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Margin="10"
-                            Padding="5"
-                            BorderBrush="{StaticResource Lui.Brush.Grayscale20}"
-                            BorderThickness="5"
-                            CornerRadius="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="40" />
-                                </Grid.ColumnDefinitions>
-                                <ContentControl Grid.RowSpan="1" Content="{Binding SubControl}" />
-                                <Luicontrols:LuiOKButton
-                                    Grid.Column="1"
-                                    VerticalAlignment="Bottom"
-                                    Command="{Binding UserInputFinishedCommand}" />
-                                <controls:ConnectionTestContent
-                                    Grid.Row="2"
-                                    CreateSupportEmailCommand="{Binding SupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-                                    Results="{Binding Tests}"
-                                    Visibility="{Binding ShowTests, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Border>
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource Lui.Brush.Grayscale20}">
+            <TextBlock
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                Text="{Binding CurrentStep.Header, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+        </Border>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+        <StackPanel Grid.Row="2">
+            <Luicontrols:LuiSeparator
+                Height="2"
+                VerticalAlignment="Top"
+                Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+            <Luicontrols:LuiButton
+                Width="100"
+                HorizontalAlignment="Right"
+                Command="{Binding CurrentStep.UserInputFinishedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
+                Content="Next" />
+        </StackPanel>
+        <controls:ConnectionTestContent
+            Grid.Row="3"
+            CreateSupportEmailCommand="{Binding SupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
+            Results="{Binding Tests, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+    </Grid>
 </UserControl>
 

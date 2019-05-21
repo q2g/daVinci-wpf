@@ -58,7 +58,23 @@
                 }
             }
         }
-        public ObservableCollection<WizardItem> WizardItems { get; set; } = new ObservableCollection<WizardItem>();
+        private WizardItem currentStep;
+        public WizardItem CurrentStep
+        {
+            get
+            {
+                return currentStep;
+            }
+            set
+            {
+                if (currentStep != value)
+                {
+                    currentStep = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public ObservableCollection<ConnectionTestResult> Tests { get; set; } = new ObservableCollection<ConnectionTestResult>();
         #endregion
 
 

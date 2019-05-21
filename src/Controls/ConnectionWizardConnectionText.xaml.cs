@@ -4,12 +4,13 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>
-    /// Interaktionslogik für ConnectionWizardConnectionName.xaml
+    /// Interaktionslogik für ConnectionWizardConnectionText.xaml
     /// </summary>
-    public partial class ConnectionWizardConnectionName : UserControl, INotifyPropertyChanged
+    public partial class ConnectionWizardConnectionText : UserControl, INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,40 +20,24 @@
         }
         #endregion
 
-        public ConnectionWizardConnectionName()
+        public ConnectionWizardConnectionText()
         {
             InitializeComponent();
         }
 
         #region Properties & Variables
-        private string connName;
-        public string ConnectionName
+        private string text;
+        public string Text
         {
             get
             {
-                return connName;
+                return text;
             }
             set
             {
-                if (connName != value)
+                if (text != value)
                 {
-                    connName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        private string url;
-        public string URL
-        {
-            get
-            {
-                return url;
-            }
-            set
-            {
-                if (url != value)
-                {
-                    url = value;
+                    text = value;
                     RaisePropertyChanged();
                 }
             }

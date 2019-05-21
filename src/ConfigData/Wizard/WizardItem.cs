@@ -23,6 +23,22 @@ namespace daVinci.ConfigData.Wizard
         #endregion
 
         #region Properties & Variables
+        private string header;
+        public string Header
+        {
+            get
+            {
+                return header;
+            }
+            set
+            {
+                if (header != value)
+                {
+                    header = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         private UserControl subControl;
         public UserControl SubControl
         {
@@ -52,22 +68,6 @@ namespace daVinci.ConfigData.Wizard
                 if (userInputFinishedCommand != value)
                 {
                     userInputFinishedCommand = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        private bool showTests;
-        public bool ShowTests
-        {
-            get
-            {
-                return showTests;
-            }
-            set
-            {
-                if (showTests != value)
-                {
-                    showTests = value;
                     RaisePropertyChanged();
                 }
             }

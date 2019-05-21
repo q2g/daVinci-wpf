@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="daVinci.Controls.ConnectionWizardConnectionName"
+    x:Class="daVinci.Controls.ConnectionWizardConnectionText"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
@@ -38,18 +38,11 @@
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Margin="10,0,10,0">
+    <StackPanel>
         <TextBlock
+            Margin="10,0,0,0"
             Foreground="{StaticResource Lui.Brush.Grayscale100}"
-            Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ChooseConnectionName}"
+            Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionText}}"
             TextWrapping="Wrap" />
-        <Luicontrols:LuiInput
-            LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-            LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_ConnectionName}"
-            Text="{Binding ConnectionName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}" />
-        <Luicontrols:LuiInput
-            LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-            LabelText="Url"
-            Text="{Binding URL, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}" />
     </StackPanel>
 </UserControl>
