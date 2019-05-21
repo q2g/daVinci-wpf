@@ -1,15 +1,16 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
     #region Usings
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading.Tasks;
-    using leonardo.Resources;
-    using NLog;
     #endregion
 
     public class ConnectionTestResult : INotifyPropertyChanged
@@ -64,6 +65,19 @@
                 if (passed != value)
                 {
                     passed = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private ObservableCollection<ConnectionTestResult> subResults;
+        public ObservableCollection<ConnectionTestResult> SubResults
+        {
+            get { return subResults; }
+            set
+            {
+                if (subResults != value)
+                {
+                    subResults = value;
                     RaisePropertyChanged();
                 }
             }

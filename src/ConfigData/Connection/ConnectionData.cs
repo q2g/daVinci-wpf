@@ -31,6 +31,7 @@
             Header,
             NTLM,
             EnteredCredentials,
+            NTLMOnly,
         }
 
         #region Varibales & Properties
@@ -86,7 +87,6 @@
         }
 
         private string iDName;
-
         public string IDName
         {
             get
@@ -166,6 +166,7 @@
                 {
                     selectedTypeIndex = value;
                     RaisePropertyChanged();
+                    Type = ConnectionData.ConvertFromIndex(value);
                 }
             }
         }
