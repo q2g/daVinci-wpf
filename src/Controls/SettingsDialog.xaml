@@ -40,52 +40,75 @@
                 False="Collapsed"
                 True="Visible" />
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+            <daViniciConverter:StringToVisibilityConverter
+                x:Key="BoolIsVisible"
+                ElseVisibility="Collapsed"
+                MatchValue="bool"
+                MatchVisibility="Visible" />
+            <daViniciConverter:StringToVisibilityConverter
+                x:Key="StringIsVisible"
+                ElseVisibility="Collapsed"
+                MatchValue="string"
+                MatchVisibility="Visible" />
+
+            <daViniciConverter:StringToBoolConverter
+                x:Key="StringToBoolConverter"
+                FalseString="false"
+                TrueString="true" />
+
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ItemsControl>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
-    <!--<Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border Background="{StaticResource Lui.Brush.Grayscale20}">
-            <TextBlock
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontSize="16"
-                FontWeight="Bold"
-                Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                Text="{Binding CurrentStep.Header, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+            <DockPanel>
+                <Luicontrols:LuiOKButton
+                    Margin="10,0,0,0"
+                    Command="{Binding OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Left" />
+                <Luicontrols:LuiAbortButton
+                    Margin="10,0,0,0"
+                    Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Left" />
+                <TextBlock HorizontalAlignment="Center" Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:seOptions}" />
+            </DockPanel>
         </Border>
-        <ScrollViewer Grid.Row="1" Style="{StaticResource LuiSenseScrollViewerStyle}">
-            <ContentControl Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
-        </ScrollViewer>
-        <StackPanel Grid.Row="2">
-            <Luicontrols:LuiSeparator
-                Height="2"
-                VerticalAlignment="Top"
-                Foreground="{StaticResource Lui.Brush.Grayscale100}" />
-            <Luicontrols:LuiButton
-                Width="100"
-                HorizontalAlignment="Right"
-                Command="{Binding CurrentStep.UserInputFinishedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-                Content="Next" />
-        </StackPanel>
-        <controls:ConnectionTestContent
-            Grid.Row="3"
-            CreateSupportEmailCommand="{Binding SupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-            Results="{Binding Tests, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
-    </Grid>-->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Settings, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70*" />
+                            <ColumnDefinition Width="30*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{Binding Name}"
+                            ToolTip="{Binding Description}" />
+                        <Luicontrols:LuiSwitch
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding SettingsValue.ItemValue, Converter={StaticResource StringToBoolConverter}}"
+                            ToolTip="{Binding SettingsValue.Description}"
+                            Visibility="{Binding Type, Converter={StaticResource BoolIsVisible}}" />
+                        <Luicontrols:LuiInput
+                            Grid.Column="1"
+                            Margin="10,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="{Binding SettingsValue.ItemValue}"
+                            ToolTip="{Binding SettingsValue.Description}"
+                            Visibility="{Binding Type, Converter={StaticResource StringIsVisible}}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>
 

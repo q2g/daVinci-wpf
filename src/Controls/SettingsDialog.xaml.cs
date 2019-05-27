@@ -2,6 +2,7 @@
 {
     #region Usings
     using daVinci.ConfigData.Connection;
+    using daVinci.ConfigData.Settings;
     using daVinci.ConfigData.Wizard;
     using leonardo.Controls;
     using leonardo.Resources;
@@ -41,40 +42,54 @@
         #endregion
 
         #region Properties & Variables
-
-        //private ObservableCollection<> supportEmailCommand;
-        //public ICommand SupportEmailCommand
-        //{
-        //    get
-        //    {
-        //        return supportEmailCommand;
-        //    }
-        //    set
-        //    {
-        //        if (supportEmailCommand != value)
-        //        {
-        //            supportEmailCommand = value;
-        //            RaisePropertyChanged();
-        //        }
-        //    }
-        //}
-        private WizardItem currentStep;
-        public WizardItem CurrentStep
+        private ObservableCollection<SettingsItem> settings = new ObservableCollection<SettingsItem>();
+        public ObservableCollection<SettingsItem> Settings
         {
             get
             {
-                return currentStep;
+                return settings;
             }
             set
             {
-                if (currentStep != value)
+                if (settings != value)
                 {
-                    currentStep = value;
+                    settings = value;
                     RaisePropertyChanged();
                 }
             }
         }
-        public ObservableCollection<ConnectionTestResult> Tests { get; set; } = new ObservableCollection<ConnectionTestResult>();
+        private ICommand okCommand;
+        public ICommand OKCommand
+        {
+            get
+            {
+                return okCommand;
+            }
+            set
+            {
+                if (okCommand != value)
+                {
+                    okCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private ICommand cancelCommand;
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return cancelCommand;
+            }
+            set
+            {
+                if (cancelCommand != value)
+                {
+                    cancelCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
 

@@ -19,22 +19,7 @@ namespace daVinci.ConfigData.Settings
         #endregion
 
         #region Properties & variables
-        private string type;
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-            set
-            {
-                if (type != value)
-                {
-                    type = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ID { get; set; }
         private string name;
         public string Name
         {
@@ -67,18 +52,50 @@ namespace daVinci.ConfigData.Settings
                 }
             }
         }
-        private string itemValue;
-        public string ItemValue
+        private SettingsValue settingsValue;
+        public SettingsValue SettingsValue
         {
             get
             {
-                return itemValue;
+                return settingsValue;
             }
             set
             {
-                if (itemValue != value)
+                if (settingsValue != value)
                 {
-                    itemValue = value;
+                    settingsValue = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private string type;
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                if (type != value)
+                {
+                    type = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private bool restartNeeded;
+        public bool RestartNeeded
+        {
+            get
+            {
+                return restartNeeded;
+            }
+            set
+            {
+                if (restartNeeded != value)
+                {
+                    restartNeeded = value;
                     RaisePropertyChanged();
                 }
             }
