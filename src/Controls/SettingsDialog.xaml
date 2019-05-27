@@ -1,0 +1,114 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:connection="clr-namespace:daVinci.ConfigData.Connection"
+    xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="650"
+    d:DesignWidth="900"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
+    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/TestConnectionAccordionItemStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converter:ListCountToVisibilityConverter
+                x:Key="emptyIsCollapsed"
+                CountMatchesVisibility="Visible"
+                CountToMatch="0"
+                ElseVisibility="Collapsed"
+                IsGreaterThanMatch="True" />
+            <connection:ConnectionDataFilter x:Key="ConnectionDataFilter" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityCollapsedConverter"
+                False="Visible"
+                True="Collapsed" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityVisibleConverter"
+                False="Collapsed"
+                True="Visible" />
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+            <daViniciConverter:StringToVisibilityConverter
+                x:Key="BoolIsVisible"
+                ElseVisibility="Collapsed"
+                MatchValue="bool"
+                MatchVisibility="Visible" />
+            <daViniciConverter:StringToVisibilityConverter
+                x:Key="StringIsVisible"
+                ElseVisibility="Collapsed"
+                MatchValue="string"
+                MatchVisibility="Visible" />
+
+            <daViniciConverter:StringToBoolConverter
+                x:Key="StringToBoolConverter"
+                FalseString="false"
+                TrueString="true" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource Lui.Brush.Grayscale20}">
+            <DockPanel>
+                <Luicontrols:LuiOKButton
+                    Margin="10,0,0,0"
+                    Command="{Binding OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Left" />
+                <Luicontrols:LuiAbortButton
+                    Margin="10,0,0,0"
+                    Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Left" />
+                <TextBlock HorizontalAlignment="Center" Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:seOptions}" />
+            </DockPanel>
+        </Border>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Settings, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70*" />
+                            <ColumnDefinition Width="30*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{Binding Name}"
+                            ToolTip="{Binding Description}" />
+                        <Luicontrols:LuiSwitch
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding SettingsValue.ItemValue, Converter={StaticResource StringToBoolConverter}}"
+                            ToolTip="{Binding SettingsValue.Description}"
+                            Visibility="{Binding Type, Converter={StaticResource BoolIsVisible}}" />
+                        <Luicontrols:LuiInput
+                            Grid.Column="1"
+                            Margin="10,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="{Binding SettingsValue.ItemValue}"
+                            ToolTip="{Binding SettingsValue.Description}"
+                            Visibility="{Binding Type, Converter={StaticResource StringIsVisible}}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
+

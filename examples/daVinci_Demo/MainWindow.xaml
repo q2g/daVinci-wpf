@@ -23,10 +23,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <TabControl
-        ItemContainerStyle="{StaticResource LuiTabItemStyle}"
-        TabStripPlacement="Left">
-        <TabItem Header="PropertyPanel">
+    <TabControl ItemContainerStyle="{StaticResource LuiTabItemStyle}" TabStripPlacement="Left">
+        <!--<TabItem Header="PropertyPanel">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -53,18 +51,17 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem
-            Header="Hub"
-            IsSelected="False">
+        <TabItem Header="Hub" IsSelected="False">
             <controls:HubControl
                 AppSelectionCommand="{Binding AppSelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=local:MainWindow}}"
                 DataContext="{Binding Hub}"
                 LastSelectedAppID="THE_ID" />
         </TabItem>
-        <TabItem
-            Header="Bookmarks"
-            IsSelected="True">
+        <TabItem Header="Bookmarks" IsSelected="True">
             <controls:BookmarkControl DataContext="{Binding Bookmarks}" />
+        </TabItem>-->
+        <TabItem Header="Settings" IsSelected="True">
+            <controls:SettingsDialog x:Name="settingsDlg" />
         </TabItem>
     </TabControl>
 </Window>
