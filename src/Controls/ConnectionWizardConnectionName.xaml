@@ -38,18 +38,15 @@
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Margin="10,0,10,0">
+    <StackPanel Margin="10">
         <TextBlock
             Foreground="{StaticResource Lui.Brush.Grayscale100}"
-            Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ChooseConnectionName}"
+            Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}"
             TextWrapping="Wrap" />
         <Luicontrols:LuiInput
+            Margin="0,10,0,0"
             LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-            LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_ConnectionName}"
-            Text="{Binding ConnectionName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}" />
-        <Luicontrols:LuiInput
-            LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-            LabelText="Url"
-            Text="{Binding URL, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}" />
+            HintText="{Binding Hint, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}"
+            Text="{Binding InputText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizardConnectionName}}" />
     </StackPanel>
 </UserControl>

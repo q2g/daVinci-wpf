@@ -4,12 +4,13 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Controls;
+    using System.Windows.Input;
     #endregion
 
     /// <summary>
-    /// Interaktionslogik für ConnectionWizardConnectionName.xaml
+    /// Interaktionslogik für HeaderedContentView.xaml
     /// </summary>
-    public partial class ConnectionWizardConnectionName : UserControl, INotifyPropertyChanged
+    public partial class HeaderedContentView : UserControl, INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,56 +20,40 @@
         }
         #endregion
 
-        public ConnectionWizardConnectionName()
+        public HeaderedContentView()
         {
             InitializeComponent();
         }
 
         #region Properties & Variables
-        private string text;
-        public string Text
+        private string headerText;
+        public string HeaderText
         {
             get
             {
-                return text;
+                return headerText;
             }
             set
             {
-                if (text != value)
+                if (value != headerText)
                 {
-                    text = value;
+                    headerText = value;
                     RaisePropertyChanged();
                 }
             }
         }
-        private string hint;
-        public string Hint
+        private object contentControl;
+        public object ContentControl
         {
             get
             {
-                return hint;
+                return contentControl;
             }
             set
             {
-                if (hint != value)
+                if (value != contentControl)
                 {
-                    hint = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        private string inputText;
-        public string InputText
-        {
-            get
-            {
-                return inputText;
-            }
-            set
-            {
-                if (inputText != value)
-                {
-                    inputText = value;
+                    contentControl = value;
                     RaisePropertyChanged();
                 }
             }

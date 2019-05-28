@@ -426,66 +426,66 @@
 
             InitializeComponent();
 
-            settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
-            {
-                Name = "Refresh Selections while selectiontool is open",
-                Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
-                ID = "refreshOnSelect",
-                SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
-                {
-                    ID = "refreshOnSelect",
-                    Type = "bool",
-                    ItemBoolValue = true
-                },
-            });
-            settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
-            {
-                Name = "Refresh Selections while selectiontool is open",
-                Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
-                ID = "refreshOnSelect",
-                SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
-                {
-                    ID = "refreshOnSelect",
-                    Type = "bool",
-                    ItemBoolValue = true
-                },
-            });
-            settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
-            {
-                Name = "Refresh Selections while selectiontool is open",
-                Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
-                ID = "refreshOnSelect",
-                SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
-                {
-                    ID = "refreshOnSelect",
-                    Type = "bool",
-                    ItemBoolValue = true
-                },
-            });
-            settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
-            {
-                Name = "Refresh Selections while selectiontool is open",
-                Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
-                ID = "refreshOnSelect",
-                SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
-                {
-                    ID = "refreshOnSelect",
-                    Type = "string",
-                    ItemValue = "test1"
-                },
-            });
-            settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
-            {
-                Name = "Refresh Selections while selectiontool is open",
-                Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
-                ID = "refreshOnSelect",
-                SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
-                {
-                    ID = "refreshOnSelect",
-                    Type = "string",
-                    ItemValue = "test"
-                },
-            });
+            //settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
+            //{
+            //    Name = "Refresh Selections while selectiontool is open",
+            //    Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
+            //    ID = "refreshOnSelect",
+            //    SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
+            //    {
+            //        ID = "refreshOnSelect",
+            //        Type = "bool",
+            //        ItemBoolValue = true
+            //    },
+            //});
+            //settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
+            //{
+            //    Name = "Refresh Selections while selectiontool is open",
+            //    Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
+            //    ID = "refreshOnSelect",
+            //    SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
+            //    {
+            //        ID = "refreshOnSelect",
+            //        Type = "bool",
+            //        ItemBoolValue = true
+            //    },
+            //});
+            //settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
+            //{
+            //    Name = "Refresh Selections while selectiontool is open",
+            //    Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
+            //    ID = "refreshOnSelect",
+            //    SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
+            //    {
+            //        ID = "refreshOnSelect",
+            //        Type = "bool",
+            //        ItemBoolValue = true
+            //    },
+            //});
+            //settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
+            //{
+            //    Name = "Refresh Selections while selectiontool is open",
+            //    Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
+            //    ID = "refreshOnSelect",
+            //    SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
+            //    {
+            //        ID = "refreshOnSelect",
+            //        Type = "string",
+            //        ItemValue = "test1"
+            //    },
+            //});
+            //settingsDlg.Settings.Add(new daVinci.ConfigData.Settings.SettingsItem()
+            //{
+            //    Name = "Refresh Selections while selectiontool is open",
+            //    Description = "While the selectiontool is open not every Table/SenseEV has to be refreshed after changeing a selection.\nSo the selectiontoll is faster.\nAfter the selectiontool is closed, all data will be refreshed.",
+            //    ID = "refreshOnSelect",
+            //    SettingsValue = new daVinci.ConfigData.Settings.SettingsValue()
+            //    {
+            //        ID = "refreshOnSelect",
+            //        Type = "string",
+            //        ItemValue = "test"
+            //    },
+            //});
 
             AppSelectedCommand = new RelayCommand((o) =>
                             {

@@ -105,13 +105,15 @@
     </UserControl.Resources>
     <StackPanel>
         <TextBlock
+            Margin="10"
+            Foreground="{StaticResource Lui.Brush.Grayscale100}"
             Text="{Binding HelpMessage}"
             TextWrapping="Wrap"
             Visibility="{Binding Path=., Converter={StaticResource emptyIsCollapsed}}" />
         <Luicontrols:LuiAccordion
             Margin="10,10,10,20"
             LuiAttached:ThemeProperties.Itemheight="30"
-            Background="{StaticResource Lui.Brush.Grayscale100}"
+            Background="{StaticResource Lui.Brush.Grayscale30}"
             CollapseAllOnExpandSingle="false"
             ItemContainerStyle="{StaticResource TestConnectionStyle}"
             ItemsSource="{Binding SubResults}" />

@@ -106,23 +106,23 @@
             <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <!--<ScrollViewer
+        Background="{StaticResource Lui.Brush.Grayscale30}"
+        PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+        Style="{StaticResource LuiSenseScrollViewerStyle}">-->
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="45" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <ScrollViewer
-            Grid.Row="0"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            Style="{StaticResource LuiSenseScrollViewerStyle}">
-            <Luicontrols:LuiAccordion
-                Margin="0,10,10,20"
-                LuiAttached:ThemeProperties.Itemheight="30"
-                Background="{StaticResource Lui.Brush.Grayscale100}"
-                CollapseAllOnExpandSingle="false"
-                ItemContainerStyle="{StaticResource TestConnectionStyle}"
-                ItemsSource="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}" />
-        </ScrollViewer>
+        <Luicontrols:LuiAccordion
+            Margin="0,10,10,20"
+            LuiAttached:ThemeProperties.Itemheight="30"
+            Background="{StaticResource Lui.Brush.Grayscale30}"
+            CollapseAllOnExpandSingle="false"
+            ItemContainerStyle="{StaticResource TestConnectionStyle}"
+            ItemsSource="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}" />
+
         <Luicontrols:LuiButton
             Grid.Row="1"
             HorizontalAlignment="Center"
@@ -131,5 +131,6 @@
             CommandParameter="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"
             Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionTest_Create_Email}" />
     </Grid>
+    <!--</ScrollViewer>-->
 </UserControl>
 
