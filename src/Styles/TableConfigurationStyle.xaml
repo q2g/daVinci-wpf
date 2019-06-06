@@ -150,7 +150,7 @@
                             <DockPanel
                                 Height="39"
                                 Margin="100,0,0,0"
-                                Background="{StaticResource Lui.Brush.Grayscale30}">
+                                Background="{StaticResource Lui.Brush.Grayscale20}">
                                 <controls:LuiIcon
                                     VerticalAlignment="Center"
                                     DockPanel.Dock="Left"
@@ -184,7 +184,7 @@
                                 <StackPanel
                                     Margin="5,0,0,0"
                                     VerticalAlignment="Center"
-                                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                                    Background="{StaticResource Lui.Brush.Grayscale20}"
                                     DockPanel.Dock="Right"
                                     Visibility="{Binding DataContext.Columns.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource NullOrEmptyListToVisible}}">
                                     <daVinciControls:ContentSwitch

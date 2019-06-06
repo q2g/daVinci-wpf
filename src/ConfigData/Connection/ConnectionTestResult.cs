@@ -82,6 +82,34 @@
                 }
             }
         }
+
+        private int progress;
+        public int Progress
+        {
+            get { return progress; }
+            set
+            {
+                if (progress != value)
+                {
+                    progress = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool showprogress;
+        public bool ShowProgress
+        {
+            get { return showprogress; }
+            set
+            {
+                if (showprogress != value)
+                {
+                    showprogress = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
     }
 }

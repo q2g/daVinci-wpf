@@ -68,6 +68,22 @@ namespace daVinci.ConfigData.Settings
                 }
             }
         }
+        private string defaultValue;
+        public string DefaultValue
+        {
+            get
+            {
+                return defaultValue;
+            }
+            set
+            {
+                if (defaultValue != value)
+                {
+                    defaultValue = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         private string type;
         public string Type
         {

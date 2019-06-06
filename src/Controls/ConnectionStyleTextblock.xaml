@@ -9,12 +9,20 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converter:NullOrEmptyToVisibilityConverter
-            x:Key="emptyIsCollapsed"
-            False="Visible"
-            True="Collapsed" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/TestConnectionAccordionItemStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:NullOrEmptyToVisibilityConverter
+                x:Key="emptyIsCollapsed"
+                False="Visible"
+                True="Collapsed" />
+        </ResourceDictionary>
     </UserControl.Resources>
     <TextBlock
+        Margin="10"
+        Foreground="{StaticResource Lui.Brush.Grayscale100}"
         Text="{Binding HelpMessage}"
         TextWrapping="Wrap"
         Visibility="{Binding Path=., Converter={StaticResource emptyIsCollapsed}}" />

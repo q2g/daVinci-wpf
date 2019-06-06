@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attachedP="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com">
 
@@ -154,17 +155,30 @@
 
     <daVinciConverter:DefaultDataTemplateConverter x:Key="DefaultDataTemplateConverter" DefaultdataTemplate="{StaticResource ExpanderHeaderDataTemplate}" />
 
+    <converter:BooleanToVisibilityConverter
+        x:Key="trueIsVisible"
+        False="Collapsed"
+        True="Visible" />
+
     <Style x:Key="TestConnectionAccordionItemStyle" TargetType="controls:LuiAccordionItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LuiAccordionItem">
-                    <Expander
-                        Content="{TemplateBinding Content}"
-                        Header="{TemplateBinding Header}"
-                        HeaderTemplate="{TemplateBinding HeaderTemplate,
-                                                         Converter={StaticResource DefaultDataTemplateConverter}}"
-                        IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
-                        Style="{StaticResource TestConnectionAccordionExpanderStyle}" />
+                    <StackPanel>
+                        <ProgressBar
+                            Height="5"
+                            Maximum="100"
+                            Minimum="0"
+                            Visibility="{Binding ShowProgress, Converter={StaticResource trueIsVisible}}"
+                            Value="{Binding Progress}" />
+                        <Expander
+                            Content="{TemplateBinding Content}"
+                            Header="{TemplateBinding Header}"
+                            HeaderTemplate="{TemplateBinding HeaderTemplate,
+                                                             Converter={StaticResource DefaultDataTemplateConverter}}"
+                            IsExpanded="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{StaticResource TestConnectionAccordionExpanderStyle}" />
+                    </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

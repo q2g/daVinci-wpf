@@ -46,12 +46,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border Background="{StaticResource Lui.Brush.Grayscale20}">
             <TextBlock
-                Margin="10,0,0,0"
+                Margin="10"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FontSize="16"
@@ -60,23 +58,31 @@
                 Text="{Binding CurrentStep.Header, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
         </Border>
         <ScrollViewer Grid.Row="1" Style="{StaticResource LuiSenseScrollViewerStyle}">
-            <ContentControl Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+            <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ContentControl Content="{Binding CurrentStep.SubControl, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+                <StackPanel Grid.Row="1">
+                    <Luicontrols:LuiSeparator
+                        Height="2"
+                        VerticalAlignment="Top"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}" />
+                    <Luicontrols:LuiButton
+                        Width="100"
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        Command="{Binding CurrentStep.UserInputFinishedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
+                        Content="Next" />
+                </StackPanel>
+                <controls:ConnectionTestContent
+                    Grid.Row="2"
+                    CreateSupportEmailCommand="{Binding SupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
+                    Results="{Binding Tests, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
+            </Grid>
         </ScrollViewer>
-        <StackPanel Grid.Row="2">
-            <Luicontrols:LuiSeparator
-                Height="2"
-                VerticalAlignment="Top"
-                Foreground="{StaticResource Lui.Brush.Grayscale100}" />
-            <Luicontrols:LuiButton
-                Width="100"
-                HorizontalAlignment="Right"
-                Command="{Binding CurrentStep.UserInputFinishedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-                Content="Next" />
-        </StackPanel>
-        <controls:ConnectionTestContent
-            Grid.Row="3"
-            CreateSupportEmailCommand="{Binding SupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-            Results="{Binding Tests, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}" />
     </Grid>
 </UserControl>
 
