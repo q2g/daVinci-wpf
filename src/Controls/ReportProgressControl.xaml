@@ -2,6 +2,7 @@
     x:Class="daVinci.Controls.ReportProgressControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
@@ -21,6 +22,7 @@
     <StackPanel>
         <Border
             Height="40"
+            Background="{StaticResource Lui.Brush.Grayscale20}"
             BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
             BorderThickness="0,0,0,1">
             <TextBlock
@@ -28,10 +30,10 @@
                 VerticalAlignment="Center"
                 FontSize="16"
                 FontWeight="Bold"
-                Foreground="{StaticResource Lui.Brush.Grayscale40}"
+                Foreground="{StaticResource Lui.Brush.Grayscale100}"
                 Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ReportProgressHeader}" />
         </Border>
-        <Grid>
+        <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="8*" />
                 <ColumnDefinition Width="2*" />
@@ -40,9 +42,9 @@
             <StackPanel Margin="10,20,0,5">
                 <TextBlock
                     FontWeight="Bold"
-                    Foreground="{StaticResource Lui.Brush.Grayscale40}"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     Text="{Binding StatusText}" />
-                <TextBlock Foreground="{StaticResource Lui.Brush.Grayscale40}" Text="{Binding StatusDescription}" />
+                <TextBlock Foreground="{StaticResource Lui.Brush.Grayscale100}" Text="{Binding StatusDescription}" />
                 <StackPanel Orientation="Horizontal">
                     <Luicontrols:LuiButton Command="{Binding StartGenerateCommand}" Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Report_StartGeneration}" />
                     <Luicontrols:LuiButton
@@ -75,13 +77,15 @@
         </Grid>
         <Border
             Height="40"
+            Background="{StaticResource Lui.Brush.Grayscale30}"
             BorderBrush="{StaticResource Lui.Brush.Grayscale50}"
             BorderThickness="0,1,0,0">
             <Luicontrols:LuiCheckbox
                 Margin="20,0,0,0"
                 VerticalAlignment="Center"
+                LuiAttached:ThemeProperties.Inverted="True"
                 Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Report_OpenReportWhenFinished}"
-                Foreground="{StaticResource Lui.Brush.Grayscale40}"
+                Foreground="{StaticResource Lui.Brush.Grayscale100}"
                 IsChecked="{Binding AutoOpenReport}" />
         </Border>
     </StackPanel>
