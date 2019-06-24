@@ -110,6 +110,33 @@
                 }
             }
         }
+
+        private int hwnd;
+        public int Hwnd
+        {
+            get { return hwnd; }
+            set
+            {
+                if (hwnd != value)
+                {
+                    hwnd = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
+    }
+
+    public class ConnectionTestResultFilter : ICollectionViewFilter
+    {
+        public int ForHwnd { get; set; } = 0;
+        public bool Filter(object data, string searchString)
+        {
+            if (data is ConnectionTestResult ctdata)
+            {
+                return ctdata.Hwnd == ForHwnd;
+            }
+            return false;
+        }
     }
 }
