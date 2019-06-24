@@ -2,6 +2,7 @@
 {
     #region Usings
     using daVinci.ConfigData.Connection;
+    using leonardo.AttachedProperties;
     using NLog;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -56,5 +57,25 @@
         public static readonly DependencyProperty ResultsProperty = DependencyProperty.Register(
          "Results", typeof(ObservableCollection<ConnectionTestResult>), typeof(ConnectionTestContent), new FrameworkPropertyMetadata(new ObservableCollection<ConnectionTestResult>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
+
+        private ConnectionTestResultFilter hwndfilter;
+        public ConnectionTestResultFilter HwndFilter
+        {
+            get { return hwndfilter; }
+            set
+            {
+                if (hwndfilter != value)
+                {
+                    hwndfilter = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var hwnd = (int)(this.GetValue(ThemeProperties.HwndProperty));
+            HwndFilter = new ConnectionTestResultFilter() { ForHwnd = hwnd };
+        }
     }
 }
