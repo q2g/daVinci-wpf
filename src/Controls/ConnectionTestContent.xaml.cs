@@ -47,6 +47,17 @@
          "CreateSupportEmailCommand", typeof(ICommand), typeof(ConnectionTestContent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
+        #region ShowSupportEmailCommand DP
+        public bool ShowSupportEmailCommand
+        {
+            get { return (bool)this.GetValue(ShowSupportEmailCommandProperty); }
+            set { this.SetValue(ShowSupportEmailCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowSupportEmailCommandProperty = DependencyProperty.Register(
+         "ShowSupportEmailCommand", typeof(bool), typeof(ConnectionTestContent), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
         #region Results DP
         public ObservableCollection<ConnectionTestResult> Results
         {
