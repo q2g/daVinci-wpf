@@ -129,7 +129,8 @@
             VerticalAlignment="Center"
             Command="{Binding CreateSupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"
             CommandParameter="{Binding Results, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"
-            Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionTest_Create_Email}" />
+            Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionTest_Create_Email}"
+            Visibility="{Binding ShowSupportEmailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
     </Grid>
 </UserControl>
 
