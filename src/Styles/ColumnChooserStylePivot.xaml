@@ -37,7 +37,7 @@
                             x:Name="togglebutton"
                             Margin="5,10,5,0"
                             LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                            Content="{l:Loc Properties_AddData}"
+                            Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Properties_AddData}"
                             IsChecked="{Binding ShowPopup}" />
                         <LuiControls:LuiDialog
                             x:Name="dialog"
@@ -77,7 +77,7 @@
                                         FontSize="12"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                        Text="{l:Loc Translate_common:Common_Rows}" />
+                                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Rows}" />
                                     <LuiControls:LuiSeparator Height="3" />
 
                                     <LuiControls:LuiAccordion
@@ -109,7 +109,7 @@
                                         FontSize="12"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                        Text="{l:Loc Translate_common:Common_Columns}" />
+                                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Columns}" />
                                     <LuiControls:LuiSeparator Height="3" />
 
                                     <LuiControls:LuiAccordion
@@ -141,7 +141,7 @@
                                         FontSize="12"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                        Text="{l:Loc Translate_common:Common_Measures}" />
+                                        Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Measures}" />
                                     <LuiControls:LuiSeparator Height="3" />
 
                                     <LuiControls:LuiAccordion

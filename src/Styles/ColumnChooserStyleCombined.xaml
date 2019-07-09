@@ -37,7 +37,7 @@
                             <LuiControls:LuiToggleButton
                                 x:Name="togglebutton"
                                 LuiAttached:ThemeProperties.IconRight="lui_icon_triangle_bottom"
-                                Content="{l:Loc properties_columns_add}"
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_columns_add}"
                                 IsChecked="{Binding ShowPopup}" />
                         </DockPanel>
 
@@ -62,7 +62,7 @@
                                 FontSize="12"
                                 FontWeight="Bold"
                                 Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                                Text="{l:Loc Translate_common:Common_Columns}" />
+                                Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Columns}" />
                             <LuiControls:LuiSeparator Height="3" />
                         </StackPanel>
                         <ScrollViewer

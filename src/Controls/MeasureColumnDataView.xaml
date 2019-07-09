@@ -14,8 +14,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -57,153 +57,25 @@
         <daViniciControls:DavInputbox
             Margin="0,10,0,5"
             IsInputEnabled="True"
-            LabelText="{l:Loc Translate_common:Common_Field}"
+            LabelText="{l:Loc SenseExcelRibbon:Common_Field}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             Text="{Binding FieldDef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToVisibleConverter}}" />
         <daViniciControls:DavInputbox
             Margin="0,10,0,5"
             IsInputEnabled="true"
-            LabelText="{l:Loc Translate_common:Common_Label}"
+            LabelText="{l:Loc SenseExcelRibbon:Common_Label}"
             Text="{Binding FieldLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToVisibleConverter}}" />
         <LuiControls:LuiInputGroup
             Margin="0,10,0,5"
             IsInputEnabled="False"
-            LabelText="{l:Loc Translate_common:Common_Measure}"
+            LabelText="{l:Loc SenseExcelRibbon:Common_Measure}"
             RightCommand="{Binding UnlinkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:MeasureColumnDataView}}"
             RightCommandIcon="lui_icon_link"
             Text="{Binding DimensionMeasure.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Visibility="{Binding IsExpression, Converter={StaticResource TrueToCollapsedConverter}}" />
-        <!--<LuiControls:LuiCombobox
-            Name="NumberFormatCombo"
-            Margin="0,10,0,0"
-            LabelText="{l:Loc properties_numberFormatting}"
-            SelectedIndex="{Binding NumberFormatIndex}">
-            <ComboBoxItem Content="{l:Loc Translate_common:Common_Auto}" />
-            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_number}" />
-            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_money}" />
-            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_date}" />
-            <ComboBoxItem Content="{l:Loc properties_numberFormatting_types_duration}" />
-            <ComboBoxItem Content="{l:Loc Translate_common:Common_Custom}" />
-            <ComboBoxItem Content="Kennzahlformel" />
-        </LuiControls:LuiCombobox>
 
-
-        <StackPanel x:Name="Format_Zahl">
-            <StackPanel.Visibility>
-                <Binding
-                    Converter="{StaticResource IntToVisibilityConverter}"
-                    ConverterParameter="1"
-                    ElementName="NumberFormatCombo"
-                    Path="SelectedIndex" />
-            </StackPanel.Visibility>
-            <daViniciControls:ContentSwitch
-                CheckedText="{l:Loc Print_Ppt_Format_Standard}"
-                IsChecked="{Binding IsStandardFormat}"
-                TitleText="{l:Loc properties_numberFormatting_formatting}"
-                UnCheckedText="{l:Loc Translate_common:Common_Custom}">
-                <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="{Binding StandardFormatIndex}">
-                        <ComboBoxItem Content="1,000" />
-                        <ComboBoxItem Content="1,000.1" />
-                        <ComboBoxItem Content="1,000.12" />
-                        <ComboBoxItem Content="12%" />
-                        <ComboBoxItem Content="12,3%" />
-                        <ComboBoxItem Content="12,34%" />
-                    </LuiControls:LuiCombobox>
-                </daViniciControls:ContentSwitch.Content>
-                <daViniciControls:ContentSwitch.UnCheckedContent>
-                    <StackPanel>
-                        <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting}" Text="{Binding NumberFormatText, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </daViniciControls:ContentSwitch.UnCheckedContent>
-            </daViniciControls:ContentSwitch>
-        </StackPanel>
-
-
-        <StackPanel x:Name="Format_Waehrung" Margin="0,10,0,0">
-            <StackPanel.Visibility>
-                <Binding
-                    Converter="{StaticResource IntToVisibilityConverter}"
-                    ConverterParameter="2"
-                    ElementName="NumberFormatCombo"
-                    Path="SelectedIndex" />
-            </StackPanel.Visibility>
-
-            <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting}" Text="{Binding CurrencyFormatText}" />
-
-        </StackPanel>
-
-        <StackPanel x:Name="Format_Datum" Margin="0,10,0,0">
-            <StackPanel.Visibility>
-                <Binding
-                    Converter="{StaticResource IntToVisibilityConverter}"
-                    ConverterParameter="3"
-                    ElementName="NumberFormatCombo"
-                    Path="SelectedIndex" />
-            </StackPanel.Visibility>
-            <daViniciControls:ContentSwitch
-                CheckedText="{l:Loc Print_Ppt_Format_Standard}"
-                IsChecked="{Binding IsStandardDateFormat}"
-                TitleText="{l:Loc properties_numberFormatting_formatting}"
-                UnCheckedText="{l:Loc scripteditor_dataconnectors_customcodepage}">
-                <daViniciControls:ContentSwitch.Content>
-                    <LuiControls:LuiCombobox SelectedIndex="{Binding DateStandardFormatIndex}">
-                        <ComboBoxItem Content="2/17/2014" />
-                        <ComboBoxItem Content="2014-02-17" />
-                        <ComboBoxItem Content="17 02 2014" />
-                        <ComboBoxItem Content="17 Feb 2014" />
-                        <ComboBoxItem Content="17 February 2014" />
-                        <ComboBoxItem Content="02/17/2014" />
-                        <ComboBoxItem Content="February 17, 2014" />
-                        <ComboBoxItem Content="2/17/2014 3:30:40 PM" />
-                        <ComboBoxItem Content="2014-02-17 15:30:40" />
-                        <ComboBoxItem Content="3:30:40 PM" />
-                        <ComboBoxItem Content="15:30:40" />
-                        <ComboBoxItem Content="3:30:40 pm" />
-                    </LuiControls:LuiCombobox>
-                </daViniciControls:ContentSwitch.Content>
-                <daViniciControls:ContentSwitch.UnCheckedContent>
-                    <StackPanel>
-                        <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting}" Text="{Binding DateFormatText}" />
-
-                    </StackPanel>
-                </daViniciControls:ContentSwitch.UnCheckedContent>
-            </daViniciControls:ContentSwitch>
-        </StackPanel>
-
-
-        <StackPanel x:Name="Format_Dauer" Margin="0,10,0,0">
-            <StackPanel.Visibility>
-                <Binding
-                    Converter="{StaticResource IntToVisibilityConverter}"
-                    ConverterParameter="4"
-                    ElementName="NumberFormatCombo"
-                    Path="SelectedIndex" />
-            </StackPanel.Visibility>
-
-            <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting}" Text="{Binding DurationFormatText}" />
-        </StackPanel>
-
-        <StackPanel x:Name="Format_Benutzerdefiniert" Margin="0,10,0,0">
-            <StackPanel.Visibility>
-                <Binding
-                    Converter="{StaticResource IntToVisibilityConverter}"
-                    ConverterParameter="5"
-                    ElementName="NumberFormatCombo"
-                    Path="SelectedIndex" />
-            </StackPanel.Visibility>
-            <LuiControls:LuiInput LabelText="{l:Loc properties_numberFormatting_dec}" Text="{Binding Dec_SplitterSign}" />
-            <LuiControls:LuiInput
-                Margin="0,10,0,0"
-                LabelText="{l:Loc properties_numberFormatting_thousandSeparator}"
-                Text="{Binding Thou_SplitterSign}" />
-            <LuiControls:LuiInput
-                Margin="0,10,0,0"
-                LabelText="{l:Loc properties_numberFormatting}"
-                Text="{Binding CustomNumberFormatText}" />
-        </StackPanel>-->
 
 
         <daViniciControls:DavInputbox
@@ -216,38 +88,6 @@
             LabelText="{l:Loc Object_Table_Measure_ForegroundExpression}"
             RightCommandForeground="{StaticResource Lui.Brush.Orange}"
             Text="{Binding TextColorExpression}" />
-        <!--<LuiControls:LuiCombobox
-            Margin="0,10,0,0"
-            LabelText="{l:Loc Object_Table_AggrFunc}"
-            SelectedIndex="{Binding TotalValueFunctionIndex}">
-            <ComboBoxItem Content="{l:Loc Translate_common:Common_Auto}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Avg}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Count}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Max}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Min}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_Sum}" />
-            <ComboBoxItem Content="{l:Loc Object_Table_AggrFunc_None}" />
-        </LuiControls:LuiCombobox>
-        <TextBlock
-            Margin="0,10,0,0"
-            Text="{l:Loc Object_Table_AggrFuncMessage}"
-            TextWrapping="Wrap"
-            Visibility="{Binding IsTotalValueSettingsTextVisible, Converter={StaticResource BoolToVisibilityCollapsedConverter}}" />
-        <daViniciControls:ContentSwitch
-            Margin="0,10,0,0"
-            CheckedText="{l:Loc Translate_common:Common_Auto}"
-            IsChecked="{Binding TextAllignment}"
-            TitleText="{l:Loc Translate_common:Common_Text_TextAlignment}"
-            UnCheckedText="{l:Loc Translate_common:Common_Custom}">
-            <daViniciControls:ContentSwitch.Content>
-                <StackPanel />
-            </daViniciControls:ContentSwitch.Content>
-            <daViniciControls:ContentSwitch.UnCheckedContent>
-                <LuiControls:LuiCombobox SelectedIndex="{Binding AllignmentIndex}">
-                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignLeft}" />
-                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Text_AlignRight}" />
-                </LuiControls:LuiCombobox>
-            </daViniciControls:ContentSwitch.UnCheckedContent>
-        </daViniciControls:ContentSwitch>-->
+
     </StackPanel>
 </UserControl>

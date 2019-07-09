@@ -13,8 +13,8 @@
     Width="400"
     Height="400"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

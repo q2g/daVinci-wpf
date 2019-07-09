@@ -15,8 +15,8 @@
     d:DesignHeight="650"
     d:DesignWidth="1200"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -253,7 +253,7 @@
                     VerticalAlignment="Center"
                     LuiAttached:ThemeProperties.CornerRadius="0,3,3,0"
                     SelectedIndex="0">
-                    <ComboBoxItem Content="{l:Loc qlik-resources:Translate_common:Common_SortByAlphabetical}" />
+                    <ComboBoxItem Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_SortByAlphabetical}" />
                 </Luicontrols:LuiCombobox>
             </StackPanel>
             <Luicontrols:LuiButton
@@ -268,7 +268,7 @@
                 Width="150"
                 AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
                 DockPanel.Dock="Right"
-                HintText="{l:Loc Translate_common:Common_Search}" />
+                HintText="{l:Loc SenseExcelRibbon:Common_Search}" />
         </DockPanel>
         <Luicontrols:CollectionView
             Name="appsCollectionview"
@@ -419,7 +419,7 @@
                         Margin="0,7,0,0"
                         FontFamily="{StaticResource QlikViewSans}"
                         Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        Text="{l:Loc Translate_common:Common_Title}" />
+                        Text="{l:Loc SenseExcelRibbon:Common_Title}" />
                     <Luicontrols:LuiInput Margin="0,7,0,0" Text="{Binding AppToEdit.AppName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}" />
                 </StackPanel>
 
@@ -427,7 +427,7 @@
                     <TextBlock
                         FontFamily="{StaticResource QlikViewSans}"
                         Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                        Text="{l:Loc Translate_common:Common_Description}" />
+                        Text="{l:Loc SenseExcelRibbon:Common_Description}" />
                     <Luicontrols:LuiInput
                         Margin="0,7,0,0"
                         VerticalAlignment="Stretch"

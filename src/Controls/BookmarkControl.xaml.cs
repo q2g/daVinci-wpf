@@ -1,6 +1,9 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData.Bookmark;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -9,9 +12,6 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using daVinci.ConfigData.Bookmark;
-    using leonardo.Controls;
-    using leonardo.Resources;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -285,7 +285,7 @@
         }
         private void RemoveBookmark(BookmarkData bookmark)
         {
-            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_DeleteBookmark", null, LocalizeDictionary.Instance.Culture))
+            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_DeleteBookmark", null, LocalizeDictionary.Instance.Culture))
                 , SelectedBookmark.BookmarkName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is ObservableCollection<BookmarkData> list)

@@ -14,8 +14,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -39,10 +39,10 @@
     <StackPanel Margin="5,0,5,0">
         <daViniciControls:ContentSwitch
             x:Name="mainswitch"
-            CheckedText="{l:Loc Translate_common:Common_Auto}"
+            CheckedText="{l:Loc SenseExcelRibbon:Common_Auto}"
             IsChecked="{Binding SortCriterias.AutoSort}"
             TitleText="{l:Loc properties_sorting}"
-            UnCheckedText="{l:Loc Translate_common:Common_Custom}" />
+            UnCheckedText="{l:Loc SenseExcelRibbon:Common_Custom}" />
         <LuiControls:LuiSeparator Height="0.4" Margin="0,10,0,0" />
         <StackPanel Visibility="{Binding IsChecked, ElementName=mainswitch, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel Visibility="{Binding Path=., Converter={StaticResource TypeToVisibilityConverter}, ConverterParameter={x:Type daVinciConfig:DimensionColumnData}}">
@@ -53,7 +53,7 @@
                     IsChecked="{Binding SortCriterias.SortByExpression}" />
                 <daViniciControls:DavInputbox
                     Margin="0,10,0,0"
-                    LabelText="{l:Loc Translate_common:Common_Expression}"
+                    LabelText="{l:Loc SenseExcelRibbon:Common_Expression}"
                     RightCommandForeground="{StaticResource Lui.Brush.Orange}"
                     Text="{Binding SortCriterias.SortByExpressionText}"
                     Visibility="{Binding IsChecked, ElementName=chkFormel, Converter={StaticResource BoolToCollapsedConverter}}" />

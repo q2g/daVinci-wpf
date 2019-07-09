@@ -1,6 +1,13 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.TableConfigurations;
+    using daVinci.Resources;
+    using leonardo.AttachedProperties;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -12,13 +19,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using daVinci.ConfigData;
-    using daVinci.ConfigData.TableConfigurations;
-    using daVinci.Resources;
-    using leonardo.AttachedProperties;
-    using leonardo.Controls;
-    using leonardo.Resources;
-    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -65,12 +65,12 @@
                 {
                     new CategoryItem()
                     {
-                        CategoryName =(string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Dimension", null, LocalizeDictionary.Instance.Culture)),
+                        CategoryName =(string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Dimension", null, LocalizeDictionary.Instance.Culture)),
                         CategoryParameter = "DIM"
                     },
                     new CategoryItem()
                     {
-                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
+                        CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
                                     CategoryParameter = "MEA"
                                 },
                                 new CategoryItem()
@@ -358,19 +358,19 @@
 
             retval.Add(new CategoryItem()
             {
-                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Row", null, LocalizeDictionary.Instance.Culture)),
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Row", null, LocalizeDictionary.Instance.Culture)),
                 CategoryParameter = "Row"
             });
 
             retval.Add(new CategoryItem()
             {
-                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Column", null, LocalizeDictionary.Instance.Culture)),
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Column", null, LocalizeDictionary.Instance.Culture)),
                 CategoryParameter = "Col"
             });
 
             retval.Add(new CategoryItem()
             {
-                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
+                CategoryName = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Measure", null, LocalizeDictionary.Instance.Culture)),
                 CategoryParameter = "Mea"
             });
 
