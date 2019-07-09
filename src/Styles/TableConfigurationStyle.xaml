@@ -65,7 +65,7 @@
         x:Key="PresentationDataStyle"
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_presentation}" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_presentation}" />
         <Setter Property="controls:LuiAccordionItem.Content">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettings}">
@@ -80,7 +80,7 @@
         x:Key="PresentationGeneralDataStyle"
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_general}" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_general}" />
         <Setter Property="controls:LuiAccordionItem.Content">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:PresentationSettingsGeneral}">
@@ -119,7 +119,7 @@
         x:Key="AddOnDataStyle"
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
         TargetType="controls:LuiAccordionItem">
-        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc qlik-resources:Translate_client:properties_dataHandling}" />
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_dataHandling}" />
         <Setter Property="controls:LuiAccordionItem.Content">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:AddOnDataProcessing}">
@@ -237,7 +237,7 @@
                                 IsItemsStretchEnabled="False"
                                 ItemContainerStyle="{StaticResource MainAccordionItemStyle}">
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_data}" IsExpanded="True">
+                                <controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_data}" IsExpanded="True">
                                     <daVinciControls:ColumnChooser
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ColumnChooserMode="{Binding DataContext.TableMode, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
@@ -247,7 +247,7 @@
                                 </controls:LuiAccordionItem>
 
 
-                                <controls:LuiAccordionItem Background="{StaticResource Lui.Brush.Grayscale100}" Header="{l:Loc qlik-resources:Translate_client:properties_sorting}">
+                                <controls:LuiAccordionItem Background="{StaticResource Lui.Brush.Grayscale100}" Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_sorting}">
                                     <ScrollViewer
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         Style="{StaticResource LuiSenseScrollViewerStyle}"
@@ -285,14 +285,14 @@
                                     </ScrollViewer>
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_client:properties_addons}">
+                                <controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:properties_addons}">
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource AddOnStyleselector}"
                                         ItemsSource="{Binding DataContext.AddOnData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc qlik-resources:Translate_common:Common_Appearance}">
+                                <controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Appearance}">
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"

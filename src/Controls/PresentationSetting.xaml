@@ -10,8 +10,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="en"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,10 +23,10 @@
     <StackPanel>
 
         <daVincicontrols:ContentSwitch
-            CheckedText="{l:Loc Translate_common:Common_Auto}"
+            CheckedText="{l:Loc SenseExcelRibbon:Common_Auto}"
             IsChecked="{Binding TotalMode}"
             TitleText="{l:Loc properties_dimensionLimits_totals}"
-            UnCheckedText="{l:Loc Translate_common:Common_Custom}">
+            UnCheckedText="{l:Loc SenseExcelRibbon:Common_Custom}">
             <daVincicontrols:ContentSwitch.Content>
                 <StackPanel />
             </daVincicontrols:ContentSwitch.Content>
@@ -35,11 +35,11 @@
                 <controls:LuiCombobox
                     Margin="10,0,10,0"
                     Background="{StaticResource Lui.Brush.Grayscale100}"
-                    LabelText="{l:Loc Translate_common:Common_Position}"
+                    LabelText="{l:Loc SenseExcelRibbon:Common_Position}"
                     SelectedIndex="{Binding TotalPositionIndex}">
-                    <ComboBoxItem Content="{l:Loc Translate_common:Common_None}" />
-                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Top}" />
-                    <ComboBoxItem Content="{l:Loc Translate_common:Common_Bottom}" />
+                    <ComboBoxItem Content="{l:Loc SenseExcelRibbon:Common_None}" />
+                    <ComboBoxItem Content="{l:Loc SenseExcelRibbon:Common_Top}" />
+                    <ComboBoxItem Content="{l:Loc SenseExcelRibbon:Common_Bottom}" />
                 </controls:LuiCombobox>
 
             </daVincicontrols:ContentSwitch.UnCheckedContent>

@@ -13,8 +13,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -73,7 +73,7 @@
                     Grid.Row="0"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    Text="{l:Loc Translate_common:Common_Dimension}" />
+                    Text="{l:Loc SenseExcelRibbon:Common_Dimension}" />
                 <Separator Grid.Row="0" VerticalAlignment="Bottom" />
 
                 <Grid Grid.Row="1">
@@ -90,7 +90,7 @@
                     Grid.Row="2"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    Text="{l:Loc Translate_common:Common_Measure}" />
+                    Text="{l:Loc SenseExcelRibbon:Common_Measure}" />
                 <Separator Grid.Row="2" VerticalAlignment="Bottom" />
                 <Grid Grid.Row="3">
                     <controls:CollectionView
@@ -106,7 +106,7 @@
                     Grid.Row="4"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    Text="{l:Loc Translate_common:Common_Field}" />
+                    Text="{l:Loc SenseExcelRibbon:Common_Field}" />
                 <Separator Grid.Row="4" VerticalAlignment="Bottom" />
                 <Grid Grid.Row="5">
                     <controls:CollectionView
@@ -121,7 +121,7 @@
             </Grid>
         </ScrollViewer>
 
-        <!--<controls:LuiAccordionItem Header="{l:Loc Translate_common:Common_Measure}">
+        <!--<controls:LuiAccordionItem Header="{l:Loc SenseExcelRibbon:Common_Measure}">
                 <ScrollViewer
                     Background="{StaticResource Lui.Brush.Grayscale100}"
                     Style="{StaticResource LuiSenseScrollViewerStyle}"
@@ -138,7 +138,7 @@
                     </Grid>
                 </ScrollViewer>
             </controls:LuiAccordionItem>
-            <controls:LuiAccordionItem Header="{l:Loc Translate_common:Common_Field}">
+            <controls:LuiAccordionItem Header="{l:Loc SenseExcelRibbon:Common_Field}">
                 <ScrollViewer
                     Background="{StaticResource Lui.Brush.Grayscale100}"
                     Style="{StaticResource LuiSenseScrollViewerStyle}"

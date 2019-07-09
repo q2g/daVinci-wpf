@@ -142,7 +142,7 @@
                                 attachedP:ThemeProperties.IconRight="lui_icon_bin"
                                 Command="{Binding DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:LuiAccordion}}}"
                                 CommandParameter="{Binding}"
-                                Content="{l:Loc qlik-resources:Translate_common:Common_Delete}"
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Delete}"
                                 DockPanel.Dock="Bottom"
                                 FontWeight="Bold"
                                 Visibility="Collapsed" />

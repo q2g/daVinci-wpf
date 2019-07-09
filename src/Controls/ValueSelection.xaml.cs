@@ -1,6 +1,10 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData;
+    using daVinci.Resources;
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -9,10 +13,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using daVinci.ConfigData;
-    using daVinci.Resources;
-    using leonardo.Resources;
-    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -216,12 +216,12 @@
             switch (valueType)
             {
                 case ValueTypeEnum.Dimension:
-                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Dimensions", null, LocalizeDictionary.Instance.Culture));
-                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Fields", null, LocalizeDictionary.Instance.Culture));
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Dimensions", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Fields", null, LocalizeDictionary.Instance.Culture));
                     break;
                 case ValueTypeEnum.Measure:
-                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_common:Common_Measures", null, LocalizeDictionary.Instance.Culture));
-                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Visualization_Requirements_FromField", null, LocalizeDictionary.Instance.Culture));
+                    CategoryDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Common_Measures", null, LocalizeDictionary.Instance.Culture));
+                    FieldDisplayText = (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Visualization_Requirements_FromField", null, LocalizeDictionary.Instance.Culture));
                     break;
                 default:
                     break;

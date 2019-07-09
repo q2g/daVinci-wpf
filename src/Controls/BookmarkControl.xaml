@@ -13,8 +13,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -52,7 +52,7 @@
                     VerticalAlignment="Center"
                     DockPanel.Dock="Left"
                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                    Text="{l:Loc qlik-resources:Translate_common:Common_Bookmarks}" />
+                    Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Common_Bookmarks}" />
                 <Luicontrols:LuiButton
                     Margin="10,0,0,0"
                     Padding="7,0,0,0"
@@ -65,7 +65,7 @@
                     Width="150"
                     AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
                     DockPanel.Dock="Right"
-                    HintText="{l:Loc Translate_common:Common_Search}"
+                    HintText="{l:Loc SenseExcelRibbon:Common_Search}"
                     SearchText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}, Delay=300}" />
             </DockPanel>
             <GridSplitter
@@ -162,7 +162,7 @@
                             <Luicontrols:LuiInput
                                 Margin="0,7,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
-                                LabelText="{l:Loc Translate_common:Common_Title}"
+                                LabelText="{l:Loc SenseExcelRibbon:Common_Title}"
                                 Text="{Binding BookmarkToEdit.BookmarkName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}" />
                             <Luicontrols:LuiInput
                                 Margin="0,17,10,20"
@@ -171,7 +171,7 @@
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 AcceptsReturn="True"
                                 LUIInputSize="Custom"
-                                LabelText="{l:Loc Translate_common:Common_Description}"
+                                LabelText="{l:Loc SenseExcelRibbon:Common_Description}"
                                 MaxLines="5"
                                 MinLines="5"
                                 Text="{Binding BookmarkToEdit.BookmarkDescription, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"

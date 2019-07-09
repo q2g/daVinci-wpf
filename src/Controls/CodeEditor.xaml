@@ -14,7 +14,7 @@
     d:DesignWidth="800"
     l:LocalizeDictionary.DesignCulture="en"
     l:ResxLocalizationProvider.DefaultAssembly="Qlik.Sense.Resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -229,12 +229,12 @@
                         LuiAttached:ThemeProperties.BorderThickness="0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_back"
                         Command="{Binding Undo}"
-                        ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Undo}" />
+                        ToolTip="{l:Loc Qlik.Sense.Resources:SenseExcelRibbon:Common_Undo}" />
                     <controls:LuiButton
                         LuiAttached:ThemeProperties.BorderThickness="0"
                         LuiAttached:ThemeProperties.IconLeft="lui_icon_forward"
                         Command="{Binding Redo}"
-                        ToolTip="{l:Loc Qlik.Sense.Resources:Translate_common:Common_Redo}" />
+                        ToolTip="{l:Loc Qlik.Sense.Resources:SenseExcelRibbon:Common_Redo}" />
                 </StackPanel>
             </Border>
 

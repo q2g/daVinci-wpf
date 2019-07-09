@@ -12,8 +12,8 @@
     d:DesignHeight="300"
     d:DesignWidth="700"
     l:LocalizeDictionary.DesignCulture="de"
-    l:ResxLocalizationProvider.DefaultAssembly="qlik-resources"
-    l:ResxLocalizationProvider.DefaultDictionary="Translate_client"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -182,7 +182,7 @@
                                 Margin="0,7,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:DavinciList}}"
-                                LabelText="{l:Loc Translate_common:Common_Title}"
+                                LabelText="{l:Loc SenseExcelRibbon:Common_Title}"
                                 Text="{Binding SelectedItem.Name, RelativeSource={RelativeSource FindAncestor, AncestorType=davControls:DavinciList}}" />
                         </StackPanel>
                     </davControls:DavinciList.EditContent>

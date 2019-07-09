@@ -1,6 +1,11 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData;
+    using daVinci.ConfigData.Hub;
+    using leonardo.Controls;
+    using leonardo.Resources;
+    using NLog;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -8,11 +13,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using daVinci.ConfigData;
-    using daVinci.ConfigData.Hub;
-    using leonardo.Controls;
-    using leonardo.Resources;
-    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -226,7 +226,7 @@
 
         private void DeleteApp(AppData appdata)
         {
-            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("qlik-resources:Translate_client:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Delete App {0}?", SelectedApp.AppName), ownerPtr: Owner ?? null))
+            if (LuiMessageBox.ShowDialog(string.Format((string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:Hub_Confirm_Delete_Description", null, LocalizeDictionary.Instance.Culture)) ?? "Delete App {0}?", SelectedApp.AppName), ownerPtr: Owner ?? null))
             {
                 if (DataContext is StreamData stream)
                 {
