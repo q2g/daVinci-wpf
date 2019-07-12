@@ -75,7 +75,7 @@
                         Margin="0,0,10,0"
                         HorizontalAlignment="Right"
                         Command="{Binding CurrentStep.UserInputFinishedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionWizard}}"
-                        Content="Next" />
+                        Content="{l:Loc ConnectionWizard_Next}" />
                 </StackPanel>
                 <controls:ConnectionTestContent
                     Grid.Row="2"
