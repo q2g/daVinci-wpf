@@ -184,13 +184,13 @@
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_HeaderCookiekey}"
+                                LabelText="{l:Loc VPSessionCookieHeaderName}"
                                 Text="{Binding ConnectionToEdit.HeaderCookieKey, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
-                                LabelText="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_HeaderCookieValue}"
+                                LabelText="{l:Loc BaseSessionCookieHeaderName}"
                                 Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                         </StackPanel>
                     </ScrollViewer>
