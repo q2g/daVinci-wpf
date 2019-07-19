@@ -65,6 +65,7 @@
                 {
                     uRI = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(FullUri));
                 }
             }
         }
@@ -153,6 +154,7 @@
                 }
             }
         }
+
         private int selectedTypeIndex = 4;
         public int SelectedTypeIndex
         {
@@ -170,19 +172,54 @@
                 }
             }
         }
+
+        private string virtualProxy;
+        public string VirtualProxy
+        {
+            get
+            {
+                return virtualProxy;
+            }
+            set
+            {
+                if (value != virtualProxy)
+                {
+                    virtualProxy = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(FullUri));
+                }
+            }
+        }
+
+        public string FullUri
+        {
+            get
+            {
+                string url = URI.ToString();
+                if (url[url.Length - 1] != '/') url += '/';
+                url += virtualProxy;
+                if (url[url.Length - 1] != '/') url += '/';
+                return url;
+            }
+        }
         #endregion
 
-        #region Functions
+        #region  Methods
         public void CopyFrom(ConnectionData other)
+        {
+            CopyWithoutType(other);
+            this.Type = other.Type;
+            this.selectedTypeIndex = other.selectedTypeIndex;
+        }
+        public void CopyWithoutType(ConnectionData other)
         {
             this.ExtraSession = other.ExtraSession;
             this.HeaderCookieKey = other.HeaderCookieKey;
             this.HeaderCookieValue = other.headerCookieValue;
             this.IDName = other.IDName;
+            this.virtualProxy = other.VirtualProxy;
             this.IgnoreCertError = other.IgnoreCertError;
-            this.Type = other.Type;
             this.URI = other.URI;
-            this.selectedTypeIndex = other.selectedTypeIndex;
         }
         public static ConnectionType ConvertFromIndex(int index)
         {
