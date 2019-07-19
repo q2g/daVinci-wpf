@@ -1,6 +1,9 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData.Connection;
+    using leonardo.Controls;
+    using leonardo.Resources;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -13,9 +16,6 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using daVinci.ConfigData.Connection;
-    using leonardo.Controls;
-    using leonardo.Resources;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -242,7 +242,6 @@
                 toEdit = new ConnectionData();
                 SelectedConnection = toEdit;
                 ConnectionToEdit = toEdit;
-                UriInput_TextChanged(UriInput, null);
                 IsEditMode = true;
                 ShowDetail = true;
             }
@@ -328,54 +327,6 @@
                         parent.RaiseEvent(eventArg);
                     }
                 }
-            }
-        }
-
-        CancellationTokenSource source = new CancellationTokenSource();
-        private void UriInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            OKButton.IsEnabled = false;
-            if (!string.IsNullOrEmpty((sender as LuiInput).Text) && Uri.TryCreate((sender as LuiInput).Text, UriKind.Absolute, out var dummy))
-            {
-                string currenturi = (sender as LuiInput).Text;
-
-                if (currenturi.ToLower().StartsWith("http"))
-                {
-                    SslCheckStateIcon = LuiIconsEnum.lui_icon_more;
-                    source.Cancel();
-                    source = new CancellationTokenSource();
-
-                    Task.Run(() =>
-                    {
-                        var token = source.Token;
-                        Thread.Sleep(1000);
-                        if (!token.IsCancellationRequested)
-                        {
-                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(currenturi);
-                            request.Method = "GET";
-                            request.Accept = "application/json";
-                            request.ServerCertificateValidationCallback += (a, b, c, d) =>
-                            {
-                                if (d == SslPolicyErrors.None)
-                                {
-                                    SslCheckStateIcon = LuiIconsEnum.lui_icon_tick;
-                                }
-                                else
-                                {
-                                    SslCheckStateIcon = LuiIconsEnum.lui_icon_cross;
-                                }
-                                return false;
-                            };
-                            request.GetResponseAsync();
-                            currentDispatcher.Invoke(() =>
-                            {
-                                SslCheckStateIcon = LuiIconsEnum.lui_icon_tick;
-                            });
-                        }
-                    }, source.Token);
-                }
-
-                OKButton.IsEnabled = true;
             }
         }
     }

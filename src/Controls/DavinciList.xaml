@@ -52,7 +52,8 @@
                 LuiAttached:ThemeProperties.IconLeft="lui_icon_plus"
                 Command="{Binding NewItemClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
                 Content="{Binding AddItemText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}"
-                DockPanel.Dock="Right" />
+                DockPanel.Dock="Right"
+                Visibility="{Binding ShowAddButton, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:DavinciList}}" />
             <Luicontrols:LuiSearch
                 Name="search"
                 Width="150"

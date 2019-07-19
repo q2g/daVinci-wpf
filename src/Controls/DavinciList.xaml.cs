@@ -1,6 +1,7 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using leonardo.Resources;
     using System;
     using System.Collections;
     using System.ComponentModel;
@@ -8,7 +9,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using leonardo.Resources;
     #endregion
 
     /// <summary>
@@ -182,6 +182,17 @@
 
         public static readonly DependencyProperty ShowInfoIconProperty = DependencyProperty.Register(
          "ShowInfoIcon", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region ShowAddButton DP
+        public bool ShowAddButton
+        {
+            get { return (bool)this.GetValue(ShowAddButtonProperty); }
+            set { this.SetValue(ShowAddButtonProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowAddButtonProperty = DependencyProperty.Register(
+         "ShowAddButton", typeof(bool), typeof(DavinciList), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region ShowDeleteIcon DP
