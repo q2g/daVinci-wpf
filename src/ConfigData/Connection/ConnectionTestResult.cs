@@ -11,6 +11,7 @@
     using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Windows.Input;
     #endregion
 
     public class ConnectionTestResult : INotifyPropertyChanged
@@ -124,6 +125,50 @@
                 }
             }
         }
+
+        private object tag;
+        public object Tag
+        {
+            get { return tag; }
+            set
+            {
+                if (tag != value)
+                {
+                    tag = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool retryVisible;
+        public bool RetryVisible
+        {
+            get { return retryVisible; }
+            set
+            {
+                if (retryVisible != value)
+                {
+                    retryVisible = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private ICommand retryCommand;
+        public ICommand RetryCommand
+        {
+            get { return retryCommand; }
+            set
+            {
+                if (retryCommand != value)
+                {
+                    retryCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         #endregion
     }
 
@@ -134,7 +179,7 @@
         {
             if (data is ConnectionTestResult ctdata)
             {
-                return ctdata.Hwnd == ForHwnd;
+                return ctdata.Hwnd == ForHwnd || ctdata.Hwnd == 0;
             }
             return false;
         }

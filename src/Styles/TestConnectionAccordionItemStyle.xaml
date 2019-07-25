@@ -11,6 +11,11 @@
         <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LuiStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <converter:BooleanToVisibilityConverter
+        x:Key="TrueIsVisible"
+        False="Collapsed"
+        True="Visible" />
+
     <Style x:Key="ExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -54,8 +59,16 @@
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="True" />
-                            <controls:LuiIcon
+                            <controls:LuiButton
                                 Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Command="{Binding RetryCommand}"
+                                CommandParameter="{Binding}"
+                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Retry}"
+                                DockPanel.Dock="Right"
+                                Visibility="{Binding RetryVisible, Converter={StaticResource TrueIsVisible}}" />
+                            <controls:LuiIcon
+                                Grid.Column="3"
                                 Margin="0,0,10,0"
                                 VerticalAlignment="Center"
                                 Foreground="{StaticResource Lui.Brush.Grayscale30}">
@@ -73,7 +86,6 @@
                                 </controls:LuiIcon.Style>
                             </controls:LuiIcon>
                         </Grid>
-
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
