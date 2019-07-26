@@ -68,6 +68,7 @@
                 <Luicontrols:LuiSearch
                     Name="search"
                     Width="150"
+                    Autofocus="False"
                     DockPanel.Dock="Right"
                     HintText="{l:Loc SenseExcelRibbon:Common_Search}" />
             </DockPanel>
