@@ -64,6 +64,7 @@
                     Name="search"
                     Width="150"
                     AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}}"
+                    Autofocus="False"
                     DockPanel.Dock="Right"
                     HintText="{l:Loc SenseExcelRibbon:Common_Search}"
                     SearchText="{Binding SearchText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:BookmarkControl}, Delay=300}" />
