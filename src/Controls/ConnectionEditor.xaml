@@ -177,7 +177,8 @@
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="{l:Loc CennectionEditor_VirtualProxyPrefix}"
-                                Text="{Binding ConnectionToEdit.VirtualProxy, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                                Text="{Binding ConnectionToEdit.VirtualProxy, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
+                                Visibility="Collapsed" />
                             <Luicontrols:LuiInput
                                 Margin="0,10,10,0"
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
@@ -189,7 +190,8 @@
                                 LuiAttached:ThemeProperties.InputLabelForegroundWhite="True"
                                 IsEnabled="{Binding IsEditMode, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
                                 LabelText="{l:Loc BaseSessionCookieHeaderName}"
-                                Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
+                                Text="{Binding ConnectionToEdit.HeaderCookieValue, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}"
+                                Visibility="Collapsed" />
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
