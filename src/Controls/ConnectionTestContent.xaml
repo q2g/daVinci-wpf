@@ -79,6 +79,7 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="Luicontrols:LuiAccordionItem.IsExpanded" Value="{Binding IsExpanded}" />
                 <Setter Property="Luicontrols:LuiAccordionItem.Content">
                     <Setter.Value>
                         <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblockExt}">

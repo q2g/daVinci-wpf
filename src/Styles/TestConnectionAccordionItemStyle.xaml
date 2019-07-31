@@ -59,14 +59,21 @@
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="True" />
-                            <controls:LuiButton
+                            <StackPanel
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
-                                Command="{Binding RetryCommand}"
-                                CommandParameter="{Binding}"
-                                Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Retry}"
-                                DockPanel.Dock="Right"
-                                Visibility="{Binding RetryVisible, Converter={StaticResource TrueIsVisible}}" />
+                                Orientation="Horizontal">
+                                <controls:LuiButton
+                                    Command="{Binding CancelCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Cancel}"
+                                    Visibility="{Binding CancelVisible, Converter={StaticResource TrueIsVisible}}" />
+                                <controls:LuiButton
+                                    Command="{Binding RetryCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Retry}"
+                                    Visibility="{Binding RetryVisible, Converter={StaticResource TrueIsVisible}}" />
+                            </StackPanel>
                             <controls:LuiIcon
                                 Grid.Column="3"
                                 Margin="0,0,10,0"

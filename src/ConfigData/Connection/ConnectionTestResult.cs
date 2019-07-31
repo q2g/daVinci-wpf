@@ -154,6 +154,34 @@
             }
         }
 
+        private bool cancelVisible;
+        public bool CancelVisible
+        {
+            get { return cancelVisible; }
+            set
+            {
+                if (cancelVisible != value)
+                {
+                    cancelVisible = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool isExpanded;
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set
+            {
+                if (isExpanded != value)
+                {
+                    isExpanded = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private ICommand retryCommand;
         public ICommand RetryCommand
         {
@@ -163,6 +191,20 @@
                 if (retryCommand != value)
                 {
                     retryCommand = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private ICommand cancelCommand;
+        public ICommand CancelCommand
+        {
+            get { return cancelCommand; }
+            set
+            {
+                if (cancelCommand != value)
+                {
+                    cancelCommand = value;
                     RaisePropertyChanged();
                 }
             }
