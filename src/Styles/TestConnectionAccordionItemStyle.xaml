@@ -69,6 +69,7 @@
                                     Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Cancel}"
                                     Visibility="{Binding CancelVisible, Converter={StaticResource TrueIsVisible}}" />
                                 <controls:LuiButton
+                                    Margin="5,0,0,0"
                                     Command="{Binding RetryCommand}"
                                     CommandParameter="{Binding}"
                                     Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:UserInfo_Retry}"
@@ -76,7 +77,7 @@
                             </StackPanel>
                             <controls:LuiIcon
                                 Grid.Column="3"
-                                Margin="0,0,10,0"
+                                Margin="10,0,10,0"
                                 VerticalAlignment="Center"
                                 Foreground="{StaticResource Lui.Brush.Grayscale30}">
                                 <controls:LuiIcon.Style>
