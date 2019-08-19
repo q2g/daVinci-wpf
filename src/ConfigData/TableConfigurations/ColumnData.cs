@@ -1,10 +1,10 @@
 ﻿namespace daVinci.ConfigData.TableConfigurations
 {
     #region Usings
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class ColumnData : INotifyPropertyChanged, IHasSortCriteria
@@ -217,17 +217,36 @@
             }
             if (jsonConfig?.qAttributeExpressions != null)
             {
-                foreach (dynamic attrExpression in jsonConfig?.qAttributeExpressions)
+                bool colorFromIndex = false;
+                bool cellForegroundColorFound = false;
+                if ((jsonConfig?.qAttributeExpressions?.Count ?? 0) == 2)
                 {
-                    switch ((attrExpression?.id?.ToString() ?? "").ToLowerInvariant())
+                    foreach (dynamic attrExpression in jsonConfig?.qAttributeExpressions)
                     {
-                        case "cellbackgroundcolor":
-                        case "":
-                            BackgroundColorExpression = attrExpression?.qExpression ?? "";
-                            break;
-                        case "cellforegroundcolor":
-                            TextColorExpression = attrExpression?.qExpression ?? "";
-                            break;
+                        if ((attrExpression?.id?.ToString() ?? "").ToLowerInvariant() == "cellforegroundcolor")
+                            cellForegroundColorFound = true;
+                    }
+                    colorFromIndex = !cellForegroundColorFound;
+                }
+                if (colorFromIndex)
+                {
+                    BackgroundColorExpression = jsonConfig?.qAttributeExpressions[0]?.qExpression ?? "";
+                    TextColorExpression = jsonConfig?.qAttributeExpressions[1]?.qExpression ?? "";
+                }
+                else
+                {
+                    foreach (dynamic attrExpression in jsonConfig?.qAttributeExpressions)
+                    {
+                        switch ((attrExpression?.id?.ToString() ?? "").ToLowerInvariant())
+                        {
+                            case "cellbackgroundcolor":
+                            case "":
+                                BackgroundColorExpression = attrExpression?.qExpression ?? "";
+                                break;
+                            case "cellforegroundcolor":
+                                TextColorExpression = attrExpression?.qExpression ?? "";
+                                break;
+                        }
                     }
                 }
             }
