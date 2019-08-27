@@ -60,8 +60,8 @@
         <TabItem Header="Bookmarks" IsSelected="True">
             <controls:BookmarkControl DataContext="{Binding Bookmarks}" />
         </TabItem>-->
-        <TabItem Header="Settings" IsSelected="True">
+        <!--<TabItem Header="Settings" IsSelected="True">
             <controls:SettingsDialog x:Name="settingsDlg" />
-        </TabItem>
+        </TabItem>-->
     </TabControl>
 </Window>

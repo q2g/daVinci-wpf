@@ -41,11 +41,16 @@
 		<Page Include="**\*.xaml" SubType="Designer">
 			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 		</Page>
+		<None Remove="Controls\Versionlist.xaml" />
+		<None Remove="Styles\VersionAccordionItemStyle.xaml" />
 
 		<Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
 
 		<!-- Resources -->
 		<EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+		<Compile Update="Controls\Versionlist.xaml.cs">
+		  <DependentUpon>Versionlist.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />
 
 		<Resource Include="Images\QlikApp.png" />
@@ -59,18 +64,21 @@
 		<None Update="Controls\ReportProgressControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</None>
+		<None Update="Controls\UDFViewer.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</None>
 
 		<!-- Settings -->
 		<None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
 		<Compile Update="Properties\Settings.Designer.cs" AutoGen="True" DependentUpon="Settings.settings" />
 	</ItemGroup>
 
-	<Target Name="PublishToNugetWithAPIKey" AfterTargets="GenerateNuspec">
+	<!--<Target Name="PublishToNugetWithAPIKey" AfterTargets="GenerateNuspec">
 		<ReadLinesFromFile File="$(SolutionDir)\..\..\nugetapikey.txt">
 			<Output TaskParameter="Lines" PropertyName="NugetAPIKey" />
 		</ReadLinesFromFile>
 		<Exec WorkingDirectory="$(BaseDir)" Command="dotnet nuget push $(PackageOutputAbsolutePath)$(PackageId).$(PackageVersion).nupkg -k $(NugetAPIKey) -s https://api.nuget.org/v3/index.json" />
-	</Target>
+	</Target>-->
 
 	<ItemGroup>
 		<PackageReference Include="GitVersionTask" Version="4.0.0" PrivateAssets="All" />
@@ -108,5 +116,11 @@
 		<Reference Include="System.Xml.Linq" />
 		<Reference Include="System.Xml" />
 		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Controls\UDFViewer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 </Project>

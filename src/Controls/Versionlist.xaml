@@ -1,0 +1,87 @@
+﻿<UserControl
+    x:Class="daVinci.Controls.Versionlist"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LuiAttached="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
+    xmlns:Luicontrols="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
+    xmlns:connection="clr-namespace:daVinci.ConfigData.Connection"
+    xmlns:controls="clr-namespace:daVinci.Controls"
+    xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
+    xmlns:l="http://wpflocalizeextension.codeplex.com"
+    xmlns:local="clr-namespace:daVinci.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="650"
+    d:DesignWidth="900"
+    l:LocalizeDictionary.DesignCulture="de"
+    l:ResxLocalizationProvider.DefaultAssembly="akquinet-sense-excel"
+    l:ResxLocalizationProvider.DefaultDictionary="SenseExcelRibbon"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/leonardo-wpf;component/Styles/LUIStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/VersionAccordionItemStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <daViniciConverter:ControlCreationConverter x:Key="ControlCreationConverter" />
+            <local:VersionsRoomFilter x:Key="VersionsRoomFilter" />
+            <converter:NullOrEmptyToVisibilityConverter
+                x:Key="emptyIsCollapsed"
+                False="Visible"
+                True="Collapsed" />
+            <connection:ConnectionDataFilter x:Key="ConnectionDataFilter" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityCollapsedConverter"
+                False="Visible"
+                True="Collapsed" />
+            <converter:BooleanToVisibilityConverter
+                x:Key="trueToVisibilityVisibleConverter"
+                False="Collapsed"
+                True="Visible" />
+            <converter:BindingDiagConverter x:Key="BindingDiagConverter" />
+
+            <Style
+                x:Key="VersionStyle"
+                BasedOn="{StaticResource VersionAccordionItemStyle}"
+                TargetType="Luicontrols:LuiAccordionItem">
+                <Setter Property="Luicontrols:LuiAccordionItem.HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding Name}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Luicontrols:LuiAccordionItem.Content" Value="{Binding Releasenotes}" />
+                <!--<Setter Property="Luicontrols:LuiAccordionItem.Content">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblockExt}">
+                            <Binding Path="." />
+                            <Binding Path="(LuiAttached:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>-->
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Luicontrols:CollectionView
+            Name="collectionview"
+            CollectionViewFilter="{StaticResource VersionsRoomFilter}"
+            ItemsSource="{Binding Versions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}}" />
+        <Luicontrols:LuiAccordion
+            Margin="10,10,10,20"
+            LuiAttached:ThemeProperties.Itemheight="30"
+            Background="{StaticResource Lui.Brush.Grayscale30}"
+            CollapseAllOnExpandSingle="false"
+            ItemContainerStyle="{StaticResource VersionStyle}"
+            ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
+    </Grid>
+</UserControl>
+

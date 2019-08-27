@@ -17,7 +17,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/daVinci-wpf;component/Styles/daVinciStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <!--<daVinciConverter:AddNumberConverter x:Key="AddNumberConverter" />-->
             <converter:BooleanToVisibilityConverter
                 x:Key="TrueIsVisible"
