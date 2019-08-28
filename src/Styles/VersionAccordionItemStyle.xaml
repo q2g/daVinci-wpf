@@ -65,7 +65,7 @@
                                 Orientation="Horizontal">
                                 <controls:LuiButton
                                     Margin="0,0,20,0"
-                                    Command="{Binding InstallCommand}"
+                                    Command="{Binding Version.InstallCommand}"
                                     CommandParameter="{Binding}"
                                     Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:VersionList_Install}"
                                     DockPanel.Dock="Right" />

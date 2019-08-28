@@ -41,6 +41,7 @@
 		<Page Include="**\*.xaml" SubType="Designer">
 			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 		</Page>
+		<None Remove="Controls\AccordionItemTextBlock.xaml" />
 		<None Remove="Controls\Versionlist.xaml" />
 		<None Remove="Styles\VersionAccordionItemStyle.xaml" />
 
@@ -48,6 +49,9 @@
 
 		<!-- Resources -->
 		<EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+		<Compile Update="Controls\AccordionItemTextBlock.xaml.cs">
+		  <DependentUpon>AccordionItemTextBlock.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Controls\Versionlist.xaml.cs">
 		  <DependentUpon>Versionlist.xaml</DependentUpon>
 		</Compile>
@@ -63,9 +67,6 @@
 		</None>
 		<None Update="Controls\ReportProgressControl.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</None>
-		<None Update="Controls\UDFViewer.xaml">
-		  <Generator>MSBuild:Compile</Generator>
 		</None>
 
 		<!-- Settings -->
@@ -116,11 +117,5 @@
 		<Reference Include="System.Xml.Linq" />
 		<Reference Include="System.Xml" />
 		<Reference Include="WindowsBase" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Page Update="Controls\UDFViewer.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
 	</ItemGroup>
 </Project>

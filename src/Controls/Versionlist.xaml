@@ -50,38 +50,68 @@
                     <Setter.Value>
                         <DataTemplate>
                             <DockPanel>
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Version.Name}" />
                             </DockPanel>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Luicontrols:LuiAccordionItem.Content" Value="{Binding Releasenotes}" />
-                <!--<Setter Property="Luicontrols:LuiAccordionItem.Content">
+                <!--<Setter Property="Luicontrols:LuiAccordionItem.Content" Value="{Binding Version.Releasenotes}" />-->
+                <Setter Property="Luicontrols:LuiAccordionItem.IsExpanded" Value="{Binding IsExpanded}" />
+                <Setter Property="Luicontrols:LuiAccordionItem.Content">
                     <Setter.Value>
-                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:ConnectionStyleTextblockExt}">
-                            <Binding Path="." />
+                        <!--<TextBlock Foreground="White" Text="{Binding Version.Releasenotes}" />-->
+                        <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type controls:AccordionItemTextBlock}">
+                            <Binding Path="Version.Releasenotes" />
                             <Binding Path="(LuiAttached:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
                         </MultiBinding>
                     </Setter.Value>
-                </Setter>-->
+                </Setter>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Luicontrols:CollectionView
-            Name="collectionview"
-            CollectionViewFilter="{StaticResource VersionsRoomFilter}"
-            ItemsSource="{Binding Versions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}}" />
-        <Luicontrols:LuiAccordion
-            Margin="10,10,10,20"
-            LuiAttached:ThemeProperties.Itemheight="30"
-            Background="{StaticResource Lui.Brush.Grayscale30}"
-            CollapseAllOnExpandSingle="false"
-            ItemContainerStyle="{StaticResource VersionStyle}"
-            ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
-    </Grid>
+    <Border Background="{StaticResource Lui.Brush.Grayscale30}">
+        <Grid Margin="10" Background="{StaticResource Lui.Brush.Grayscale30}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Luicontrols:LuiInput
+                Width="150"
+                HorizontalAlignment="Right"
+                HintText="{l:Loc VersionList_RoomID}"
+                Text="{Binding Room, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Luicontrols:CollectionView
+                Name="collectionview"
+                CollectionViewFilter="{StaticResource VersionsRoomFilter}"
+                FilterText="{Binding Room, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}}"
+                ItemsSource="{Binding Versions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}}" />
+            <ScrollViewer
+                Grid.Row="1"
+                Margin="10,10,10,20"
+                Style="{StaticResource LuiSenseScrollViewerStyle}"
+                Visibility="{Binding ShowVersionlist, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}, Converter={StaticResource trueToVisibilityVisibleConverter}}">
+                <Luicontrols:LuiAccordion
+                    Margin="10,10,10,20"
+                    LuiAttached:ThemeProperties.Itemheight="30"
+                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                    CollapseAllOnExpandSingle="false"
+                    ItemContainerStyle="{StaticResource VersionStyle}"
+                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}" />
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Visibility="{Binding ShowVersionlist, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}, Converter={StaticResource trueToVisibilityCollapsedConverter}}">
+                <TextBlock
+                    Height="80"
+                    Margin="10"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                    Text="{Binding WaitingText, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}}" />
+                <local:BusyCircle
+                    Width="150"
+                    Height="150"
+                    Circlethickness="19"
+                    Visibility="{Binding ShowBusyCircle, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:Versionlist}, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>
 

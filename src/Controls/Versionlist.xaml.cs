@@ -39,17 +39,68 @@
         #endregion
 
         #region Properties & Variables
-        public ObservableCollection<XllVersion> Versions { get; set; } = new ObservableCollection<XllVersion>();
+        public ObservableCollection<VersionDTO> Versions { get; set; } = new ObservableCollection<VersionDTO>();
+        private string room;
+        public string Room
+        {
+            get { return room; }
+            set
+            {
+                if (value != room)
+                {
+                    room = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private string waitingText;
+        public string WaitingText
+        {
+            get { return waitingText; }
+            set
+            {
+                if (value != waitingText)
+                {
+                    waitingText = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private bool showVersionlist;
+        public bool ShowVersionlist
+        {
+            get { return showVersionlist; }
+            set
+            {
+                if (value != showVersionlist)
+                {
+                    showVersionlist = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private bool showBusyCircle;
+        public bool ShowBusyCircle
+        {
+            get { return showBusyCircle; }
+            set
+            {
+                if (value != showBusyCircle)
+                {
+                    showBusyCircle = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
-
     }
 
     public class VersionsRoomFilter : ICollectionViewFilter
     {
         public bool Filter(object data, string searchString)
         {
-            if (data is XllVersion ver)
-                return (ver.Room + "") == (searchString + "");
+            if (data is VersionDTO ver)
+                return (ver.Version.Room + "") == (searchString + "");
             return false;
         }
     }
