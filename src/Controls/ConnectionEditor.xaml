@@ -228,7 +228,7 @@
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <Border
                                             Name="border"
-                                            Height="45"
+                                            Height="55"
                                             Padding="1"
                                             BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
                                             BorderThickness="0,0,0,0.5">
@@ -240,13 +240,13 @@
                                                     LastChildFill="False">
                                                     <StackPanel VerticalAlignment="Center" DockPanel.Dock="Left">
                                                         <TextBlock
-                                                            Margin="10,3,0,3"
+                                                            Margin="10,10,0,3"
                                                             VerticalAlignment="Center"
                                                             FontFamily="{StaticResource QlikViewSans}"
                                                             Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                                             Text="{Binding IDName}" />
                                                         <TextBlock
-                                                            Margin="10,0,0,5"
+                                                            Margin="10,0,0,10"
                                                             VerticalAlignment="Center"
                                                             Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                                             Text="{Binding FullUri}" />
