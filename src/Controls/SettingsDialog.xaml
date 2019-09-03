@@ -11,6 +11,7 @@
     xmlns:daViniciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sett="clr-namespace:daVinci.ConfigData.Settings"
     d:DesignHeight="650"
     d:DesignWidth="900"
     l:LocalizeDictionary.DesignCulture="de"
@@ -56,64 +57,120 @@
                 FalseString="false"
                 TrueString="true" />
 
+            <DataTemplate x:Key="SettingsItemTemplate">
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Text="{Binding Name}"
+                        ToolTip="{Binding Description}" />
+                    <Luicontrols:LuiSwitch
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        IsChecked="{Binding SettingsValue.ItemValue, Converter={StaticResource StringToBoolConverter}}"
+                        ToolTip="{Binding SettingsValue.Description}"
+                        Visibility="{Binding Type, Converter={StaticResource BoolIsVisible}}" />
+                    <Luicontrols:LuiInput
+                        Grid.Column="1"
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding SettingsValue.ItemValue}"
+                        ToolTip="{Binding SettingsValue.Description}"
+                        Visibility="{Binding Type, Converter={StaticResource StringIsVisible}}" />
+                </Grid>
+            </DataTemplate>
+            <sett:SettingsGroupFilter x:Key="PublicGroupFilter" DocumentLocalGroup="False" />
+            <sett:SettingsGroupFilter x:Key="DocumentGroupFilter" DocumentLocalGroup="True" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer
-        Padding="{TemplateBinding Control.Padding}"
-        Focusable="False"
-        Style="{StaticResource LuiSenseScrollViewerStyle}">
-        <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Border Background="{StaticResource Lui.Brush.Grayscale20}">
-                <DockPanel>
-                    <Luicontrols:LuiOKButton
+
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource Lui.Brush.Grayscale20}">
+            <DockPanel LastChildFill="False">
+                <Luicontrols:LuiAbortButton
+                    Margin="10,0,10,0"
+                    Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Right" />
+                <Luicontrols:LuiOKButton
+                    Margin="10,0,0,0"
+                    Command="{Binding OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
+                    DockPanel.Dock="Right" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                    Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:SaveOptions}" />
+            </DockPanel>
+        </Border>
+        <ScrollViewer
+            Grid.Row="1"
+            Padding="{TemplateBinding Control.Padding}"
+            Focusable="False"
+            Style="{StaticResource LuiSenseScrollViewerStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Stretch"
+                    Background="{StaticResource Lui.Brush.Grayscale20}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
+                    BorderThickness="0,0,0,1">
+                    <TextBlock
                         Margin="10,0,0,0"
-                        Command="{Binding OKCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
-                        DockPanel.Dock="Left" />
-                    <Luicontrols:LuiAbortButton
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Text="{l:Loc SettingsDialog_PublicSection}" />
+                </Border>
+                <Luicontrols:CollectionView
+                    Name="collectionviewPublic"
+                    CollectionViewFilter="{StaticResource PublicGroupFilter}"
+                    ItemsSource="{Binding Settings, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}" />
+                <ItemsControl
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource SettingsItemTemplate}"
+                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionviewPublic}" />
+                <Border
+                    Grid.Row="2"
+                    VerticalAlignment="Stretch"
+                    Background="{StaticResource Lui.Brush.Grayscale20}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
+                    BorderThickness="0,0,0,1">
+                    <TextBlock
                         Margin="10,0,0,0"
-                        Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}"
-                        DockPanel.Dock="Left" />
-                    <TextBlock HorizontalAlignment="Center" Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:seOptions}" />
-                </DockPanel>
-            </Border>
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Settings, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="40">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70*" />
-                                <ColumnDefinition Width="30*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                VerticalAlignment="Center"
-                                FontWeight="Bold"
-                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
-                                Text="{Binding Name}"
-                                ToolTip="{Binding Description}" />
-                            <Luicontrols:LuiSwitch
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                IsChecked="{Binding SettingsValue.ItemValue, Converter={StaticResource StringToBoolConverter}}"
-                                ToolTip="{Binding SettingsValue.Description}"
-                                Visibility="{Binding Type, Converter={StaticResource BoolIsVisible}}" />
-                            <Luicontrols:LuiInput
-                                Grid.Column="1"
-                                Margin="10,0,10,0"
-                                VerticalAlignment="Center"
-                                Text="{Binding SettingsValue.ItemValue}"
-                                ToolTip="{Binding SettingsValue.Description}"
-                                Visibility="{Binding Type, Converter={StaticResource StringIsVisible}}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </ScrollViewer>
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                        Text="{l:Loc SettingsDialog_DocumentSection}" />
+                </Border>
+                <Luicontrols:CollectionView
+                    Name="collectionviewDocument"
+                    CollectionViewFilter="{StaticResource DocumentGroupFilter}"
+                    ItemsSource="{Binding Settings, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SettingsDialog}}" />
+                <ItemsControl
+                    Grid.Row="3"
+                    ItemTemplate="{StaticResource SettingsItemTemplate}"
+                    ItemsSource="{Binding ProcessedCollection, ElementName=collectionviewDocument}" />
+            </Grid>
+
+        </ScrollViewer>
+    </Grid>
 </UserControl>
 

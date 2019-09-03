@@ -45,7 +45,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource Lui.Brush.Grayscale35}">
+    <Grid Background="{StaticResource Lui.Brush.Grayscale30}">
 
         <StackPanel>
             <TextBlock

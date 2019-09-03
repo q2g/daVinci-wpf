@@ -52,11 +52,14 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <DockPanel LastChildFill="False">
+            <DockPanel Background="{StaticResource Lui.Brush.Grayscale20}" LastChildFill="False">
                 <TextBlock
+                    Margin="10,0,0,0"
                     VerticalAlignment="Center"
                     DockPanel.Dock="Left"
-                    Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource Lui.Brush.Grayscale100}"
                     Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:ConnectionEdit_Connections}" />
                 <Luicontrols:LuiButton
                     Margin="10,0,0,0"
@@ -68,6 +71,7 @@
                 <Luicontrols:LuiSearch
                     Name="search"
                     Width="150"
+                    LuiAttached:ThemeProperties.Inverted="True"
                     Autofocus="False"
                     DockPanel.Dock="Right"
                     HintText="{l:Loc SenseExcelRibbon:Common_Search}" />
@@ -76,6 +80,8 @@
                 Grid.Row="2"
                 Height="5"
                 HorizontalAlignment="Stretch"
+                Background="{StaticResource Lui.Brush.Grayscale0}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale20}"
                 Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
 
             <Grid Grid.Row="3" Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
@@ -85,10 +91,10 @@
                 </Grid.RowDefinitions>
                 <Border
                     Grid.Row="0"
-                    Background="{StaticResource Lui.Brush.Grayscale95}"
-                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale20}"
                     BorderThickness="1">
-                    <DockPanel Background="{StaticResource Lui.Brush.Grayscale95}">
+                    <DockPanel Background="{StaticResource Lui.Brush.Grayscale20}">
                         <Luicontrols:LuiButton
                             Margin="10,0,0,0"
                             LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
@@ -112,20 +118,18 @@
                             Click="SaveButton_Click"
                             Foreground="{StaticResource Lui.Brush.Grayscale100}"
                             Visibility="{Binding IsEditMode, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
-
                         <Luicontrols:LuiButton
+                            Margin="0,0,10,0"
                             LuiAttached:ThemeProperties.BorderThickness="0"
                             LuiAttached:ThemeProperties.IconLeft="lui_icon_cross"
-                            Background="{StaticResource Lui.Brush.Grayscale95}"
                             Click="CloseButton_Click"
                             DockPanel.Dock="Right" />
-
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource QlikViewSans}"
                             FontWeight="Normal"
-                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
                             Text="{Binding SelectedConnection.IDName, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}" />
                     </DockPanel>
                 </Border>
@@ -133,8 +137,8 @@
                     Grid.Row="2"
                     Padding="0,0,0,20"
                     VerticalAlignment="Stretch"
-                    Background="{StaticResource Lui.Brush.Grayscale35}"
-                    BorderBrush="{StaticResource Lui.Brush.Grayscale80}"
+                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale20}"
                     BorderThickness="1"
                     Visibility="{Binding ShowDetail, Converter={StaticResource trueToVisibilityVisibleConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionEditor}}">
                     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource LuiSenseScrollViewerStyle}">
@@ -202,9 +206,15 @@
                 CollectionViewFilter="{StaticResource ConnectionDataFilter}"
                 FilterText="{Binding SearchText, ElementName=search}"
                 ItemsSource="{Binding Path=.}" />
-            <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ScrollViewer
+                Grid.Row="1"
+                Background="{StaticResource Lui.Brush.Grayscale30}"
+                BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox
                     Name="li"
+                    Background="{StaticResource Lui.Brush.Grayscale30}"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                     ItemsSource="{Binding ProcessedCollection, ElementName=collectionview}"
                     MouseDown="Listbox_MouseDown"
                     PreviewMouseWheel="li_PreviewMouseWheel"
@@ -218,9 +228,9 @@
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <Border
                                             Name="border"
-                                            Height="35"
+                                            Height="45"
                                             Padding="1"
-                                            BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                            BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
                                             BorderThickness="0,0,0,0.5">
                                             <StackPanel>
                                                 <DockPanel
@@ -230,17 +240,23 @@
                                                     LastChildFill="False">
                                                     <StackPanel VerticalAlignment="Center" DockPanel.Dock="Left">
                                                         <TextBlock
+                                                            Margin="10,3,0,3"
                                                             VerticalAlignment="Center"
                                                             FontFamily="{StaticResource QlikViewSans}"
-                                                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                                                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                                             Text="{Binding IDName}" />
-                                                        <TextBlock VerticalAlignment="Center" Text="{Binding FullUri}" />
+                                                        <TextBlock
+                                                            Margin="10,0,0,5"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                                            Text="{Binding FullUri}" />
                                                     </StackPanel>
 
                                                     <Luicontrols:LuiButton
                                                         LuiAttached:ThemeProperties.BorderThickness="0"
                                                         LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                         LuiAttached:ThemeProperties.IconLeft="lui_icon_bin"
+                                                        LuiAttached:ThemeProperties.Inverted="True"
                                                         Background="Transparent"
                                                         Click="DeleteButton_Click"
                                                         DockPanel.Dock="Right" />
@@ -248,6 +264,7 @@
                                                         LuiAttached:ThemeProperties.BorderThickness="0"
                                                         LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                         LuiAttached:ThemeProperties.IconLeft="lui_icon_edit"
+                                                        LuiAttached:ThemeProperties.Inverted="True"
                                                         Background="Transparent"
                                                         Click="EditButton_Click"
                                                         DockPanel.Dock="Right" />
@@ -255,6 +272,7 @@
                                                         LuiAttached:ThemeProperties.BorderThickness="0"
                                                         LuiAttached:ThemeProperties.ButtonSize="Custom"
                                                         LuiAttached:ThemeProperties.IconLeft="lui_icon_info"
+                                                        LuiAttached:ThemeProperties.Inverted="True"
                                                         Background="Transparent"
                                                         Click="Info_Click"
                                                         DockPanel.Dock="Right" />
@@ -266,7 +284,7 @@
                                                 <Style TargetType="Border">
                                                     <Style.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale90}" />
+                                                            <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale20}" />
                                                         </Trigger>
                                                     </Style.Triggers>
                                                 </Style>

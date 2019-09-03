@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leonardo.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -116,7 +117,37 @@ namespace daVinci.ConfigData.Settings
                 }
             }
         }
+        private bool documentLocal;
+        public bool DocumentLocal
+        {
+            get
+            {
+                return documentLocal;
+            }
+            set
+            {
+                if (documentLocal != value)
+                {
+                    documentLocal = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
-
     }
+    public class SettingsGroupFilter : ICollectionViewFilter
+    {
+        public bool DocumentLocalGroup { get; set; }
+
+        public bool Filter(object data, string searchString)
+        {
+            if (data is SettingsItem sett)
+            {
+                return sett.DocumentLocal == DocumentLocalGroup;
+            }
+            return false;
+        }
+    }
+
+
 }
