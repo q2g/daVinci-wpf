@@ -61,6 +61,22 @@
         x:Key="ModeToStyle"
         CombinedStyle="{StaticResource ColumnChooserStyleCombined}"
         PivotStyle="{StaticResource ColumnChooserStylePivot}" />
+
+    <Style
+        x:Key="SettingsDataStyle"
+        BasedOn="{StaticResource PresentationAccordionItemStyle}"
+        TargetType="controls:LuiAccordionItem">
+        <Setter Property="controls:LuiAccordionItem.Header" Value="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableSettings}" />
+        <Setter Property="controls:LuiAccordionItem.Content">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ControlCreationConverter}" ConverterParameter="{x:Type daVinciControls:TableSetting}">
+                    <Binding Path="." />
+                    <Binding Path="(attachedP:ThemeProperties.Hwnd)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style
         x:Key="PresentationDataStyle"
         BasedOn="{StaticResource PresentationAccordionItemStyle}"
@@ -114,6 +130,11 @@
         ItemType1="{x:Type daVinciConfig:PresentationData}"
         ItemType2="{x:Type daVinciConfig:PresentationGeneralData}"
         ItemType3="{x:Type daVinciConfig:PresentationAlternateStateData}" />
+
+    <LuiConverter:TypeToStyleSelector
+        x:Key="SettingsStyleselector"
+        ItemStyle1="{StaticResource SettingsDataStyle}"
+        ItemType1="{x:Type tableconfigurations:MaxRowsData}" />
 
     <Style
         x:Key="AddOnDataStyle"
@@ -227,6 +248,17 @@
                                     SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Mode=TwoWay}"
                                     Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
                             </DockPanel>
+                            <Border
+                                Height="39"
+                                Background="{StaticResource Lui.Brush.Orange}"
+                                Visibility="{Binding ShowTruncateWarning, Converter={StaticResource TrueIsVisible}}">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Text="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Table_TruncateWarning}" />
+                            </Border>
                             <controls:LuiAccordion
                                 Grid.Column="1"
                                 Height="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource AddNumberConverter}, ConverterParameter=-78}"
@@ -297,6 +329,13 @@
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource PresentationStyleselector}"
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                                </controls:LuiAccordionItem>
+
+                                <controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableSettings}">
+                                    <controls:LuiAccordion
+                                        Background="{StaticResource Lui.Brush.Grayscale100}"
+                                        ItemContainerStyleSelector="{StaticResource SettingsStyleselector}"
+                                        ItemsSource="{Binding DataContext.SettingsData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
                             </controls:LuiAccordion>
                         </StackPanel>

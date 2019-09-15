@@ -1,5 +1,6 @@
 ﻿namespace daVinci.ConfigData
 {
+    using daVinci.ConfigData.Hub;
     #region Usings
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -74,6 +75,20 @@
             set
             {
                 publishedStreamsVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private TemplateData templatesData = new TemplateData();
+        public TemplateData TemplateData
+        {
+            get
+            {
+                return templatesData;
+            }
+            set
+            {
+                templatesData = value;
                 RaisePropertyChanged();
             }
         }

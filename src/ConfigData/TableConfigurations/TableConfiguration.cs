@@ -1,16 +1,16 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
+    using daVinci.ConfigData.TableConfigurations;
+    using leonardo.Resources;
+    using Newtonsoft.Json.Linq;
+    using NLog;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using daVinci.ConfigData.TableConfigurations;
-    using leonardo.Resources;
-    using Newtonsoft.Json.Linq;
-    using NLog;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -64,6 +64,20 @@
             set
             {
                 presentationData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<object> settinsData = new ObservableCollection<object>();
+        public ObservableCollection<object> SettingsData
+        {
+            get
+            {
+                return settinsData;
+            }
+            set
+            {
+                settinsData = value;
                 RaisePropertyChanged();
             }
         }
@@ -149,6 +163,22 @@
                 }
             }
         }
+        private bool showTruncateWarning;
+        public bool ShowTruncateWarning
+        {
+            get
+            {
+                return showTruncateWarning;
+            }
+            set
+            {
+                if (showTruncateWarning != value)
+                {
+                    showTruncateWarning = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         public string ReadFromJSON(string JSONstring)
@@ -184,13 +214,12 @@
                 AddOnData.Add(addonConfig);
 
 
-                //PresentationData.Clear();
-                //var presentationConfig = new PresentationData();
-                //presentationConfig.ReadFromJSON(jsonConfig?.totals);
-                //PresentationData.Add(presentationConfig);
+
                 var presentationASConfig = PresentationData.First() as PresentationAlternateStateData;
                 presentationASConfig.ReadFromJSON(jsonConfig);
-                //PresentationData.Add(presentationASConfig);
+
+                var maxRowConfig = SettingsData.First() as MaxRowsData;
+                maxRowConfig.ReadFromJSON(jsonConfig);
             }
             catch (Exception Ex)
             {
@@ -367,6 +396,10 @@
 
                 var presentationConfig = PresentationData.First() as PresentationAlternateStateData;
                 presentationConfig.SaveToJSON(jsonData);
+
+                jsonData.q2g = new JObject();
+                var maxRowConfig = SettingsData.First() as MaxRowsData;
+                maxRowConfig.SaveToJSON(jsonData);
             }
             catch (Exception Ex)
             {
