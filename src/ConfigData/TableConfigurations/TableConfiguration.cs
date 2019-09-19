@@ -179,6 +179,38 @@
                 }
             }
         }
+        private bool showTableCountBusyCircle;
+        public bool ShowTableCountBusyCircle
+        {
+            get
+            {
+                return showTableCountBusyCircle;
+            }
+            set
+            {
+                if (showTableCountBusyCircle != value)
+                {
+                    showTableCountBusyCircle = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private string tableCountMessage;
+        public String TableCountMessage
+        {
+            get
+            {
+                return tableCountMessage;
+            }
+            set
+            {
+                if (tableCountMessage != value)
+                {
+                    tableCountMessage = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         public string ReadFromJSON(string JSONstring)
@@ -218,7 +250,7 @@
                 var presentationASConfig = PresentationData.First() as PresentationAlternateStateData;
                 presentationASConfig.ReadFromJSON(jsonConfig);
 
-                var maxRowConfig = SettingsData.First() as MaxRowsData;
+                var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
                 maxRowConfig.ReadFromJSON(jsonConfig);
             }
             catch (Exception Ex)
@@ -398,7 +430,7 @@
                 presentationConfig.SaveToJSON(jsonData);
 
                 jsonData.q2g = new JObject();
-                var maxRowConfig = SettingsData.First() as MaxRowsData;
+                var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
                 maxRowConfig.SaveToJSON(jsonData);
             }
             catch (Exception Ex)
