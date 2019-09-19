@@ -333,12 +333,12 @@
                                         ItemsSource="{Binding DataContext.PresentationData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
                                 </controls:LuiAccordionItem>
 
-                                <controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableSettings}">
+                                <!--<controls:LuiAccordionItem Header="{l:Loc akquinet-sense-excel:SenseExcelRibbon:TableSettings}">
                                     <controls:LuiAccordion
                                         Background="{StaticResource Lui.Brush.Grayscale100}"
                                         ItemContainerStyleSelector="{StaticResource SettingsStyleselector}"
                                         ItemsSource="{Binding DataContext.SettingsData, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
-                                </controls:LuiAccordionItem>
+                                </controls:LuiAccordionItem>-->
                             </controls:LuiAccordion>
                         </StackPanel>
                     </ControlTemplate>

@@ -250,8 +250,8 @@
                 var presentationASConfig = PresentationData.First() as PresentationAlternateStateData;
                 presentationASConfig.ReadFromJSON(jsonConfig);
 
-                var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
-                maxRowConfig.ReadFromJSON(jsonConfig);
+                //var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
+                //maxRowConfig.ReadFromJSON(jsonConfig);
             }
             catch (Exception Ex)
             {
@@ -429,9 +429,9 @@
                 var presentationConfig = PresentationData.First() as PresentationAlternateStateData;
                 presentationConfig.SaveToJSON(jsonData);
 
-                jsonData.q2g = new JObject();
-                var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
-                maxRowConfig.SaveToJSON(jsonData);
+                //jsonData.q2g = new JObject();
+                //var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
+                //maxRowConfig.SaveToJSON(jsonData);
             }
             catch (Exception Ex)
             {
