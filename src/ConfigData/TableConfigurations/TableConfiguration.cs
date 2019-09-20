@@ -11,6 +11,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Windows.Media;
     using WPFLocalizeExtension.Engine;
     #endregion
 
@@ -211,6 +212,22 @@
                 }
             }
         }
+        private Brush tableCountBackground;
+        public Brush TableCountBackground
+        {
+            get
+            {
+                return tableCountBackground;
+            }
+            set
+            {
+                if (tableCountBackground != value)
+                {
+                    tableCountBackground = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
         public string ReadFromJSON(string JSONstring)
@@ -380,9 +397,10 @@
 
         public string SaveToJSON()
         {
-            dynamic jsonData = new JObject();
+            string retval = null;
             try
             {
+                dynamic jsonData = new JObject();
                 jsonData.qInfo = new JObject();
                 jsonData.qInfo.qId = SettingsID;
                 jsonData.qHyperCubeDef = new JObject();
@@ -432,12 +450,14 @@
                 jsonData.q2g = new JObject();
                 var maxRowConfig = SettingsData.FirstOrDefault() as MaxRowsData;
                 maxRowConfig.SaveToJSON(jsonData);
+
+                retval = jsonData.ToString();
             }
             catch (Exception Ex)
             {
                 logger.Error(Ex);
             }
-            return jsonData.ToString();
+            return retval;
         }
 
         private void FillDimensionMeasureAndOrderPivot(dynamic jsonData)

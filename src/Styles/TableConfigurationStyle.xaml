@@ -248,7 +248,7 @@
                                     SelectedItem="{Binding DataContext.TableImportConfiguration.SelectedTable, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Mode=TwoWay}"
                                     Visibility="{Binding ShowImport, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Converter={StaticResource TrueIsVisible}}" />
                             </DockPanel>
-                            <Border Height="39" Background="{StaticResource Lui.Brush.Grayscale30}">
+                            <Border Height="39">
                                 <!--  Visibility="{Binding ShowTruncateWarning, Converter={StaticResource TrueIsVisible}}"  -->
                                 <DockPanel>
                                     <daVinciControls:BusyCircle Visibility="{Binding ShowTableCountBusyCircle, Converter={StaticResource TrueIsVisible}}" />
@@ -260,6 +260,16 @@
                                         Foreground="{StaticResource Lui.Brush.Grayscale100}"
                                         Text="{Binding TableCountMessage}" />
                                 </DockPanel>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource Lui.Brush.Grayscale30}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowTruncateWarning}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource Lui.Brush.Orange}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                             </Border>
                             <controls:LuiAccordion
                                 Grid.Column="1"
