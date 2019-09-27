@@ -39,7 +39,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         Padding="{TemplateBinding Padding}"
-                        Background="{StaticResource Lui.Brush.Grayscale95}"
+                        Background="{Binding BackgroundBrush}"
                         BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
                         BorderThickness="0.3">
                         <Grid

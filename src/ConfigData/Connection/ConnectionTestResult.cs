@@ -3,15 +3,12 @@
     #region Usings
     using leonardo.Resources;
     using NLog;
-    using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Linq;
     using System.Runtime.CompilerServices;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using System.Windows.Media;
     #endregion
 
     public class ConnectionTestResult : INotifyPropertyChanged
@@ -25,6 +22,13 @@
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
+
+        #region CTOR
+        public ConnectionTestResult()
+        {
+            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
         }
         #endregion
 
@@ -65,10 +69,26 @@
             {
                 if (passed != value)
                 {
+                    if (value.HasValue && value.Value == false)
+                        StartBlinking();
                     passed = value;
                     RaisePropertyChanged();
                 }
             }
+        }
+        private async Task StartBlinking()
+        {
+            BackgroundBrush = LuiPalette.Brushes.ORANGE;
+            await Task.Delay(1000);
+            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+            await Task.Delay(1000);
+            BackgroundBrush = LuiPalette.Brushes.ORANGE;
+            await Task.Delay(1000);
+            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+            await Task.Delay(1000);
+            BackgroundBrush = LuiPalette.Brushes.ORANGE;
+            //await Task.Delay(1000);
+            //BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
         }
         private ObservableCollection<ConnectionTestResult> subResults;
         public ObservableCollection<ConnectionTestResult> SubResults
@@ -210,7 +230,19 @@
             }
         }
 
-
+        private Brush backgroundBrush;
+        public Brush BackgroundBrush
+        {
+            get { return backgroundBrush; }
+            set
+            {
+                if (backgroundBrush != value)
+                {
+                    backgroundBrush = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
     }
 

@@ -11,6 +11,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Windows.Input;
     using System.Windows.Media;
     using WPFLocalizeExtension.Engine;
     #endregion
@@ -19,6 +20,18 @@
     {
         #region Logger
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
+
+        #region CTOR
+        public TableConfiguration()
+        {
+            Columns = new ObservableCollection<object>();
+            CancelTableCount = new RelayCommand(() =>
+              {
+                  TableCountloadingCanceled = true;
+                  ShowTableCountCancelButton = false;
+              });
+        }
         #endregion
 
         #region Properties & Variables
@@ -48,11 +61,6 @@
                 dimensionMeasures = value;
                 RaisePropertyChanged();
             }
-        }
-
-        public TableConfiguration()
-        {
-            Columns = new ObservableCollection<object>();
         }
 
         private ObservableCollection<object> presentationData = new ObservableCollection<object>();
@@ -228,6 +236,24 @@
                 }
             }
         }
+        private bool showTableCountCancelButton;
+        public bool ShowTableCountCancelButton
+        {
+            get
+            {
+                return showTableCountCancelButton;
+            }
+            set
+            {
+                if (showTableCountCancelButton != value)
+                {
+                    showTableCountCancelButton = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public bool TableCountloadingCanceled { get; set; }
+        public ICommand CancelTableCount { get; set; }
         #endregion
 
         public string ReadFromJSON(string JSONstring)

@@ -252,6 +252,28 @@
                                 <!--  Visibility="{Binding ShowTruncateWarning, Converter={StaticResource TrueIsVisible}}"  -->
                                 <DockPanel>
                                     <daVinciControls:BusyCircle Visibility="{Binding ShowTableCountBusyCircle, Converter={StaticResource TrueIsVisible}}" />
+                                    <controls:LuiIcon
+                                        Margin="10,0,10,0"
+                                        VerticalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Right"
+                                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                        Icon="lui_icon_remove"
+                                        Visibility="{Binding ShowTableCountCancelButton, Converter={StaticResource TrueIsVisible}}">
+                                        <controls:LuiIcon.InputBindings>
+                                            <MouseBinding Command="{Binding CancelTableCount}" MouseAction="LeftClick" />
+                                        </controls:LuiIcon.InputBindings>
+                                        <controls:LuiIcon.Style>
+                                            <Style TargetType="controls:LuiIcon">
+                                                <Setter Property="FontSize" Value="14" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="true">
+                                                        <Setter Property="FontSize" Value="16" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </controls:LuiIcon.Style>
+                                    </controls:LuiIcon>
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
