@@ -28,7 +28,10 @@
         #region CTOR
         public ConnectionTestResult()
         {
+            LuiPalette.Brushes.ORANGE.Freeze();
+            LuiPalette.Brushes.GRAYSCALE95.Freeze();
             BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+
         }
         #endregion
 
@@ -78,17 +81,24 @@
         }
         private async Task StartBlinking()
         {
-            BackgroundBrush = LuiPalette.Brushes.ORANGE;
-            await Task.Delay(1000);
-            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
-            await Task.Delay(1000);
-            BackgroundBrush = LuiPalette.Brushes.ORANGE;
-            await Task.Delay(1000);
-            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
-            await Task.Delay(1000);
-            BackgroundBrush = LuiPalette.Brushes.ORANGE;
-            //await Task.Delay(1000);
-            //BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+            try
+            {
+                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                await Task.Delay(1000);
+                BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+                await Task.Delay(1000);
+                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                await Task.Delay(1000);
+                BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+                await Task.Delay(1000);
+                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                //await Task.Delay(1000);
+                //BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+            }
+            catch (System.Exception ex)
+            {
+                logger.Error(ex);
+            }
         }
         private ObservableCollection<ConnectionTestResult> subResults;
         public ObservableCollection<ConnectionTestResult> SubResults
