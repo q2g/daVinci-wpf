@@ -39,6 +39,7 @@
         }
         public ObservableCollection<object> SearchedItems { get; set; }
         public ICommand SearchAcceptCommand { get; set; }
+        public ICommand LoadTemplatesCommand { get; set; }
 
         #region IsEditMode DP
         public bool IsEditMode
@@ -104,6 +105,17 @@
 
         public static readonly DependencyProperty AppSelectionCommandProperty = DependencyProperty.Register(
          "AppSelectionCommand", typeof(ICommand), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
+        #region HubData - DP
+        public HubData HubData
+        {
+            get { return (HubData)this.GetValue(HubDataProperty); }
+            set { this.SetValue(HubDataProperty, value); }
+        }
+
+        public static readonly DependencyProperty HubDataProperty = DependencyProperty.Register(
+         "HubData", typeof(HubData), typeof(HubAppArea), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         #endregion
 
         #region Owner DP

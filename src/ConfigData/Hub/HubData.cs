@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using System.Windows.Input;
     #endregion
 
     public class HubData : INotifyPropertyChanged
@@ -79,6 +80,20 @@
             }
         }
 
+        private bool showLoadTemplatesCircle;
+        public bool ShowLoadTemplatesCircle
+        {
+            get
+            {
+                return showLoadTemplatesCircle;
+            }
+            set
+            {
+                showLoadTemplatesCircle = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private TemplateData templatesData = new TemplateData();
         public TemplateData TemplateData
         {
@@ -92,6 +107,22 @@
                 RaisePropertyChanged();
             }
         }
+
+        private System.Windows.Media.Imaging.BitmapImage templateimage;
+        public System.Windows.Media.Imaging.BitmapImage TemplateImage
+        {
+            get => templateimage;
+            set
+            {
+                if (templateimage != value)
+                {
+                    templateimage = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public ICommand LoadTemplatesCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string caller = "")

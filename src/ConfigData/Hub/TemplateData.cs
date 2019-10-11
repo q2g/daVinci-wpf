@@ -46,6 +46,33 @@
                 RaisePropertyChanged();
             }
         }
+
+        private System.Windows.Media.Imaging.BitmapImage image;
+        public System.Windows.Media.Imaging.BitmapImage Image
+        {
+            get => image;
+            set
+            {
+                if (image != value)
+                {
+                    image = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private System.Windows.Media.Imaging.BitmapImage templateLogo;
+        public System.Windows.Media.Imaging.BitmapImage TemplateLogo
+        {
+            get => templateLogo;
+            set
+            {
+                if (templateLogo != value)
+                {
+                    templateLogo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
     }
 }

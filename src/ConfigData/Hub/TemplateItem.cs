@@ -3,6 +3,7 @@
     #region Usings
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using System.Windows.Input;
     #endregion
 
     public class TemplateItem : INotifyPropertyChanged
@@ -29,6 +30,32 @@
                 RaisePropertyChanged();
             }
         }
+        private string fullname;
+        public string FullName
+        {
+            get
+            {
+                return fullname;
+            }
+            set
+            {
+                fullname = value;
+                RaisePropertyChanged();
+            }
+        }//
+        private ICommand openCommand;
+        public ICommand OpenCommand
+        {
+            get
+            {
+                return openCommand;
+            }
+            set
+            {
+                openCommand = value;
+                RaisePropertyChanged();
+            }
+        }//OpenCommand
         #endregion
     }
 }

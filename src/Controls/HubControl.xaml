@@ -79,6 +79,7 @@
             Grid.Column="1"
             AppSelectionCommand="{Binding AppSelectionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubControl}}"
             DataContext="{Binding SelectedStream}"
+            HubData="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
             LastSelectedAppID="{Binding LastSelectedAppID, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubControl}}"
             Owner="{Binding Owner, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubControl}}" />
     </Grid>

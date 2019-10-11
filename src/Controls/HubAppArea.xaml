@@ -75,6 +75,26 @@
                                         </Style>
                                     </Border.Style>
                                 </Border>
+                                <Border
+                                    Padding="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom">
+                                    <Image
+                                        Width="40"
+                                        Height="40"
+                                        Source="{Binding TemplateData.Image}"
+                                        Stretch="Uniform" />
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding TemplateData.HasTemplates}" Value="true">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
                             </Grid>
                         </Border>
                         <Border
@@ -86,6 +106,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
+                                    <!--<ColumnDefinition Width="auto" />-->
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                     Margin="10,0,0,0"
@@ -99,14 +120,42 @@
                                     TextWrapping="Wrap" />
                                 <Luicontrols:LuiIcon
                                     Grid.Column="1"
-                                    Margin="0,0,10,0"
+                                    Margin="5,0,5,0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    DockPanel.Dock="right"
+                                    DockPanel.Dock="Right"
                                     FontWeight="Normal"
                                     Foreground="{StaticResource Lui.Brush.Grayscale30}"
                                     Icon="lui_icon_info"
                                     IconSize="Large" />
+                                <!--<Border
+                                    Grid.Column="2"
+                                    Width="40"
+                                    Height="40"
+                                    Margin="0,0,10,0"
+                                    BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                                    CornerRadius="3">
+                                    <Image
+                                        Width="40"
+                                        Height="40"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Right"
+                                        Source="{Binding DataContext.TemplateImage, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubControl}}"
+                                        Stretch="Uniform" />
+                                    <Border.InputBindings>
+                                        <MouseBinding Command="{Binding HubData.LoadTemplatesCommand, RelativeSource={RelativeSource Findancestor, AncestorType=controls:HubAppArea}}" Gesture="LeftClick " />
+                                    </Border.InputBindings>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderThickness" Value="2" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>-->
                             </Grid>
                         </Border>
                     </StackPanel>
@@ -171,7 +220,7 @@
                     </Border>
                     <Border Grid.Column="1" Grid.ColumnSpan="2">
                         <controls:HubAppDataView
-                            Margin="10,10,0,0"
+                            Margin="5,5,0,0"
                             DataContext="{Binding}"
                             Foreground="{StaticResource Lui.Brush.Grayscale30}"
                             MouseDown="HubAppDataView_MouseDown" />
@@ -269,6 +318,12 @@
                 AcceptCommand="{Binding SearchAcceptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
                 DockPanel.Dock="Right"
                 HintText="{l:Loc SenseExcelRibbon:Common_Search}" />
+            <!--<Luicontrols:LuiButton
+                Command="{Binding HubData.LoadTemplatesCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}}"
+                Content="Load Templates"
+                DockPanel.Dock="Right" />
+            <controls:BusyCircle DockPanel.Dock="Right" />-->
+            <!--  Visibility="{Binding HubData.ShowLoadTemplatesCircle, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppArea}, Converter={StaticResource trueToVisibilityVisibleConverter}}"  -->
         </DockPanel>
         <Luicontrols:CollectionView
             Name="appsCollectionview"

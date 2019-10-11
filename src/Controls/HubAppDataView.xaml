@@ -36,108 +36,254 @@
                 True="Visible" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="{StaticResource Lui.Brush.Grayscale35}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140" />
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Image
-            Width="140"
-            Height="90"
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
             VerticalAlignment="Top"
-            Source="{Binding Image, TargetNullValue={StaticResource DefaultImageResource}}"
-            Stretch="UniformToFill" />
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+            Text="App Information" />
         <Border
-            Padding="5"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{StaticResource Lui.Brush.Grayscale100}"
-            BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-            BorderThickness="1">
-            <Luicontrols:LuiIcon
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="16"
-                Foreground="{StaticResource Lui.Brush.Grayscale30}"
-                Icon="lui_icon_stream" />
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsPublished}" Value="false">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
+            Grid.Row="1"
+            BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
+            BorderThickness="2"
+            CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Width="140"
+                    Height="90"
+                    VerticalAlignment="Top">
+                    <Image
+                        Width="140"
+                        Height="90"
+                        VerticalAlignment="Top"
+                        Source="{Binding Image, TargetNullValue={StaticResource DefaultImageResource}}"
+                        Stretch="Uniform" />
+                    <Border
+                        Padding="5"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="{StaticResource Lui.Brush.Grayscale100}"
+                        BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
+                        BorderThickness="1">
+                        <Luicontrols:LuiIcon
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            FontSize="16"
+                            Foreground="{StaticResource Lui.Brush.Grayscale30}"
+                            Icon="lui_icon_stream" />
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPublished}" Value="false">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom">
+                        <Image
+                            Width="40"
+                            Height="40"
+                            Source="{Binding TemplateData.Image}"
+                            Stretch="Uniform" />
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TemplateData.HasTemplates}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <StackPanel>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{Binding AppName}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{l:Loc AppDetails_FileName}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{Binding Filename}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{l:Loc Toolbar_DataLastLoaded}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{Binding DataLastLoaded, StringFormat=g, ConverterCulture=de-DE}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{l:Loc AppDetail_AppID}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource QlikViewSans}"
+                                FontSize="12"
+                                FontStyle="Italic"
+                                FontWeight="Normal"
+                                Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                                Text="{Binding AppID}" />
+                        </StackPanel>
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource QlikViewSans}"
+                            FontWeight="Normal"
+                            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+                            Text="{Binding AppDescription}"
+                            TextWrapping="Wrap" />
+                        <ItemsControl ItemsSource="{Binding ButtonExtentions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Luicontrols:LuiButton
+                                        Height="30"
+                                        LuiAttached:ThemeProperties.IconLeft="{Binding Icon}"
+                                        Command="{Binding Command}"
+                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
+                                        Content="{Binding Text}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Grid>
         </Border>
-        <Grid Grid.Column="2">
-            <StackPanel>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    FontFamily="{StaticResource QlikViewSans}"
-                    FontWeight="Bold"
-                    Text="{Binding AppName}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        FontSize="12"
-                        FontStyle="Italic"
-                        FontWeight="Normal"
-                        Text="{l:Loc AppDetails_FileName}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        FontSize="12"
-                        FontStyle="Italic"
-                        FontWeight="Normal"
-                        Text="{Binding Filename}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        FontSize="12"
-                        FontStyle="Italic"
-                        FontWeight="Normal"
-                        Text="{l:Loc Toolbar_DataLastLoaded}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource QlikViewSans}"
-                        FontSize="12"
-                        FontStyle="Italic"
-                        FontWeight="Normal"
-                        Text="{Binding DataLastLoaded, StringFormat=g, ConverterCulture=de-DE}" />
-                </StackPanel>
-                <TextBlock
-                    Margin="0,20,0,0"
-                    VerticalAlignment="Center"
-                    FontFamily="{StaticResource QlikViewSans}"
-                    FontWeight="Normal"
-                    Text="{Binding AppDescription}"
-                    TextWrapping="Wrap" />
-                <ItemsControl ItemsSource="{Binding ButtonExtentions, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Luicontrols:LuiButton
-                                Height="30"
-                                LuiAttached:ThemeProperties.IconLeft="{Binding Icon}"
-                                Command="{Binding Command}"
-                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:HubAppDataView}}"
-                                Content="{Binding Text}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-
-            </StackPanel>
-
-        </Grid>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="{StaticResource Lui.Brush.Grayscale100}"
+            Text="Sense Excel Templates"
+            Visibility="{Binding TemplateData.HasTemplates, Converter={StaticResource trueToVisibilityVisibleConverter}}" />
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
+            BorderThickness="2"
+            CornerRadius="5"
+            Visibility="{Binding TemplateData.HasTemplates, Converter={StaticResource trueToVisibilityVisibleConverter}}">
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!--<Image
+                Width="140"
+                Height="90"
+                VerticalAlignment="Top"
+                Source="{Binding TemplateData.TemplateLogo, TargetNullValue={StaticResource DefaultImageResource}}"
+                Stretch="Uniform" />-->
+                <Border
+                    Grid.Column="0"
+                    BorderBrush="{StaticResource Lui.Brush.Grayscale100}"
+                    BorderThickness="0">
+                    <Grid>
+                        <ScrollViewer
+                            Name="itemscontrolcrollviewer"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Style="{StaticResource LuiSenseScrollViewerStyle}">
+                            <ItemsControl ItemsSource="{Binding TemplateData.Items}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="150" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                Grid.Column="0"
+                                                Width="30"
+                                                Height="20"
+                                                VerticalAlignment="Center"
+                                                Source="{Binding DataContext.TemplateData.Image, RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}}"
+                                                Stretch="Uniform" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Margin="20,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                FontWeight="Bold"
+                                                Text="{Binding Name}"
+                                                TextWrapping="Wrap" />
+                                            <Luicontrols:LuiButton
+                                                Grid.Column="2"
+                                                Margin="10,0,0,10"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Command="{Binding OpenCommand}"
+                                                Content="open..." />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 
 </UserControl>
