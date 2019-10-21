@@ -1,11 +1,13 @@
 ﻿namespace daVinci.Controls
 {
     #region Usings
+    using daVinci.ConfigData.TableConfigurations;
+    using leonardo.AttachedProperties;
+    using NLog;
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using leonardo.AttachedProperties;
-    using NLog;
+    using System.Windows.Threading;
     #endregion
 
     /// <summary>
@@ -28,15 +30,48 @@
             {
                 if (TypeToCreate != null)
                 {
-                    var control = (Control)Activator.CreateInstance(TypeToCreate);
-                    control.SetValue(ThemeProperties.HwndProperty, Hwnd);
-                    control.DataContext = DataContext;
-                    Content = control;
+
+                    Dispatcher dispi = this.GetValue(ThemeProperties.DispatcherProperty) as Dispatcher;
+
+                    if (dispi != null)
+                    {
+                        dispi.BeginInvoke((Action)(() =>
+                        {
+                            try
+                            {
+                                CreateControl();
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error(ex);
+                            }
+                        }));
+                    }
+                    else
+                    {
+                        CreateControl();
+                    }
                 }
             }
             catch (Exception Ex)
             {
                 logger.Error(Ex);
+            }
+        }
+
+        private void CreateControl()
+        {
+            try
+            {
+                Control control = null;
+                control = (Control)Activator.CreateInstance(TypeToCreate);
+                control.SetValue(ThemeProperties.HwndProperty, Hwnd);
+                control.DataContext = DataContext;
+                Content = control;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
             }
         }
     }

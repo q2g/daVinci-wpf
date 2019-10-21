@@ -1,12 +1,12 @@
 ﻿namespace daVinci.Converter
 {
     #region Usings
+    using daVinci.Controls;
+    using NLog;
     using System;
     using System.Globalization;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using daVinci.Controls;
-    using NLog;
     #endregion
 
     [ValueConversion(typeof(object), typeof(object))]
@@ -23,7 +23,7 @@
                 {
                     if (values[1] is int hwnd)
                     {
-                        ControlLoader controlHolder = new ControlLoader() { Content = "Laden..." };
+                        ControlLoader controlHolder = new ControlLoader() { Content = "Loading..." };
                         if (parameter is Type type)
                         {
                             controlHolder.TypeToCreate = type;

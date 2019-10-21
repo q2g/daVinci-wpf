@@ -227,6 +227,7 @@
 
             MultiColumnCommand = new RelayCommand((o) =>
                               {
+                                  FastAddOpenStateChangedHandler?.Invoke(true);
                                   var selectControl = new MultiValueSelection();
                                   var selectcommand = new RelayCommand((vitem) =>
                                     {
@@ -308,6 +309,7 @@
                                           }
                                       }
                                   }
+                                  FastAddOpenStateChangedHandler?.Invoke(false);
                               });
 
             itemDropCommand = new RelayCommand((param) =>
@@ -472,6 +474,16 @@
             }
             return maxindex;
         }
+        #region FastAddOpenStateChangedHandler - DP
+        public Action<bool> FastAddOpenStateChangedHandler
+        {
+            get { return (Action<bool>)this.GetValue(FastAddOpenStateChangedHandlerProperty); }
+            set { this.SetValue(FastAddOpenStateChangedHandlerProperty, value); }
+        }
+
+        public static readonly DependencyProperty FastAddOpenStateChangedHandlerProperty = DependencyProperty.Register(
+         "FastAddOpenStateChangedHandler", typeof(Action<bool>), typeof(ColumnChooser), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
 
         #region Columns - DP
         private INotifyCollectionChanged oldcolumns;
