@@ -20,19 +20,11 @@
 			<PropertyGroup>
 				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 			</PropertyGroup>
-			<ItemGroup>
-				<PackageReference Include="leonardo-wpf" Version="0.10.2"></PackageReference>
-			</ItemGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
 				<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 			</PropertyGroup>
-			<ItemGroup>
-				<Reference Include="leonardo-wpf">
-					<HintPath>..\..\leonardo-wpf\src\bin\Debug\net452\leonardo-wpf.dll</HintPath>
-				</Reference>
-			</ItemGroup>
 		</Otherwise>
 	</Choose>
 
@@ -95,6 +87,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+    <Reference Include="leonardo-wpf">
+      <HintPath>..\..\leonardo-wpf\src\bin\$(Configuration)\net452\leonardo-wpf.dll</HintPath>
+    </Reference>
 		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />

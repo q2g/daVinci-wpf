@@ -254,6 +254,7 @@
         }
         public bool TableCountloadingCanceled { get; set; }
         public ICommand CancelTableCount { get; set; }
+        public Action<bool> FastAddOpenStateChangedHandler { get; set; }
         #endregion
 
         public string ReadFromJSON(string JSONstring)

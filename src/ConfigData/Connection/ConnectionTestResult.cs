@@ -28,14 +28,18 @@
         #region CTOR
         public ConnectionTestResult()
         {
-            LuiPalette.Brushes.ORANGE.Freeze();
-            LuiPalette.Brushes.GRAYSCALE95.Freeze();
-            BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+            Orange = new SolidColorBrush(LuiPalette.Colors.ORANGE);
+            Orange.Freeze();
+            Gs95 = new SolidColorBrush(LuiPalette.Colors.GRAYSCALE95);
+            Gs95.Freeze();
 
+            BackgroundBrush = Gs95;
         }
         #endregion
 
         #region Properties
+        Brush Orange;
+        Brush Gs95;
         private string testName;
         public string TestName
         {
@@ -83,15 +87,15 @@
         {
             try
             {
-                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                BackgroundBrush = Orange;
                 await Task.Delay(1000);
-                BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+                BackgroundBrush = Gs95;
                 await Task.Delay(1000);
-                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                BackgroundBrush = Orange;
                 await Task.Delay(1000);
-                BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+                BackgroundBrush = Gs95;
                 await Task.Delay(1000);
-                BackgroundBrush = LuiPalette.Brushes.ORANGE;
+                BackgroundBrush = Orange;
                 //await Task.Delay(1000);
                 //BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
             }
