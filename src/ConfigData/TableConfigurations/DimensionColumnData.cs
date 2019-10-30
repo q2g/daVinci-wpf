@@ -1,13 +1,13 @@
 ﻿namespace daVinci.ConfigData
 {
     #region Usings
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
     using daVinci.ConfigData.TableConfigurations;
     using leonardo.Resources;
     using Newtonsoft.Json.Linq;
     using NLog;
+    using System;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     #endregion
 
     public class DimensionColumnData : ColumnData, IHasSortCriteria
@@ -16,7 +16,7 @@
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
-        private bool allowNULLValues;
+        private bool allowNULLValues = true;
         public bool AllowNULLValues
         {
             get

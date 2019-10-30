@@ -229,12 +229,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <!--<Image
-                Width="140"
-                Height="90"
-                VerticalAlignment="Top"
-                Source="{Binding TemplateData.TemplateLogo, TargetNullValue={StaticResource DefaultImageResource}}"
-                Stretch="Uniform" />-->
+
                 <Border
                     Grid.Column="0"
                     BorderBrush="{StaticResource Lui.Brush.Grayscale100}"

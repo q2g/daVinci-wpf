@@ -34,7 +34,11 @@
 			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 		</Page>
 		<None Remove="Controls\AccordionItemTextBlock.xaml" />
+		<None Remove="Controls\TemplateList.xaml" />
+		<None Remove="Controls\TemplatesControl.xaml" />
+		<None Remove="Controls\UploadTemplateControl.xaml" />
 		<None Remove="Controls\Versionlist.xaml" />
+		<None Remove="Styles\TemplateAccordionItemStyle.xaml" />
 		<None Remove="Styles\VersionAccordionItemStyle.xaml" />
 
 		<Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
@@ -43,6 +47,15 @@
 		<EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
 		<Compile Update="Controls\AccordionItemTextBlock.xaml.cs">
 		  <DependentUpon>AccordionItemTextBlock.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Controls\UploadTemplateControl.xaml.cs">
+		  <DependentUpon>UploadTemplateControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Controls\TemplatesControl.xaml.cs">
+		  <DependentUpon>TemplatesControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Controls\TemplateList.xaml.cs">
+		  <DependentUpon>TemplateList.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Controls\Versionlist.xaml.cs">
 		  <DependentUpon>Versionlist.xaml</DependentUpon>

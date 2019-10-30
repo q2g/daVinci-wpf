@@ -1,5 +1,6 @@
 ﻿namespace daVinci.ConfigData.Hub
 {
+    using leonardo.Resources;
     #region Usings
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -42,7 +43,20 @@
                 fullname = value;
                 RaisePropertyChanged();
             }
-        }//
+        }
+        private string fullNameResolved;
+        public string FullNameResolved
+        {
+            get
+            {
+                return fullNameResolved;
+            }
+            set
+            {
+                fullNameResolved = value;
+                RaisePropertyChanged();
+            }
+        }
         private ICommand openCommand;
         public ICommand OpenCommand
         {
@@ -55,7 +69,46 @@
                 openCommand = value;
                 RaisePropertyChanged();
             }
-        }//OpenCommand
+        }
+        private ICommand deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand;
+            }
+            set
+            {
+                deleteCommand = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private System.Windows.Media.Imaging.BitmapImage templateLogo;
+        public System.Windows.Media.Imaging.BitmapImage TemplateLogo
+        {
+            get => templateLogo;
+            set
+            {
+                if (templateLogo != value)
+                {
+                    templateLogo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
+    }
+    public class TemplateItemFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            string lowerSearchstring = searchString.ToLower();
+            if (data is TemplateItem tdata)
+            {
+                return ((tdata?.Name?.ToLower() ?? "").Contains(lowerSearchstring));
+            }
+            return false;
+        }
     }
 }

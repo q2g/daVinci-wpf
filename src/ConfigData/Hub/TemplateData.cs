@@ -1,8 +1,10 @@
 ﻿namespace daVinci.ConfigData.Hub
 {
-    using System.Collections.ObjectModel;
     #region Usings
+    using leonardo.Resources;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     #endregion
 
@@ -47,6 +49,48 @@
             }
         }
 
+        private bool isAppSpecific;
+        public bool IsAppSpecific
+        {
+            get
+            {
+                return isAppSpecific;
+            }
+            set
+            {
+                isAppSpecific = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string name;
+        public string GroupName
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string groupid;
+        public string GroupID
+        {
+            get
+            {
+                return groupid;
+            }
+            set
+            {
+                groupid = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private System.Windows.Media.Imaging.BitmapImage image;
         public System.Windows.Media.Imaging.BitmapImage Image
         {
@@ -74,5 +118,18 @@
             }
         }
         #endregion
+    }
+    public class TemplateDataFilter : ICollectionViewFilter
+    {
+        public bool Filter(object data, string searchString)
+        {
+            string lowerSearchstring = searchString.ToLower();
+            if (data is TemplateData tdata)
+            {
+                return ((tdata?.GroupName?.ToLower() ?? "").Contains(lowerSearchstring)
+                    || tdata.Items.Any(ele => ele.Name.ToLower().Contains(lowerSearchstring)));
+            }
+            return false;
+        }
     }
 }
