@@ -113,6 +113,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
+
         <Luicontrols:CollectionView
             Name="collectionview"
             CollectionViewFilter="{Binding HwndFilter, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ConnectionTestContent}}"

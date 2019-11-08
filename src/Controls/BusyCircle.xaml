@@ -5,52 +5,55 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:daVinci.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Name="control"
     d:DesignHeight="200"
     d:DesignWidth="200"
     mc:Ignorable="d">
-    <StackPanel>
-        <Ellipse
-            x:Name="elli"
-            Width="{Binding ActualWidth, ElementName=control}"
-            Height="{Binding ActualHeight, ElementName=control}"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            RenderTransformOrigin="0.5,0.5"
-            StrokeThickness="{Binding Circlethickness, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:BusyCircle}}}">
-            <Ellipse.Stroke>
-                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5">
-                    <GradientStop Offset="0" Color="White" />
-                    <GradientStop Offset="1" Color="Black" />
-                </LinearGradientBrush>
-            </Ellipse.Stroke>
-            <Ellipse.RenderTransform>
-                <RotateTransform x:Name="rotatetransform" Angle="0" />
-            </Ellipse.RenderTransform>
-            <Ellipse.Style>
-                <Style TargetType="Ellipse">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <Trigger Property="Visibility" Value="Visible">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="RotationBeginStoryBoard">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            RepeatBehavior="Forever"
-                                            Storyboard.TargetProperty="RenderTransform.Angle"
-                                            From="0"
-                                            To="359"
-                                            Duration="0:0:4" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="RotationBeginStoryBoard" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Ellipse.Style>
-        </Ellipse>
+    <StackPanel Background="#4D4D4D">
+        <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Path
+                Canvas.Left="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                Canvas.Top="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                Stroke="#6D7538"
+                StrokeThickness="2">
+                <Path.Data>
+                    <EllipseGeometry RadiusX="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" RadiusY="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
+                </Path.Data>
+            </Path>
+            <Path
+                Canvas.Left="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                Canvas.Top="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                Stroke="#CFD0CC"
+                StrokeThickness="2">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="{Binding StartPoint, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+                            <ArcSegment
+                                IsLargeArc="False"
+                                Point="{Binding SpinnerPoint, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                Size="{Binding SpinnerSize, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                SweepDirection="Clockwise" />
+                        </PathFigure>
+                        <PathGeometry.Transform>
+                            <RotateTransform x:Name="transform" />
+                        </PathGeometry.Transform>
+                    </PathGeometry>
+                </Path.Data>
+                <Path.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    RepeatBehavior="Forever"
+                                    Storyboard.TargetName="transform"
+                                    Storyboard.TargetProperty="Angle"
+                                    To="360"
+                                    Duration="0:0:2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Path.Triggers>
+            </Path>
+        </Canvas>
+
     </StackPanel>
 </UserControl>
