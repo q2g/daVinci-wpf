@@ -82,7 +82,7 @@
                     Command="{Binding SaveTemplateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:UploadTemplateControl}}"
                     Content="{l:Loc akquinet-sense-excel:SenseExcelRibbon:Template_Save}"
                     IsEnabled="{Binding SaveTemplateCommandEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:UploadTemplateControl}}" />
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="5" Background="{StaticResource Lui.Brush.Grayscale60}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="*" />
@@ -96,10 +96,12 @@
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Text="{l:Loc TemplateUpload_SaveCopy}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
+                        Foreground="{StaticResource Lui.Brush.Grayscale100}"
                         Text="{l:Loc TemplateUpload_UploadFile}" />
 
                     <LuiControls:LuiIcon
@@ -138,14 +140,20 @@
                     <daViniciControls:BusyCircle
                         Grid.Row="0"
                         Grid.Column="0"
+                        Width="20"
+                        Height="20"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        BorderThickness="5"
                         Visibility="{Binding SaveWorking, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:UploadTemplateControl}, Converter={StaticResource trueVisibleFalseCollsaped}}" />
                     <daViniciControls:BusyCircle
                         Grid.Row="1"
                         Grid.Column="0"
+                        Width="20"
+                        Height="20"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        BorderThickness="9"
                         Visibility="{Binding UploadWorking, RelativeSource={RelativeSource FindAncestor, AncestorType=daViniciControls:UploadTemplateControl}, Converter={StaticResource trueVisibleFalseCollsaped}}" />
                 </Grid>
             </Grid>

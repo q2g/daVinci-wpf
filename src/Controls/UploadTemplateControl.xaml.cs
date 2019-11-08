@@ -112,6 +112,69 @@
                 RaisePropertyChanged();
             }
         }
+        public int SaveState
+        {
+            set
+            {
+                switch (value)
+                {
+                    case 0:
+                        SaveFailed = false;
+                        SaveFinished = false;
+                        SaveWorking = false;
+                        break;
+                    case 1:
+                        SaveFailed = false;
+                        SaveFinished = false;
+                        SaveWorking = true;
+                        break;
+                    case 2:
+                        SaveFailed = true;
+                        SaveFinished = false;
+                        SaveWorking = false;
+                        break;
+                    case 3:
+                        SaveFailed = false;
+                        SaveFinished = true;
+                        SaveWorking = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public int UploadState
+        {
+            set
+            {
+                switch (value)
+                {
+                    case 0:
+                        UploadFailed = false;
+                        UploadFinished = false;
+                        UploadWorking = false;
+                        break;
+                    case 1:
+                        UploadFailed = false;
+                        UploadFinished = false;
+                        UploadWorking = true;
+                        break;
+                    case 2:
+                        UploadFailed = true;
+                        UploadFinished = false;
+                        UploadWorking = false;
+                        break;
+                    case 3:
+                        UploadFailed = false;
+                        UploadFinished = true;
+                        UploadWorking = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         private bool saveFailed;
         public bool SaveFailed
         {
