@@ -279,9 +279,10 @@
                         return errors;
                     }
                 }
-                if (visualization == "auto-chart")
+                if (visualization != "pivot-table" && visualization != "table")
                 {
-                    TableMode = ColumnChooserMode.Separated;
+                    TableMode = ColumnChooserMode.Combined;
+                    LoadCharts(jsonConfig);
                 }
 
                 var addonConfig = new AddOnDataProcessingConfiguration();
@@ -304,6 +305,53 @@
                 errors += (string.IsNullOrEmpty(errors) ? "" : "\n") + (string)(LocalizeDictionary.Instance.GetLocalizedObject("akquinet-sense-excel:SenseExcelRibbon:UnexpectedErrorReadingTableJSON", null, LocalizeDictionary.Instance.Culture));
             }
             return errors;
+        }
+
+        private void LoadCharts(dynamic jsonConfig)
+        {
+            SettingsID = jsonConfig?.qInfo?.qId ?? "";
+
+            List<object> cols = new List<object>();
+            foreach (var dimension in jsonConfig?.qHyperCubeDef?.qDimensions)
+            {
+                var newone = new DimensionColumnData();
+                newone.ReadFromJSON(dimension);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, (dimension?.qLibraryId?.ToString() ?? ""), true);
+                newone.LibraryID = dimension?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                newone.PivotType = PivotType.None;
+                cols.Add(newone);
+            }
+
+            foreach (var measure in jsonConfig?.qHyperCubeDef?.qMeasures)
+            {
+                var newone = new MeasureColumnData();
+                newone.ReadFromJSON(measure);
+                newone.DimensionMeasure = DimensionMeasure.GetDimensionMeasureByLibraryID(dimensionMeasures, measure?.qLibraryId?.ToString() ?? "", false);
+                newone.LibraryID = measure?.qLibraryId?.ToString() ?? "";
+                newone.IsExpression = string.IsNullOrEmpty(newone.LibraryID);
+                cols.Add(newone);
+            }
+
+            int count = cols.Count;
+            if (count != 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    (cols[i] as IHasSortCriteria).SortCriterias.ColumnOrderIndex = i + 1;
+                }
+            }
+
+            count = cols.Count;
+            if (count != 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    (cols[i] as IHasSortCriteria).SortCriterias.SortOrderIndex = i + 1;
+                }
+            }
+
+            cols.ForEach(ele => Columns.Add(ele));
         }
 
         private void LoadColumnsCombined(dynamic jsonConfig)
