@@ -3,6 +3,7 @@
     #region Usings
     using daVinci.ConfigData.Connection;
     using daVinci.ConfigData.Settings;
+    using daVinci.ConfigData.ThemeConfig;
     using daVinci.ConfigData.Wizard;
     using leonardo.Controls;
     using leonardo.Resources;
@@ -26,11 +27,13 @@
     /// </summary>
     public partial class SettingsDialog : UserControl, INotifyPropertyChanged
     {
-        Dispatcher currentDispatcher;
         public SettingsDialog()
         {
-            currentDispatcher = this.Dispatcher;
+            BaseTheme.AvailableThemes.ForEach(ele => AvailableThemes.Add(ele));
+
             InitializeComponent();
+
+            SelectedTheme = BaseTheme.Instance.CurrentTheme;
         }
 
         #region INotifyPropertyChanged
@@ -42,6 +45,7 @@
         #endregion
 
         #region Properties & Variables
+        public ObservableCollection<BaseTheme> AvailableThemes { get; set; } = new ObservableCollection<BaseTheme>();
         private ObservableCollection<SettingsItem> settings = new ObservableCollection<SettingsItem>();
         public ObservableCollection<SettingsItem> Settings
         {
@@ -55,6 +59,23 @@
                 {
                     settings = value;
                     RaisePropertyChanged();
+                }
+            }
+        }
+        private BaseTheme selectedTheme;
+        public BaseTheme SelectedTheme
+        {
+            get
+            {
+                return selectedTheme;
+            }
+            set
+            {
+                if (selectedTheme != value)
+                {
+                    selectedTheme = value;
+                    RaisePropertyChanged();
+                    BaseTheme.Instance.CurrentTheme = value;
                 }
             }
         }

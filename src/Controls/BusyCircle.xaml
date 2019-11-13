@@ -8,12 +8,12 @@
     d:DesignHeight="200"
     d:DesignWidth="200"
     mc:Ignorable="d">
-    <StackPanel Background="#4D4D4D">
+    <StackPanel>
         <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
             <Path
                 Canvas.Left="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                 Canvas.Top="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                Stroke="#6D7538"
+                Stroke="{Binding Theme.BusyCircleRingColor, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                 StrokeThickness="2">
                 <Path.Data>
                     <EllipseGeometry RadiusX="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" RadiusY="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
@@ -22,7 +22,7 @@
             <Path
                 Canvas.Left="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                 Canvas.Top="{Binding BackGroundRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                Stroke="#CFD0CC"
+                Stroke="{Binding Theme.BusyCircleSpinnerColor, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                 StrokeThickness="2">
                 <Path.Data>
                     <PathGeometry>

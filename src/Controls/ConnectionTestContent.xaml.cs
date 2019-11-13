@@ -2,6 +2,7 @@
 {
     #region Usings
     using daVinci.ConfigData.Connection;
+    using daVinci.ConfigData.ThemeConfig;
     using leonardo.AttachedProperties;
     using NLog;
     using System.Collections.ObjectModel;
@@ -26,6 +27,16 @@
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
+        }
+        #endregion
+
+        #region Theme
+        public BaseTheme Theme
+        {
+            get
+            {
+                return BaseTheme.Instance.CurrentTheme;
+            }
         }
         #endregion
 

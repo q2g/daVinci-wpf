@@ -1,5 +1,6 @@
 ﻿namespace daVinci.Controls
 {
+    using daVinci.ConfigData.ThemeConfig;
     #region Usings
     using System.Windows;
     using System.Windows.Controls;
@@ -55,6 +56,14 @@
             {
                 return new Size(ActualHeight / 2, ActualHeight / 2);
             }
+        }
+        public BaseTheme Theme
+        {
+            get
+            {
+                return BaseTheme.Instance.CurrentTheme;
+            }
+
         }
     }
 }

@@ -37,6 +37,23 @@ namespace daVinci.ConfigData.Settings
                 }
             }
         }
+
+        private string description;
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                if (description != value)
+                {
+                    description = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         #endregion
 
     }

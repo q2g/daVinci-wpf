@@ -4,6 +4,7 @@
     xmlns:attachedP="clr-namespace:leonardo.AttachedProperties;assembly=leonardo-wpf"
     xmlns:controls="clr-namespace:leonardo.Controls;assembly=leonardo-wpf"
     xmlns:converter="clr-namespace:leonardo.Converter;assembly=leonardo-wpf"
+    xmlns:daVinciControls="clr-namespace:daVinci.Controls"
     xmlns:daVinciConverter="clr-namespace:daVinci.Converter"
     xmlns:l="http://wpflocalizeextension.codeplex.com">
 
@@ -41,7 +42,7 @@
                         Padding="{TemplateBinding Padding}"
                         Background="{Binding BackgroundBrush}"
                         BorderBrush="{StaticResource Lui.Brush.Grayscale30}"
-                        BorderThickness="0.3">
+                        BorderThickness="0">
                         <Grid
                             Margin="10,0,0,0"
                             Background="Transparent"
@@ -52,7 +53,6 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-
                             <ContentPresenter
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
@@ -79,7 +79,7 @@
                                 Grid.Column="3"
                                 Margin="10,0,10,0"
                                 VerticalAlignment="Center"
-                                Foreground="{StaticResource Lui.Brush.Grayscale30}">
+                                Foreground="{Binding Theme.UserInfoExpanderTickForeGround}">
                                 <controls:LuiIcon.Style>
                                     <Style TargetType="controls:LuiIcon">
                                         <Style.Triggers>
@@ -187,11 +187,15 @@
                     <StackPanel>
                         <ProgressBar
                             Height="5"
+                            Background="{Binding Theme.UserInfoProgressBarForeGround}"
+                            Foreground="{Binding Theme.UserInfoProgressBarBackGround}"
                             Maximum="100"
                             Minimum="0"
                             Visibility="{Binding ShowProgress, Converter={StaticResource trueIsVisible}}"
                             Value="{Binding Progress}" />
                         <Expander
+                            BorderBrush="{Binding UserInfoBorderBrush}"
+                            BorderThickness="1"
                             Content="{TemplateBinding Content}"
                             Header="{TemplateBinding Header}"
                             HeaderTemplate="{TemplateBinding HeaderTemplate,

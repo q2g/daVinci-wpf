@@ -1,5 +1,6 @@
 ﻿namespace daVinci.ConfigData.Connection
 {
+    using daVinci.ConfigData.ThemeConfig;
     #region Usings
     using leonardo.Resources;
     using NLog;
@@ -25,21 +26,31 @@
         }
         #endregion
 
+        #region Theme
+        public BaseTheme Theme
+        {
+            get
+            {
+                return BaseTheme.Instance.CurrentTheme;
+            }
+        }
+        #endregion
+
         #region CTOR
         public ConnectionTestResult()
         {
-            Orange = new SolidColorBrush(LuiPalette.Colors.ORANGE);
-            Orange.Freeze();
-            Gs95 = new SolidColorBrush(LuiPalette.Colors.GRAYSCALE95);
-            Gs95.Freeze();
+            BlinkActive = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Theme.UserInfoBlinkingBackGroundColorCode));
+            BlinkActive.Freeze();
+            Normal = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Theme.UserInfoBackGroundColorCode));
+            Normal.Freeze();
 
-            BackgroundBrush = Gs95;
+            BackgroundBrush = Normal;
         }
         #endregion
 
         #region Properties
-        Brush Orange;
-        Brush Gs95;
+        Brush BlinkActive;
+        Brush Normal;
         private string testName;
         public string TestName
         {
@@ -49,6 +60,20 @@
                 if (testName != value)
                 {
                     testName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string testName2 = "Some Extra Text";
+        public string TestName2
+        {
+            get { return testName2; }
+            set
+            {
+                if (testName2 != value)
+                {
+                    testName2 = value;
                     RaisePropertyChanged();
                 }
             }
@@ -87,17 +112,15 @@
         {
             try
             {
-                BackgroundBrush = Orange;
+                BackgroundBrush = BlinkActive;
                 await Task.Delay(1000);
-                BackgroundBrush = Gs95;
+                BackgroundBrush = Normal;
                 await Task.Delay(1000);
-                BackgroundBrush = Orange;
+                BackgroundBrush = BlinkActive;
                 await Task.Delay(1000);
-                BackgroundBrush = Gs95;
+                BackgroundBrush = Normal;
                 await Task.Delay(1000);
-                BackgroundBrush = Orange;
-                //await Task.Delay(1000);
-                //BackgroundBrush = LuiPalette.Brushes.GRAYSCALE95;
+                BackgroundBrush = BlinkActive;
             }
             catch (System.Exception ex)
             {
