@@ -76,7 +76,7 @@
 		<PackageReference Include="GitVersionTask" Version="4.0.0" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
 
-		<PackageReference Include="AvalonEdit" Version="5.0.4" />
+		<PackageReference Include="AvalonEdit" Version="6.0.1" />
 		<PackageReference Include="Hjson" Version="3.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
